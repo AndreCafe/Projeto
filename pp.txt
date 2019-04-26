@@ -1,0 +1,26 @@
+AcessoRemoto
+Admin
+Admin - Copy
+Admin_cad
+Comp
+demos
+flat
+gif
+.gitignore
+Guard
+Guard - Copy
+HTML
+im24
+img
+img48
+Mozilla
+NexCafe3
+NexCafe4
+NexCafe_IDEMO
+nxnex
+PrintReview
+Serv
+testes
+Utils
+webcam2
+WebcamExample
