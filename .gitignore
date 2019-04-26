@@ -28,8 +28,8 @@ __history/
 # (Exe not actually needed since it is covered by *.exe above)
 
 # pastas de C:\Projetos\NexCafe para ignorar termorariamente (primer upload)
-4.0/
-AcessoRemoto/
+#4.0/
+#AcessoRemoto/
 Admin/
 Admin - Copy/
 Admin_cad/
