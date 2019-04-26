@@ -1,0 +1,181 @@
+
+procedure RestorePrinterInfo8(APrinterName: PChar; ASourceStream: TStream);
+var
+  HPrinter : THandle;
+  InfoSize,
+  BytesNeeded: Cardinal;
+  PI8: PPrinterInfo8;
+  PrinterDefaults: TPrinterDefaults;
+begin
+  with PrinterDefaults do
+  begin
+    DesiredAccess := PRINTER_ALL_ACCESS; //PRINTER_ACCESS_USE;
+    pDatatype := nil;
+    pDevMode := nil;
+  end;
+  if OpenPrinter(APrinterName, HPrinter, @PrinterDefaults) then
+  try
+    SetLastError(0);
+    //Determine the number of bytes to allocate for the PRINTER_INFO_2 construct...
+    if not GetPrinter(HPrinter, 8, nil, 0, @BytesNeeded) then
+    begin
+      //Allocate memory space for the PRINTER_INFO_2 pointer (PrinterInfo2)...
+      PI8 := AllocMem(BytesNeeded);
+      try
+        InfoSize := SizeOf(TPrinterInfo8);
+        if GetPrinter(HPrinter, 8, PI8, BytesNeeded, @BytesNeeded) then
+        begin
+          ASourceStream.ReadBuffer(PChar(PI8)[InfoSize], ASourceStream.size);
+          // Apply settings to the printer
+          if DocumentProperties(0, hPrinter, APrinterName, PI8.pDevMode^,
+                                PI8.pDevMode^, DM_IN_BUFFER or DM_OUT_BUFFER) = IDOK then
+          begin
+            SetPrinter(HPrinter, 8, PI8, 0);  // Ignore the result of this call...
+          end;
+        end;
+      finally
+        FreeMem(PI8, BytesNeeded);
+      end;
+    end;
+  finally
+    ClosePrinter(HPrinter);
+  end;
+end;
+
+procedure RestorePrinterInfo9(APrinterName: PChar; ASourceStream: TStream);
+var
+  HPrinter : THandle;
+  InfoSize,
+  BytesNeeded: Cardinal;
+  PI8: PPrinterInfo8;
+  PrinterDefaults: TPrinterDefaults;
+begin
+  with PrinterDefaults do
+  begin
+    DesiredAccess := PRINTER_ALL_ACCESS; //PRINTER_ACCESS_USE;
+    pDatatype := nil;
+    pDevMode := nil;
+  end;
+  if OpenPrinter(APrinterName, HPrinter, @PrinterDefaults) then
+  try
+    SetLastError(0);
+    //Determine the number of bytes to allocate for the PRINTER_INFO_2 construct...
+    if not GetPrinter(HPrinter, 9, nil, 0, @BytesNeeded) then
+    begin
+      //Allocate memory space for the PRINTER_INFO_2 pointer (PrinterInfo2)...
+      PI8 := AllocMem(BytesNeeded);
+      try
+        InfoSize := SizeOf(TPrinterInfo8);
+        if GetPrinter(HPrinter, 9, PI8, BytesNeeded, @BytesNeeded) then
+        begin
+          ASourceStream.ReadBuffer(PChar(PI8)[InfoSize], ASourceStream.size);
+          // Apply settings to the printer
+          if DocumentProperties(0, hPrinter, APrinterName, PI8.pDevMode^,
+                                PI8.pDevMode^, DM_IN_BUFFER or DM_OUT_BUFFER) = IDOK then
+          begin
+            SetPrinter(HPrinter, 9, PI8, 0);  // Ignore the result of this call...
+          end;
+        end;
+      finally
+        FreeMem(PI8, BytesNeeded);
+      end;
+    end;
+  finally
+    ClosePrinter(HPrinter);
+  end;
+end;
+
+
+{procedure CapturePrinterInfo2(APrinterName: PChar; ADestStream: TStream);
+var
+  HPrinter : THandle;
+  InfoSize,
+  BytesNeeded: Cardinal;
+  PI2: PPrinterInfo2;
+  PrinterDefaults: TPrinterDefaults;
+begin
+  with PrinterDefaults do
+  begin
+    DesiredAccess := PRINTER_ACCESS_USE;
+    pDatatype := nil;
+    pDevMode := nil;
+  end;
+  if OpenPrinter(APrinterName, HPrinter, @PrinterDefaults) then
+  try
+    SetLastError(0);
+    //Determine the number of bytes to allocate for the PRINTER_INFO_2 construct...
+    if not GetPrinter(HPrinter, 2, nil, 0, @BytesNeeded) then
+    begin
+      //Allocate memory space for the PRINTER_INFO_2 pointer (PrinterInfo2)...
+      PI2 := AllocMem(BytesNeeded);
+      try
+        InfoSize := SizeOf(TPrinterInfo2);
+        if GetPrinter(HPrinter, 2, PI2, BytesNeeded, @BytesNeeded) then begin
+
+            {AdvancedDocumentProperties(
+              FormTipoDeImpressao.handle, hPrinter, APrinterName,
+              PI2.pDevMode, PI2.pDevMode
+            );
+
+            PrinterProperties(FormTipoDeImpressao.handle, hPrinter);
+            DocumentProperties(FormTipoDeImpressao.handle, hPrinter, APrinterName, PI2.pDevMode^,
+               PI2.pDevMode^, DM_IN_PROMPT or DM_IN_BUFFER or DM_OUT_BUFFER);
+             
+            ADestStream.Write(PChar(PI2)[InfoSize], BytesNeeded - InfoSize);
+
+        end;
+      finally
+        FreeMem(PI2, BytesNeeded);
+      end;
+    end;
+  finally
+    ClosePrinter(HPrinter);
+  end;
+end;
+
+procedure RestorePrinterInfo2(APrinterName: PChar; ASourceStream: TStream);
+var
+  HPrinter : THandle;
+  InfoSize,
+  BytesNeeded: Cardinal;
+  PI2: PPrinterInfo2;
+  PrinterDefaults: TPrinterDefaults;
+  pcoment : pansichar;
+begin
+  with PrinterDefaults do
+  begin
+    DesiredAccess := PRINTER_ALL_ACCESS; //PRINTER_ACCESS_USE;
+    pDatatype := nil;
+    pDevMode := nil;
+  end;
+  if OpenPrinter(APrinterName, HPrinter, @PrinterDefaults) then
+  try
+    SetLastError(0);
+    //Determine the number of bytes to allocate for the PRINTER_INFO_2 construct...
+    if not GetPrinter(HPrinter, 2, nil, 0, @BytesNeeded) then
+    begin
+      //Allocate memory space for the PRINTER_INFO_2 pointer (PrinterInfo2)...
+      PI2 := AllocMem(BytesNeeded);
+      try
+        InfoSize := SizeOf(TPrinterInfo2);
+        if GetPrinter(HPrinter, 2, PI2, BytesNeeded, @BytesNeeded) then
+        begin
+          PI2.pSecurityDescriptor := nil;
+          ASourceStream.ReadBuffer(PChar(PI2)[InfoSize], ASourceStream.size);
+          // Apply settings to the printer
+          pcoment := 'el reloco';
+          PI2.pComment := pcoment;
+
+          begin
+            SetPrinter(HPrinter, 2, PI2, 0);  // Ignore the result of this call...
+          end;
+        end;
+      finally
+        FreeMem(PI2, BytesNeeded);
+      end;
+    end;
+  finally
+    ClosePrinter(HPrinter);
+  end;
+end;
+}

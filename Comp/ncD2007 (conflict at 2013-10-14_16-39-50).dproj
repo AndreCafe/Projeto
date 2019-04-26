@@ -1,0 +1,185 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{edd2fbd7-bb04-4de6-a1ab-0ab69d0600ed}</ProjectGuid>
+    <MainSource>ncD2007.dpk</MainSource>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <DCC_DCCCompiler>DCC32</DCC_DCCCompiler>
+    <DCC_DependencyCheckOutputName>C:\Users\Public\Documents\RAD Studio\5.0\Bpl\ncD2007.bpl</DCC_DependencyCheckOutputName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <Version>7.0</Version>
+    <DCC_DebugInformation>False</DCC_DebugInformation>
+    <DCC_WriteableConstants>True</DCC_WriteableConstants>
+    <DCC_LocalDebugSymbols>False</DCC_LocalDebugSymbols>
+    <DCC_SymbolReferenceInfo>0</DCC_SymbolReferenceInfo>
+    <DCC_ExeOutput>\DiaTec</DCC_ExeOutput>
+    <DCC_DcuOutput>C:\ProjetoDCU\D2006</DCC_DcuOutput>
+    <DCC_ObjOutput>C:\ProjetoDCU\D2006</DCC_ObjOutput>
+    <DCC_HppOutput>C:\ProjetoDCU\D2006</DCC_HppOutput>
+    <DCC_Define>RELEASE</DCC_Define>
+    <DCC_UNSAFE_TYPE>True</DCC_UNSAFE_TYPE>
+    <DCC_UNSAFE_CODE>True</DCC_UNSAFE_CODE>
+    <DCC_UNSAFE_CAST>True</DCC_UNSAFE_CAST>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <Version>7.0</Version>
+    <DCC_WriteableConstants>True</DCC_WriteableConstants>
+    <DCC_ExeOutput>\DiaTec</DCC_ExeOutput>
+    <DCC_UNSAFE_TYPE>True</DCC_UNSAFE_TYPE>
+    <DCC_UNSAFE_CODE>True</DCC_UNSAFE_CODE>
+    <DCC_UNSAFE_CAST>True</DCC_UNSAFE_CAST>
+    <DCC_DcuOutput>C:\ProjetoDCU\D2007</DCC_DcuOutput>
+    <DCC_ObjOutput>C:\ProjetoDCU\D2007</DCC_ObjOutput>
+    <DCC_HppOutput>C:\ProjetoDCU\D2007</DCC_HppOutput>
+  </PropertyGroup>
+  <ProjectExtensions>
+    <Borland.Personality>Delphi.Personality</Borland.Personality>
+    <Borland.ProjectType>Package</Borland.ProjectType>
+    <BorlandProject>
+<BorlandProject><Delphi.Personality><Parameters><Parameters Name="UseLauncher">False</Parameters><Parameters Name="LoadAllSymbols">True</Parameters><Parameters Name="LoadUnspecifiedSymbols">False</Parameters></Parameters><Package_Options><Package_Options Name="PackageDescription">NexCafe</Package_Options><Package_Options Name="ImplicitBuild">True</Package_Options><Package_Options Name="DesigntimeOnly">False</Package_Options><Package_Options Name="RuntimeOnly">False</Package_Options></Package_Options><VersionInfo><VersionInfo Name="IncludeVerInfo">True</VersionInfo><VersionInfo Name="AutoIncBuild">False</VersionInfo><VersionInfo Name="MajorVer">1</VersionInfo><VersionInfo Name="MinorVer">0</VersionInfo><VersionInfo Name="Release">0</VersionInfo><VersionInfo Name="Build">0</VersionInfo><VersionInfo Name="Debug">False</VersionInfo><VersionInfo Name="PreRelease">False</VersionInfo><VersionInfo Name="Special">False</VersionInfo><VersionInfo Name="Private">False</VersionInfo><VersionInfo Name="DLL">False</VersionInfo><VersionInfo Name="Locale">1046</VersionInfo><VersionInfo Name="CodePage">1252</VersionInfo></VersionInfo><VersionInfoKeys><VersionInfoKeys Name="CompanyName"></VersionInfoKeys><VersionInfoKeys Name="FileDescription"></VersionInfoKeys><VersionInfoKeys Name="FileVersion">1.0.0.0</VersionInfoKeys><VersionInfoKeys Name="InternalName"></VersionInfoKeys><VersionInfoKeys Name="LegalCopyright"></VersionInfoKeys><VersionInfoKeys Name="LegalTrademarks"></VersionInfoKeys><VersionInfoKeys Name="OriginalFilename"></VersionInfoKeys><VersionInfoKeys Name="ProductName"></VersionInfoKeys><VersionInfoKeys Name="ProductVersion">1.0.0.0</VersionInfoKeys><VersionInfoKeys Name="Comments"></VersionInfoKeys></VersionInfoKeys><Excluded_Packages>
+      
+      
+      
+      
+      
+      
+      <Excluded_Packages Name="$(BDS)\bin\dcloffice2k100.bpl">Microsoft Office 2000 Sample Automation Server Wrapper Components</Excluded_Packages>
+      <Excluded_Packages Name="$(BDS)\bin\dclofficexp100.bpl">Microsoft Office XP Sample Automation Server Wrapper Components</Excluded_Packages>
+    </Excluded_Packages><Source><Source Name="MainSource">ncD2007.dpk</Source></Source></Delphi.Personality></BorlandProject></BorlandProject>
+  </ProjectExtensions>
+  <Import Project="$(MSBuildBinPath)\Borland.Delphi.Targets" />
+  <ItemGroup>
+    <DelphiCompile Include="ncD2007.dpk">
+      <MainSource>MainSource</MainSource>
+    </DelphiCompile>
+    <DCCReference Include="$(SystemRoot)\system32\cxDataRS11.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\cxEditorsRS11.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\cxExportRS11.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\cxGridRS11.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\cxLibraryRS11.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\cxPageControldxBarPopupMenuRS11.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\cxPageControlRS11.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\cxPivotGridRS11.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\cxVerticalGridRS11.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\dbrtl.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\dclcxLibraryRS11.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\dcldb.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\dcldxNavBarRS11.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\dclstd.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\DCPdelphi2007.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\designide.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\dxBarExtItemsRS11.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\dxBarRS11.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\dxComnRS11.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\dxCoreRS11.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\dxGDIPlusRS11.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\dxLayoutControlRS11.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\dxmdsRS11.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\dxNavBarRS11.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\dxPSCoreRS11.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\dxPScxCommonRS11.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\dxPScxExtCommonRS11.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\dxPScxGridLnkRS11.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\dxPScxPCProdRS11.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\dxPScxPivotGridLnkRS11.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\dxPSdxLCLnkRS11.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\dxPSLnksRS11.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\dxPsPrVwAdvRS11.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\dxPSPrVwRibbonRS11.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\dxRibbonRS11.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\dxServerModeRS11.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\dxThemeRS11.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\FormMgrR2007.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\frx11.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\frxDB11.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\frxe11.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\fs11.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\GetDiskSerial10.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\HDSerialD2007.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\IndyD2007.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\kbmMemD2007Run.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\kbmMWRunD2007NexusDB312ll110.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\lmdrtcore.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\lmdrtl.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\lmdrtrtlx.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\LNexusDB312ll110.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\Log.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\LogNexusDB312ll110.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\LoNexusDB312ll110.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\madBasic_.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\madDisAsm_.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\mNexusDB312ll110.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\ncNXServremoto" />
+    <DCCReference Include="$(SystemRoot)\system32\NextarCSCommD2007.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\NexusDB312ch110.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\NexusDB312db110.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\NexusDB312iv110.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\NexusDB312lg110.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\NexusDB312ll110.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\NexusDB312psi110.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\NexusDB312pt110.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\NexusDB312rb110.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\NexusDB312rd110.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\NexusDB312re110.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\NexusDB312rp110.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\NexusDB312sd110.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\NexusDB312se110.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\NexusDB312sq110.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\NexusDB312sr110.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\NexusDB312st110.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\NexusDB312tw110.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\ObjPool_2007.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\ParPanelR.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\PKIECtrl11.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\rtcSDK.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\rtl.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\Utils2007R.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\vcl.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\vclactnband.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\vcldb.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\vcldesigner.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\vclimg.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\vcljpg.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\vclx.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\WindowListD2007.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\xmlrtl.dcp" />
+    <DCCReference Include="..\..\GS\uLicEXECryptor.pas" />
+    <DCCReference Include="..\..\nextarprodserver\uNxCompression.pas" />
+    <DCCReference Include="..\Guard\ncgPrevLogoff.pas" />
+    <DCCReference Include="..\PrintReview\ncPRConsts.pas" />
+    <DCCReference Include="..\serv\ncsPrintPDF.pas" />
+    <DCCReference Include="C:\comp\varios\uJSON.pas" />
+    <DCCReference Include="C:\comp\varios\uMd5.pas" />
+    <DCCReference Include="ncAuxPassaporte.pas" />
+    <DCCReference Include="ncClassesBase.pas" />
+    <DCCReference Include="ncCompCliente.pas" />
+    <DCCReference Include="ncCredTempo.pas" />
+    <DCCReference Include="ncDebito.pas" />
+    <DCCReference Include="ncDMCaixa.pas" />
+    <DCCReference Include="ncDMServ.pas" />
+    <DCCReference Include="ncErros.pas" />
+    <DCCReference Include="ncIDRecursos.pas" />
+    <DCCReference Include="ncImpressao.pas" />
+    <DCCReference Include="ncItemTran.pas" />
+    <DCCReference Include="ncListaID.pas" />
+    <DCCReference Include="ncMovEst.pas" />
+    <DCCReference Include="ncMsgCom.pas" />
+    <DCCReference Include="ncNetMsg.pas" />
+    <DCCReference Include="ncnxServerPlugin.pas" />
+    <DCCReference Include="ncPassaportes.pas" />
+    <DCCReference Include="ncServAtualizaLic.pas" />
+    <DCCReference Include="ncServBase.pas" />
+    <DCCReference Include="ncServBD.pas">
+      <Form>FFEM</Form>
+      <DesignClass>TnxBaseEngineManager</DesignClass>
+    </DCCReference>
+    <DCCReference Include="ncServReg.pas" />
+    <DCCReference Include="ncSessao.pas" />
+    <DCCReference Include="ncTableDefs.pas" />
+    <DCCReference Include="ncTarifador.pas" />
+    <DCCReference Include="ncTipoImp.pas" />
+    <DCCReference Include="ncTran.pas" />
+  </ItemGroup>
+</Project>

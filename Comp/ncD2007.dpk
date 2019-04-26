@@ -1,0 +1,157 @@
+package ncD2007;
+
+{$R *.res}
+{$ALIGN 8}
+{$ASSERTIONS ON}
+{$BOOLEVAL OFF}
+{$DEBUGINFO ON}
+{$EXTENDEDSYNTAX ON}
+{$IMPORTEDDATA ON}
+{$IOCHECKS ON}
+{$LOCALSYMBOLS ON}
+{$LONGSTRINGS ON}
+{$OPENSTRINGS ON}
+{$OPTIMIZATION ON}
+{$OVERFLOWCHECKS OFF}
+{$RANGECHECKS OFF}
+{$REFERENCEINFO ON}
+{$SAFEDIVIDE OFF}
+{$STACKFRAMES OFF}
+{$TYPEDADDRESS OFF}
+{$VARSTRINGCHECKS ON}
+{$WRITEABLECONST ON}
+{$MINENUMSIZE 1}
+{$IMAGEBASE $400000}
+{$DESCRIPTION 'NexCafe'}
+{$IMPLICITBUILD ON}
+
+requires
+  vcl,
+  vcldb,
+  vclx,
+  Utils2007R,
+  HDSerialD2007,
+  kbmMemD2007Run,
+  rtl,
+  dbrtl,
+  dclstd,
+  designide,
+  xmlrtl,
+  vclactnband,
+  vcldesigner,
+  dcldb,
+  vcljpg,
+  WindowListD2007,
+  NextarCSCommD2007,
+  vclimg,
+  IndyD2007,
+  GetDiskSerial10,
+  rtcSDK,
+  dxCoreRS11,
+  dclcxLibraryRS11,
+  cxLibraryRS11,
+  dxGDIPlusRS11,
+  dxThemeRS11,
+  cxPageControlRS11,
+  cxEditorsRS11,
+  cxDataRS11,
+  dxBarRS11,
+  dxComnRS11,
+  cxGridRS11,
+  cxVerticalGridRS11,
+  dcldxNavBarRS11,
+  dxNavBarRS11,
+  cxPageControldxBarPopupMenuRS11,
+  DCPdelphi2007,
+  ObjPool_2007,
+  fs11,
+  FormMgrR2007,
+  madBasic_,
+  madDisAsm_,
+  frxe11,
+  frx11,
+  frxDB11,
+  dxBarExtItemsRS11,
+  dxRibbonRS11,
+  dxLayoutControlRS11,
+  cxExportRS11,
+  dxServerModeRS11,
+  dxPSCoreRS11,
+  dxPScxPCProdRS11,
+  dxPScxCommonRS11,
+  dxPSLnksRS11,
+  dxPScxExtCommonRS11,
+  dxPScxPivotGridLnkRS11,
+  cxPivotGridRS11,
+  dxmdsRS11,
+  dxPScxGridLnkRS11,
+  dxPSdxLCLnkRS11,
+  dxPsPrVwAdvRS11,
+  dxPSPrVwRibbonRS11,
+  lmdrtrtlx,
+  lmdrtl,
+  lmdrtcore,
+  Log,
+  kbmMWRunD2007,
+  NexusDB312ll110,
+  NexusDB312psi110,
+  NexusDB312iv110,
+  NexusDB312rb110,
+  NexusDB312rd110,
+  NexusDB312rp110,
+  NexusDB312sr110,
+  NexusDB312sd110,
+  NexusDB312pt110,
+  NexusDB312db110,
+  NexusDB312tw110,
+  NexusDB312sq110,
+  NexusDB312se110,
+  NexusDB312ch110,
+  NexusDB312st110,
+  NexusDB312re110,
+  NexusDB312lg110,
+  PKIECtrl11,
+  Abbrevia;
+
+contains
+  ncServBase in 'ncServBase.pas',
+  ncServBD in 'ncServBD.pas' {FFEM: TnxBaseEngineManager},
+  ncServReg in 'ncServReg.pas',
+  ncCompCliente in 'ncCompCliente.pas',
+  ncClassesBase in 'ncClassesBase.pas',
+  ncNetMsg in 'ncNetMsg.pas',
+  ncTarifador in 'ncTarifador.pas',
+  ncAuxPassaporte in 'ncAuxPassaporte.pas',
+  ncTran in 'ncTran.pas',
+  ncDMServ in 'ncDMServ.pas',
+  ncPassaportes in 'ncPassaportes.pas',
+  ncSessao in 'ncSessao.pas',
+  ncMovEst in 'ncMovEst.pas',
+  ncErros in 'ncErros.pas',
+  ncItemTran in 'ncItemTran.pas',
+  ncCredTempo in 'ncCredTempo.pas',
+  ncImpressao in 'ncImpressao.pas',
+  ncDebito in 'ncDebito.pas',
+  ncDMCaixa in 'ncDMCaixa.pas',
+  ncIDRecursos in 'ncIDRecursos.pas',
+  ncListaID in 'ncListaID.pas',
+  ncMsgCom in 'ncMsgCom.pas',
+  ncTipoImp in 'ncTipoImp.pas',
+  ncnxServerPlugin in 'ncnxServerPlugin.pas',
+  ncServAtualizaLic in 'ncServAtualizaLic.pas',
+  uLicEXECryptor in '..\..\GS\uLicEXECryptor.pas',
+  ncNXServremoto,
+  ncTableDefs in 'ncTableDefs.pas',
+  ncgPrevLogoff in '..\Guard\ncgPrevLogoff.pas',
+  ncPRConsts in '..\PrintReview\ncPRConsts.pas',
+  ncsPrintPDF in '..\serv\ncsPrintPDF.pas',
+  uJSON in 'C:\comp\varios\uJSON.pas',
+  uMd5 in 'C:\comp\varios\uMd5.pas',
+  uNxCompression in '..\..\nextarprodserver\uNxCompression.pas',
+  uNexTransResourceStrings_PT in '..\..\FormMgr\translator\uNexTransResourceStrings_PT.pas',
+  uUtils in 'C:\comp\varios\uUtils.pas',
+  ncEspecie in 'ncEspecie.pas';
+
+end.
+
+

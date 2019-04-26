@@ -1,0 +1,215 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{7e524d35-a04c-47e6-a598-87be04fe7609}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <DCC_DCCCompiler>DCC32</DCC_DCCCompiler>
+    <DCC_DependencyCheckOutputName>F:\__pp\__nexcafe\TiposDeImpressao.exe</DCC_DependencyCheckOutputName>
+    <MainSource>TiposDeImpressao.dpr</MainSource>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <Version>7.0</Version>
+    <DCC_DebugInformation>False</DCC_DebugInformation>
+    <DCC_LocalDebugSymbols>False</DCC_LocalDebugSymbols>
+    <DCC_SymbolReferenceInfo>0</DCC_SymbolReferenceInfo>
+    <DCC_Define>RELEASE</DCC_Define>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <Version>7.0</Version>
+    <DCC_Define>DEBUG</DCC_Define>
+    <DCC_ExeOutput>F:\__pp\__nexcafe</DCC_ExeOutput>
+    <DCC_DcuOutput>C:\ProjetoDCU\D2007</DCC_DcuOutput>
+    <DCC_ObjOutput>C:\ProjetoDCU\D2007</DCC_ObjOutput>
+    <DCC_HppOutput>C:\ProjetoDCU\D2007</DCC_HppOutput>
+  </PropertyGroup>
+  <ProjectExtensions>
+    <Borland.Personality>Delphi.Personality</Borland.Personality>
+    <Borland.ProjectType />
+    <BorlandProject>
+<BorlandProject><Delphi.Personality><Parameters><Parameters Name="UseLauncher">False</Parameters><Parameters Name="LoadAllSymbols">True</Parameters><Parameters Name="LoadUnspecifiedSymbols">False</Parameters></Parameters><VersionInfo><VersionInfo Name="IncludeVerInfo">False</VersionInfo><VersionInfo Name="AutoIncBuild">False</VersionInfo><VersionInfo Name="MajorVer">1</VersionInfo><VersionInfo Name="MinorVer">0</VersionInfo><VersionInfo Name="Release">0</VersionInfo><VersionInfo Name="Build">0</VersionInfo><VersionInfo Name="Debug">False</VersionInfo><VersionInfo Name="PreRelease">False</VersionInfo><VersionInfo Name="Special">False</VersionInfo><VersionInfo Name="Private">False</VersionInfo><VersionInfo Name="DLL">False</VersionInfo><VersionInfo Name="Locale">1046</VersionInfo><VersionInfo Name="CodePage">1252</VersionInfo></VersionInfo><VersionInfoKeys><VersionInfoKeys Name="CompanyName"></VersionInfoKeys><VersionInfoKeys Name="FileDescription"></VersionInfoKeys><VersionInfoKeys Name="FileVersion">1.0.0.0</VersionInfoKeys><VersionInfoKeys Name="InternalName"></VersionInfoKeys><VersionInfoKeys Name="LegalCopyright"></VersionInfoKeys><VersionInfoKeys Name="LegalTrademarks"></VersionInfoKeys><VersionInfoKeys Name="OriginalFilename"></VersionInfoKeys><VersionInfoKeys Name="ProductName"></VersionInfoKeys><VersionInfoKeys Name="ProductVersion">1.0.0.0</VersionInfoKeys><VersionInfoKeys Name="Comments"></VersionInfoKeys></VersionInfoKeys><Excluded_Packages>
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      <Excluded_Packages Name="C:\Comp\devex\Library\Delphi11\dcldxNavBarD11.bpl">File C:\Comp\devex\Library\Delphi11\dcldxNavBarD11.bpl not found</Excluded_Packages>
+      <Excluded_Packages Name="C:\Comp\DevEx\Library\RS11\dclcxSchedulerRS11.bpl">ExpressScheduler by Developer Express Inc.</Excluded_Packages>
+      <Excluded_Packages Name="C:\Comp\DevEx\Library\RS11\dcldxSpellCheckerRS11.bpl">ExpressSpellChecker 2 by Developer Express Inc.</Excluded_Packages>
+      <Excluded_Packages Name="C:\Comp\DevEx\Library\RS11\dclcxPivotGridOLAPRS11.bpl">ExpressPivotGrid 2 OLAP by Developer Express Inc.</Excluded_Packages>
+      <Excluded_Packages Name="C:\Comp\DevEx\Library\RS11\dclcxSchedulerGridRS11.bpl">ExpressScheduler connection to ExpressQuantumGrid by Developer Express Inc.</Excluded_Packages>
+      <Excluded_Packages Name="C:\Comp\DevEx\Library\RS11\dclcxPivotGridChartRS11.bpl">ExpressPivotGrid 2 connection to ExpressQuantumGrid Chart View by Developer Express Inc.</Excluded_Packages>
+    </Excluded_Packages><Source><Source Name="MainSource">TiposDeImpressao.dpr</Source></Source></Delphi.Personality></BorlandProject></BorlandProject>
+  </ProjectExtensions>
+  <Import Project="$(MSBuildBinPath)\Borland.Delphi.Targets" />
+  <ItemGroup>
+    <DelphiCompile Include="TiposDeImpressao.dpr">
+      <MainSource>MainSource</MainSource>
+    </DelphiCompile>
+    <DCCReference Include="..\..\..\..\Comp\ncShellStart.pas" />
+    <DCCReference Include="..\..\..\..\FormMgr\ufmFormBase.pas">
+      <DesignClass>TFrmBasePai</DesignClass>
+      <Form>FrmBase</Form>
+    </DCCReference>
+    <DCCReference Include="..\..\..\..\FormMgr\ufmFrmBasePai.pas">
+      <Form>FrmBasePai</Form>
+    </DCCReference>
+    <DCCReference Include="..\..\..\..\FormMgr\ufmFrmPeriodo.pas">
+      <Form>FrmPeriodo</Form>
+    </DCCReference>
+    <DCCReference Include="..\..\..\..\FormMgr\ufmImagens.pas">
+      <DesignClass>TDataModule</DesignClass>
+      <Form>dmImagens</Form>
+    </DCCReference>
+    <DCCReference Include="..\..\..\Comp\ncErros.pas" />
+    <DCCReference Include="..\..\..\Comp\ncFrmChat.pas">
+      <Form>FrmBaseChat</Form>
+    </DCCReference>
+    <DCCReference Include="..\..\..\Comp\ncShellStart.pas" />
+    <DCCReference Include="..\..\ncgPrintInstall.pas" />
+    <DCCReference Include="..\..\ncPrinters.pas" />
+    <DCCReference Include="..\..\PrintComum\uCommonProc.pas" />
+    <DCCReference Include="..\..\PrintComum\uPrinterConstsAndTypes.pas" />
+    <DCCReference Include="..\..\PrintComum\uPrinterInfo8.pas" />
+    <DCCReference Include="..\..\PrintComum\uPrintException.pas" />
+    <DCCReference Include="..\..\uLogs.pas" />
+    <DCCReference Include="..\Comp\ncShellStart.pas" />
+    <DCCReference Include="C:\Comp\varios\uVersionInfo.pas" />
+    <DCCReference Include="ncgPrintInstall.pas" />
+    <DCCReference Include="udmTipodeImpressao.pas">
+      <Form>dmTipodeImpressao</Form>
+      <DesignClass>TDataModule</DesignClass>
+    </DCCReference>
+    <DCCReference Include="uFormBackG1.pas">
+      <Form>FormBackG1</Form>
+    </DCCReference>
+    <DCCReference Include="uFormPasso1.pas">
+      <Form>FormPasso1</Form>
+    </DCCReference>
+    <DCCReference Include="uFormPasso2.pas">
+      <Form>FormPasso2</Form>
+    </DCCReference>
+    <DCCReference Include="uFormPasso3.pas">
+      <Form>FormPasso3</Form>
+    </DCCReference>
+    <DCCReference Include="uFormPasso4.pas">
+      <Form>FormPasso4</Form>
+    </DCCReference>
+    <DCCReference Include="uFormPassoQuerSair.pas">
+      <Form>FormPassoQuerSair</Form>
+    </DCCReference>
+    <DCCReference Include="uTiposDeImpressao.pas">
+      <Form>FormTipoDeImpressao</Form>
+    </DCCReference>
+    <None Include="outras_rotinas.txt" />
+  </ItemGroup>
+</Project>

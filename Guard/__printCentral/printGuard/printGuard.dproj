@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{5f98a6b7-7a01-4ebd-ab07-b006f936efa2}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <DCC_DCCCompiler>DCC32</DCC_DCCCompiler>
+    <DCC_DependencyCheckOutputName>C:\nexcafe\printGuard.exe</DCC_DependencyCheckOutputName>
+    <MainSource>printGuard.dpr</MainSource>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <Version>7.0</Version>
+    <DCC_DebugInformation>False</DCC_DebugInformation>
+    <DCC_LocalDebugSymbols>False</DCC_LocalDebugSymbols>
+    <DCC_SymbolReferenceInfo>0</DCC_SymbolReferenceInfo>
+    <DCC_Define>RELEASE</DCC_Define>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <Version>7.0</Version>
+    <DCC_Define>DEBUG</DCC_Define>
+    <DCC_ExeOutput>C:\nexcafe</DCC_ExeOutput>
+    <DCC_DcuOutput>C:\ProjetoDCU\D2007</DCC_DcuOutput>
+    <DCC_ObjOutput>C:\ProjetoDCU\D2007</DCC_ObjOutput>
+    <DCC_HppOutput>C:\ProjetoDCU\D2007</DCC_HppOutput>
+  </PropertyGroup>
+  <ProjectExtensions>
+    <Borland.Personality>Delphi.Personality</Borland.Personality>
+    <Borland.ProjectType />
+    <BorlandProject>
+<BorlandProject><Delphi.Personality><Parameters><Parameters Name="UseLauncher">False</Parameters><Parameters Name="LoadAllSymbols">True</Parameters><Parameters Name="LoadUnspecifiedSymbols">False</Parameters></Parameters><VersionInfo><VersionInfo Name="IncludeVerInfo">True</VersionInfo><VersionInfo Name="AutoIncBuild">True</VersionInfo><VersionInfo Name="MajorVer">1</VersionInfo><VersionInfo Name="MinorVer">0</VersionInfo><VersionInfo Name="Release">0</VersionInfo><VersionInfo Name="Build">22</VersionInfo><VersionInfo Name="Debug">False</VersionInfo><VersionInfo Name="PreRelease">False</VersionInfo><VersionInfo Name="Special">False</VersionInfo><VersionInfo Name="Private">False</VersionInfo><VersionInfo Name="DLL">False</VersionInfo><VersionInfo Name="Locale">1046</VersionInfo><VersionInfo Name="CodePage">1252</VersionInfo></VersionInfo><VersionInfoKeys><VersionInfoKeys Name="CompanyName"></VersionInfoKeys><VersionInfoKeys Name="FileDescription"></VersionInfoKeys><VersionInfoKeys Name="FileVersion">1.0.0.22</VersionInfoKeys><VersionInfoKeys Name="InternalName"></VersionInfoKeys><VersionInfoKeys Name="LegalCopyright"></VersionInfoKeys><VersionInfoKeys Name="LegalTrademarks"></VersionInfoKeys><VersionInfoKeys Name="OriginalFilename"></VersionInfoKeys><VersionInfoKeys Name="ProductName"></VersionInfoKeys><VersionInfoKeys Name="ProductVersion">1.0.0.0</VersionInfoKeys><VersionInfoKeys Name="Comments"></VersionInfoKeys></VersionInfoKeys><Excluded_Packages>
+      
+      
+      
+      
+      
+      
+      <Excluded_Packages Name="C:\Comp\devex\Library\Delphi11\dcldxNavBarD11.bpl">File C:\Comp\devex\Library\Delphi11\dcldxNavBarD11.bpl not found</Excluded_Packages>
+      <Excluded_Packages Name="C:\Comp\DevEx\Library\RS11\dclcxSchedulerRS11.bpl">ExpressScheduler by Developer Express Inc.</Excluded_Packages>
+      <Excluded_Packages Name="C:\Comp\DevEx\Library\RS11\dcldxSpellCheckerRS11.bpl">ExpressSpellChecker 2 by Developer Express Inc.</Excluded_Packages>
+      <Excluded_Packages Name="C:\Comp\DevEx\Library\RS11\dclcxPivotGridOLAPRS11.bpl">ExpressPivotGrid 2 OLAP by Developer Express Inc.</Excluded_Packages>
+      <Excluded_Packages Name="C:\Comp\DevEx\Library\RS11\dclcxSchedulerGridRS11.bpl">ExpressScheduler connection to ExpressQuantumGrid by Developer Express Inc.</Excluded_Packages>
+      <Excluded_Packages Name="C:\Comp\DevEx\Library\RS11\dclcxPivotGridChartRS11.bpl">ExpressPivotGrid 2 connection to ExpressQuantumGrid Chart View by Developer Express Inc.</Excluded_Packages>
+    </Excluded_Packages><Source><Source Name="MainSource">printGuard.dpr</Source></Source></Delphi.Personality></BorlandProject></BorlandProject>
+  </ProjectExtensions>
+  <Import Project="$(MSBuildBinPath)\Borland.Delphi.Targets" />
+  <ItemGroup>
+    <DelphiCompile Include="printGuard.dpr">
+      <MainSource>MainSource</MainSource>
+    </DelphiCompile>
+    <DCCReference Include="..\..\..\Comp\ncShellStart.pas" />
+    <DCCReference Include="..\..\ncgPrintInstall.pas" />
+    <DCCReference Include="..\..\ncNomeMaquina.pas" />
+    <DCCReference Include="..\..\ncPrinters.pas" />
+    <DCCReference Include="..\..\PrintComum\DX_VCL Skins\dxSkinProject1\dxSkinProject1.pas" />
+    <DCCReference Include="..\..\PrintComum\uCommonProc.pas" />
+    <DCCReference Include="..\..\PrintComum\uDeleteFiles.pas" />
+    <DCCReference Include="..\..\PrintComum\uDirUtils.pas" />
+    <DCCReference Include="..\..\PrintComum\uImagem.pas" />
+    <DCCReference Include="..\..\PrintComum\uImagesScrollBox.pas" />
+    <DCCReference Include="..\..\PrintComum\uPagesScrollBox.pas" />
+    <DCCReference Include="..\..\PrintComum\uPrinterConstsAndTypes.pas" />
+    <DCCReference Include="..\..\PrintComum\uPrinterInfo8.pas" />
+    <DCCReference Include="..\..\PrintComum\uPrintException.pas" />
+    <DCCReference Include="..\..\PrintComum\uPrintManBaseClasses.pas" />
+    <DCCReference Include="..\..\PrintComum\uThumbsScrollBox.pas" />
+    <DCCReference Include="..\..\uLogs.pas" />
+    <DCCReference Include="C:\Comp\GPanel\gPanel.pas" />
+    <DCCReference Include="C:\Comp\madCollection\madKernel\Sources\madKernel.pas" />
+    <DCCReference Include="C:\Comp\varios\Int64List.pas" />
+    <DCCReference Include="uDirWatch.pas" />
+    <DCCReference Include="udmPrintGuard.pas">
+      <Form>dmPrintGuard</Form>
+      <DesignClass>TDataModule</DesignClass>
+    </DCCReference>
+    <DCCReference Include="uFormBackG1.pas">
+      <Form>FormBackG1</Form>
+    </DCCReference>
+    <DCCReference Include="uFormPasso10.pas">
+      <Form>FormPasso10</Form>
+    </DCCReference>
+    <DCCReference Include="uFormPassoA.pas">
+      <Form>FormPassoA</Form>
+    </DCCReference>
+    <DCCReference Include="uFormPassoB.pas">
+      <Form>FormPassoB</Form>
+    </DCCReference>
+    <DCCReference Include="uFormPassoQuerSair.pas">
+      <Form>FormPassoQuerSair</Form>
+    </DCCReference>
+    <DCCReference Include="uNexCafe5PrintCentral.pas">
+      <Form>FormNexCafe5PrintCentral</Form>
+    </DCCReference>
+    <DCCReference Include="uOlhaPasta.pas" />
+    <DCCReference Include="uPrintGuard.pas">
+      <Form>FormPrintGuard</Form>
+    </DCCReference>
+    <None Include="outros codigos.txt" />
+  </ItemGroup>
+</Project>

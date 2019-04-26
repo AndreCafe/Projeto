@@ -1,0 +1,20 @@
+object FormBackG1: TFormBackG1
+  Left = 0
+  Top = 0
+  AlphaBlend = True
+  AlphaBlendValue = 128
+  BorderStyle = bsNone
+  Caption = 'FormBackG1'
+  ClientHeight = 327
+  ClientWidth = 461
+  Color = clRed
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  OnCreate = FormCreate
+  PixelsPerInch = 96
+  TextHeight = 13
+end

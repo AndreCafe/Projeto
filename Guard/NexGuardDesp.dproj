@@ -1,0 +1,227 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{a5003ff3-4644-47ff-8ed9-4cecc5dbc802}</ProjectGuid>
+    <MainSource>NexGuardDesp.dpr</MainSource>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <DCC_DCCCompiler>DCC32</DCC_DCCCompiler>
+    <DCC_DependencyCheckOutputName>C:\Meus Programas\NexCafe\NexGuardDesp.exe</DCC_DependencyCheckOutputName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <Version>7.0</Version>
+    <DCC_DebugInformation>False</DCC_DebugInformation>
+    <DCC_WriteableConstants>True</DCC_WriteableConstants>
+    <DCC_LocalDebugSymbols>False</DCC_LocalDebugSymbols>
+    <DCC_SymbolReferenceInfo>0</DCC_SymbolReferenceInfo>
+    <DCC_Warnings>False</DCC_Warnings>
+    <DCC_MapFile>3</DCC_MapFile>
+    <DCC_ExeOutput>\Meus Programas\NexCafe</DCC_ExeOutput>
+    <DCC_DcuOutput>\projetodcu\d7</DCC_DcuOutput>
+    <DCC_ObjOutput>\projetodcu\d7</DCC_ObjOutput>
+    <DCC_HppOutput>\projetodcu\d7</DCC_HppOutput>
+    <DCC_Define>RELEASE</DCC_Define>
+    <DCC_UNSAFE_TYPE>True</DCC_UNSAFE_TYPE>
+    <DCC_UNSAFE_CODE>True</DCC_UNSAFE_CODE>
+    <DCC_UNSAFE_CAST>True</DCC_UNSAFE_CAST>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <Version>7.0</Version>
+    <DCC_WriteableConstants>True</DCC_WriteableConstants>
+    <DCC_Warnings>False</DCC_Warnings>
+    <DCC_MapFile>3</DCC_MapFile>
+    <DCC_ExeOutput>C:\Meus Programas\NexCafe</DCC_ExeOutput>
+    <DCC_DcuOutput>C:\ProjetoDCU\D2007</DCC_DcuOutput>
+    <DCC_ObjOutput>C:\ProjetoDCU\D2007</DCC_ObjOutput>
+    <DCC_HppOutput>C:\ProjetoDCU\D2007</DCC_HppOutput>
+    <DCC_Define>DEBUG</DCC_Define>
+    <DCC_UNSAFE_TYPE>True</DCC_UNSAFE_TYPE>
+    <DCC_UNSAFE_CODE>True</DCC_UNSAFE_CODE>
+    <DCC_UNSAFE_CAST>True</DCC_UNSAFE_CAST>
+    <DCC_AssertionsAtRuntime>False</DCC_AssertionsAtRuntime>
+    <DCC_SymbolReferenceInfo>0</DCC_SymbolReferenceInfo>
+  </PropertyGroup>
+  <ProjectExtensions>
+    <Borland.Personality>Delphi.Personality</Borland.Personality>
+    <Borland.ProjectType>VCLApplication</Borland.ProjectType>
+    <BorlandProject>
+<BorlandProject><Delphi.Personality><Parameters><Parameters Name="UseLauncher">False</Parameters><Parameters Name="LoadAllSymbols">True</Parameters><Parameters Name="LoadUnspecifiedSymbols">False</Parameters></Parameters><Language><Language Name="ProjectLang">$00000416</Language></Language><VersionInfo><VersionInfo Name="IncludeVerInfo">True</VersionInfo><VersionInfo Name="AutoIncBuild">True</VersionInfo><VersionInfo Name="MajorVer">4</VersionInfo><VersionInfo Name="MinorVer">6</VersionInfo><VersionInfo Name="Release">0</VersionInfo><VersionInfo Name="Build">153</VersionInfo><VersionInfo Name="Debug">False</VersionInfo><VersionInfo Name="PreRelease">False</VersionInfo><VersionInfo Name="Special">False</VersionInfo><VersionInfo Name="Private">False</VersionInfo><VersionInfo Name="DLL">False</VersionInfo><VersionInfo Name="Locale">1046</VersionInfo><VersionInfo Name="CodePage">1252</VersionInfo></VersionInfo><VersionInfoKeys><VersionInfoKeys Name="CompanyName">Nextar</VersionInfoKeys><VersionInfoKeys Name="FileDescription">NexGuard</VersionInfoKeys><VersionInfoKeys Name="FileVersion">4.6.0.153</VersionInfoKeys><VersionInfoKeys Name="InternalName">NexGuard.exe</VersionInfoKeys><VersionInfoKeys Name="LegalCopyright"></VersionInfoKeys><VersionInfoKeys Name="LegalTrademarks"></VersionInfoKeys><VersionInfoKeys Name="OriginalFilename">NexGuard.exe</VersionInfoKeys><VersionInfoKeys Name="ProductName">NexCafé</VersionInfoKeys><VersionInfoKeys Name="ProductVersion">4.6</VersionInfoKeys><VersionInfoKeys Name="Comments">www.nexcafe.com.br</VersionInfoKeys></VersionInfoKeys><Source><Source Name="MainSource">NexGuardDesp.dpr</Source></Source><Excluded_Packages>
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      <Excluded_Packages Name="C:\Users\Public\Documents\RAD Studio\5.0\Bpl\PngComponentsD11R.bpl">PNG Components runtime</Excluded_Packages>
+      <Excluded_Packages Name="C:\Users\Public\Documents\RAD Studio\5.0\Bpl\dcldxSkinsdxBarsPaintersD11.bpl">ExpressSkins Library Uses Clause Auto Fill Helper for Bars Painters by Developer Express Inc.</Excluded_Packages>
+      <Excluded_Packages Name="C:\Users\Public\Documents\RAD Studio\5.0\Bpl\dxSkinsdxDLPainterD11.bpl">ExpressSkins Library Painter for Docking Library by Developer Express Inc.</Excluded_Packages>
+      <Excluded_Packages Name="C:\Users\Public\Documents\RAD Studio\5.0\Bpl\dxSkinsdxRibbonPainterD11.bpl">ExpressSkins Library Painter for Ribbon by Developer Express Inc.</Excluded_Packages>
+      <Excluded_Packages Name="C:\Users\Public\Documents\RAD Studio\5.0\Bpl\dxSkinsdxBarPainterD11.bpl">ExpressSkins Library Painter for Bars by Developer Express Inc.</Excluded_Packages>
+      <Excluded_Packages Name="C:\Users\Public\Documents\RAD Studio\5.0\Bpl\MessagingPlugin.bpl">(untitled)</Excluded_Packages>
+      <Excluded_Packages Name="C:\Users\Public\Documents\RAD Studio\5.0\Bpl\dcldxSkinscxPCPainterD11.bpl">ExpressSkins Library Painter for PageControl by Developer Express Inc.</Excluded_Packages>
+      <Excluded_Packages Name="C:\Users\Public\Documents\RAD Studio\5.0\Bpl\dxSkinscxPCPainterD11.bpl">ExpressSkins Library Painter for PageControl by Developer Express Inc.</Excluded_Packages>
+      <Excluded_Packages Name="C:\Users\Public\Documents\RAD Studio\5.0\Bpl\dcldxSkinsdxLCPainterD11.bpl">ExpressSkins Library Uses Clause Auto Fill Helper for LayoutControl Painter by Developer Express Inc.</Excluded_Packages>
+      <Excluded_Packages Name="C:\Users\Public\Documents\RAD Studio\5.0\Bpl\dxSkinsdxLCPainterD11.bpl">ExpressSkins Library Painter for LayoutControl by Developer Express Inc.</Excluded_Packages>
+      <Excluded_Packages Name="$(BDS)\bin\dcloffice2k100.bpl">Microsoft Office 2000 Sample Automation Server Wrapper Components</Excluded_Packages>
+      <Excluded_Packages Name="$(BDS)\bin\dclofficexp100.bpl">Microsoft Office XP Sample Automation Server Wrapper Components</Excluded_Packages>
+      <Excluded_Packages Name="$(BDS)\Bin\dclIndyCore100.bpl">Indy 10 Core Design Time</Excluded_Packages>
+      <Excluded_Packages Name="$(BDS)\Bin\dclIndyProtocols100.bpl">Indy 10 Protocols Design Time</Excluded_Packages>
+    </Excluded_Packages></Delphi.Personality></BorlandProject></BorlandProject>
+  </ProjectExtensions>
+  <Import Project="$(MSBuildBinPath)\Borland.Delphi.Targets" />
+  <ItemGroup>
+    <DelphiCompile Include="NexGuardDesp.dpr">
+      <MainSource>MainSource</MainSource>
+    </DelphiCompile>
+    <DCCReference Include="..\..\CAD\comp\cadVersionInfo.pas" />
+    <DCCReference Include="..\..\gs\md5.pas" />
+    <DCCReference Include="..\..\GS\uLicEXECryptor.pas" />
+    <DCCReference Include="..\..\Utils\GIFImage.pas" />
+    <DCCReference Include="..\..\Utils\MACAdress.pas" />
+    <DCCReference Include="..\AcessoRemoto\ncAcessoRemoto.pas" />
+    <DCCReference Include="..\Comp\ncAppUrlLog.pas" />
+    <DCCReference Include="..\Comp\ncClassesBase.pas" />
+    <DCCReference Include="..\Comp\ncCommPlusIndy.pas" />
+    <DCCReference Include="..\Comp\ncCompCliente.pas" />
+    <DCCReference Include="..\Comp\ncCredTempo.pas" />
+    <DCCReference Include="..\Comp\ncDebito.pas" />
+    <DCCReference Include="..\Comp\ncDebTempo.pas" />
+    <DCCReference Include="..\Comp\ncDebug.pas" />
+    <DCCReference Include="..\Comp\ncDosCmd.pas" />
+    <DCCReference Include="..\Comp\ncErros.pas" />
+    <DCCReference Include="..\Comp\ncFrmChat.pas">
+      <Form>FrmBaseChat</Form>
+    </DCCReference>
+    <DCCReference Include="..\Comp\ncFrmCreditos.pas">
+      <Form>FrmCreditos</Form>
+    </DCCReference>
+    <DCCReference Include="..\Comp\ncFrmSuporteRem.pas">
+      <Form>FrmSuporte</Form>
+    </DCCReference>
+    <DCCReference Include="..\Comp\ncIDRecursos.pas" />
+    <DCCReference Include="..\Comp\ncImpressao.pas" />
+    <DCCReference Include="..\Comp\ncJob.pas" />
+    <DCCReference Include="..\Comp\ncLancExtra.pas" />
+    <DCCReference Include="..\Comp\ncMovEst.pas" />
+    <DCCReference Include="..\Comp\ncMsgCli.pas" />
+    <DCCReference Include="..\Comp\ncMsgCom.pas" />
+    <DCCReference Include="..\Comp\ncNetMsg.pas" />
+    <DCCReference Include="..\Comp\ncNXServRemoto.pas" />
+    <DCCReference Include="..\Comp\ncPassaportes.pas" />
+    <DCCReference Include="..\Comp\ncSessao.pas" />
+    <DCCReference Include="..\Comp\ncShellStart.pas" />
+    <DCCReference Include="..\Comp\ncTarifador.pas" />
+    <DCCReference Include="..\Comp\ncVersionInfo.pas" />
+    <DCCReference Include="..\Comp\ncVersoes.pas" />
+    <DCCReference Include="..\Comp\udmLogmein.pas">
+      <Form>dmLogmein</Form>
+      <DesignClass>TDataModule</DesignClass>
+    </DCCReference>
+    <DCCReference Include="..\Comp\VCLFixPack.pas" />
+    <DCCReference Include="..\Utils\ElevationUtils.pas" />
+    <DCCReference Include="C:\Comp\dwl\source-code\dwlginaSource\dwlDesktop.pas">
+      <Form>,
+  ncDosCmd in '..\Comp\ncDosCmd.pas'</Form>
+    </DCCReference>
+    <DCCReference Include="C:\Comp\kbmMW25\Source\kbmMWZipStdTransStream.pas" />
+    <DCCReference Include="ncFrmImp.pas">
+      <Form>FrmImp</Form>
+    </DCCReference>
+    <DCCReference Include="ncFrmMsgCli.pas">
+      <Form>FrmMsgCli</Form>
+    </DCCReference>
+    <DCCReference Include="ncFrmShade.pas">
+      <Form>FrmShade</Form>
+    </DCCReference>
+    <DCCReference Include="ncgAppBar.pas" />
+    <DCCReference Include="ncgClassicMenu.pas" />
+    <DCCReference Include="ncgDMArqs.pas">
+      <Form>dmArqs</Form>
+      <DesignClass>TDataModule</DesignClass>
+    </DCCReference>
+    <DCCReference Include="ncgFormBase.pas">
+      <Form>FormBaseGuard</Form>
+    </DCCReference>
+    <DCCReference Include="ncgFrmAtualiza.pas">
+      <Form>FrmAtualiza</Form>
+    </DCCReference>
+    <DCCReference Include="ncgFrmAviso.pas">
+      <Form>FrmAviso</Form>
+    </DCCReference>
+    <DCCReference Include="ncgFrmBasePanelTop.pas">
+      <Form>FrmBaseTop</Form>
+    </DCCReference>
+    <DCCReference Include="ncgFrmConfigDesktop.pas">
+      <Form>FrmDesktop</Form>
+    </DCCReference>
+    <DCCReference Include="ncgFrmConn.pas">
+      <Form>FrmConn</Form>
+    </DCCReference>
+    <DCCReference Include="ncgFrmConta.pas">
+      <Form>FrmConta</Form>
+    </DCCReference>
+    <DCCReference Include="ncgFrmFake.pas">
+      <Form>FrmFake</Form>
+    </DCCReference>
+    <DCCReference Include="ncgFrmHide.pas">
+      <Form>FrmHide</Form>
+    </DCCReference>
+    <DCCReference Include="ncgFrmLogin.pas">
+      <Form>FrmLogin</Form>
+    </DCCReference>
+    <DCCReference Include="ncgFrmPanFree.pas">
+      <Form>FrmPanFree</Form>
+    </DCCReference>
+    <DCCReference Include="ncgFrmPanPremium.pas">
+      <Form>FrmPanPremium</Form>
+    </DCCReference>
+    <DCCReference Include="ncgFrmPausa.pas">
+      <Form>FrmPausa</Form>
+    </DCCReference>
+    <DCCReference Include="ncgFrmPri.pas">
+      <Form>FrmPri</Form>
+    </DCCReference>
+    <DCCReference Include="ncgFrmSenha.pas">
+      <Form>FrmAlteraSenha</Form>
+    </DCCReference>
+    <DCCReference Include="ncgFrmShellFilter.pas">
+      <Form>FrmShellFilter</Form>
+    </DCCReference>
+    <DCCReference Include="ncgFrmTop.pas">
+      <Form>FrmTopB</Form>
+    </DCCReference>
+    <DCCReference Include="ncgFrmYAD.pas">
+      <Form>FrmYAD</Form>
+    </DCCReference>
+    <DCCReference Include="ncgLimiteTela.pas" />
+    <DCCReference Include="ncgLVBack.pas" />
+    <DCCReference Include="ncgPrevLogoff.pas" />
+    <DCCReference Include="ncgRemoveRestr.pas">
+      <Form>FrmRemoveRestr</Form>
+    </DCCReference>
+    <DCCReference Include="ncgShell.pas" />
+    <DCCReference Include="ncProtecao98.pas" />
+  </ItemGroup>
+</Project>

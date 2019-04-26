@@ -1,0 +1,157 @@
+unit uImagem
+
+      TImagem = class(TGraphicControl)
+      Esta classe é copia de TImage da unit ExtCtrls
+      1) A diff está em que substitui
+               private
+                 FPicture: TPicture;
+               por
+               private
+                 FBitmap: TBitmap;
+            Substituindo o sistema de assignacao de TPicture que faz uma cópia internda do bmp que irá mostrar
+            TImagem, pega o bmp de fonte externa ao componente via
+                 property Bitmap: TBitmap read FBitmap write SetBitmap;
+            Permitindo assim a assignacao e liberacao da memoria do bmp pelo nexCafePrintMan
+      2) Cria propiedade
+                property PageNum : integer read getPageNum;
+             Para facilitar o achado da página no nexCafePrintMan
+
+
+unit uPrintManBaseClasses
+      
+      Desta unit dependem uImagesScrollBox, uPagesScrollBox, uThumbsScrollBox.
+      Declara as constantes comuns, inclusive a das mensagens inter-threads
+      
+      TLabel2
+            TLabel, com PageNum para facilitar o achado da página no nexCafePrintMan
+
+      TPanel 
+            expoe o Canvas de ExtCtrls.TPanel
+
+      TImagemPanel = class(TPanel)
+            Classe base para todos os paneis que contem imagens (Paginas ou thumbs) e serão colocados e visualizados dentro dos ScrollBox
+            Mantem estado de selecionado.
+            Contem:
+                  TLabel2 para mostrar o numero de pagina
+                  TImagem container da imagem a ser visualizada
+                  TBitmap com a imagem do pagina ou thumb 
+                  Numero de página
+
+      TPagePanel = class(TImagemPanel)
+            Painel que contém página. Para ser colocado e visualizado dentro TPagesScrollBox (uPagesScrollBox)
+            Mantem estado de NaoImprimir.
+            Contem:
+                  bmpDeleted : TBitmap; Onde se armazena o bmp da página com a traja de naoimprimir
+                        Quando o Painel está em estado NaoImprimir, TImagem.bitmap apontará para este bmp 
+ 
+      TThumbPanel = class(TImagemPanel)
+            Painel que contém thumbnail. Para ser colocado e visualizado dentro TThumbsScrollBox (uThumbsScrollBox)
+
+
+      TImagePanelListBase = class(TList)
+            Lista de TImagemPanel para usar conjuntamente com TImagePanelList 
+      
+        TImagePanelList = class(TThreadList)
+            ThreadList de TImagemPanel 
+
+
+unit uImagesScrollBox
+      Desta unit dependem uPagesScrollBox e uThumbsScrollBox.
+      Declara os eventos comuns
+
+      TImagesScrollBox = class(TScrollBox)
+            Classe base para os ScrollBox de páginas e de thumbs. Roda em MainThread.
+            Gerencia CM_MOUSEWHEEL e WM_VSCROLL e chama doAfterVScroll.
+            doAfterVScroll é comum aos dois eventos e abstrato. Portanto este procedure
+            é definido nas classes derivadas: 
+                  TPagesScrollBox (uPagesScrollBox)
+                  TThumbsScrollBox (uThumbsScrollBox)
+
+      TImageManagerThread = class(TThread)
+            Classe base da thread que gerencia carga e descarga de bmps de páginas e de thumbs nos paineis dos ScrollBox.
+            Contem:
+                  fLoadImagesThread : TLoadImagesThread;
+                        Esta thread fica no aguardo de ler um bmp do disco.
+            As cargas e descargas sao gerencias pelas listas:
+                  fbmpRequisitados  : TInt64List;
+                        Bmps dos quais foi solicitada a carga.
+                  fbmpSchedulados   : TInt64List;
+                        Bmps dos quais foi solicitada a carga e que já tem a solicitacao enviada pra fLoadImagesThread.
+                  fbmpCarregados    : TInt64List;
+                        Bmps efetivamente carregados por fLoadImagesThread;
+                  fbmpGrantNoUnload : TInt64List;
+                        Bmps requisitados no último pedido de carga. Se um pedido de descarga chega para estes bmps
+                        será ignorado presumindo que ainda está sendo visulazado (caso de muitos paineis mostrados na tela - zoom)
+       
+      TLoadImagesThread = class(TThread)
+            Classe base da thread carrega um bmp de página ou de thumb.
+            loadBitmap e abstrato. Portanto este procedure
+            é definido nas classes derivadas: 
+                  TLoadPagesThread  (uPagesScrollBox)
+                  TLoadThumbsThread (uThumbsScrollBox)
+
+unit uThumbsScrollBox
+      
+        TThumbsScrollBox = class(TImagesScrollBox)
+            Classe que define o ScrollBox especializado em Thumbnails. Roda em MainThread.
+            Contem:
+                  fLoadingBmp   : TBitmap;
+                        bmp com dizeres 'carrengando', comum a todos os paineis que não tiveram 
+                        seu bmp carregado ainda ou que já foi descarregado. 
+                  fThumbManagerThread: TThumbManagerThread;
+                        instancia de TThumbManagerThread para gerenciar carga e descarga de Thumbs
+                  fThumbsPanelList : TImagePanelList;
+                        Lista dos paineis de Thumbs      
+
+      TThumbManagerThread = class(TImageManagerThread)
+            Classe da thread especializada na carga e descarga de Thumbs
+
+
+      TLoadThumbsThread = class(TLoadImagesThread)
+            Classe da thread especializada na carga de um Thumb
+
+unit uPagesScrollBox
+            
+      TPagesScrollBox = class(TImagesScrollBox)
+            Classe que define o ScrollBox especializado em páginas. Roda em MainThread.
+            Gerencia Zoom
+            Contem:
+                  fLoadingBmp   : TBitmap;
+                        bmp com dizeres 'carrengando', comum a todos os paineis que não tiveram 
+                        seu bmp carregado ainda ou que já foi descarregado. 
+                  fDontPrintBmp  : TBitmap;
+                        bmp com tarja diagonal com dizeres 'Nao Imprimir', que sera usado para gerar o 
+                        TPagePanel.bmpDeleted de cada Pagina marcada como "não Imprimir"  
+                        em procedure TPagePanel.SetNaoImprimir 
+                  fShadowBmp     : TBitmap;
+                        bmp auxiliar que sera usado para gerar o TPagePanel.bmpDeleted de cada Pagina 
+                        marcada como "não Imprimir" em procedure TPagePanel.SetNaoImprimir 
+                  fPagesManagerThread: TPagesManagerThread;
+                        instancia de TPagesManagerThread para gerenciar carga e descarga de páginas
+                  fPagePanelList : TImagePanelList;
+                        Lista dos paineis de páginas      
+                  fPopularPagePanelListThread : TpopularPagePanelListThread;
+
+
+
+      TPagesManagerThread = class(TImageManagerThread)
+            Classe da thread especializada na carga e descarga de páginas
+
+      TLoadPagesThread = class(TLoadImagesThread)
+            Classe da thread especializada na carga de uma página
+
+        TpopularPagePanelListThread = class(TThread)
+            Classe da thread que promove o povomento do ScrollBox com Paineis vazios
+            Ainda tem muito pra fazer aqui.... en funcao de carga parcial do documento
+            enquanto o afterPrint está gerando bmps
+
+
+
+
+
+
+
+
+
+
+

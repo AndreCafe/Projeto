@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{5ea1c624-743e-4315-a52b-88cc57cdcc5d}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <DCC_DCCCompiler>DCC32</DCC_DCCCompiler>
+    <DCC_DependencyCheckOutputName>C:\NexCafe\nexCafe5PrintCentral.exe</DCC_DependencyCheckOutputName>
+    <MainSource>nexCafe5PrintCentral.dpr</MainSource>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <Version>7.0</Version>
+    <DCC_DebugInformation>False</DCC_DebugInformation>
+    <DCC_LocalDebugSymbols>False</DCC_LocalDebugSymbols>
+    <DCC_SymbolReferenceInfo>0</DCC_SymbolReferenceInfo>
+    <DCC_Define>RELEASE;NOLOG</DCC_Define>
+    <DCC_ExeOutput>C:\NexCafe</DCC_ExeOutput>
+    <DCC_DcuOutput>C:\ProjetoDCU\D2007</DCC_DcuOutput>
+    <DCC_ObjOutput>C:\ProjetoDCU\D2007</DCC_ObjOutput>
+    <DCC_HppOutput>C:\ProjetoDCU\D2007</DCC_HppOutput>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <Version>7.0</Version>
+    <DCC_Define>DEBUG</DCC_Define>
+    <DCC_ExeOutput>C:\NexCafe</DCC_ExeOutput>
+    <DCC_DcuOutput>C:\ProjetoDCU\D2007</DCC_DcuOutput>
+    <DCC_ObjOutput>C:\ProjetoDCU\D2007</DCC_ObjOutput>
+    <DCC_HppOutput>C:\ProjetoDCU\D2007</DCC_HppOutput>
+  </PropertyGroup>
+  <ProjectExtensions>
+    <Borland.Personality>Delphi.Personality</Borland.Personality>
+    <Borland.ProjectType />
+    <BorlandProject>
+<BorlandProject><Delphi.Personality><Parameters><Parameters Name="UseLauncher">False</Parameters><Parameters Name="LoadAllSymbols">True</Parameters><Parameters Name="LoadUnspecifiedSymbols">False</Parameters></Parameters><VersionInfo><VersionInfo Name="IncludeVerInfo">True</VersionInfo><VersionInfo Name="AutoIncBuild">True</VersionInfo><VersionInfo Name="MajorVer">1</VersionInfo><VersionInfo Name="MinorVer">0</VersionInfo><VersionInfo Name="Release">0</VersionInfo><VersionInfo Name="Build">1</VersionInfo><VersionInfo Name="Debug">False</VersionInfo><VersionInfo Name="PreRelease">False</VersionInfo><VersionInfo Name="Special">False</VersionInfo><VersionInfo Name="Private">False</VersionInfo><VersionInfo Name="DLL">False</VersionInfo><VersionInfo Name="Locale">1046</VersionInfo><VersionInfo Name="CodePage">1252</VersionInfo></VersionInfo><VersionInfoKeys><VersionInfoKeys Name="CompanyName">Nextar</VersionInfoKeys><VersionInfoKeys Name="FileDescription">NexCafé Central Printer Manager</VersionInfoKeys><VersionInfoKeys Name="FileVersion">1.0.0.1</VersionInfoKeys><VersionInfoKeys Name="InternalName"></VersionInfoKeys><VersionInfoKeys Name="LegalCopyright">©2011 - Todos os direitos reservados.</VersionInfoKeys><VersionInfoKeys Name="LegalTrademarks"></VersionInfoKeys><VersionInfoKeys Name="OriginalFilename"></VersionInfoKeys><VersionInfoKeys Name="ProductName"></VersionInfoKeys><VersionInfoKeys Name="ProductVersion">1.0.0.0</VersionInfoKeys><VersionInfoKeys Name="Comments"></VersionInfoKeys></VersionInfoKeys><Source><Source Name="MainSource">nexCafe5PrintCentral.dpr</Source></Source><Excluded_Packages>
+      
+      
+      
+      <Excluded_Packages Name="C:\Comp\devex\Library\Delphi11\dcldxNavBarD11.bpl">File C:\Comp\devex\Library\Delphi11\dcldxNavBarD11.bpl not found</Excluded_Packages>
+      <Excluded_Packages Name="C:\Documents and Settings\All Users\Documentos\RAD Studio\5.0\Bpl\ncD2007.bpl">NexCafe</Excluded_Packages>
+      <Excluded_Packages Name="C:\comp\madCollection\madBasic\BDS4\madHelp_.bpl">madHelp 1.1a  -  www.madshi.net</Excluded_Packages>
+    </Excluded_Packages></Delphi.Personality></BorlandProject></BorlandProject>
+  </ProjectExtensions>
+  <Import Project="$(MSBuildBinPath)\Borland.Delphi.Targets" />
+  <ItemGroup>
+    <DelphiCompile Include="nexCafe5PrintCentral.dpr">
+      <MainSource>MainSource</MainSource>
+    </DelphiCompile>
+    <DCCReference Include="..\..\..\Comp\ncShellStart.pas" />
+    <DCCReference Include="..\..\ncgPrintInstall.pas" />
+    <DCCReference Include="..\..\ncNomeMaquina.pas" />
+    <DCCReference Include="..\..\ncPrinters.pas" />
+    <DCCReference Include="..\..\PrintComum\DX_VCL Skins\dxSkinProject1\dxSkinProject1.pas" />
+    <DCCReference Include="..\..\PrintComum\uDeleteFiles.pas" />
+    <DCCReference Include="..\..\PrintComum\uDirUtils.pas" />
+    <DCCReference Include="..\..\PrintComum\uImagem.pas" />
+    <DCCReference Include="..\..\PrintComum\uImagesScrollBox.pas" />
+    <DCCReference Include="..\..\PrintComum\uPagesScrollBox.pas" />
+    <DCCReference Include="..\..\PrintComum\uPrintManBaseClasses.pas" />
+    <DCCReference Include="..\..\PrintComum\uThumbsScrollBox.pas" />
+    <DCCReference Include="..\..\uLogs.pas" />
+    <DCCReference Include="C:\Comp\GPanel\gPanel.pas" />
+    <DCCReference Include="C:\Comp\madCollection\madKernel\Sources\madKernel.pas" />
+    <DCCReference Include="C:\Comp\varios\cadVersionInfo.pas" />
+    <DCCReference Include="C:\Comp\varios\Int64List.pas" />
+    <DCCReference Include="C:\Comp\varios\IPHelperDef.pas" />
+    <DCCReference Include="C:\Comp\varios\IPInfo.pas" />
+    <DCCReference Include="C:\Comp\varios\uJSON.pas" />
+    <DCCReference Include="uFormBackG1.pas">
+      <Form>FormBackG1</Form>
+    </DCCReference>
+    <DCCReference Include="uFormPasso1.pas">
+      <Form>FormPasso1</Form>
+    </DCCReference>
+    <DCCReference Include="uFormPasso10.pas">
+      <Form>FormPasso10</Form>
+    </DCCReference>
+    <DCCReference Include="uFormPasso2.pas">
+      <Form>FormPasso2</Form>
+    </DCCReference>
+    <DCCReference Include="uFormPasso20.pas">
+      <Form>FormPasso20</Form>
+    </DCCReference>
+    <DCCReference Include="uFormPassoQuerSair.pas">
+      <Form>FormPassoQuerSair</Form>
+    </DCCReference>
+    <DCCReference Include="uNexCafe5PrintMan.pas">
+      <Form>FormNexCafe5PrintMan</Form>
+    </DCCReference>
+  </ItemGroup>
+</Project>

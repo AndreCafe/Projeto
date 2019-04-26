@@ -1,0 +1,112 @@
+inherited dmProcEmail: TdmProcEmail
+  OldCreateOrder = True
+  Height = 355
+  Width = 425
+  inherited Msg: TIdMessage
+    ContentType = 'text/html'
+  end
+  inherited SMTP: TIdSMTP
+    Host = 'emailcaixa.nexcafe.com.br'
+  end
+  object tCriar: TnxTable
+    Database = nxDB
+    TableName = 'EmailCriar'
+    IndexName = 'IID'
+    Left = 152
+    Top = 144
+    object tCriarID: TAutoIncField
+      FieldName = 'ID'
+    end
+    object tCriarTipo: TIntegerField
+      FieldName = 'Tipo'
+    end
+    object tCriarParametros: TMemoField
+      FieldName = 'Parametros'
+      BlobType = ftMemo
+    end
+    object tCriarDestino: TMemoField
+      FieldName = 'Destino'
+      BlobType = ftMemo
+    end
+  end
+  object slHTML: TLMDStringList
+    Left = 216
+    Top = 232
+    object TLMDStringListItem
+      Ident = 0
+      Internal = {
+        08630100003C68746D6C3E0D0A3C626F64793E0D0A3C703E4F6C266161637574
+        653B2C3C2F703E0D0A3C703E536567756520656D20616E65786F206172717569
+        766F2050444620636F6E74656E646F206F2072656C6174266F61637574653B72
+        696F2064652063616978612E3C2F703E0D0A3C703E4573736520652D6D61696C
+        20666F692067657261646F206175746F6D61746963616D656E74652070656C6F
+        204E6578436166266561637574653B2E3C2F703E0D0A3C703E4361736F206E26
+        6174696C64653B6F20646573656A65206D61697320636F6E74696E7561722072
+        65636562656E646F2072656C6174266F61637574653B72696F73206465206361
+        69786120706F7220652D6D61696C2C2064657361746976652061206F70266363
+        6564696C3B266174696C64653B6F20482E38206E6F204E657841646D696E2E20
+        3C2F703E0D0A3C703E266E6273703B203C2F703E0D0A3C2F626F64793E0D0A3C
+        2F68746D6C3E0D0A}
+    end
+    object TLMDStringListItem
+      Ident = 1
+      Internal = {
+        0C01000000E60000004F6CE12C0D0A0D0A536567756520656D20616E65786F20
+        6172717569766F2050444620636F6E74656E646F206F2072656C6174F372696F
+        2064652063616978612E0D0A4573736520652D6D61696C20666F692067657261
+        646F206175746F6D61746963616D656E74652070656C6F204E6578436166E92E
+        0D0A4361736F206EE36F20646573656A65206D61697320636F6E74696E756172
+        207265636562656E646F2072656C6174F372696F732064652063616978612070
+        6F7220652D6D61696C2C206465736D61727175652061206F70E7E36F20482E38
+        206E6F204E657841646D696E2E0D0A}
+    end
+  end
+  object tPost: TnxTable
+    Database = nxDB
+    TableName = 'Post'
+    IndexName = 'IEnviar'
+    Left = 224
+    Top = 168
+    object tPostID: TAutoIncField
+      FieldName = 'ID'
+    end
+    object tPostParametros: TnxMemoField
+      FieldName = 'Parametros'
+      BlobType = ftMemo
+    end
+    object tPostHost: TStringField
+      FieldName = 'Host'
+      Size = 255
+    end
+    object tPostURL: TStringField
+      FieldName = 'URL'
+      Size = 255
+    end
+    object tPostApagarArq: TBooleanField
+      FieldName = 'ApagarArq'
+    end
+    object tPostArq: TStringField
+      FieldName = 'Arq'
+      Size = 255
+    end
+    object tPostInclusao: TDateTimeField
+      FieldName = 'Inclusao'
+    end
+    object tPostEnvio: TDateTimeField
+      FieldName = 'Envio'
+    end
+    object tPostTentativas: TWordField
+      FieldName = 'Tentativas'
+    end
+    object tPostEnviar: TBooleanField
+      FieldName = 'Enviar'
+    end
+    object tPostMsgErro: TnxMemoField
+      FieldName = 'MsgErro'
+      BlobType = ftMemo
+    end
+    object tPostOK: TBooleanField
+      FieldName = 'OK'
+    end
+  end
+end
