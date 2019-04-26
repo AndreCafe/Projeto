@@ -1,0 +1,189 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{edd2fbd7-bb04-4de6-a1ab-0ab69d0600ed}</ProjectGuid>
+    <MainSource>ncD2007.dpk</MainSource>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <DCC_DCCCompiler>DCC32</DCC_DCCCompiler>
+    <DCC_DependencyCheckOutputName>C:\Users\Public\Documents\RAD Studio\5.0\Bpl\ncD2007.bpl</DCC_DependencyCheckOutputName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <Version>7.0</Version>
+    <DCC_DebugInformation>False</DCC_DebugInformation>
+    <DCC_WriteableConstants>True</DCC_WriteableConstants>
+    <DCC_LocalDebugSymbols>False</DCC_LocalDebugSymbols>
+    <DCC_SymbolReferenceInfo>0</DCC_SymbolReferenceInfo>
+    <DCC_ExeOutput>\DiaTec</DCC_ExeOutput>
+    <DCC_DcuOutput>C:\ProjetoDCU\D2006</DCC_DcuOutput>
+    <DCC_ObjOutput>C:\ProjetoDCU\D2006</DCC_ObjOutput>
+    <DCC_HppOutput>C:\ProjetoDCU\D2006</DCC_HppOutput>
+    <DCC_Define>RELEASE</DCC_Define>
+    <DCC_UNSAFE_TYPE>True</DCC_UNSAFE_TYPE>
+    <DCC_UNSAFE_CODE>True</DCC_UNSAFE_CODE>
+    <DCC_UNSAFE_CAST>True</DCC_UNSAFE_CAST>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <Version>7.0</Version>
+    <DCC_WriteableConstants>True</DCC_WriteableConstants>
+    <DCC_ExeOutput>\DiaTec</DCC_ExeOutput>
+    <DCC_DcuOutput>C:\ProjetoDCU\D2007</DCC_DcuOutput>
+    <DCC_ObjOutput>C:\ProjetoDCU\D2007</DCC_ObjOutput>
+    <DCC_HppOutput>C:\ProjetoDCU\D2007</DCC_HppOutput>
+    <DCC_UNSAFE_TYPE>True</DCC_UNSAFE_TYPE>
+    <DCC_UNSAFE_CODE>True</DCC_UNSAFE_CODE>
+    <DCC_UNSAFE_CAST>True</DCC_UNSAFE_CAST>
+  </PropertyGroup>
+  <ProjectExtensions>
+    <Borland.Personality>Delphi.Personality</Borland.Personality>
+    <Borland.ProjectType>Package</Borland.ProjectType>
+    <BorlandProject>
+<BorlandProject><Delphi.Personality><Parameters><Parameters Name="UseLauncher">False</Parameters><Parameters Name="LoadAllSymbols">True</Parameters><Parameters Name="LoadUnspecifiedSymbols">False</Parameters></Parameters><Package_Options><Package_Options Name="PackageDescription">NexCafe</Package_Options><Package_Options Name="ImplicitBuild">True</Package_Options><Package_Options Name="DesigntimeOnly">False</Package_Options><Package_Options Name="RuntimeOnly">False</Package_Options></Package_Options><VersionInfo><VersionInfo Name="IncludeVerInfo">True</VersionInfo><VersionInfo Name="AutoIncBuild">False</VersionInfo><VersionInfo Name="MajorVer">1</VersionInfo><VersionInfo Name="MinorVer">0</VersionInfo><VersionInfo Name="Release">0</VersionInfo><VersionInfo Name="Build">0</VersionInfo><VersionInfo Name="Debug">False</VersionInfo><VersionInfo Name="PreRelease">False</VersionInfo><VersionInfo Name="Special">False</VersionInfo><VersionInfo Name="Private">False</VersionInfo><VersionInfo Name="DLL">False</VersionInfo><VersionInfo Name="Locale">1046</VersionInfo><VersionInfo Name="CodePage">1252</VersionInfo></VersionInfo><VersionInfoKeys><VersionInfoKeys Name="CompanyName"></VersionInfoKeys><VersionInfoKeys Name="FileDescription"></VersionInfoKeys><VersionInfoKeys Name="FileVersion">1.0.0.0</VersionInfoKeys><VersionInfoKeys Name="InternalName"></VersionInfoKeys><VersionInfoKeys Name="LegalCopyright"></VersionInfoKeys><VersionInfoKeys Name="LegalTrademarks"></VersionInfoKeys><VersionInfoKeys Name="OriginalFilename"></VersionInfoKeys><VersionInfoKeys Name="ProductName"></VersionInfoKeys><VersionInfoKeys Name="ProductVersion">1.0.0.0</VersionInfoKeys><VersionInfoKeys Name="Comments"></VersionInfoKeys></VersionInfoKeys><Excluded_Packages>
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      <Excluded_Packages Name="C:\Users\Public\Documents\RAD Studio\5.0\Bpl\PngComponentsD11R.bpl">PNG Components runtime</Excluded_Packages>
+      <Excluded_Packages Name="C:\Comp\DevEx\Developer Express.VCL\Library\Delphi11\dxSkinsCoreD11.bpl">ExpressSkins Library by Developer Express Inc.</Excluded_Packages>
+      <Excluded_Packages Name="C:\Users\Public\Documents\RAD Studio\5.0\Bpl\MessagingPlugin.bpl">(untitled)</Excluded_Packages>
+      <Excluded_Packages Name="C:\Users\Public\Documents\RAD Studio\5.0\Bpl\NexusDB303dv110.bpl">File C:\Users\Public\Documents\RAD Studio\5.0\Bpl\NexusDB303dv110.bpl not found</Excluded_Packages>
+      <Excluded_Packages Name="C:\Users\Public\Documents\RAD Studio\5.0\Bpl\cad_D2007.bpl">CAD - Components</Excluded_Packages>
+      <Excluded_Packages Name="C:\Users\Public\Documents\RAD Studio\5.0\Bpl\dcldxSkinscxPCPainterD11.bpl">ExpressSkins Library Painter for PageControl by Developer Express Inc.</Excluded_Packages>
+      <Excluded_Packages Name="C:\Users\Public\Documents\RAD Studio\5.0\Bpl\dxSkinscxPCPainterD11.bpl">ExpressSkins Library Painter for PageControl by Developer Express Inc.</Excluded_Packages>
+      <Excluded_Packages Name="C:\Users\Public\Documents\RAD Studio\5.0\Bpl\dcldxSkinsdxLCPainterD11.bpl">ExpressSkins Library Uses Clause Auto Fill Helper for LayoutControl Painter by Developer Express Inc.</Excluded_Packages>
+      <Excluded_Packages Name="C:\Users\Public\Documents\RAD Studio\5.0\Bpl\dxSkinsdxLCPainterD11.bpl">ExpressSkins Library Painter for LayoutControl by Developer Express Inc.</Excluded_Packages>
+      <Excluded_Packages Name="C:\Users\Public\Documents\RAD Studio\5.0\Bpl\PNG_D2007.bpl">File C:\Users\Public\Documents\RAD Studio\5.0\Bpl\PNG_D2007.bpl not found</Excluded_Packages>
+      <Excluded_Packages Name="C:\Users\Public\Documents\RAD Studio\5.0\Bpl\MWChatD2007.bpl">File C:\Users\Public\Documents\RAD Studio\5.0\Bpl\MWChatD2007.bpl not found</Excluded_Packages>
+      <Excluded_Packages Name="C:\Users\Public\Documents\RAD Studio\5.0\Bpl\msgplugnx1d7.bpl">File C:\Users\Public\Documents\RAD Studio\5.0\Bpl\msgplugnx1d7.bpl not found</Excluded_Packages>
+      <Excluded_Packages Name="C:\Users\Public\Documents\RAD Studio\5.0\Bpl\dclcxPivotGridD11.bpl">ExpressPivotGrid (VCL Edition) by Developer Express Inc.</Excluded_Packages>
+      <Excluded_Packages Name="$(BDS)\bin\dcloffice2k100.bpl">Microsoft Office 2000 Sample Automation Server Wrapper Components</Excluded_Packages>
+      <Excluded_Packages Name="$(BDS)\bin\dclofficexp100.bpl">Microsoft Office XP Sample Automation Server Wrapper Components</Excluded_Packages>
+    </Excluded_Packages><Source><Source Name="MainSource">ncD2007.dpk</Source></Source></Delphi.Personality></BorlandProject></BorlandProject>
+  </ProjectExtensions>
+  <Import Project="$(MSBuildBinPath)\Borland.Delphi.Targets" />
+  <ItemGroup>
+    <DelphiCompile Include="ncD2007.dpk">
+      <MainSource>MainSource</MainSource>
+    </DelphiCompile>
+    <DCCReference Include="$(SystemRoot)\system32\ANSMTP.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\cxDataD11.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\cxEditorsD11.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\cxExtEditorsD11.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\cxGridD11.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\cxLibraryD11.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\cxPageControlD11.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\cxVerticalGridD11.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\dbrtl.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\dcldb.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\dclstd.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\designide.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\dxBarD11.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\dxComnD11.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\dxCoreD11.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\dxGDIPlusD11.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\dxsbD11.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\dxThemeD11.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\frx2007.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\frxDB2007.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\frxe2007.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\fs2007.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\GetDiskSerial10.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\HDSerialD2007.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\IndyD2007.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\kbmMemD2007Run.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\kbmMWRunD2007.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\lmdcore9rt_110.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\lmdrtl9rt_110.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\lmdrtlx9rt_110.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\ncnxServerPlugin" />
+    <DCCReference Include="$(SystemRoot)\system32\ncNXServremoto" />
+    <DCCReference Include="$(SystemRoot)\system32\NextarCSCommD2007.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\NexusDB304ch110.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\NexusDB304lg110.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\NexusDB304pt110.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\NexusDB304re110.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\NexusDB304sq110.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\NexusDB304tw110.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\ObjPngComponentsD11R.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\ObjPoolPngComponentsD11R.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\ObjPool_2007PngComponentsD11R.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\ObjPool_200PngComponentsD11R.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\ObjPool_20PngComponentsD11R.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\ObjPool_2PngComponentsD11R.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\ObjPool_PngComponentsD11R.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\ObjPooPngComponentsD11R.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\ObjPoPngComponentsD11R.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\ObjPPngComponentsD11R.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\ObPngComponentsD11R.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\OPngComponentsD11R.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\PngComponentsD11R.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\PngImageD11DR.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\rtcSDK.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\rtl.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\UDPAdvD2007.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\Utils2007R.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\vcl.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\vclactnband.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\vcldb.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\vcldesigner.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\vclimg.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\vcljpg.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\vclx.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\WindNextarCSCommD2007.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\WindoNextarCSCommD2007.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\WindowLiNextarCSCommD2007.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\WindowLisNextarCSCommD2007.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\WindowListD2007.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\WindowListD2007NextarCSCommD2007.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\WindowListD200NextarCSCommD2007.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\WindowListD20NextarCSCommD2007.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\WindowListD2NextarCSCommD2007.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\WindowListDNextarCSCommD2007.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\WindowListNextarCSCommD2007.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\WindowLNextarCSCommD2007.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\WindowNextarCSCommD2007.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\WiNextarCSCommD2007.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\WinNextarCSCommD2007.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\WNextarCSCommD2007.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\xmlrtl.dcp" />
+    <DCCReference Include="..\..\GS\uLicEXECryptor.pas" />
+    <DCCReference Include="ncAuxPassaporte.pas" />
+    <DCCReference Include="ncClassesBase.pas" />
+    <DCCReference Include="ncCompCliente.pas" />
+    <DCCReference Include="ncCredTempo.pas" />
+    <DCCReference Include="ncDebito.pas" />
+    <DCCReference Include="ncDMCaixa.pas" />
+    <DCCReference Include="ncDMServ.pas" />
+    <DCCReference Include="ncErros.pas" />
+    <DCCReference Include="ncIDRecursos.pas" />
+    <DCCReference Include="ncImpressao.pas" />
+    <DCCReference Include="ncItemTran.pas" />
+    <DCCReference Include="ncListaID.pas" />
+    <DCCReference Include="ncMovEst.pas" />
+    <DCCReference Include="ncMsgCom.pas" />
+    <DCCReference Include="ncNetMsg.pas" />
+    <DCCReference Include="ncPassaportes.pas" />
+    <DCCReference Include="ncServAtualizaLic.pas" />
+    <DCCReference Include="ncServBase.pas" />
+    <DCCReference Include="ncServBD.pas">
+      <Form>FFEM</Form>
+      <DesignClass>TnxBaseEngineManager</DesignClass>
+    </DCCReference>
+    <DCCReference Include="ncServReg.pas" />
+    <DCCReference Include="ncSessao.pas" />
+    <DCCReference Include="ncTableDefs.pas" />
+    <DCCReference Include="ncTarifador.pas" />
+    <DCCReference Include="ncTran.pas" />
+  </ItemGroup>
+</Project>

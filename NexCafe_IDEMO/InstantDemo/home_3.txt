@@ -1,0 +1,16 @@
+C:\Projetos\NexCafe\NexCafe_IDEMO\InstantDemo\home_3.swf
+Build 1 successfully completed
+Created at: Fri Dec 02 13:00:16 2011
+Flash player required: v6.0 or above
+Size: 357 KB
+Total frames in main movie: 1260
+Playback frame rate: 20
+Approximate playback time: 63 seconds
+
+Annotated text transcript:
+
+Controle automático de impressões
+Transferir cliente de máquina
+Desligar ou Reiniciar Computadores
+Lista de Espera
+Chat entre atendente e clientes

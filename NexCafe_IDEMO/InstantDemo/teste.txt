@@ -1,0 +1,8 @@
+C:\Documents and Settings\IBM\My Documents\InstantDemo\Projects\teste.swf
+Build successfully completed
+Created at: Tue Mar 20 15:18:54 2007
+Flash player required: v6.0 or above
+Size: 251 KB
+Total frames in main movie: 1120
+Playback frame rate: 20
+Approximate playback time: 56 seconds

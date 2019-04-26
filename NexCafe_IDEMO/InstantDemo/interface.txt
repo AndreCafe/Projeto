@@ -1,0 +1,46 @@
+C:\Projetos\NexCafe\InstantDemo\interface.swf
+Build successfully completed
+Created at: Tue Jul 17 00:23:15 2007
+Flash player required: v6.0 or above
+Size: 952 KB
+Total frames in main movie: 5580
+Playback frame rate: 20
+Approximate playback time: 279 seconds
+
+Annotated text transcript:
+
+Aprenda agora os conceitos básicos da interface do NexCafé. 
+
+Vamos acessar o Administrador do NexCafé
+Na barra de atalhos você escolhe qual módulo deseja acessar
+No momento o módulo de Máquinas está selecionado. Esse é o módulo principal. Nele são realizadas as principais tarefas de atendimento aos cliente.
+No módulo de clientes, temos a lista de clientes cadastrados da loja.
+No topo da tela sempre aparecem os botões com as funções disponíveis para o módulo selecionado.
+... por exemplo: para cadastrar um novo cliente clicamos no botão Novo.
+No Editar poderíamos corrigir qualquer informação cadastral de um cliente ...
+... e nesse botão poderíamos excluir um cliente. 
+Esse é o módulo de produtos
+Nele podemos cadastrar produtos, definir o preço de venda, dar entrada no estoque, consultar o histórico de movimentações do produto, entre outras funções ...
+No módulo de impressões o NexCafé lista as impressões realizadas pelos clientes.
+Em caixa podemos abrir o caixa, fecha-lo, consultar total do momento, ver as transações do caixa e outras funções ...
+Em opções você ajustar diversos aspectos de funcionamento do NexCafé.
+O módulo de tarifas é usado para definir o valor a ser cobrado pelo uso dos computadores e da impressão.
+Em usuários você pode cadastrar os funcionários da loja e definir o que eles e o que não podem fazer dentro do programa.
+Em bloqueio de sites você pode incluir os sites que deseja bloquear o acesso pelos clientes.
+
+A barra de atalhos pode ser escondida clicando no ícone da tachinha.
+Basta passar o mouse em cima que os atalhos abre-se automaticamente como veremos a seguir.
+Passamos o mouse em cima de atalhos e clicamos em Clientes ...
+Quando afastamos o mouse os atalhos voltam a se fechar automaticamente.
+
+Podemos fixar a tela de atalhos novamente.
+O mesmo conceito vale para a Lista de Espera e para o CHAT. Eles estão escondidos à direita do NexAdmin.
+Se passamos o mouse em cima a lista de espera abre.
+Se afastamos o mouse ela fecha sozinha.
+O mouse acontece com o CHAT.
+Podemos usar a tachinha aqui também e ...
+... a tela de CHAT fica sempre vísivel.
+No topo da tela temos algumas funções básicas ...
+Nesse botão podemos alterar a senha
+Nesse podemos selecionar os módulos (mesma função dos atalhos)
+Podemos então SAIR do NexCafé Administrador !

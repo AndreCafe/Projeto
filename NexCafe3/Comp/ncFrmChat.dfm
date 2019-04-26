@@ -1,0 +1,200 @@
+object FrmBaseChat: TFrmBaseChat
+  Left = 359
+  Top = 168
+  Caption = 'FrmBaseChat'
+  ClientHeight = 456
+  ClientWidth = 285
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  KeyPreview = True
+  OldCreateOrder = False
+  OnCreate = FormCreate
+  PixelsPerInch = 96
+  TextHeight = 13
+  object panPri: TLMDSplitterPanel
+    Left = 0
+    Top = 0
+    Width = 285
+    Height = 456
+    Bevel.BorderColor = clYellow
+    Bevel.Mode = bmCustom
+    Bevel.StandardStyle = lsSingle
+    Bars = <
+      item
+        OldPosition = -1
+        Position = 339
+        PosPercent = 75
+      end>
+    Orientation = spHorzDown
+    Align = alClient
+    TabOrder = 0
+    object LMDSplitterPane1: TLMDSplitterPane
+      Bevel.Mode = bmStandard
+      object Grid: TcxGrid
+        Left = 0
+        Top = 0
+        Width = 283
+        Height = 337
+        Align = alClient
+        TabOrder = 0
+        OnEnter = RVEnter
+        object TV: TcxGridTableView
+          OnMouseMove = RVMouseMove
+          NavigatorButtons.ConfirmDelete = False
+          DataController.Summary.DefaultGroupSummaryItems = <>
+          DataController.Summary.FooterSummaryItems = <>
+          DataController.Summary.SummaryGroups = <>
+          OptionsData.CancelOnExit = False
+          OptionsData.Deleting = False
+          OptionsData.DeletingConfirmation = False
+          OptionsData.Editing = False
+          OptionsData.Inserting = False
+          OptionsSelection.CellSelect = False
+          OptionsSelection.HideFocusRectOnExit = False
+          OptionsSelection.UnselectFocusedRecordOnExit = False
+          OptionsView.NoDataToDisplayInfoText = '...'
+          OptionsView.ColumnAutoWidth = True
+          OptionsView.GroupByBox = False
+          OptionsView.Header = False
+          Preview.Column = TVTexto
+          Preview.MaxLineCount = 500
+          Preview.Visible = True
+          object TVQuem: TcxGridColumn
+            OnCustomDrawCell = TVQuemCustomDrawCell
+          end
+          object TVTexto: TcxGridColumn
+          end
+          object TVAtendente: TcxGridColumn
+            Visible = False
+          end
+        end
+        object GL: TcxGridLevel
+          GridView = TV
+        end
+      end
+    end
+    object LMDSplitterPane2: TLMDSplitterPane
+      Bevel.Mode = bmStandard
+      object meTexto: TMemo
+        Left = 0
+        Top = 0
+        Width = 225
+        Height = 112
+        Align = alClient
+        BorderStyle = bsNone
+        Color = clWhite
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clBlack
+        Font.Height = -11
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        Lines.Strings = (
+          '')
+        ParentFont = False
+        TabOrder = 0
+        OnChange = meTextoChange
+        OnEnter = meTextoEnter
+        OnExit = meTextoExit
+        OnKeyUp = meTextoKeyUp
+        OnMouseMove = RVMouseMove
+      end
+      object panEnviar: TLMDSimplePanel
+        Left = 225
+        Top = 0
+        Width = 58
+        Height = 112
+        Align = alRight
+        Bevel.BorderSides = []
+        Bevel.EdgeStyle = etSunkenOuter
+        Bevel.Mode = bmEdge
+        Color = clWhite
+        TabOrder = 1
+        OnMouseMove = RVMouseMove
+        object lbMaq: TLabel
+          Left = 9
+          Top = 38
+          Width = 40
+          Height = 11
+          Alignment = taCenter
+          Caption = 'Para &Maq'
+          FocusControl = edMaq
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -9
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+        end
+        object edMaq: TcxComboBox
+          Left = 4
+          Top = 52
+          ParentFont = False
+          Properties.Alignment.Horz = taCenter
+          Properties.Alignment.Vert = taVCenter
+          Properties.DropDownListStyle = lsFixedList
+          Properties.DropDownSizeable = True
+          Properties.ImmediatePost = True
+          Properties.ImmediateUpdateText = True
+          Properties.Items.Strings = (
+            '1'
+            '2'
+            '3'
+            '4'
+            '5'
+            '6'
+            '7'
+            '8'
+            '9'
+            '10')
+          Properties.PostPopupValueOnTab = True
+          Properties.OnCloseUp = edMaqPropertiesCloseUp
+          Properties.OnInitPopup = edMaqPropertiesInitPopup
+          Style.BorderStyle = ebsSingle
+          Style.Color = clWhite
+          Style.Font.Charset = ANSI_CHARSET
+          Style.Font.Color = clWindowText
+          Style.Font.Height = -13
+          Style.Font.Name = 'Verdana'
+          Style.Font.Style = [fsBold]
+          Style.LookAndFeel.NativeStyle = False
+          Style.TextColor = clBlack
+          Style.TransparentBorder = False
+          Style.ButtonTransparency = ebtNone
+          Style.IsFontAssigned = True
+          StyleDisabled.LookAndFeel.NativeStyle = False
+          StyleFocused.LookAndFeel.NativeStyle = False
+          StyleHot.LookAndFeel.NativeStyle = False
+          TabOrder = 0
+          OnEnter = edMaqEnter
+          OnExit = edMaqExit
+          Width = 51
+        end
+        object btnEnviar: TcxButton
+          Left = 2
+          Top = 2
+          Width = 54
+          Height = 31
+          Caption = 'En&viar'
+          Default = True
+          Enabled = False
+          TabOrder = 1
+          OnClick = btnEnviarClick
+          LookAndFeel.Kind = lfFlat
+          LookAndFeel.NativeStyle = False
+          Spacing = 1
+        end
+      end
+    end
+  end
+  object TimerAtencao: TTimer
+    Enabled = False
+    Interval = 500
+    OnTimer = TimerAtencaoTimer
+    Left = 160
+    Top = 208
+  end
+end

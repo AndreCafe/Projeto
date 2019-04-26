@@ -1,0 +1,20 @@
+C:\Documents and Settings\IBM\My Documents\InstantDemo\Projects\novidades25_5.swf
+Build successfully completed
+Created at: Mon Apr 16 16:54:04 2007
+Flash player required: v6.0 or above
+Size: 415 KB
+Total frames in main movie: 1600
+Playback frame rate: 20
+Approximate playback time: 80 seconds
+
+Annotated text transcript:
+
+NexCafé 2.5
+
+Novidade 5: Caixa por E-mail
+Ao fechar o caixa o sistema vai enviar um relatório para sua conta de E-mail, contendo o resumo financeiro do caixa.
+Vamos checar na caixa de e-mail se o relatório já chegou. Isso poderia ser recebido também em e-mail por web como Gmail, Hotmail etc...
+Aqui está o e-mail do caixa !
+Vamos abri-lo.
+O arquivo em anexo contém o relatório de caixa.
+Podemos imprimir ou salvar.

@@ -1,0 +1,101 @@
+package ncD2007;
+
+{$R *.res}
+{$ALIGN 8}
+{$ASSERTIONS ON}
+{$BOOLEVAL OFF}
+{$DEBUGINFO ON}
+{$EXTENDEDSYNTAX ON}
+{$IMPORTEDDATA ON}
+{$IOCHECKS ON}
+{$LOCALSYMBOLS ON}
+{$LONGSTRINGS ON}
+{$OPENSTRINGS ON}
+{$OPTIMIZATION ON}
+{$OVERFLOWCHECKS OFF}
+{$RANGECHECKS OFF}
+{$REFERENCEINFO ON}
+{$SAFEDIVIDE OFF}
+{$STACKFRAMES OFF}
+{$TYPEDADDRESS OFF}
+{$VARSTRINGCHECKS ON}
+{$WRITEABLECONST ON}
+{$MINENUMSIZE 1}
+{$IMAGEBASE $400000}
+{$DESCRIPTION 'NexCafe'}
+{$IMPLICITBUILD OFF}
+
+requires
+  vcl,
+  vcldb,
+  vclx,
+  Utils2007R,
+  EmailDMnx1,
+  HDSerialD2007,
+  kbmMemD2007Runnx1,
+  kbmMWRunD2007nx1,
+  rtl,
+  dbrtl,
+  dclstd,
+  designide,
+  xmlrtl,
+  vclactnband,
+  vcldesigner,
+  dcldb,
+  bdertl,
+  vcljpg,
+  NexusDB108sq90,
+  NexusDB108re90,
+  NexusDB108tw90,
+  NexusDB108ch90,
+  cxLibraryD11,
+  dxThemeD11,
+  cxEditorsD11,
+  cxDataD11,
+  cxExtEditorsD11,
+  frx2007,
+  frxe2007,
+  NexusDB108pt90,
+  fs2007,
+  NextarCSCommD2007,
+  frxDB2007,
+  vclimg,
+  NexusDB108sd90,
+  NexusDB108ll90,
+  NexusDB108db90,
+  NexusDB108sr90,
+  NexusDB1081x90,
+  IndyD2007,
+  ObjPool_2007nx1,
+  GetDiskSerial10;
+
+contains
+  ncServBase in 'ncServBase.pas',
+  ncServBD in 'ncServBD.pas' {FFEM: TnxBaseEngineManager},
+  ncServReg in 'ncServReg.pas',
+  ncCompCliente in 'ncCompCliente.pas',
+  ncClassesBase in 'ncClassesBase.pas',
+  ncNetMsg in 'ncNetMsg.pas',
+  ncTarifador in 'ncTarifador.pas',
+  ncAuxPassaporte in 'ncAuxPassaporte.pas',
+  ncTran in 'ncTran.pas',
+  ncDMServ in 'ncDMServ.pas',
+  ncPassaportes in 'ncPassaportes.pas',
+  ncSessao in 'ncSessao.pas',
+  ncMovEst in 'ncMovEst.pas',
+  ncErros in 'ncErros.pas',
+  ncItemTran in 'ncItemTran.pas',
+  ncCredTempo in 'ncCredTempo.pas',
+  ncImpressao in 'ncImpressao.pas',
+  ncDebito in 'ncDebito.pas',
+  ncDMCaixa in 'ncDMCaixa.pas',
+  ncIDRecursos in 'ncIDRecursos.pas',
+  ncListaID in 'ncListaID.pas',
+  ncMsgCom in 'ncMsgCom.pas',
+  ncServAtualizaLic in 'ncServAtualizaLic.pas',
+  ncEstruturaTabs in 'ncEstruturaTabs.pas',
+  uLicEXECryptor in '..\..\GS\uLicEXECryptor.pas',
+  ncNXServremoto,
+  ncnxServerPlugin;
+
+end.

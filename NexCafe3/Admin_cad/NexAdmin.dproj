@@ -1,0 +1,317 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{7ae3a1b8-0bc8-4aca-8219-4393464dfae7}</ProjectGuid>
+    <MainSource>NexAdmin.dpr</MainSource>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <DCC_DCCCompiler>DCC32</DCC_DCCCompiler>
+    <DCC_DependencyCheckOutputName>C:\Meus Programas\NexCafe\NexAdmin.exe</DCC_DependencyCheckOutputName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <Version>7.0</Version>
+    <DCC_DebugInformation>False</DCC_DebugInformation>
+    <DCC_LocalDebugSymbols>False</DCC_LocalDebugSymbols>
+    <DCC_SymbolReferenceInfo>0</DCC_SymbolReferenceInfo>
+    <DCC_MapFile>3</DCC_MapFile>
+    <DCC_ExeOutput>c:\meus programas\nexcafe</DCC_ExeOutput>
+    <DCC_DcuOutput>C:\ProjetoDCU\D2006</DCC_DcuOutput>
+    <DCC_ObjOutput>C:\ProjetoDCU\D2006</DCC_ObjOutput>
+    <DCC_HppOutput>C:\ProjetoDCU\D2006</DCC_HppOutput>
+    <DCC_Define>RELEASE</DCC_Define>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <Version>7.0</Version>
+    <DCC_MapFile>3</DCC_MapFile>
+    <DCC_ExeOutput>C:\Meus Programas\NexCafe</DCC_ExeOutput>
+    <DCC_DcuOutput>C:\ProjetoDCU\D2006</DCC_DcuOutput>
+    <DCC_ObjOutput>C:\ProjetoDCU\D2006</DCC_ObjOutput>
+    <DCC_HppOutput>C:\ProjetoDCU\D2006</DCC_HppOutput>
+    <DCC_Define>DEBUG</DCC_Define>
+  </PropertyGroup>
+  <ProjectExtensions>
+    <Borland.Personality>Delphi.Personality</Borland.Personality>
+    <Borland.ProjectType>VCLApplication</Borland.ProjectType>
+    <BorlandProject>
+<BorlandProject><Delphi.Personality><Parameters><Parameters Name="UseLauncher">False</Parameters><Parameters Name="LoadAllSymbols">True</Parameters><Parameters Name="LoadUnspecifiedSymbols">False</Parameters><Parameters Name="RunParams">imp</Parameters></Parameters><VersionInfo><VersionInfo Name="IncludeVerInfo">True</VersionInfo><VersionInfo Name="AutoIncBuild">False</VersionInfo><VersionInfo Name="MajorVer">2</VersionInfo><VersionInfo Name="MinorVer">5</VersionInfo><VersionInfo Name="Release">0</VersionInfo><VersionInfo Name="Build">68</VersionInfo><VersionInfo Name="Debug">False</VersionInfo><VersionInfo Name="PreRelease">False</VersionInfo><VersionInfo Name="Special">False</VersionInfo><VersionInfo Name="Private">False</VersionInfo><VersionInfo Name="DLL">False</VersionInfo><VersionInfo Name="Locale">1046</VersionInfo><VersionInfo Name="CodePage">1252</VersionInfo></VersionInfo><VersionInfoKeys><VersionInfoKeys Name="CompanyName">Nextar</VersionInfoKeys><VersionInfoKeys Name="FileDescription">Admnistrador NexCafé</VersionInfoKeys><VersionInfoKeys Name="FileVersion">2.5.0.68</VersionInfoKeys><VersionInfoKeys Name="InternalName">NexAdmin</VersionInfoKeys><VersionInfoKeys Name="LegalCopyright"></VersionInfoKeys><VersionInfoKeys Name="LegalTrademarks"></VersionInfoKeys><VersionInfoKeys Name="OriginalFilename">NexAdmin</VersionInfoKeys><VersionInfoKeys Name="ProductName">NexCafé</VersionInfoKeys><VersionInfoKeys Name="ProductVersion">2</VersionInfoKeys><VersionInfoKeys Name="Comments"></VersionInfoKeys></VersionInfoKeys><Source><Source Name="MainSource">NexAdmin.dpr</Source></Source><Excluded_Packages>
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      <Excluded_Packages Name="$(BDS)\bin\dclofficexp100.bpl">Microsoft Office XP Sample Automation Server Wrapper Components</Excluded_Packages>
+      <Excluded_Packages Name="$(BDS)\RaveReports\Lib\dclRave.bpl">Rave Reports 7.5 BE Package</Excluded_Packages>
+      <Excluded_Packages Name="$(BDS)\Bin\dclIndyCore100.bpl">Indy 10 Core Design Time</Excluded_Packages>
+      <Excluded_Packages Name="$(BDS)\Bin\dclIndyProtocols100.bpl">Indy 10 Protocols Design Time</Excluded_Packages>
+      <Excluded_Packages Name="$(BDS)\bin\dcloffice2k100.bpl">Microsoft Office 2000 Sample Automation Server Wrapper Components</Excluded_Packages>
+    </Excluded_Packages></Delphi.Personality></BorlandProject></BorlandProject>
+  </ProjectExtensions>
+  <Import Project="$(MSBuildBinPath)\Borland.Delphi.Targets" />
+  <ItemGroup>
+    <DelphiCompile Include="NexAdmin.dpr">
+      <MainSource>MainSource</MainSource>
+    </DelphiCompile>
+    <DCCReference Include="..\..\Email\uDMEmail.pas">
+      <Form>dmEmail</Form>
+      <DesignClass>TDataModule</DesignClass>
+    </DCCReference>
+    <DCCReference Include="..\..\FormMgr\ufmFormBase.pas">
+      <Form>FrmBase</Form>
+      <DesignClass>TFrmBasePai</DesignClass>
+    </DCCReference>
+    <DCCReference Include="..\..\FormMgr\ufmImagens.pas">
+      <Form>dmImagens</Form>
+      <DesignClass>TDataModule</DesignClass>
+    </DCCReference>
+    <DCCReference Include="..\Comp\ncAuxPassaporte.pas" />
+    <DCCReference Include="..\Comp\ncClassesBase.pas" />
+    <DCCReference Include="..\Comp\ncCompCliente.pas" />
+    <DCCReference Include="..\Comp\ncCredTempo.pas" />
+    <DCCReference Include="..\Comp\ncDebito.pas" />
+    <DCCReference Include="..\Comp\ncDebTempo.pas" />
+    <DCCReference Include="..\Comp\ncDMCaixa.pas">
+      <Form>dmCaixa</Form>
+      <DesignClass>TDataModule</DesignClass>
+    </DCCReference>
+    <DCCReference Include="..\Comp\ncDMServ.pas">
+      <Form>DM</Form>
+      <DesignClass>TDataModule</DesignClass>
+    </DCCReference>
+    <DCCReference Include="..\Comp\ncFrmChat.pas">
+      <Form>FrmBaseChat</Form>
+    </DCCReference>
+    <DCCReference Include="..\Comp\ncFrmSuporteRem.pas">
+      <Form>FrmSuporte</Form>
+    </DCCReference>
+    <DCCReference Include="..\Comp\ncIDRecursos.pas" />
+    <DCCReference Include="..\Comp\ncImpressao.pas" />
+    <DCCReference Include="..\Comp\ncLancExtra.pas" />
+    <DCCReference Include="..\Comp\ncListaEspera.pas" />
+    <DCCReference Include="..\Comp\ncMovEst.pas" />
+    <DCCReference Include="..\Comp\ncNetMsg.pas" />
+    <DCCReference Include="..\Comp\ncPassaportes.pas" />
+    <DCCReference Include="..\Comp\ncServRemoto.pas" />
+    <DCCReference Include="..\Comp\ncSessao.pas" />
+    <DCCReference Include="..\Comp\ncTarifador.pas" />
+    <DCCReference Include="..\Comp\ncTran.pas" />
+    <DCCReference Include="..\Comp\ncVersoes.pas" />
+    <DCCReference Include="..\Comp\udmLogmein.pas">
+      <Form>dmLogmein</Form>
+      <DesignClass>TDataModule</DesignClass>
+    </DCCReference>
+    <DCCReference Include="C:\comp\gif\Sources\gifimage.pas" />
+    <DCCReference Include="ncaColorConv.pas" />
+    <DCCReference Include="ncaDM.pas">
+      <Form>Dados</Form>
+      <DesignClass>TDataModule</DesignClass>
+    </DCCReference>
+    <DCCReference Include="ncaDMComp.pas">
+      <Form>dmComp</Form>
+      <DesignClass>TDataModule</DesignClass>
+    </DCCReference>
+    <DCCReference Include="ncafbAvisos.pas">
+      <Form>fbAvisos</Form>
+      <DesignClass>TFrmBasePai</DesignClass>
+    </DCCReference>
+    <DCCReference Include="ncafbCaixa.pas">
+      <Form>fbCaixa</Form>
+      <DesignClass>TFrmBasePai</DesignClass>
+    </DCCReference>
+    <DCCReference Include="ncafbCaixasA.pas">
+      <Form>fbCaixasA</Form>
+      <DesignClass>TFrmBasePai</DesignClass>
+    </DCCReference>
+    <DCCReference Include="ncafbClientes.pas">
+      <Form>fbClientes</Form>
+      <DesignClass>TFrmBasePai</DesignClass>
+    </DCCReference>
+    <DCCReference Include="ncafbFiltroWeb.pas">
+      <Form>fbFiltroWeb</Form>
+      <DesignClass>TFrmBasePai</DesignClass>
+    </DCCReference>
+    <DCCReference Include="ncafbImp.pas">
+      <Form>fbImp</Form>
+      <DesignClass>TFrmBasePai</DesignClass>
+    </DCCReference>
+    <DCCReference Include="ncafbListaEspera.pas">
+      <Form>fbListaEspera</Form>
+      <DesignClass>TFrmBasePai</DesignClass>
+    </DCCReference>
+    <DCCReference Include="ncafbMaquinas.pas">
+      <Form>fbMaquinas</Form>
+      <DesignClass>TFrmBasePai</DesignClass>
+    </DCCReference>
+    <DCCReference Include="ncafbMovEst.pas">
+      <Form>fbMovEst</Form>
+      <DesignClass>TFrmBasePai</DesignClass>
+    </DCCReference>
+    <DCCReference Include="ncafbOpcoes.pas">
+      <Form>fbOpcoes</Form>
+      <DesignClass>TFrmBasePai</DesignClass>
+    </DCCReference>
+    <DCCReference Include="ncafbPacotes.pas">
+      <Form>fbPacotes</Form>
+      <DesignClass>TFrmBasePai</DesignClass>
+    </DCCReference>
+    <DCCReference Include="ncafbPass.pas">
+      <Form>fbPassaportes</Form>
+      <DesignClass>TFrmBasePai</DesignClass>
+    </DCCReference>
+    <DCCReference Include="ncafbPatrocinadores.pas">
+      <Form>fbPatrocinadores</Form>
+      <DesignClass>TFrmBasePai</DesignClass>
+    </DCCReference>
+    <DCCReference Include="ncafbPesqCli.pas">
+      <Form>fbPesqCli</Form>
+      <DesignClass>TFrmBasePai</DesignClass>
+    </DCCReference>
+    <DCCReference Include="ncafbProdutos.pas">
+      <Form>fbProdutos</Form>
+      <DesignClass>TFrmBasePai</DesignClass>
+    </DCCReference>
+    <DCCReference Include="ncafbTarBasica.pas">
+      <Form>fbTarBasica</Form>
+      <DesignClass>TFrmBasePai</DesignClass>
+    </DCCReference>
+    <DCCReference Include="ncafbTarifas.pas">
+      <Form>fbTarifas</Form>
+      <DesignClass>TFrmBasePai</DesignClass>
+    </DCCReference>
+    <DCCReference Include="ncafbTipoPass.pas">
+      <Form>fbTiposPass</Form>
+      <DesignClass>TFrmBasePai</DesignClass>
+    </DCCReference>
+    <DCCReference Include="ncafbTiposAcesso.pas">
+      <Form>fbTiposAcesso</Form>
+      <DesignClass>TFrmBasePai</DesignClass>
+    </DCCReference>
+    <DCCReference Include="ncafbTiposImp.pas">
+      <Form>fbTiposImp</Form>
+      <DesignClass>TFrmBasePai</DesignClass>
+    </DCCReference>
+    <DCCReference Include="ncafbTran.pas">
+      <Form>fbTran</Form>
+      <DesignClass>TFrmBasePai</DesignClass>
+    </DCCReference>
+    <DCCReference Include="ncafbUsuarios.pas">
+      <Form>fbUsuarios</Form>
+      <DesignClass>TFrmBasePai</DesignClass>
+    </DCCReference>
+    <DCCReference Include="ncaFrmAviso.pas">
+      <Form>FrmAviso</Form>
+    </DCCReference>
+    <DCCReference Include="ncaFrmCaixa.pas">
+      <Form>FrmCaixa</Form>
+    </DCCReference>
+    <DCCReference Include="ncaFrmCaptura.pas">
+      <Form>FrmCapt</Form>
+    </DCCReference>
+    <DCCReference Include="ncaFrmCliente.pas">
+      <Form>FrmCliente</Form>
+    </DCCReference>
+    <DCCReference Include="ncaFrmContato.pas">
+      <Form>FrmContato</Form>
+    </DCCReference>
+    <DCCReference Include="ncaFrmCorPreco.pas">
+      <Form>FrmCorPreco</Form>
+    </DCCReference>
+    <DCCReference Include="ncaFrmCorrigeDataCaixa.pas">
+      <Form>FrmCorrigeDataCaixa</Form>
+    </DCCReference>
+    <DCCReference Include="ncaFrmDebito.pas">
+      <Form>FrmDebito</Form>
+    </DCCReference>
+    <DCCReference Include="ncaFrmDebTempo.pas">
+      <Form>FrmDebTempo</Form>
+    </DCCReference>
+    <DCCReference Include="ncaFrmDesliga.pas">
+      <Form>FrmDesliga</Form>
+    </DCCReference>
+    <DCCReference Include="ncaFrmEspera.pas">
+      <Form>FrmEspera</Form>
+    </DCCReference>
+    <DCCReference Include="ncaFrmEtapa.pas">
+      <Form>FrmEtapa</Form>
+    </DCCReference>
+    <DCCReference Include="ncaFrmFundo.pas">
+      <Form>FrmFundo</Form>
+    </DCCReference>
+    <DCCReference Include="ncaFrmHistVer.pas">
+      <Form>FrmRTF</Form>
+    </DCCReference>
+    <DCCReference Include="ncaFrmImp.pas">
+      <Form>FrmImp</Form>
+    </DCCReference>
+    <DCCReference Include="ncaFrmImpPrePago.pas">
+      <Form>FrmImpPrePago</Form>
+    </DCCReference>
+    <DCCReference Include="ncaFrmLancExtra.pas">
+      <Form>FrmLancExtra</Form>
+    </DCCReference>
+    <DCCReference Include="ncaFrmLogin.pas">
+      <Form>FrmLogin</Form>
+    </DCCReference>
+    <DCCReference Include="ncaFrmMaq.pas">
+      <Form>FrmMaq</Form>
+    </DCCReference>
+    <DCCReference Include="ncaFrmME.pas">
+      <Form>FrmME</Form>
+    </DCCReference>
+    <DCCReference Include="ncaFrmOpcaoRelCaixa.pas">
+      <Form>FrmOpcaoRelCaixa</Form>
+    </DCCReference>
+    <DCCReference Include="ncaFrmPacote.pas">
+      <Form>FrmPacote</Form>
+    </DCCReference>
+    <DCCReference Include="ncaFrmPass.pas">
+      <Form>FrmPassaporte</Form>
+    </DCCReference>
+    <DCCReference Include="ncaFrmPatro.pas">
+      <Form>FrmPatro</Form>
+    </DCCReference>
+    <DCCReference Include="ncaFrmPri.pas">
+      <Form>FrmPri</Form>
+    </DCCReference>
+    <DCCReference Include="ncaFrmProcessos.pas">
+      <Form>FrmProcessos</Form>
+    </DCCReference>
+    <DCCReference Include="ncaFrmProduto.pas">
+      <Form>FrmProduto</Form>
+    </DCCReference>
+    <DCCReference Include="ncaFrmSenha.pas">
+      <Form>FrmAlteraSenha</Form>
+    </DCCReference>
+    <DCCReference Include="ncaFrmSessao.pas">
+      <Form>FrmSessao</Form>
+    </DCCReference>
+    <DCCReference Include="ncaFrmSite.pas">
+      <Form>FrmSite</Form>
+    </DCCReference>
+    <DCCReference Include="ncaFrmTempo.pas">
+      <Form>FrmTempo</Form>
+    </DCCReference>
+    <DCCReference Include="ncaFrmTipoAcesso.pas">
+      <Form>FrmTipoAcesso</Form>
+    </DCCReference>
+    <DCCReference Include="ncaFrmTipoImp.pas">
+      <Form>FrmTipoImp</Form>
+    </DCCReference>
+    <DCCReference Include="ncaFrmTipos.pas">
+      <Form>FrmTipos</Form>
+    </DCCReference>
+    <DCCReference Include="ncaFrmUsuario.pas">
+      <Form>FrmUsuario</Form>
+    </DCCReference>
+    <DCCReference Include="ncaFrmVendaProd.pas">
+      <Form>FrmVendaProd</Form>
+    </DCCReference>
+    <DCCReference Include="ncaFrmZerarTempo.pas">
+      <Form>FrmZeraTempo</Form>
+    </DCCReference>
+  </ItemGroup>
+</Project>

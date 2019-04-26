@@ -1,0 +1,37 @@
+C:\Projetos\NexCafe\fidelidade.swf
+Build successfully completed
+Created at: Sat Oct 25 16:09:56 2008
+Flash player required: v6.0 or above
+Size: 1350 KB
+Total frames in main movie: 8440
+Playback frame rate: 20
+Approximate playback time: 422 seconds
+
+Annotated text transcript:
+
+
+Fidelidade:
+
+Sistema de acúmulo de pontos e troca por prêmios
+
+Nesse tipo de promoção o cliente ganha pontos a cada valor gasto na loja e depois troca por prêmios.
+
+Os prêmios podem ser produtos ou créditos de tempo e podem ser concedidos de forma manual ou automática.
+
+Um exemplo de troca automática acontece nas promoções do tipo a cada 10h de acesso ganhe 1h grátis.
+
+A troca manual é útil quando o cliente tem uma variedade de prêmios diferentes para escolher.
+
+Para usar o fidelidade precisamos ativá-lo nas opções do NexCafé ...
+
+A opção número 1 ativa o fidelidade.
+
+A configuração do Fidelidade envolve basicamente 3 pontos:
+
+1- Como ocorre o acúmulo de pontos?
+
+2- O prêmio é concedido automaticamente ou manualmente?
+
+3- Quais são os prêmios disponíveis e a quantidade necessária de pontos?
+
+A quantidade de pontos a ser acumulada pode ser configurada de forma diferente conforme o tipo de operação: Uso do computador, compra de produtos ou gastos com impressões.

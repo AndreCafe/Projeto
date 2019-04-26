@@ -1,0 +1,15 @@
+C:\Users\Joao\Documents\InstantDemo\Projects\tray.swf
+Build successfully completed
+Created at: Fri Jul 13 11:26:44 2007
+Flash player required: v6.0 or above
+Size: 87 KB
+Total frames in main movie: 780
+Playback frame rate: 20
+Approximate playback time: 39 seconds
+
+Annotated text transcript:
+
+O servidor NexCafé fica minimizado ao lado do relógio do Windows
+Mas seu ícone pode estar escondido  como nesse exemplo ....
+Clique nas setas voltadas para esquerda para exibir todos ícones ...
+... e ícone do NexServ aparece!

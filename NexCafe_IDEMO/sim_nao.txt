@@ -1,0 +1,13 @@
+C:\Projetos\NexCafe\NexCafe_IDEMO\sim_nao.swf
+Build 7 successfully completed
+Created at: Fri Dec 02 17:13:28 2011
+Flash player required: v6.0 or above
+Size: 108 KB
+Total frames in main movie: 400
+Playback frame rate: 20
+Approximate playback time: 20 seconds
+
+Annotated text transcript:
+
+O botão TOTAL equivale ao SIM.
+E o botão ZERO equivale ao NÃO.

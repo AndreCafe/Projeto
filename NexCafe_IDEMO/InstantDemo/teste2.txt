@@ -1,0 +1,8 @@
+C:\Users\Joao\Documents\InstantDemo\Projects\teste2.swf
+Build successfully completed
+Created at: Thu Jun 28 17:01:34 2007
+Flash player required: v6.0 or above
+Size: 1955 KB
+Total frames in main movie: 760
+Playback frame rate: 20
+Approximate playback time: 38 seconds

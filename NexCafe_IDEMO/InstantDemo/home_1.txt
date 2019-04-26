@@ -1,0 +1,15 @@
+C:\Documents and Settings\IBM\My Documents\InstantDemo\Projects\home_1.swf
+Build successfully completed
+Created at: Tue Mar 20 16:29:36 2007
+Flash player required: v6.0 or above
+Size: 271 KB
+Total frames in main movie: 1100
+Playback frame rate: 20
+Approximate playback time: 55 seconds
+
+Annotated text transcript:
+
+Iniciando o acesso para um cliente
+Adicionando tempo para o cliente ...
+Venda de Produtos
+Fechamento de conta

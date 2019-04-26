@@ -1,0 +1,33 @@
+C:\Projetos\NexCafe\demos\inicia_acesso_clicad_livre.swf
+Build 17 successfully completed
+Created at: Fri Jan 29 23:57:42 2010
+Flash player required: v6.0 or above
+Size: 415 KB
+Total frames in main movie: 1140
+Playback frame rate: 20
+Approximate playback time: 57 seconds
+
+Annotated text transcript:
+
+
+Exemplo 1: Iniciar acesso pós-pago com tempo livre.
+
+Selecione o computador desejado.
+Clique no botão de iniciar sessão.
+Digite o nome do cliente
+clique em OK
+Selecione "Tempo Livre" 
+....e clique em Iniciar.
+
+Pronto. A máquina foi liberada.
+
+
+Clique aqui para ver o próximo exemplo: 
+
+Acesso pós-pago com limite de tempo.
+
+
+Clique aqui para ver o próximo exemplo:
+
+Iniciar acesso pós-pago com limite de tempo.
+

@@ -1,0 +1,16 @@
+C:\Projetos\NexCafe\InstantDemo\tray3.swf
+Build successfully completed
+Created at: Fri Jul 13 16:13:37 2007
+Flash player required: v6.0 or above
+Size: 35 KB
+Total frames in main movie: 340
+Playback frame rate: 20
+Approximate playback time: 17 seconds
+
+Annotated text transcript:
+
+O ícone do NexServ pode estar
+ escondido ...
+Clicando nas setas os ícones
+escondidos são exibidos ...
+Aqui está o ícone do NexServ !
