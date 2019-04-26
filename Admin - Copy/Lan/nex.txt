@@ -1,0 +1,14 @@
+última unidade
+a passar por MMX Conversion de resource string:
+
+uWinPopUp 13/3
+ncIDRecursos 12/3
+rdDesktopView 11/3
+ncaCaptura 10/3/13
+
+Pendente:
+
+..\..\Comp\ncDMServ Para ser feito por Joao
+
+
+
