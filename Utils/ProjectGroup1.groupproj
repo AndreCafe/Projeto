@@ -1,0 +1,44 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{a6e52a9c-eb98-476f-95fd-48fa1839168c}</ProjectGuid>
+  </PropertyGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Projects Include="C:\Meus Programas\LogicMove\Project8.dproj" />
+    <Projects Include="DBFView.dproj" />
+  </ItemGroup>
+  <ProjectExtensions>
+    <Borland.Personality>Default.Personality</Borland.Personality>
+    <Borland.ProjectType />
+    <BorlandProject>
+  <BorlandProject xmlns=""> <Default.Personality> </Default.Personality> </BorlandProject></BorlandProject>
+  </ProjectExtensions>
+  <Target Name="DBFView">
+    <MSBuild Projects="DBFView.dproj" Targets="" />
+  </Target>
+  <Target Name="DBFView:Clean">
+    <MSBuild Projects="DBFView.dproj" Targets="Clean" />
+  </Target>
+  <Target Name="DBFView:Make">
+    <MSBuild Projects="DBFView.dproj" Targets="Make" />
+  </Target>
+  <Target Name="Project8">
+    <MSBuild Projects="C:\Meus Programas\LogicMove\Project8.dproj" Targets="" />
+  </Target>
+  <Target Name="Project8:Clean">
+    <MSBuild Projects="C:\Meus Programas\LogicMove\Project8.dproj" Targets="Clean" />
+  </Target>
+  <Target Name="Project8:Make">
+    <MSBuild Projects="C:\Meus Programas\LogicMove\Project8.dproj" Targets="Make" />
+  </Target>
+  <Target Name="Build">
+    <CallTarget Targets="DBFView;Project8" />
+  </Target>
+  <Target Name="Clean">
+    <CallTarget Targets="DBFView:Clean;Project8:Clean" />
+  </Target>
+  <Target Name="Make">
+    <CallTarget Targets="DBFView:Make;Project8:Make" />
+  </Target>
+  <Import Condition="Exists('$(MSBuildBinPath)\Borland.Group.Targets')" Project="$(MSBuildBinPath)\Borland.Group.Targets" />
+</Project>

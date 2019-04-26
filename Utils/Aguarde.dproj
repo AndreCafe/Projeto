@@ -1,0 +1,163 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{ec3a43d4-74f8-4cb7-bc3d-e772558db43b}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <DCC_DCCCompiler>DCC32</DCC_DCCCompiler>
+    <DCC_DependencyCheckOutputName>c:\Meus Programas\Aguarde.exe</DCC_DependencyCheckOutputName>
+    <MainSource>Aguarde.dpr</MainSource>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <Version>7.0</Version>
+    <DCC_DebugInformation>False</DCC_DebugInformation>
+    <DCC_LocalDebugSymbols>False</DCC_LocalDebugSymbols>
+    <DCC_SymbolReferenceInfo>0</DCC_SymbolReferenceInfo>
+    <DCC_Define>RELEASE</DCC_Define>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <Version>7.0</Version>
+    <DCC_Define>DEBUG</DCC_Define>
+    <DCC_ExeOutput>c:\Meus Programas</DCC_ExeOutput>
+  </PropertyGroup>
+  <ProjectExtensions>
+    <Borland.Personality>Delphi.Personality</Borland.Personality>
+    <Borland.ProjectType />
+    <BorlandProject>
+<BorlandProject><Delphi.Personality><Parameters><Parameters Name="UseLauncher">False</Parameters><Parameters Name="LoadAllSymbols">True</Parameters><Parameters Name="LoadUnspecifiedSymbols">False</Parameters></Parameters><VersionInfo><VersionInfo Name="IncludeVerInfo">False</VersionInfo><VersionInfo Name="AutoIncBuild">False</VersionInfo><VersionInfo Name="MajorVer">1</VersionInfo><VersionInfo Name="MinorVer">0</VersionInfo><VersionInfo Name="Release">0</VersionInfo><VersionInfo Name="Build">0</VersionInfo><VersionInfo Name="Debug">False</VersionInfo><VersionInfo Name="PreRelease">False</VersionInfo><VersionInfo Name="Special">False</VersionInfo><VersionInfo Name="Private">False</VersionInfo><VersionInfo Name="DLL">False</VersionInfo><VersionInfo Name="Locale">1046</VersionInfo><VersionInfo Name="CodePage">1252</VersionInfo></VersionInfo><VersionInfoKeys><VersionInfoKeys Name="CompanyName"></VersionInfoKeys><VersionInfoKeys Name="FileDescription"></VersionInfoKeys><VersionInfoKeys Name="FileVersion">1.0.0.0</VersionInfoKeys><VersionInfoKeys Name="InternalName"></VersionInfoKeys><VersionInfoKeys Name="LegalCopyright"></VersionInfoKeys><VersionInfoKeys Name="LegalTrademarks"></VersionInfoKeys><VersionInfoKeys Name="OriginalFilename"></VersionInfoKeys><VersionInfoKeys Name="ProductName"></VersionInfoKeys><VersionInfoKeys Name="ProductVersion">1.0.0.0</VersionInfoKeys><VersionInfoKeys Name="Comments"></VersionInfoKeys></VersionInfoKeys><Source><Source Name="MainSource">Aguarde.dpr</Source></Source></Delphi.Personality></BorlandProject></BorlandProject>
+  </ProjectExtensions>
+  <Import Project="$(MSBuildBinPath)\Borland.Delphi.Targets" />
+  <ItemGroup>
+    <DelphiCompile Include="Aguarde.dpr">
+      <MainSource>MainSource</MainSource>
+    </DelphiCompile>
+    <DCCReference Include="..\..\teste\uFrmComSombra.pas">
+      <Form>FrmComSombra</Form>
+    </DCCReference>
+    <DCCReference Include="..\..\teste\uFrmSombra.pas">
+      <Form>FrmSombra</Form>
+    </DCCReference>
+    <DCCReference Include="..\..\uteste\uFrmComSombra.pas">
+      <Form>FrmComSombra</Form>
+    </DCCReference>
+    <DCCReference Include="..\..\uteste\uFrmSombra.pas">
+      <Form>FrmSombra</Form>
+    </DCCReference>
+    <DCCReference Include="..\..\utilseste\uFrmComSombra.pas">
+      <Form>FrmComSombra</Form>
+    </DCCReference>
+    <DCCReference Include="..\..\utilseste\uFrmSombra.pas">
+      <Form>FrmSombra</Form>
+    </DCCReference>
+    <DCCReference Include="..\..\utilse\uFrmComSombra.pas">
+      <Form>FrmComSombra</Form>
+    </DCCReference>
+    <DCCReference Include="..\..\utilse\uFrmSombra.pas">
+      <Form>FrmSombra</Form>
+    </DCCReference>
+    <DCCReference Include="..\..\utilsste\uFrmComSombra.pas">
+      <Form>FrmComSombra</Form>
+    </DCCReference>
+    <DCCReference Include="..\..\utilsste\uFrmSombra.pas">
+      <Form>FrmSombra</Form>
+    </DCCReference>
+    <DCCReference Include="..\..\utilsteste\uFrmComSombra.pas">
+      <Form>FrmComSombra</Form>
+    </DCCReference>
+    <DCCReference Include="..\..\utilsteste\uFrmSombra.pas">
+      <Form>FrmSombra</Form>
+    </DCCReference>
+    <DCCReference Include="..\..\utilste\uFrmComSombra.pas">
+      <Form>FrmComSombra</Form>
+    </DCCReference>
+    <DCCReference Include="..\..\utilste\uFrmSombra.pas">
+      <Form>FrmSombra</Form>
+    </DCCReference>
+    <DCCReference Include="..\..\utilsuFrmSombra.pas">
+      <Form>FrmSombra</Form>
+    </DCCReference>
+    <DCCReference Include="..\..\utils\uFrmComSombra.pas">
+      <Form>FrmComSombra</Form>
+    </DCCReference>
+    <DCCReference Include="..\..\utils\uFrmSombra.pas">
+      <Form>FrmSombra</Form>
+    </DCCReference>
+    <DCCReference Include="..\..\utilteste\uFrmComSombra.pas">
+      <Form>FrmComSombra</Form>
+    </DCCReference>
+    <DCCReference Include="..\..\utilteste\uFrmSombra.pas">
+      <Form>FrmSombra</Form>
+    </DCCReference>
+    <DCCReference Include="..\..\utiteste\uFrmComSombra.pas">
+      <Form>FrmComSombra</Form>
+    </DCCReference>
+    <DCCReference Include="..\..\utiteste\uFrmSombra.pas">
+      <Form>FrmSombra</Form>
+    </DCCReference>
+    <DCCReference Include="..\..\utteste\uFrmComSombra.pas">
+      <Form>FrmComSombra</Form>
+    </DCCReference>
+    <DCCReference Include="..\..\utteste\uFrmSombra.pas">
+      <Form>FrmSombra</Form>
+    </DCCReference>
+    <DCCReference Include="C:\projeteste\uFrmComSombra.pas">
+      <Form>FrmComSombra</Form>
+    </DCCReference>
+    <DCCReference Include="C:\projeteste\uFrmSombra.pas">
+      <Form>FrmSombra</Form>
+    </DCCReference>
+    <DCCReference Include="C:\projetosteste\uFrmComSombra.pas">
+      <Form>FrmComSombra</Form>
+    </DCCReference>
+    <DCCReference Include="C:\projetosteste\uFrmSombra.pas">
+      <Form>FrmSombra</Form>
+    </DCCReference>
+    <DCCReference Include="C:\projetoteste\uFrmComSombra.pas">
+      <Form>FrmComSombra</Form>
+    </DCCReference>
+    <DCCReference Include="C:\projetoteste\uFrmSombra.pas">
+      <Form>FrmSombra</Form>
+    </DCCReference>
+    <DCCReference Include="C:\projetteste\uFrmComSombra.pas">
+      <Form>FrmComSombra</Form>
+    </DCCReference>
+    <DCCReference Include="C:\projetteste\uFrmSombra.pas">
+      <Form>FrmSombra</Form>
+    </DCCReference>
+    <DCCReference Include="C:\projteste\uFrmComSombra.pas">
+      <Form>FrmComSombra</Form>
+    </DCCReference>
+    <DCCReference Include="C:\projteste\uFrmSombra.pas">
+      <Form>FrmSombra</Form>
+    </DCCReference>
+    <DCCReference Include="C:\proteste\uFrmComSombra.pas">
+      <Form>FrmComSombra</Form>
+    </DCCReference>
+    <DCCReference Include="C:\proteste\uFrmSombra.pas">
+      <Form>FrmSombra</Form>
+    </DCCReference>
+    <DCCReference Include="C:\prteste\uFrmComSombra.pas">
+      <Form>FrmComSombra</Form>
+    </DCCReference>
+    <DCCReference Include="C:\prteste\uFrmSombra.pas">
+      <Form>FrmSombra</Form>
+    </DCCReference>
+    <DCCReference Include="C:\pteste\uFrmComSombra.pas">
+      <Form>FrmComSombra</Form>
+    </DCCReference>
+    <DCCReference Include="C:\pteste\uFrmSombra.pas">
+      <Form>FrmSombra</Form>
+    </DCCReference>
+    <DCCReference Include="C:\teste\uFrmComSombra.pas">
+      <Form>FrmComSombra</Form>
+    </DCCReference>
+    <DCCReference Include="C:\teste\uFrmSombra.pas">
+      <Form>FrmSombra</Form>
+    </DCCReference>
+    <DCCReference Include="uFrmAguarde2.pas">
+      <Form>FrmAguarde2</Form>
+    </DCCReference>
+    <DCCReference Include="uPri.pas">
+      <Form>FrmPri</Form>
+    </DCCReference>
+  </ItemGroup>
+</Project>

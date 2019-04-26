@@ -1,0 +1,16 @@
+program TesteIE;
+
+uses
+  nxReplacementMemoryManager,
+  nxReplacementMove,
+  Forms,
+  uTesteIE in 'uTesteIE.pas' {Form10};
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.MainFormOnTaskbar := True;
+  Application.CreateForm(TForm10, Form10);
+  Application.Run;
+end.

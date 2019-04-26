@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{85f47e72-2e8b-482e-960a-fc2537c3dac7}</ProjectGuid>
+    <MainSource>ncServ.dpr</MainSource>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <DCC_DCCCompiler>DCC32</DCC_DCCCompiler>
+    <DCC_DependencyCheckOutputName>C:\Meus Programas\NexCafe\ncServ.exe</DCC_DependencyCheckOutputName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <Version>7.0</Version>
+    <DCC_DebugInformation>False</DCC_DebugInformation>
+    <DCC_LocalDebugSymbols>False</DCC_LocalDebugSymbols>
+    <DCC_SymbolReferenceInfo>0</DCC_SymbolReferenceInfo>
+    <DCC_ExeOutput>C:\Meus Programas\NexCafe</DCC_ExeOutput>
+    <DCC_DcuOutput>C:\ProjetoDCU\D2006</DCC_DcuOutput>
+    <DCC_ObjOutput>C:\ProjetoDCU\D2006</DCC_ObjOutput>
+    <DCC_HppOutput>C:\ProjetoDCU\D2006</DCC_HppOutput>
+    <DCC_Define>RELEASE</DCC_Define>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <Version>7.0</Version>
+    <DCC_ExeOutput>C:\Meus Programas\NexCafe</DCC_ExeOutput>
+    <DCC_DcuOutput>C:\ProjetoDCU\D2006</DCC_DcuOutput>
+    <DCC_ObjOutput>C:\ProjetoDCU\D2006</DCC_ObjOutput>
+    <DCC_HppOutput>C:\ProjetoDCU\D2006</DCC_HppOutput>
+    <DCC_Define>DEBUG</DCC_Define>
+  </PropertyGroup>
+  <ProjectExtensions>
+    <Borland.Personality>Delphi.Personality</Borland.Personality>
+    <Borland.ProjectType />
+    <BorlandProject>
+<BorlandProject><Delphi.Personality><Parameters><Parameters Name="UseLauncher">False</Parameters><Parameters Name="LoadAllSymbols">True</Parameters><Parameters Name="LoadUnspecifiedSymbols">False</Parameters></Parameters><VersionInfo><VersionInfo Name="IncludeVerInfo">True</VersionInfo><VersionInfo Name="AutoIncBuild">False</VersionInfo><VersionInfo Name="MajorVer">2</VersionInfo><VersionInfo Name="MinorVer">0</VersionInfo><VersionInfo Name="Release">0</VersionInfo><VersionInfo Name="Build">6</VersionInfo><VersionInfo Name="Debug">False</VersionInfo><VersionInfo Name="PreRelease">False</VersionInfo><VersionInfo Name="Special">False</VersionInfo><VersionInfo Name="Private">False</VersionInfo><VersionInfo Name="DLL">False</VersionInfo><VersionInfo Name="Locale">1046</VersionInfo><VersionInfo Name="CodePage">1252</VersionInfo></VersionInfo><VersionInfoKeys><VersionInfoKeys Name="CompanyName">Nextar</VersionInfoKeys><VersionInfoKeys Name="FileDescription">Servidor NexCafé</VersionInfoKeys><VersionInfoKeys Name="FileVersion">2.0.0.6</VersionInfoKeys><VersionInfoKeys Name="InternalName">ncServ</VersionInfoKeys><VersionInfoKeys Name="LegalCopyright"></VersionInfoKeys><VersionInfoKeys Name="LegalTrademarks"></VersionInfoKeys><VersionInfoKeys Name="OriginalFilename">ncServ.exe</VersionInfoKeys><VersionInfoKeys Name="ProductName">NexCafé</VersionInfoKeys><VersionInfoKeys Name="ProductVersion">2.0</VersionInfoKeys><VersionInfoKeys Name="Comments"></VersionInfoKeys></VersionInfoKeys><Excluded_Packages>
+      <Excluded_Packages Name="C:\Documents and Settings\IBM\My Documents\Borland Studio Projects\Bpl\C126D100.bpl">Intelbras Central Digital 126</Excluded_Packages>
+      <Excluded_Packages Name="c:\program files\borland\bds\4.0\Bin\dclIndyCore100.bpl">File c:\program files\borland\bds\4.0\Bin\dclIndyCore100.bpl not found</Excluded_Packages>
+      <Excluded_Packages Name="c:\program files\borland\bds\4.0\Bin\dclIndyProtocols100.bpl">File c:\program files\borland\bds\4.0\Bin\dclIndyProtocols100.bpl not found</Excluded_Packages>
+    </Excluded_Packages><Source><Source Name="MainSource">ncServ.dpr</Source></Source></Delphi.Personality></BorlandProject></BorlandProject>
+  </ProjectExtensions>
+  <Import Project="$(MSBuildBinPath)\Borland.Delphi.Targets" />
+  <ItemGroup>
+    <DelphiCompile Include="ncServ.dpr">
+      <MainSource>MainSource</MainSource>
+    </DelphiCompile>
+    <DCCReference Include="..\..\Email\uDMEmail.pas">
+      <Form>dmEmail</Form>
+    </DCCReference>
+    <DCCReference Include="..\Comp\ncAuxPassaporte.pas" />
+    <DCCReference Include="..\Comp\ncClassesBase.pas" />
+    <DCCReference Include="..\Comp\ncCompCliente.pas" />
+    <DCCReference Include="..\Comp\ncCredTempo.pas" />
+    <DCCReference Include="..\Comp\ncDebito.pas" />
+    <DCCReference Include="..\Comp\ncDebTempo.pas" />
+    <DCCReference Include="..\Comp\ncDMCaixa.pas">
+      <Form>dmCaixa</Form>
+    </DCCReference>
+    <DCCReference Include="..\Comp\ncDMProcEmail.pas">
+      <Form>dmProcEmail</Form>
+    </DCCReference>
+    <DCCReference Include="..\Comp\ncDMServ.pas">
+      <Form>DM</Form>
+    </DCCReference>
+    <DCCReference Include="..\Comp\ncErros.pas" />
+    <DCCReference Include="..\Comp\ncEstruturaTabs.pas" />
+    <DCCReference Include="..\Comp\ncImpCM.pas">
+      <Form>dmCM</Form>
+    </DCCReference>
+    <DCCReference Include="..\Comp\ncImpressao.pas" />
+    <DCCReference Include="..\Comp\ncLancExtra.pas" />
+    <DCCReference Include="..\Comp\ncListaEspera.pas" />
+    <DCCReference Include="..\Comp\ncMovEst.pas" />
+    <DCCReference Include="..\Comp\ncMsgCom.pas" />
+    <DCCReference Include="..\Comp\ncNetMsg.pas" />
+    <DCCReference Include="..\Comp\ncPassaportes.pas" />
+    <DCCReference Include="..\Comp\ncServAtualizaLic.pas">
+      <Form>dmAtualizaLic</Form>
+    </DCCReference>
+    <DCCReference Include="..\Comp\ncServBase.pas" />
+    <DCCReference Include="..\Comp\ncServBD.pas">
+      <Form>dmServidorBD</Form>
+    </DCCReference>
+    <DCCReference Include="..\Comp\ncServCom.pas" />
+    <DCCReference Include="..\Comp\ncSessao.pas" />
+    <DCCReference Include="..\Comp\ncTarifador.pas" />
+    <DCCReference Include="..\Comp\ncTran.pas" />
+    <DCCReference Include="ncsFrmBackup.pas">
+      <Form>FrmCopia</Form>
+    </DCCReference>
+    <DCCReference Include="ncsFrmLogin.pas">
+      <Form>FrmLogin</Form>
+    </DCCReference>
+    <DCCReference Include="ncsFrmPri.pas">
+      <Form>frmPri</Form>
+    </DCCReference>
+    <None Include="ncServ.todo" />
+  </ItemGroup>
+</Project>
