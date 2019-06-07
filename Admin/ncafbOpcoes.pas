@@ -32,7 +32,7 @@ uses
   dxPScxPageControlProducer, dxPScxEditorProducers, dxPScxExtEditorProducers,
   cxPCdxBarPopupMenu, dxPScxGridLnk, dxPScxGridLayoutViewLnk, LMDPNGImage, jpeg,
   cxImage, dxPScxPivotGridLnk, uNexTransResourceStrings_PT, ncaFrmConfigRec,
-  dxBarBuiltInMenu, uParentedPanel;
+  ncafbEspecie, dxBarBuiltInMenu, uParentedPanel;
 
 type
   TfbOpcoes = class(TFrmBase)
@@ -616,6 +616,8 @@ type
     lbPDFPrintEng: TcxLabel;
     edNaoTransferirMaq: TcxDBCheckBox;
     MTNaoTransferirMaq: TBooleanField;
+    nbgMeiosPagamento: TdxNavBarGroup;
+    nbgMeiosPagamentoControl: TdxNavBarGroupControl;
     procedure vgMCFundoDesktopEditPropertiesButtonClick(Sender: TObject;
       AButtonIndex: Integer);
     procedure FrmBasePaiCreate(Sender: TObject);
@@ -664,6 +666,7 @@ type
     FAlterou : Boolean;
     fbgAvisos : TfbAvisos;
     fbgPatro : TfbPatrocinadores;
+    fbgEspecie : TfbEspecie;
     FCamposCliCC : String;
     procedure SetAlterou(const Value: Boolean);
     { Private declarations }
@@ -736,7 +739,11 @@ begin
   fbgAvisos := TfbAvisos.Create(Self);
   fbgAvisos.panPri.Parent := nbgAvisoFimTempoControl;
   fbgAvisos.FiltraDados;
-  
+
+  fbgEspecie := TfbEspecie.Create(self);
+  fbgEspecie.panPri.Parent := nbgMeiosPagamentoControl;
+  fbgEspecie.FiltraDados;
+
   tPacote.Open;
   tTipoPass.Open;
   MT.Active := True;
@@ -1274,6 +1281,7 @@ begin
   edBiometria.Visible := BioActive;
   fbgAvisos.AtualizaDireitos;
   fbgPatro.AtualizaDireitos;
+  fbgEspecie.AtualizaDireitos;
   AjustaVisEncerramento;
   AjustaVisTipoCli;
   AjustaVisDadosMin;

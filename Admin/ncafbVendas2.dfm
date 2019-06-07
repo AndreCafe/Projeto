@@ -3,11 +3,11 @@ inherited fbVendas2: TfbVendas2
   ClientHeight = 564
   ClientWidth = 1020
   Font.Height = -13
-  ExplicitWidth = 1036
-  ExplicitHeight = 602
+  ExplicitWidth = 1028
+  ExplicitHeight = 591
   PixelsPerInch = 96
   TextHeight = 16
-  inherited panPri: TLMDSimplePanel
+  inherited panPri: TParentedPanel
     Width = 1020
     Height = 564
     ExplicitWidth = 1020
@@ -413,6 +413,8 @@ inherited fbVendas2: TfbVendas2
             AutoHide = False
             Caption = 'Pagamento'
             CaptionButtons = [cbMaximize, cbHide]
+            CustomCaptionButtons.Buttons = <>
+            TabsProperties.CustomButtons.Buttons = <>
             DockingType = 0
             OriginalWidth = 213
             OriginalHeight = 140
@@ -581,7 +583,7 @@ inherited fbVendas2: TfbVendas2
               Left = 0
               Top = 0
               Width = 808
-              Height = 38
+              Height = 26
               Margins.Bottom = 7
               Align = dalTop
               BarManager = BarMgr
@@ -609,7 +611,6 @@ inherited fbVendas2: TfbVendas2
             Style.IsFontAssigned = True
             TabOrder = 1
             OnClick = cbFecharAutoClick
-            ExplicitHeight = 0
             Width = 210
           end
         end
@@ -1166,16 +1167,20 @@ inherited fbVendas2: TfbVendas2
     Color = clBtnFace
     DefaultHorizContainerSiteProperties.AllowFloating = False
     DefaultHorizContainerSiteProperties.CaptionButtons = [cbMaximize, cbHide]
+    DefaultHorizContainerSiteProperties.CustomCaptionButtons.Buttons = <>
     DefaultHorizContainerSiteProperties.Dockable = True
     DefaultHorizContainerSiteProperties.ImageIndex = -1
     DefaultVertContainerSiteProperties.AllowFloating = False
     DefaultVertContainerSiteProperties.CaptionButtons = [cbMaximize, cbHide]
+    DefaultVertContainerSiteProperties.CustomCaptionButtons.Buttons = <>
     DefaultVertContainerSiteProperties.Dockable = True
     DefaultVertContainerSiteProperties.ImageIndex = -1
     DefaultTabContainerSiteProperties.AllowFloating = False
     DefaultTabContainerSiteProperties.CaptionButtons = [cbMaximize, cbHide]
+    DefaultTabContainerSiteProperties.CustomCaptionButtons.Buttons = <>
     DefaultTabContainerSiteProperties.Dockable = True
     DefaultTabContainerSiteProperties.ImageIndex = -1
+    DefaultTabContainerSiteProperties.TabsProperties.CustomButtons.Buttons = <>
     DefaultTabContainerSiteProperties.TabsProperties.TabPosition = tpTop
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clBlack

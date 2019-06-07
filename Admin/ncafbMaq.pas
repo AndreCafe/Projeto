@@ -17,7 +17,7 @@ uses
   dxPScxPageControlProducer, dxPScxEditorProducers, dxPScxExtEditorProducers,
   cxPCdxBarPopupMenu, dxPScxGridLnk, dxPScxGridLayoutViewLnk, 
   dxPScxPivotGridLnk, LMDControl, LMDCustomControl, LMDCustomPanel,
-  LMDCustomBevelPanel, LMDSimplePanel, uParentedPanel;
+  LMDCustomBevelPanel, LMDSimplePanel, uParentedPanel, dxBarBuiltInMenu;
 
 type
   TfbMaq = class(TFrmBase)

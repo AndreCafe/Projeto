@@ -340,11 +340,13 @@ object FrmPagEspecie: TFrmPagEspecie
         object tsOk: TcxTabSheet
           Caption = 'tsOk'
           ImageIndex = 2
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object imgOk: TImage
             Left = 532
             Top = 0
             Width = 40
-            Height = 43
+            Height = 40
             Align = alRight
             AutoSize = True
             Center = True
@@ -366,7 +368,6 @@ object FrmPagEspecie: TFrmPagEspecie
               B4AD5FA8EF83C06439C6730000000049454E44AE426082}
             ExplicitLeft = 541
             ExplicitTop = 1
-            ExplicitHeight = 40
           end
         end
         object tsErro: TcxTabSheet
@@ -385,7 +386,7 @@ object FrmPagEspecie: TFrmPagEspecie
               0D544C4D44504E474F626A65637489504E470D0A1A0A0000000D494844520000
               0020000000200806000000737A7AF40000002A744558744372656174696F6E20
               54696D65004D692035204D727A20323030332030313A31363A3336202B303130
-              302D49F2060000000774494D45D30703050C1515AD51CC370000000970485973
+              302D49F2060000000774494D4507D303050C15157B72B5580000000970485973
               00000AF000000AF00142AC34980000000467414D410000B18F0BFC6105000006
               C54944415478DAED977B7015D51DC73FBB7B1FB949B879131E3A3C820DA10182
               54A160D552C08651343A54D1D60E0CD58E050B035528A828D832986A03B6204E

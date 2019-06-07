@@ -20,7 +20,8 @@ uses
   LMDCustomBevelPanel, LMDSimplePanel, dxPScxPivotGridLnk, ncaFrmPagEspecie,
   cxPC, dxDockControl, dxDockPanel, cxGridBandedTableView,
   cxGridDBBandedTableView, cxSpinEdit, ncaFramePagamento, LMDCustomScrollBox,
-  LMDScrollBox, LMDSplt, cxContainer, cxLabel, cxPCdxBarPopupMenu;
+  LMDScrollBox, LMDSplt, cxContainer, cxLabel, cxPCdxBarPopupMenu,
+  dxBarBuiltInMenu, uParentedPanel;
 
 type
   TfbVendas2 = class(TFrmBase)

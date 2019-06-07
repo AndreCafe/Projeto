@@ -29,8 +29,6 @@ object FrmAviso: TFrmAviso
     BevelOuter = bvNone
     BorderWidth = 10
     TabOrder = 4
-    ExplicitTop = 32
-    ExplicitHeight = 336
     object cxLabel1: TcxLabel
       Left = 16
       Top = 16
@@ -632,7 +630,7 @@ object FrmAviso: TFrmAviso
     SortID = 0
     SubLanguageID = 1
     LocaleID = 1024
-    Left = 320
+    Left = 328
     Top = 56
     object TabMinutos: TWordField
       Alignment = taLeftJustify

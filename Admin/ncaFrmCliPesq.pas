@@ -25,7 +25,7 @@ uses
   cxDrawTextUtils, dxPSPrVwStd, dxPSPrVwAdv, dxPSPrVwRibbon,
   dxPScxPageControlProducer, dxPScxEditorProducers, dxPScxExtEditorProducers,
   dxPScxGridLnk, dxPScxGridLayoutViewLnk, cxNavigator,
-  dxPScxPivotGridLnk, uNexTransResourceStrings_PT;
+  dxPScxPivotGridLnk, uNexTransResourceStrings_PT, uParentedPanel;
 
 type
   TDadosCliente = record

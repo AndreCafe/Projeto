@@ -15,7 +15,7 @@ uses
   dxScreenTip, dxCustomHint, cxHint, cxMemo, LMDPNGImage, ExtCtrls,
   LMDBaseControl, LMDBaseGraphicControl, LMDBaseGraphicButton, ncEspecie,
   LMDCustomSpeedButton, LMDSpeedButton, cxControls, cxEdit, cxContainer,
-  cxPCdxBarPopupMenu, cxPC, ncDebCredValidator, ncMyImage;
+  cxPCdxBarPopupMenu, cxPC, ncDebCredValidator, ncMyImage, dxBarBuiltInMenu;
 
 type
   TFrmPagEspecie = class(TForm)

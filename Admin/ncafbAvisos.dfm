@@ -23,6 +23,8 @@ inherited fbAvisos: TfbAvisos
       TabOrder = 0
       LookAndFeel.Kind = lfFlat
       LookAndFeel.NativeStyle = False
+      ExplicitLeft = 72
+      ExplicitTop = 60
       object TV: TcxGridDBTableView
         OnDblClick = cmEditarClick
         Navigator.Buttons.CustomButtons = <>

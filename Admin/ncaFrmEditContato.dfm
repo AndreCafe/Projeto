@@ -4,8 +4,8 @@ object FrmEditContato: TFrmEditContato
   BorderStyle = bsDialog
   BorderWidth = 15
   Caption = 'Cliente'
-  ClientHeight = 164
-  ClientWidth = 748
+  ClientHeight = 141
+  ClientWidth = 641
   Color = clBtnFace
   Font.Charset = ANSI_CHARSET
   Font.Color = clWindowText
@@ -16,13 +16,13 @@ object FrmEditContato: TFrmEditContato
   OnClose = FormClose
   OnCreate = FormCreate
   PixelsPerInch = 96
-  TextHeight = 21
+  TextHeight = 18
   object panPri: TLMDSimplePanel
     AlignWithMargins = True
     Left = 0
     Top = 0
-    Width = 748
-    Height = 52
+    Width = 641
+    Height = 45
     Margins.Left = 0
     Margins.Top = 0
     Margins.Right = 0
@@ -32,7 +32,7 @@ object FrmEditContato: TFrmEditContato
     Bevel.StandardStyle = lsNone
     TabOrder = 0
     object lbNome: TcxLabel
-      Left = 65
+      Left = 56
       Top = 0
       Cursor = crHandPoint
       Align = alLeft
@@ -40,7 +40,7 @@ object FrmEditContato: TFrmEditContato
       ParentFont = False
       Style.Font.Charset = ANSI_CHARSET
       Style.Font.Color = clWindowText
-      Style.Font.Height = -19
+      Style.Font.Height = -16
       Style.Font.Name = 'Segoe UI'
       Style.Font.Style = []
       Style.HotTrack = True
@@ -53,13 +53,13 @@ object FrmEditContato: TFrmEditContato
       StyleHot.TextStyle = [fsUnderline]
       Properties.Alignment.Vert = taVCenter
       OnClick = lbNomeClick
-      AnchorY = 26
+      AnchorY = 23
     end
     object Img: TMyImage
       Left = 0
       Top = 0
-      Width = 65
-      Height = 52
+      Width = 56
+      Height = 45
       Cursor = crHandPoint
       Align = alLeft
       OnClick = ImgClick
@@ -71,7 +71,7 @@ object FrmEditContato: TFrmEditContato
       Colorize = False
     end
     object lbRemove: TcxLabel
-      Left = 315
+      Left = 265
       Top = 0
       Cursor = crHandPoint
       Margins.Left = 0
@@ -82,7 +82,7 @@ object FrmEditContato: TFrmEditContato
       ParentFont = False
       Style.Font.Charset = ANSI_CHARSET
       Style.Font.Color = clWindowText
-      Style.Font.Height = -21
+      Style.Font.Height = -19
       Style.Font.Name = 'Segoe UI'
       Style.Font.Style = []
       Style.HotTrack = True
@@ -95,14 +95,14 @@ object FrmEditContato: TFrmEditContato
       StyleHot.TextStyle = [fsBold]
       Properties.Alignment.Vert = taVCenter
       OnClick = lbRemoveClick
-      AnchorY = 26
+      AnchorY = 23
     end
     object panDeb: TLMDSimplePanel
       AlignWithMargins = True
-      Left = 534
+      Left = 481
       Top = 12
-      Width = 165
-      Height = 28
+      Width = 155
+      Height = 21
       Margins.Top = 12
       Margins.Bottom = 12
       AutoSize = True
@@ -111,7 +111,7 @@ object FrmEditContato: TFrmEditContato
       Color = clRed
       TabOrder = 3
       Visible = False
-      ExplicitLeft = 547
+      ExplicitLeft = 457
       object lbDebito: TcxLabel
         AlignWithMargins = True
         Left = 5
@@ -125,7 +125,7 @@ object FrmEditContato: TFrmEditContato
         ParentFont = False
         Style.Font.Charset = DEFAULT_CHARSET
         Style.Font.Color = clWindowText
-        Style.Font.Height = -13
+        Style.Font.Height = -12
         Style.Font.Name = 'Tahoma'
         Style.Font.Style = []
         Style.TextColor = clWhite
@@ -133,7 +133,7 @@ object FrmEditContato: TFrmEditContato
         Properties.Alignment.Horz = taCenter
         Properties.Alignment.Vert = taVCenter
         AnchorX = 25
-        AnchorY = 14
+        AnchorY = 11
       end
       object lbValorDebito: TcxLabel
         AlignWithMargins = True
@@ -148,7 +148,7 @@ object FrmEditContato: TFrmEditContato
         ParentFont = False
         Style.Font.Charset = DEFAULT_CHARSET
         Style.Font.Color = clWindowText
-        Style.Font.Height = -13
+        Style.Font.Height = -12
         Style.Font.Name = 'Tahoma'
         Style.Font.Style = []
         Style.TextColor = clWhite
@@ -156,17 +156,16 @@ object FrmEditContato: TFrmEditContato
         Style.IsFontAssigned = True
         Properties.Alignment.Horz = taCenter
         Properties.Alignment.Vert = taVCenter
-        ExplicitLeft = 40
-        AnchorX = 103
-        AnchorY = 14
+        AnchorX = 98
+        AnchorY = 11
       end
     end
     object panFid: TLMDSimplePanel
       AlignWithMargins = True
-      Left = 448
+      Left = 395
       Top = 12
       Width = 80
-      Height = 28
+      Height = 21
       Margins.Top = 12
       Margins.Bottom = 12
       AutoSize = True
@@ -175,7 +174,7 @@ object FrmEditContato: TFrmEditContato
       Color = clBlue
       TabOrder = 4
       Visible = False
-      ExplicitLeft = 461
+      ExplicitLeft = 382
       object lbPontos: TcxLabel
         AlignWithMargins = True
         Left = 5
@@ -189,7 +188,7 @@ object FrmEditContato: TFrmEditContato
         ParentFont = False
         Style.Font.Charset = DEFAULT_CHARSET
         Style.Font.Color = clWindowText
-        Style.Font.Height = -13
+        Style.Font.Height = -12
         Style.Font.Name = 'Tahoma'
         Style.Font.Style = []
         Style.TextColor = clWhite
@@ -197,7 +196,7 @@ object FrmEditContato: TFrmEditContato
         Properties.Alignment.Horz = taCenter
         Properties.Alignment.Vert = taVCenter
         AnchorX = 26
-        AnchorY = 14
+        AnchorY = 11
       end
       object lbQuantPontos: TcxLabel
         AlignWithMargins = True
@@ -212,7 +211,7 @@ object FrmEditContato: TFrmEditContato
         ParentFont = False
         Style.Font.Charset = DEFAULT_CHARSET
         Style.Font.Color = clWindowText
-        Style.Font.Height = -13
+        Style.Font.Height = -12
         Style.Font.Name = 'Tahoma'
         Style.Font.Style = []
         Style.TextColor = clWhite
@@ -221,15 +220,15 @@ object FrmEditContato: TFrmEditContato
         Properties.Alignment.Horz = taCenter
         Properties.Alignment.Vert = taVCenter
         AnchorX = 61
-        AnchorY = 14
+        AnchorY = 11
       end
     end
     object panCred: TLMDSimplePanel
       AlignWithMargins = True
-      Left = 334
+      Left = 283
       Top = 12
-      Width = 108
-      Height = 28
+      Width = 106
+      Height = 21
       Margins.Top = 12
       Margins.Bottom = 12
       AutoSize = True
@@ -238,7 +237,6 @@ object FrmEditContato: TFrmEditContato
       Color = clGreen
       TabOrder = 5
       Visible = False
-      ExplicitLeft = 347
       object lbCredito: TcxLabel
         AlignWithMargins = True
         Left = 5
@@ -252,19 +250,19 @@ object FrmEditContato: TFrmEditContato
         ParentFont = False
         Style.Font.Charset = DEFAULT_CHARSET
         Style.Font.Color = clWindowText
-        Style.Font.Height = -13
+        Style.Font.Height = -12
         Style.Font.Name = 'Tahoma'
         Style.Font.Style = []
         Style.TextColor = clWhite
         Style.IsFontAssigned = True
         Properties.Alignment.Horz = taCenter
         Properties.Alignment.Vert = taVCenter
-        AnchorX = 28
-        AnchorY = 14
+        AnchorX = 27
+        AnchorY = 11
       end
       object lbValorCredito: TcxLabel
         AlignWithMargins = True
-        Left = 50
+        Left = 48
         Top = 0
         Margins.Left = 0
         Margins.Top = 0
@@ -275,15 +273,15 @@ object FrmEditContato: TFrmEditContato
         ParentFont = False
         Style.Font.Charset = DEFAULT_CHARSET
         Style.Font.Color = clWindowText
-        Style.Font.Height = -13
+        Style.Font.Height = -12
         Style.Font.Name = 'Tahoma'
         Style.Font.Style = [fsBold]
         Style.TextColor = clWhite
         Style.IsFontAssigned = True
         Properties.Alignment.Horz = taCenter
         Properties.Alignment.Vert = taVCenter
-        AnchorX = 77
-        AnchorY = 14
+        AnchorX = 75
+        AnchorY = 11
       end
     end
   end
@@ -882,7 +880,7 @@ object FrmEditContato: TFrmEditContato
   end
   object cxImageList1: TcxImageList
     FormatVersion = 1
-    DesignInfo = 8913232
+    DesignInfo = 3670024
     ImageInfo = <
       item
         Image.Data = {

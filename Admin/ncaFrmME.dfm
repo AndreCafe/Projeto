@@ -136,7 +136,7 @@ object FrmME: TFrmME
     AllowReset = False
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWhite
-    Font.Height = -12
+    Font.Height = -11
     Font.Name = 'Segoe UI'
     Font.Style = []
     CanCustomize = False
@@ -152,7 +152,6 @@ object FrmME: TFrmME
     LookAndFeel.NativeStyle = False
     PopupMenuLinks = <>
     ShowHintForDisabledItems = False
-    Style = bmsUseLookAndFeel
     UseBarHintWindow = False
     UseSystemFont = False
     Left = 120

@@ -2,8 +2,8 @@ object FrmCliPesq2: TFrmCliPesq2
   Left = 300
   Top = 420
   Caption = 'Selecione um cliente'
-  ClientHeight = 485
-  ClientWidth = 734
+  ClientHeight = 522
+  ClientWidth = 790
   Color = clBtnFace
   Font.Charset = ANSI_CHARSET
   Font.Color = clWindowText
@@ -19,20 +19,20 @@ object FrmCliPesq2: TFrmCliPesq2
   OnKeyPress = FormKeyPress
   OnShow = FormShow
   PixelsPerInch = 96
-  TextHeight = 13
+  TextHeight = 14
   object Label1: TLabel
-    Left = 192
-    Top = 288
-    Width = 33
-    Height = 13
+    Left = 207
+    Top = 310
+    Width = 32
+    Height = 14
     Caption = 'Label1'
   end
   object panBusca: TLMDSimplePanel
     AlignWithMargins = True
     Left = 7
     Top = 7
-    Width = 720
-    Height = 54
+    Width = 776
+    Height = 58
     Margins.Left = 7
     Margins.Top = 7
     Margins.Right = 7
@@ -41,11 +41,10 @@ object FrmCliPesq2: TFrmCliPesq2
     Bevel.Mode = bmStandard
     Bevel.StandardStyle = lsNone
     TabOrder = 0
-    ExplicitWidth = 706
     object edBusca: TcxTextEdit
       AlignWithMargins = True
       Left = 0
-      Top = 23
+      Top = 25
       Cursor = crHandPoint
       OnFocusChanged = edBuscaFocusChanged
       ParentFont = False
@@ -55,7 +54,7 @@ object FrmCliPesq2: TFrmCliPesq2
       Style.Color = clWhite
       Style.Font.Charset = ANSI_CHARSET
       Style.Font.Color = clWindowText
-      Style.Font.Height = -16
+      Style.Font.Height = -17
       Style.Font.Name = 'Segoe UI'
       Style.Font.Style = [fsBold]
       Style.HotTrack = False
@@ -74,13 +73,13 @@ object FrmCliPesq2: TFrmCliPesq2
       Text = 'Jo'#227'o Lucio Borges'
       OnEnter = edBuscaEnter
       OnKeyDown = edBuscaKeyDown
-      Width = 446
+      Width = 480
     end
     object btnCancel: TcxButton
-      Left = 533
-      Top = 23
-      Width = 70
-      Height = 27
+      Left = 574
+      Top = 25
+      Width = 75
+      Height = 29
       Cancel = True
       Caption = '&Cancelar'
       TabOrder = 0
@@ -96,8 +95,8 @@ object FrmCliPesq2: TFrmCliPesq2
       AlignWithMargins = True
       Left = 0
       Top = 0
-      Width = 446
-      Height = 21
+      Width = 480
+      Height = 23
       Margins.Left = 60
       Margins.Top = 22
       Margins.Bottom = 22
@@ -117,7 +116,7 @@ object FrmCliPesq2: TFrmCliPesq2
         ParentFont = False
         Style.Font.Charset = DEFAULT_CHARSET
         Style.Font.Color = clWindowText
-        Style.Font.Height = -12
+        Style.Font.Height = -13
         Style.Font.Name = 'Tahoma'
         Style.Font.Style = []
         Style.TextColor = clGray
@@ -125,13 +124,12 @@ object FrmCliPesq2: TFrmCliPesq2
         Style.IsFontAssigned = True
         Properties.Alignment.Vert = taVCenter
         OnClick = lbDigiteProdutoClick
-        ExplicitLeft = 118
-        AnchorY = 11
+        AnchorY = 12
       end
       object lbUsername: TcxLabel
         Tag = 1
         AlignWithMargins = True
-        Left = 120
+        Left = 129
         Top = 0
         Cursor = crHandPoint
         Margins.Left = 6
@@ -143,7 +141,7 @@ object FrmCliPesq2: TFrmCliPesq2
         ParentFont = False
         Style.Font.Charset = DEFAULT_CHARSET
         Style.Font.Color = clWindowText
-        Style.Font.Height = -12
+        Style.Font.Height = -13
         Style.Font.Name = 'Tahoma'
         Style.Font.Style = []
         Style.TextColor = clGray
@@ -153,13 +151,12 @@ object FrmCliPesq2: TFrmCliPesq2
         StyleHot.TextColor = clBlue
         Properties.Alignment.Vert = taVCenter
         OnClick = lbNomeClick
-        ExplicitLeft = 238
-        AnchorY = 11
+        AnchorY = 12
       end
       object lbCodigo: TcxLabel
         Tag = 2
         AlignWithMargins = True
-        Left = 186
+        Left = 199
         Top = 0
         Cursor = crHandPoint
         Margins.Left = 6
@@ -172,7 +169,7 @@ object FrmCliPesq2: TFrmCliPesq2
         ParentFont = False
         Style.Font.Charset = DEFAULT_CHARSET
         Style.Font.Color = clWindowText
-        Style.Font.Height = -12
+        Style.Font.Height = -13
         Style.Font.Name = 'Tahoma'
         Style.Font.Style = []
         Style.TextColor = clGray
@@ -183,12 +180,11 @@ object FrmCliPesq2: TFrmCliPesq2
         Properties.Alignment.Vert = taVCenter
         Transparent = True
         OnClick = lbNomeClick
-        ExplicitLeft = 304
-        AnchorY = 11
+        AnchorY = 12
       end
       object lbNome: TcxLabel
         AlignWithMargins = True
-        Left = 76
+        Left = 84
         Top = 0
         Cursor = crHandPoint
         Margins.Top = 0
@@ -199,7 +195,7 @@ object FrmCliPesq2: TFrmCliPesq2
         ParentFont = False
         Style.Font.Charset = DEFAULT_CHARSET
         Style.Font.Color = clWindowText
-        Style.Font.Height = -12
+        Style.Font.Height = -13
         Style.Font.Name = 'Tahoma'
         Style.Font.Style = []
         Style.TextColor = clBlack
@@ -209,12 +205,11 @@ object FrmCliPesq2: TFrmCliPesq2
         StyleHot.TextColor = clBlue
         Properties.Alignment.Vert = taVCenter
         OnClick = lbNomeClick
-        ExplicitLeft = 194
-        AnchorY = 11
+        AnchorY = 12
       end
       object lbNovo: TcxLabel
         AlignWithMargins = True
-        Left = 398
+        Left = 427
         Top = 0
         Cursor = crHandPoint
         Margins.Left = 2
@@ -226,7 +221,7 @@ object FrmCliPesq2: TFrmCliPesq2
         ParentFont = False
         Style.Font.Charset = ANSI_CHARSET
         Style.Font.Color = clWindowText
-        Style.Font.Height = -11
+        Style.Font.Height = -12
         Style.Font.Name = 'Segoe UI'
         Style.Font.Style = []
         Style.HotTrack = True
@@ -238,12 +233,11 @@ object FrmCliPesq2: TFrmCliPesq2
         Properties.Alignment.Horz = taLeftJustify
         Properties.Alignment.Vert = taVCenter
         OnClick = lbNovoClick
-        ExplicitLeft = 391
-        AnchorY = 11
+        AnchorY = 12
       end
       object lbEditar: TcxLabel
         AlignWithMargins = True
-        Left = 346
+        Left = 373
         Top = 0
         Cursor = crHandPoint
         Margins.Left = 2
@@ -255,7 +249,7 @@ object FrmCliPesq2: TFrmCliPesq2
         ParentFont = False
         Style.Font.Charset = ANSI_CHARSET
         Style.Font.Color = clWindowText
-        Style.Font.Height = -11
+        Style.Font.Height = -12
         Style.Font.Name = 'Segoe UI'
         Style.Font.Style = []
         Style.HotTrack = True
@@ -267,15 +261,14 @@ object FrmCliPesq2: TFrmCliPesq2
         Properties.Alignment.Horz = taLeftJustify
         Properties.Alignment.Vert = taVCenter
         OnClick = imgEditClick
-        ExplicitLeft = 338
-        AnchorY = 11
+        AnchorY = 12
       end
     end
     object btnOk: TcxButton
-      Left = 452
-      Top = 25
-      Width = 75
-      Height = 25
+      Left = 487
+      Top = 27
+      Width = 81
+      Height = 27
       Caption = '&Ok'
       Default = True
       ModalResult = 1
@@ -287,9 +280,9 @@ object FrmCliPesq2: TFrmCliPesq2
   object Grid: TcxGrid
     AlignWithMargins = True
     Left = 7
-    Top = 68
-    Width = 549
-    Height = 410
+    Top = 72
+    Width = 592
+    Height = 443
     Margins.Left = 7
     Margins.Top = 0
     Margins.Right = 7
@@ -297,7 +290,7 @@ object FrmCliPesq2: TFrmCliPesq2
     Align = alClient
     Font.Charset = ANSI_CHARSET
     Font.Color = clWindowText
-    Font.Height = -16
+    Font.Height = -17
     Font.Name = 'Segoe UI'
     Font.Style = []
     ParentFont = False
@@ -307,10 +300,6 @@ object FrmCliPesq2: TFrmCliPesq2
     LookAndFeel.Kind = lfUltraFlat
     LookAndFeel.NativeStyle = False
     RootLevelOptions.DetailFrameColor = clSilver
-    ExplicitLeft = 0
-    ExplicitTop = 80
-    ExplicitWidth = 913
-    ExplicitHeight = 405
     object TV: TcxGridDBTableView
       OnDblClick = TVDblClick
       OnKeyUp = TVKeyUp
@@ -499,23 +488,23 @@ object FrmCliPesq2: TFrmCliPesq2
     end
   end
   object lbSize: TcxLabel
-    Left = 152
-    Top = 328
+    Left = 164
+    Top = 353
     Caption = 'Size'
     ParentFont = False
     Style.Font.Charset = DEFAULT_CHARSET
     Style.Font.Color = clWindowText
-    Style.Font.Height = -21
+    Style.Font.Height = -23
     Style.Font.Name = 'Tahoma'
     Style.Font.Style = []
     Style.IsFontAssigned = True
   end
   object pgFoto: TcxPageControl
     AlignWithMargins = True
-    Left = 563
-    Top = 68
-    Width = 164
-    Height = 417
+    Left = 606
+    Top = 72
+    Width = 177
+    Height = 450
     Margins.Left = 0
     Margins.Top = 0
     Margins.Right = 7
@@ -530,9 +519,8 @@ object FrmCliPesq2: TFrmCliPesq2
     Properties.ActivePage = tsComFoto
     Properties.CustomButtons.Buttons = <>
     Properties.HideTabs = True
-    ExplicitLeft = 549
-    ClientRectBottom = 417
-    ClientRectRight = 164
+    ClientRectBottom = 450
+    ClientRectRight = 177
     ClientRectTop = 0
     object tsSemFoto: TcxTabSheet
       Caption = 'tsSemFoto'
@@ -544,8 +532,8 @@ object FrmCliPesq2: TFrmCliPesq2
       object imgSemFoto: TMyImage
         Left = 0
         Top = 0
-        Width = 164
-        Height = 105
+        Width = 177
+        Height = 113
         Cursor = crHandPoint
         Align = alTop
         OnClick = imgSemFotoClick
@@ -555,7 +543,6 @@ object FrmCliPesq2: TFrmCliPesq2
         ImageList = cxImageList1
         ImageIndex = 0
         Colorize = False
-        ExplicitWidth = 97
       end
     end
     object tsComFoto: TcxTabSheet
@@ -563,7 +550,6 @@ object FrmCliPesq2: TFrmCliPesq2
       Color = clBtnFace
       ImageIndex = 1
       ParentColor = False
-      ExplicitWidth = 97
       object edFoto: TcxDBImage
         Left = 0
         Top = 0
@@ -572,20 +558,20 @@ object FrmCliPesq2: TFrmCliPesq2
         DataBinding.DataField = 'Foto'
         DataBinding.DataSource = dsCli
         ParentColor = True
+        Properties.FitMode = ifmProportionalStretch
         Properties.GraphicClassName = 'TdxSmartImage'
         Properties.GraphicTransparency = gtTransparent
         Properties.ImmediatePost = True
         Properties.ReadOnly = True
         Properties.ShowFocusRect = False
-        Properties.Stretch = True
         Style.BorderColor = clBtnFace
         Style.BorderStyle = ebsFlat
         Style.HotTrack = False
         Style.TransparentBorder = False
         TabOrder = 0
         OnClick = imgEditClick
-        Height = 122
-        Width = 164
+        Height = 131
+        Width = 177
       end
     end
   end

@@ -51,7 +51,7 @@ object FrmConfigEspecie: TFrmConfigEspecie
     StyleDisabled.LookAndFeel.Kind = lfFlat
     StyleFocused.LookAndFeel.Kind = lfFlat
     StyleHot.LookAndFeel.Kind = lfFlat
-    TabOrder = 5
+    TabOrder = 2
     Height = 60
     Width = 78
   end
@@ -76,7 +76,7 @@ object FrmConfigEspecie: TFrmConfigEspecie
     StyleDisabled.LookAndFeel.Kind = lfFlat
     StyleFocused.LookAndFeel.Kind = lfFlat
     StyleHot.LookAndFeel.Kind = lfFlat
-    TabOrder = 7
+    TabOrder = 4
     Width = 326
   end
   object cxLabel4: TcxLabel
@@ -102,7 +102,7 @@ object FrmConfigEspecie: TFrmConfigEspecie
     StyleDisabled.LookAndFeel.Kind = lfFlat
     StyleFocused.LookAndFeel.Kind = lfFlat
     StyleHot.LookAndFeel.Kind = lfFlat
-    TabOrder = 9
+    TabOrder = 6
     Height = 24
     Width = 352
   end

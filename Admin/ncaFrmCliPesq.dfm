@@ -7,11 +7,11 @@ inherited FrmCliPesq: TFrmCliPesq
   KeyPreview = True
   OldCreateOrder = True
   Position = poDesigned
-  ExplicitWidth = 929
-  ExplicitHeight = 504
+  ExplicitWidth = 921
+  ExplicitHeight = 495
   PixelsPerInch = 96
   TextHeight = 13
-  inherited panPri: TLMDSimplePanel
+  inherited panPri: TParentedPanel
     Width = 913
     Height = 468
     ExplicitWidth = 913

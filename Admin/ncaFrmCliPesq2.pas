@@ -30,7 +30,7 @@ uses
   dxPScxPivotGridLnk, uNexTransResourceStrings_PT, cxBarEditItem, cxButtons,
   dxGDIPlusClasses, LMDPNGImage, Menus, ncMyImage, ImgList, cxLookupEdit,
   cxDBLookupEdit, cxDBLookupComboBox, cxPCdxBarPopupMenu, DBCtrls, cxPC,
-  cxImage, cxDBEdit;
+  cxImage, cxDBEdit, dxBarBuiltInMenu;
 
 type
   TFrmCliPesq2 = class(TForm)

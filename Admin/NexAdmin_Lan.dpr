@@ -224,7 +224,6 @@ uses
   ncaFrmCliPesq2 in 'ncaFrmCliPesq2.pas' {FrmCliPesq2},
   ncaFrmPesqFor in 'ncaFrmPesqFor.pas' {FrmPesqFor},
   ncaFrmEnviaSenha in 'ncaFrmEnviaSenha.pas' {FrmEnviaSenha},
-  ncaFrmPagEspecie in 'ncaFrmPagEspecie.pas' {FrmPagEspecie},
   ncaPanBaseAlertaTopo in 'ncaPanBaseAlertaTopo.pas' {panAlertaTopo: TFrame},
   ncaFrmBasicTextEdit in 'ncaFrmBasicTextEdit.pas' {FrmBasicTextEdit},
   ncaFrmConfigPrecoAuto in 'ncaFrmConfigPrecoAuto.pas' {FrmConfigPrecoAuto},
@@ -243,7 +242,7 @@ uses
   ncaFrmEditContatoPeq in 'ncaFrmEditContatoPeq.pas' {FrmEditContatoPeq},
   ncaFrmEditContatoValidar in 'ncaFrmEditContatoValidar.pas' {FrmEditContatoValidar},
   ncaDMImgEsp in 'ncaDMImgEsp.pas' {dmImgEsp: TDataModule},
-  ncaConfigEspecie in 'ncaConfigEspecie.pas' {FrmConfigEspecie},
+  ncaFrmEspecie in 'ncaFrmEspecie.pas' {FrmEspecie},
   ncaFrmConfigEspecies in 'ncaFrmConfigEspecies.pas' {FrmConfigEspecies},
   ncaFrmEditDesc in 'ncaFrmEditDesc.pas' {FrmEditDesc},
   ncaFrmEditObs in 'ncaFrmEditObs.pas' {FrmEditObs},
@@ -284,7 +283,9 @@ uses
   ncGuidUtils in '..\comp\ncGuidUtils.pas',
   nexUrls in '..\..\nxUrl\nexUrls.pas',
   ncMyImage in '..\..\MyImage\ncMyImage.pas',
-  ncServAtualizaLic_Indy in '..\comp\ncServAtualizaLic_Indy.pas' {dmAtualizaLic: TDataModule};
+  ncServAtualizaLic_Indy in '..\comp\ncServAtualizaLic_Indy.pas' {dmAtualizaLic: TDataModule},
+  ncaFrmPagEspecie in 'ncaFrmPagEspecie.pas' {FrmPagEspecie},
+  ncafbEspecie in 'ncafbEspecie.pas' {fbEspecie: TFrmBasePai};
 
 {$R *.res}
 {$R uac.res}
@@ -302,6 +303,8 @@ begin
   Application.CreateForm(TdmImagens, dmImagens);
   Application.CreateForm(TdmImgImp, dmImgImp);
   Application.CreateForm(TFrmPri, FrmPri);
+  Application.CreateForm(TFrmPagEspecie, FrmPagEspecie);
+  Application.CreateForm(TfbEspecie, fbEspecie);
   gWndParent := FrmPri.Handle;
   Application.CreateForm(TFrmLocalizaCli, FrmLocalizaCli);
   Application.CreateForm(TFormWinPopUp, FormWinPopUp);
