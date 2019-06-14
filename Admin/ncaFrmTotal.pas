@@ -12,7 +12,7 @@ uses
   cxLabel, cxTextEdit, cxCurrencyEdit, LMDControl, LMDCustomControl,
   LMDCustomPanel, LMDCustomBevelPanel, LMDSimplePanel, Menus, StdCtrls,
   cxButtons, LMDBaseControl, LMDBaseGraphicControl, LMDBaseGraphicButton,
-  LMDCustomSpeedButton, LMDSpeedButton, ncEspecie;
+  LMDCustomSpeedButton, LMDSpeedButton, ncEspecie, dxBarBuiltInMenu;
 
 type
   TFrmTotal = class(TForm)
