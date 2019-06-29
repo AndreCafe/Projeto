@@ -162,7 +162,7 @@ object FrmTotal: TFrmTotal
           Properties.Alignment.Horz = taLeftJustify
           Properties.Alignment.Vert = taVCenter
           Transparent = True
-          OnClick = lbSimClick
+          OnClick = lbEspecieClick
           AnchorY = 7
         end
       end

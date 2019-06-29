@@ -107,6 +107,7 @@ type
     procedure FormMouseLeave(Sender: TObject);
     procedure pgValPontosChange(Sender: TObject);
     procedure cbEspeciePropertiesChange(Sender: TObject);
+    procedure lbEspecieClick(Sender: TObject);
   private
     FTamanho: Byte;
     FAtualizando : Boolean;
@@ -456,6 +457,11 @@ begin
   end;
   edDesconto.SetFocus;
   CriaTimerSelect(edDesconto);
+end;
+
+procedure TFrmTotal.lbEspecieClick(Sender: TObject);
+begin
+    cbEspecie.DroppedDown := true;
 end;
 
 procedure TFrmTotal.lbObsClick(Sender: TObject);
