@@ -12,7 +12,8 @@ uses
   cxLabel, cxTextEdit, cxCurrencyEdit, LMDControl, LMDCustomControl,
   LMDCustomPanel, LMDCustomBevelPanel, LMDSimplePanel, Menus, StdCtrls,
   cxButtons, LMDBaseControl, LMDBaseGraphicControl, LMDBaseGraphicButton,
-  LMDCustomSpeedButton, LMDSpeedButton, ncEspecie, dxBarBuiltInMenu;
+  LMDCustomSpeedButton, LMDSpeedButton, ncEspecie, dxBarBuiltInMenu, DB,
+  kbmMemTable, cxMaskEdit, cxDropDownEdit, cxImageComboBox, cxDBEdit, nxdb;
 
 type
   TFrmTotal = class(TForm)
@@ -67,6 +68,18 @@ type
     edCalc: TcxCurrencyEdit;
     lbCalc2: TcxLabel;
     lbCalc1: TcxLabel;
+    cbEspecie: TcxDBImageComboBox;
+    lbEspecie: TcxLabel;
+    Tab: TnxTable;
+    TabID: TWordField;
+    TabTipo: TWordField;
+    TabNome: TStringField;
+    TabPermiteTroco: TBooleanField;
+    TabPermiteVarios: TBooleanField;
+    TabPermiteCred: TBooleanField;
+    TabImg: TWordField;
+    TabRecVer: TIntegerField;
+    dsTab: TDataSource;
     procedure lbDescClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure lbRecClick(Sender: TObject);
@@ -93,6 +106,7 @@ type
     procedure FormMouseMove(Sender: TObject; Shift: TShiftState; X, Y: Integer);
     procedure FormMouseLeave(Sender: TObject);
     procedure pgValPontosChange(Sender: TObject);
+    procedure cbEspeciePropertiesChange(Sender: TObject);
   private
     FTamanho: Byte;
     FAtualizando : Boolean;
@@ -164,7 +178,7 @@ var
 
 implementation
 
-uses ncClassesBase, ncaDM, ncIDRecursos;
+uses ncClassesBase, ncaDM, ncIDRecursos, ncaDMImgEsp;
 
 // START resource string wizard section
 resourcestring
@@ -314,6 +328,23 @@ procedure TFrmTotal.FormCreate(Sender: TObject);
 begin
   FTamanho := 0;
   Limpa;
+
+  cbEspecie.Properties.Items.Clear;
+  dsTab.DataSet := nil;
+  with Tab do begin
+     first;
+     while not Eof do begin
+         with cbEspecie.Properties.Items.Add do begin
+             Value := TabImg.Value;
+             ImageIndex := TabImg.Value;
+             Description := '  ' + TabNome.Value + '  ';
+         end;
+         next;
+     end;
+     first;
+  end;
+  dsTab.DataSet := Tab;
+
 end;
 
 procedure TFrmTotal.FormMouseLeave(Sender: TObject);
@@ -574,6 +605,8 @@ begin
   FTamanho := Value;
 end;
 
+
+
 function TFrmTotal.Total: Double;
 begin
   Result := edTotal.Value;
@@ -661,6 +694,12 @@ begin
   FOpPagto := 2;
   edRec.SetFocus;
   CriaTimerSelect(edRec);
+end;
+
+procedure TFrmTotal.cbEspeciePropertiesChange(Sender: TObject);
+begin
+    if cbEspecie.ItemIndex>-1 then 
+        lbEspecie.caption := trim(cbEspecie.Properties.Items[cbEspecie.ItemIndex].Description);
 end;
 
 procedure TFrmTotal.CriaTimerSelect(aObj: TObject);

@@ -1,0 +1,34 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{5ea6ee1c-1082-458f-aeec-60bc3e5faa76}</ProjectGuid>
+  </PropertyGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Projects Include="Admin\NexAdmin_Lan.dproj" />
+  </ItemGroup>
+  <ProjectExtensions>
+    <Borland.Personality>Default.Personality</Borland.Personality>
+    <Borland.ProjectType />
+    <BorlandProject>
+  <BorlandProject xmlns=""> <Default.Personality> </Default.Personality> </BorlandProject></BorlandProject>
+  </ProjectExtensions>
+  <Target Name="NexAdmin_Lan">
+    <MSBuild Projects="Admin\NexAdmin_Lan.dproj" Targets="" />
+  </Target>
+  <Target Name="NexAdmin_Lan:Clean">
+    <MSBuild Projects="Admin\NexAdmin_Lan.dproj" Targets="Clean" />
+  </Target>
+  <Target Name="NexAdmin_Lan:Make">
+    <MSBuild Projects="Admin\NexAdmin_Lan.dproj" Targets="Make" />
+  </Target>
+  <Target Name="Build">
+    <CallTarget Targets="NexAdmin_Lan" />
+  </Target>
+  <Target Name="Clean">
+    <CallTarget Targets="NexAdmin_Lan:Clean" />
+  </Target>
+  <Target Name="Make">
+    <CallTarget Targets="NexAdmin_Lan:Make" />
+  </Target>
+  <Import Condition="Exists('$(MSBuildBinPath)\Borland.Group.Targets')" Project="$(MSBuildBinPath)\Borland.Group.Targets" />
+</Project>

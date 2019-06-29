@@ -22,7 +22,7 @@ uses
   cxLabel, cxSpinEdit, cxLookAndFeels, cxLookAndFeelPainters,
   LMDCustomScrollBox, LMDScrollBox, cxPC, cxPCdxBarPopupMenu, ncaFrmTotal,
   cxLookupEdit, cxDBLookupEdit, Menus, StdCtrls, cxButtons, ncaFrmCli,
-  ncClassesBase, cxNavigator;
+  ncClassesBase, cxNavigator, dxBarBuiltInMenu;
 
 type
   TFrmVenda = class(TForm)
