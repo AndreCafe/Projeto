@@ -1,5 +1,6 @@
 # EXECryptor 2.0 project
 AppFile=..\..\Meus Programas\NexCafe\NexAdminDesp.exe
+AppProtectedFile=..\..\Meus Programas\NexCafe\NexAdmin.exe
 VLevel=30
 AntiTrace=FALSE
 AntiDebug=FALSE
@@ -7,7 +8,7 @@ EmuCompatible=TRUE
 CheckCRC=0
 AntiMonitor=FALSE
 PassiveDetect=FALSE
-DebugMsgs=TRUE
+DebugMsgs=FALSE
 ActiveWatch=FALSE
 ProtectEP=FALSE
 DynImport=FALSE

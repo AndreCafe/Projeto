@@ -34,7 +34,6 @@ object FrmTotal: TFrmTotal
     ParentColor = True
     ParentFont = False
     TabOrder = 0
-    ExplicitWidth = 502
     object panInnerTot: TLMDSimplePanel
       Left = 0
       Top = 0
@@ -49,8 +48,7 @@ object FrmTotal: TFrmTotal
       Bevel.StandardStyle = lsNone
       ParentColor = True
       TabOrder = 0
-      ExplicitWidth = 502
-      object panSimNao: TLMDSimplePanel
+      object panOpcoes: TLMDSimplePanel
         Left = 0
         Top = 140
         Width = 495
@@ -61,12 +59,10 @@ object FrmTotal: TFrmTotal
         TabOrder = 2
         Transparent = True
         Visible = False
-        ExplicitTop = 102
-        ExplicitWidth = 502
         DesignSize = (
           495
           16)
-        object lbNao: TcxLabel
+        object lbZeroOpcoes: TcxLabel
           Left = 460
           Top = 0
           Cursor = crHandPoint
@@ -91,14 +87,13 @@ object FrmTotal: TFrmTotal
           Properties.Alignment.Horz = taCenter
           Properties.Alignment.Vert = taVCenter
           Transparent = True
-          OnClick = lbNaoClick
-          ExplicitLeft = 467
+          OnClick = lbZeroOpcoesClick
           Height = 16
           Width = 35
           AnchorX = 478
           AnchorY = 8
         end
-        object lbSim: TcxLabel
+        object lbTotalOpcoes: TcxLabel
           Left = 407
           Top = 0
           Cursor = crHandPoint
@@ -127,8 +122,7 @@ object FrmTotal: TFrmTotal
           Properties.Alignment.Horz = taCenter
           Properties.Alignment.Vert = taVCenter
           Transparent = True
-          OnClick = lbSimClick
-          ExplicitLeft = 414
+          OnClick = lbTotalOpcoesClick
           Height = 16
           Width = 53
           AnchorX = 434
@@ -180,7 +174,6 @@ object FrmTotal: TFrmTotal
         Bevel.StandardStyle = lsNone
         ParentColor = True
         TabOrder = 0
-        ExplicitWidth = 502
         object panDif: TLMDSimplePanel
           Left = 0
           Top = 0
@@ -202,8 +195,6 @@ object FrmTotal: TFrmTotal
           Bevel.StandardStyle = lsNone
           ParentColor = True
           TabOrder = 0
-          ExplicitWidth = 502
-          ExplicitHeight = 50
           object panOuterRec: TLMDSimplePanel
             Left = 248
             Top = 0
@@ -212,8 +203,6 @@ object FrmTotal: TFrmTotal
             Align = alRight
             Bevel.Mode = bmCustom
             TabOrder = 0
-            ExplicitLeft = 255
-            ExplicitHeight = 26
             object LMDSimplePanel7: TLMDSimplePanel
               Left = 0
               Top = 0
@@ -225,7 +214,6 @@ object FrmTotal: TFrmTotal
               Bevel.Mode = bmCustom
               Color = clWhite
               TabOrder = 0
-              ExplicitHeight = 26
               object edRec: TcxCurrencyEdit
                 Left = 118
                 Top = 1
@@ -260,7 +248,6 @@ object FrmTotal: TFrmTotal
                 TabOrder = 0
                 OnEnter = edRecEnter
                 OnExit = edRecExit
-                ExplicitHeight = 24
                 Width = 128
               end
               object lbRec: TcxLabel
@@ -292,9 +279,6 @@ object FrmTotal: TFrmTotal
                 Properties.Alignment.Vert = taVCenter
                 Properties.WordWrap = True
                 OnClick = lbRecClick
-                ExplicitLeft = 79
-                ExplicitWidth = 45
-                ExplicitHeight = 48
                 Width = 55
                 AnchorX = 91
                 AnchorY = 32
@@ -353,8 +337,6 @@ object FrmTotal: TFrmTotal
             StyleHot.TextColor = clRed
             Properties.Alignment.Horz = taLeftJustify
             Properties.Alignment.Vert = taVCenter
-            ExplicitLeft = 197
-            ExplicitHeight = 24
             AnchorY = 32
           end
           object lbNomeDif: TcxLabel
@@ -382,8 +364,6 @@ object FrmTotal: TFrmTotal
             StyleHot.TextColor = clRed
             Properties.Alignment.Horz = taLeftJustify
             Properties.Alignment.Vert = taVCenter
-            ExplicitLeft = 158
-            ExplicitHeight = 24
             AnchorY = 32
           end
         end
@@ -397,7 +377,6 @@ object FrmTotal: TFrmTotal
         Bevel.Mode = bmCustom
         ParentColor = True
         TabOrder = 1
-        ExplicitWidth = 502
         object LMDSimplePanel6: TLMDSimplePanel
           AlignWithMargins = True
           Left = 0
@@ -412,7 +391,6 @@ object FrmTotal: TFrmTotal
           Bevel.Mode = bmCustom
           ParentColor = True
           TabOrder = 0
-          ExplicitWidth = 502
           object panObs: TLMDSimplePanel
             Left = 0
             Top = 0
@@ -432,7 +410,6 @@ object FrmTotal: TFrmTotal
             Bevel.Mode = bmCustom
             Color = clWhite
             TabOrder = 0
-            ExplicitWidth = 250
             object lbObs: TcxLabel
               AlignWithMargins = True
               Left = 4
@@ -460,7 +437,6 @@ object FrmTotal: TFrmTotal
               StyleHot.TextStyle = [fsUnderline]
               Transparent = True
               OnClick = lbObsClick
-              ExplicitWidth = 245
             end
             object meObs: TcxMemo
               Left = 1
@@ -480,7 +456,6 @@ object FrmTotal: TFrmTotal
               TabOrder = 1
               OnEnter = meObsEnter
               OnExit = meObsExit
-              ExplicitWidth = 248
               Height = 60
               Width = 241
             end
@@ -502,7 +477,6 @@ object FrmTotal: TFrmTotal
             Properties.HideTabs = True
             LookAndFeel.NativeStyle = False
             OnChange = pgValPontosChange
-            ExplicitLeft = 255
             ClientRectBottom = 76
             ClientRectRight = 247
             ClientRectTop = 0

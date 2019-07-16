@@ -49,9 +49,9 @@ type
     lbRec: TcxLabel;
     lbValorDif: TcxLabel;
     lbNomeDif: TcxLabel;
-    panSimNao: TLMDSimplePanel;
-    lbNao: TcxLabel;
-    lbSim: TcxLabel;
+    panOpcoes: TLMDSimplePanel;
+    lbZeroOpcoes: TcxLabel;
+    lbTotalOpcoes: TcxLabel;
     panTot1: TLMDSimplePanel;
     panTotal: TLMDSimplePanel;
     edTotal: TcxCurrencyEdit;
@@ -97,8 +97,8 @@ type
     procedure edDescontoEnter(Sender: TObject);
     procedure edDescontoExit(Sender: TObject);
     procedure FormCreate(Sender: TObject);
-    procedure lbSimClick(Sender: TObject);
-    procedure lbNaoClick(Sender: TObject);
+    procedure lbTotalOpcoesClick(Sender: TObject);
+    procedure lbZeroOpcoesClick(Sender: TObject);
     procedure panTotMouseEnter(Sender: TObject);
     procedure panTotMouseExit(Sender: TObject);
     procedure panTotMouseMove(Sender: TObject; Shift: TShiftState; X,
@@ -116,7 +116,8 @@ type
     FPontosDisp : Double;
     FRecAnt : Double;
     FOpPagto : Byte;
-    FPagEsp : TncPagEspecies;
+    FEspecie : dword;
+    //FPagEsp : TncPagEspecies;
     { Private declarations }
 
     procedure OnTimerSelText(Sender: TObject);
@@ -135,6 +136,7 @@ type
     procedure SetTamanho(const Value: Byte);
     procedure SetObs(const Value: String);
     function GetObs: String;
+    procedure OnEspecieChange;
   public
     procedure InitVal(aPagEsp: TncPagEspecies; aSubTot, aDesconto, aPago, aRecebido : Double; aObs: String; aParent: TWinControl; aShowObs: Boolean = True);
     procedure InitPontos(aNec, aDisp: Double; aObs: String; aParent: TWinControl; aShowObs: Boolean = True);
@@ -193,7 +195,7 @@ resourcestring
 
 {$R *.dfm}
 
-procedure TFrmTotal.lbNaoClick(Sender: TObject);
+procedure TFrmTotal.lbZeroOpcoesClick(Sender: TObject);
 begin
   edRec.Value := 0;
   FOpPagto := 0;
@@ -214,7 +216,7 @@ begin
   CriaTimerSelect(edRec);
 end;
 
-procedure TFrmTotal.lbSimClick(Sender: TObject);
+procedure TFrmTotal.lbTotalOpcoesClick(Sender: TObject);
 begin
   edRec.Value := edTotal.Value;
   FOpPagto := 1;
@@ -229,6 +231,7 @@ begin
   lbDesc.Enabled := Permitido(daTraDesconto);
   FAtualizando := True;
   try
+    FEspecie := 1;
     FOpPagto := 0;
     edSubTotal.Value := 0;
     edCustoT.Value := 0;
@@ -244,7 +247,7 @@ end;
 
 function TFrmTotal.Debito: Double;
 begin
-  if edRec.Value < edTotal.Value then 
+  if edRec.Value < edTotal.Value then
     Result := edTotal.Value - edRec.Value else
     Result := 0;
 end;
@@ -322,21 +325,26 @@ end;
 
 procedure TFrmTotal.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
-  Action := caFree;
+    //FPagEsp.Free;
+    Action := caFree;
 end;
 
 procedure TFrmTotal.FormCreate(Sender: TObject);
+var
+    pagEspecie : TncPagEspecie;
 begin
   FTamanho := 0;
   Limpa;
 
   cbEspecie.Properties.Items.Clear;
+
+  FEspecie := 1;
   dsTab.DataSet := nil;
   with Tab do begin
      first;
      while not Eof do begin
          with cbEspecie.Properties.Items.Add do begin
-             Value := TabImg.Value;
+             Value := TabID.Value;
              ImageIndex := TabImg.Value;
              Description := '  ' + TabNome.Value + '  ';
          end;
@@ -350,13 +358,13 @@ end;
 
 procedure TFrmTotal.FormMouseLeave(Sender: TObject);
 begin
-  panSimNao.Visible := False;
+  panOpcoes.Visible := False;
 end;
 
 procedure TFrmTotal.FormMouseMove(Sender: TObject; Shift: TShiftState; X,
   Y: Integer);
 begin
-  panSimNao.Visible := (Y>panTot.Top) and panRec.Visible;
+  panOpcoes.Visible := (Y>panTot.Top) and panRec.Visible;
 end;
 
 function TFrmTotal.GetObs: String;
@@ -411,7 +419,7 @@ begin
   try
     panObs.Visible := aShowObs;
     panRec.Visible := False;
-    panSimNao.Visible := False;
+    panOpcoes.Visible := False;
     Obs := aObs;
     SetPontosNec(aNec);
     SetPontosDisp(aDisp);
@@ -501,18 +509,18 @@ end;
 
 procedure TFrmTotal.panTotMouseEnter(Sender: TObject);
 begin
-  panSimNao.Visible := panRec.Visible;
+  panOpcoes.Visible := panRec.Visible;
 end;
 
 procedure TFrmTotal.panTotMouseExit(Sender: TObject);
 begin
-  panSimNao.Visible := False;
+  panOpcoes.Visible := False;
 end;
 
 procedure TFrmTotal.panTotMouseMove(Sender: TObject; Shift: TShiftState; X,
   Y: Integer);
 begin
-  panSimNao.Visible := panRec.Visible;
+  panOpcoes.Visible := panRec.Visible;
 end;
 
 procedure TFrmTotal.pgValPontosChange(Sender: TObject);
@@ -545,7 +553,7 @@ end;
 
 procedure TFrmTotal.SetSubTotal(const Value: Double);
 begin
-  panSimNao.Visible := (Value>0.009) and panRec.Visible;
+  panOpcoes.Visible := (Value>0.009) and panRec.Visible;
   edSubTotal.Value := Value;
   Atualiza(True);
 end;
@@ -598,7 +606,7 @@ begin
   edRec.Width := lbCalc2.Width;
 
   panTot.Parent.Height := ValPanHeight;
-  panSimNao.Top := panTot.Parent.ClientHeight;
+  panOpcoes.Top := panTot.Parent.ClientHeight;
 end;
 
 begin
@@ -611,8 +619,6 @@ begin
   FTamanho := Value;
 end;
 
-
-
 function TFrmTotal.Total: Double;
 begin
   Result := edTotal.Value;
@@ -622,7 +628,7 @@ function TFrmTotal.ValPanHeight: Integer;
 begin
   Result := panObsVal.Height + 6;
   if panRec.Visible then begin
-    Result := Result + panSimNao.Height;
+    Result := Result + panOpcoes.Height;
     Result := Result + panRec.Height;
   end;
 end;
@@ -704,9 +710,16 @@ end;
 
 procedure TFrmTotal.cbEspeciePropertiesChange(Sender: TObject);
 begin
-    if cbEspecie.ItemIndex>-1 then 
-        lbEspecie.caption := trim(cbEspecie.Properties.Items[cbEspecie.ItemIndex].Description);
+    if cbEspecie.ItemIndex>-1 then
+        OnEspecieChange;
 end;
+
+procedure TFrmTotal.OnEspecieChange;
+begin
+    lbEspecie.caption := trim(cbEspecie.Properties.Items[cbEspecie.ItemIndex].Description);
+    FEspecie :=  cbEspecie.Properties.Items[cbEspecie.ItemIndex].Value;
+end;
+
 
 procedure TFrmTotal.CriaTimerSelect(aObj: TObject);
 begin
