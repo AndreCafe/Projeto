@@ -270,6 +270,7 @@ type
     procedure cmNovoRegClick(Sender: TObject);
     procedure cmOutroRegClick(Sender: TObject);
     procedure cmAtualizaLicClick(Sender: TObject);
+    procedure FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
   private
     { Private declarations }
     {$IFNDEF LOJA}
@@ -1882,6 +1883,17 @@ begin
   FPrintTransfer.Terminate;
 end;
 
+procedure TFrmPri.FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
+begin
+  case Key of
+    Key_F3   :
+        if FM.FormAtivo.ClassName = 'TfbMaq' then
+            with TfbMaq(FM.FormAtivo) do
+                if FM.FormAtivo.ClassName = 'TfbMaquinas' then
+                     Dados.NovoMovEst(trEstVenda, 0);
+  end;
+end;
+
 procedure TFrmPri.FormResize(Sender: TObject);
 begin
   if FM.FormAtivo<>nil then
@@ -1917,7 +1929,7 @@ begin
     cmMostrarTextoBotoes.Caption := SncaFrmPri_OcultarTextosDosBotões
   else  
     cmMostrarTextoBotoes.Caption := SncaFrmPri_MostrarTextosDosBotões ;
-  with Dados, CM do begin  
+  with Dados, CM do begin
     tbConfig.Edit;
     tbConfigEscondeTextoBotoes.Value := not MostrarTextoBotoes;
     tbConfig.Post;

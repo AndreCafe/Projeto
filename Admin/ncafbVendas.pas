@@ -24,7 +24,7 @@ uses
   dxPSPDFExport, cxDrawTextUtils, dxPSPrVwStd, dxPSPrVwAdv, dxPSPrVwRibbon,
   dxPScxPageControlProducer, dxPScxEditorProducers, dxPScxExtEditorProducers,
   dxPSCore, cxGridCustomPopupMenu, cxGridPopupMenu, dxPScxPivotGridLnk,
-  ufmFormSizedFonts, uParentedPanel;
+  ufmFormSizedFonts, uParentedPanel, dxBarBuiltInMenu, cxNavigator;
 
 type
   TfbVendas = class(TFrmSizedFonts)

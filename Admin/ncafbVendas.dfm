@@ -14,12 +14,14 @@ inherited fbVendas: TfbVendas
     ExplicitHeight = 422
     inherited dxBarDockControl1: TdxBarDockControl
       Width = 669
+      Height = 44
       ExplicitWidth = 669
+      ExplicitHeight = 44
     end
     object panCli: TLMDSimplePanel
       AlignWithMargins = True
       Left = 0
-      Top = 33
+      Top = 49
       Width = 669
       Height = 75
       Margins.Left = 0
@@ -49,9 +51,9 @@ inherited fbVendas: TfbVendas
     object panLista: TLMDSimplePanel
       AlignWithMargins = True
       Left = 0
-      Top = 114
+      Top = 130
       Width = 669
-      Height = 236
+      Height = 220
       Margins.Left = 0
       Margins.Top = 6
       Margins.Right = 0
@@ -168,6 +170,7 @@ inherited fbVendas: TfbVendas
               TabOrder = 1
               TabStop = False
               Properties.ActivePage = tsDescr
+              Properties.CustomButtons.Buttons = <>
               Properties.HideTabs = True
               LookAndFeel.NativeStyle = False
               ClientRectBottom = 29
@@ -176,6 +179,8 @@ inherited fbVendas: TfbVendas
               object tsBuscarCod: TcxTabSheet
                 Caption = 'tsBuscarCod'
                 ImageIndex = 0
+                ExplicitWidth = 0
+                ExplicitHeight = 0
                 object edCod: TcxTextEdit
                   AlignWithMargins = True
                   Left = 6
@@ -186,7 +191,6 @@ inherited fbVendas: TfbVendas
                   Align = alClient
                   BeepOnEnter = False
                   ParentFont = False
-                  Properties.Alignment.Vert = taVCenter
                   Properties.OnChange = edCodPropertiesChange
                   Properties.OnEditValueChanged = edCodPropertiesEditValueChanged
                   Style.BorderColor = clSilver
@@ -219,7 +223,6 @@ inherited fbVendas: TfbVendas
                   AutoSize = False
                   BeepOnEnter = False
                   ParentFont = False
-                  Properties.Alignment.Vert = taVCenter
                   Properties.DropDownHeight = 300
                   Properties.DropDownSizeable = True
                   Properties.DropDownWidth = 500
@@ -387,7 +390,6 @@ inherited fbVendas: TfbVendas
                   BeepOnEnter = False
                   EditValue = 0.000000000000000000
                   ParentFont = False
-                  Properties.Alignment.Vert = taVCenter
                   Properties.AssignedValues.EditFormat = True
                   Properties.DecimalPlaces = 2
                   Properties.DisplayFormat = 'R$ ,0.00;(R$ ,0.00)'
@@ -470,7 +472,6 @@ inherited fbVendas: TfbVendas
                   BeepOnEnter = False
                   EditValue = 1.000000000000000000
                   ParentFont = False
-                  Properties.Alignment.Vert = taVCenter
                   Properties.AssignedValues.DisplayFormat = True
                   Properties.AssignedValues.EditFormat = True
                   Properties.DecimalPlaces = 5
@@ -634,7 +635,7 @@ inherited fbVendas: TfbVendas
       end
       object panRemover: TLMDSimplePanel
         Left = 2
-        Top = 212
+        Top = 196
         Width = 665
         Height = 22
         Align = alBottom
@@ -657,7 +658,7 @@ inherited fbVendas: TfbVendas
         Left = 2
         Top = 87
         Width = 665
-        Height = 125
+        Height = 109
         Margins.Left = 0
         Margins.Right = 0
         Margins.Bottom = 0
@@ -674,6 +675,7 @@ inherited fbVendas: TfbVendas
         LookAndFeel.Kind = lfFlat
         LookAndFeel.NativeStyle = False
         object TV: TcxGridTableView
+          Navigator.Buttons.CustomButtons = <>
           DataController.Summary.DefaultGroupSummaryItems = <>
           DataController.Summary.FooterSummaryItems = <
             item
@@ -716,7 +718,6 @@ inherited fbVendas: TfbVendas
             Caption = 'Quantidade'
             PropertiesClassName = 'TcxMaskEditProperties'
             Properties.Alignment.Horz = taRightJustify
-            Properties.Alignment.Vert = taVCenter
             OnGetDisplayText = TVQuantGetDisplayText
             HeaderAlignmentHorz = taCenter
             Width = 88
@@ -725,7 +726,6 @@ inherited fbVendas: TfbVendas
             Caption = 'X'
             PropertiesClassName = 'TcxTextEditProperties'
             Properties.Alignment.Horz = taCenter
-            Properties.Alignment.Vert = taVCenter
             OnGetDisplayText = TVvezesGetDisplayText
             HeaderAlignmentHorz = taCenter
             Width = 20
@@ -734,8 +734,6 @@ inherited fbVendas: TfbVendas
             Caption = '  Valor Unit'#225'rio'
             PropertiesClassName = 'TcxCurrencyEditProperties'
             Properties.Alignment.Horz = taLeftJustify
-            Properties.Alignment.Vert = taVCenter
-            HeaderAlignmentVert = vaCenter
             Width = 125
           end
           object TVFidPontos: TcxGridColumn
@@ -743,10 +741,8 @@ inherited fbVendas: TfbVendas
             DataBinding.ValueType = 'Integer'
             PropertiesClassName = 'TcxSpinEditProperties'
             Properties.Alignment.Horz = taRightJustify
-            Properties.Alignment.Vert = taVCenter
             Visible = False
             HeaderAlignmentHorz = taCenter
-            HeaderAlignmentVert = vaCenter
             HeaderGlyphAlignmentHorz = taRightJustify
             Options.Editing = False
             Options.Focusing = False
@@ -756,7 +752,6 @@ inherited fbVendas: TfbVendas
             Caption = '='
             PropertiesClassName = 'TcxTextEditProperties'
             Properties.Alignment.Horz = taCenter
-            Properties.Alignment.Vert = taVCenter
             HeaderAlignmentHorz = taCenter
             Width = 20
           end
@@ -764,9 +759,7 @@ inherited fbVendas: TfbVendas
             Caption = 'Total'
             PropertiesClassName = 'TcxCurrencyEditProperties'
             Properties.Alignment.Horz = taRightJustify
-            Properties.Alignment.Vert = taVCenter
             HeaderAlignmentHorz = taRightJustify
-            HeaderAlignmentVert = vaCenter
             Width = 99
           end
           object TVFidPontosTotal: TcxGridColumn
@@ -776,7 +769,6 @@ inherited fbVendas: TfbVendas
             Properties.Alignment.Horz = taRightJustify
             Visible = False
             HeaderAlignmentHorz = taRightJustify
-            HeaderAlignmentVert = vaCenter
             HeaderGlyphAlignmentHorz = taRightJustify
             Width = 47
           end

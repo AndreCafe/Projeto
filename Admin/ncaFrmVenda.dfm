@@ -18,7 +18,7 @@ object FrmVenda: TFrmVenda
   OnClose = FormClose
   OnCreate = FormCreate
   OnDestroy = FormDestroy
-  OnKeyDown = FormKeyUp
+  OnKeyUp = FormKeyUp
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 16
