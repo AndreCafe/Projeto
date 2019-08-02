@@ -1179,6 +1179,10 @@ type
     tConfigUrls: TnxMemoField;
     tSessaoCliVersaoRegistro: TIntegerField;
     tSessaoVersaoRegistro: TIntegerField;
+    tMovEstTipoPag: TWordField;
+    tMovEstRecVer: TIntegerField;
+    tITranTipoPag: TWordField;
+    tITranRecVer: TIntegerField;
     procedure tMovEstCalcFields(DataSet: TDataSet);
     procedure tAuxMECalcFields(DataSet: TDataSet);
     procedure tITranCalcFields(DataSet: TDataSet);

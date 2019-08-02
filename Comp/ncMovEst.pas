@@ -38,6 +38,7 @@ type
     imItem : Byte;
     imDesconto : Currency;
     imPago : Currency;
+    imTipoPag : byte;
     imDataHora : TDateTime;
     imCancelado : Boolean;
     imEstoqueAnt : Double;
@@ -139,8 +140,8 @@ type
     FDesconto    : Currency;
     FDescPerc    : Double;
     FDescPorPerc : Boolean;
-    
     FPago        : Currency;
+    FTipoPag     : Byte;
     FObs         : String;
     FCancelado   : Boolean;
     FCanceladoPor: String;
@@ -223,7 +224,10 @@ type
       
     property Pago : Currency
       read FPago write FPago;
-      
+
+    property TipoPag : Byte
+      read FTipoPag write FTipoPag;
+
     property Obs : String
       read FObs write FObs;
       
@@ -295,6 +299,7 @@ begin
   imItem := IM.imItem;
   imDesconto := IM.imDesconto;
   imPago := IM.imPago;
+  imTipoPag := IM.imTipoPag;
   imDataHora := IM.imDataHora;
   imCancelado := IM.imCancelado;
   imEstoqueAnt := IM.imEstoqueAnt;
@@ -388,6 +393,7 @@ begin
     IntToStr(imItem) + sFldDelim(classid_TncItemMovEst) +
     FloatParaStr(imDesconto) + sFldDelim(classid_TncItemMovEst) +
     FloatParaStr(imPago) + sFldDelim(classid_TncItemMovEst) +
+    IntToStr(imTipoPag) + sFldDelim(classid_TncItemMovEst) +
     GetDTStr(imDataHora) + sFldDelim(classid_TncItemMovEst) +
     BoolStr[imCancelado] + sFldDelim(classid_TncItemMovEst) +
     FloatParaStr(imEstoqueAnt) + sFldDelim(classid_TncItemMovEst) +
@@ -420,6 +426,7 @@ begin
   if imItem <> IM.imItem then Exit;
   if imDesconto <> IM.imDesconto then Exit;
   if imPago <> IM.imPago then Exit;
+  if imTipoPag <> IM.imTipoPag then Exit;
   if imDataHora <> IM.imDataHora then Exit;
   if imCancelado <> IM.imCancelado then Exit;
   if imEstoqueAnt <> IM.imEstoqueAnt then Exit;
@@ -453,6 +460,7 @@ begin
   imItem := 0;
   imDesconto := 0;
   imPago := 0;
+  imTipoPag := 0;
   imDataHora := 0;
   imCancelado := False;
   imEstoqueAnt := 0;
@@ -486,6 +494,7 @@ begin
   imItem := tMovEst.FieldByName('Item').AsInteger; // do not localize
   imDesconto := tMovEst.FieldByName('Desconto').AsCurrency; // do not localize
   imPago := tMovEst.FieldByName('Pago').AsCurrency; // do not localize
+  imTipoPag := tMovEst.FieldByName('TipoPag').AsInteger; // do not localize
   imDataHora := tMovEst.FieldByName('DataHora').AsDateTime; // do not localize
   imCancelado := tMovEst.FieldByName('Cancelado').AsBoolean; // do not localize
   imEstoqueAnt := tMovEst.FieldByName('EstoqueAnt').AsFloat; // do not localize
@@ -494,7 +503,7 @@ begin
   imCaixa := tMovEst.FieldByName('Caixa').AsInteger; // do not localize
   imCategoria := tMovEst.FieldByName('Categoria').AsString; // do not localize
   imNaoControlaEstoque := tMovEst.FieldByName('NaoControlaEstoque').AsBoolean; // do not localize
-  imITran := tMovEst.FieldByName('ITran').AsInteger; // do not localize   
+  imITran := tMovEst.FieldByName('ITran').AsInteger; // do not localize
   imPermSemEstoque := tMovEst.FieldByName('PermSemEstoque').AsBoolean; // do not localize
   imFidResgate := tMovEst.FieldByName('FidResgate').AsBoolean; // do not localize
   imFidPontos := tMovEst.FieldByName('FidPontos').AsFloat; // do not localize
@@ -532,6 +541,7 @@ begin
     D.FieldByName('FidPontos').Clear; // do not localize
   end;
   D.FieldByName('Item').AsInteger := imItem; // do not localize
+  D.FieldByName('TipoPag').AsInteger := imTipoPag; // do not localize
   D.FieldByName('DataHora').AsDateTime := imDataHora; // do not localize
   D.FieldByName('Entrada').AsBoolean := Entrada; // do not localize
   D.FieldByName('Cancelado').AsBoolean := imCancelado; // do not localize
@@ -552,6 +562,7 @@ begin
   D.FieldByName('PagPend').AsBoolean := PagPend;
   D.FieldByName('Tran').AsInteger := imTran; // do not localize
   D.FieldByName('Caixa').AsInteger := imCaixa; // do not localize
+  D.FieldByName('TipoPag').AsInteger := imTipoPag; // do not localize
   D.FieldByName('DataHora').AsDateTime := imDataHora; // do not localize
   D.FieldByName('Caixa').AsInteger := imCaixa; // do not localize
   D.FieldByName('TipoItem').AsInteger := itMovEst; // do not localize
@@ -611,6 +622,7 @@ begin
   imItem := StrToIntDef(pCampo, 0);
   imDesconto := StrParaFloat(pCampo);
   imPago := StrParaFloat(pCampo);
+  imTipoPag := StrToIntDef(pCampo, 0);
   imDataHora := DTFromStr(pCampo);
   imCancelado := (BoolStr[True]=pCampo);
   imEstoqueAnt := StrParaFloat(pCampo);
@@ -855,6 +867,7 @@ begin
   FDescPerc    := 0;
   FDescPorPerc := False;
   FPago        := 0;
+  FTipoPag     := 0;    
   FObs         := '';
   FCancelado   := False;
   FCanceladoPor:= '';

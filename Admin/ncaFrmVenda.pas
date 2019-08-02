@@ -338,7 +338,10 @@ begin
   {$ifdef LOJA}
   if not PremiumOk then Exit;
   {$endif}
-  
+
+  Ftot.CheckEspecie;
+
+
   if FidResgate then begin
     FME.Total := 0;
     FME.Desconto := 0;
@@ -348,11 +351,12 @@ begin
     FME.Desconto := FTot.Desconto;
     FME.Pago     := FTot.Pago;
   end;
+
   FME.Obs      := FTot.Obs;
   FME.Recibo   := cbRecibo.Checked;
   FME.NomeCliente := FCli.Nome;
   FME.Cliente := FCli.Codigo;
-  
+
   if FME.Itens.Count=0 then
     Raise ENexCafe.Create(SÉNecessárioHaverItensParaSalvar);
 
@@ -366,18 +370,18 @@ begin
     if (FME.Pago - (FME.Total - FME.Desconto)) > 0.001 then
       Raise ENexCafe.Create(SValorPagoNãoPodeSerMaiorQueOTota);
   end else begin
-    if FCli.Codigo=0 then 
+    if FCli.Codigo=0 then
       raise ENexCafe.Create(SÉNecessárioInformarOCliente);
-      
-    if FTot.PontosNec>FCli.FidPontos then 
+
+    if FTot.PontosNec>FCli.FidPontos then
       raise ENexCafe.Create(SClienteNãoPossuiQuantidadeDePont);
   end;
-    
-  with Dados do   
+
+  with Dados do
   if (FME.Tipo=trEstVenda) and (FME.ValorDebitado>0.009) then begin
     if FME.Cliente <> FCliAnt then FDebAnt := 0;
     Debitar := FME.ValorDebitado - FDebAnt;
-  
+
     if (FME.ValorDebitado>0.009) then begin
       if (FME.Cliente=0) then
         Raise ENexCafe.Create(SParaFicarEmDébitoéNecessárioSele);
@@ -389,11 +393,13 @@ begin
     end;
   end;
 
+  FME.TipoPag := 2;
+
   if (FME.Tipo=trEstVenda) and (not FidResgate) then
     FME.SalvaDescPago;
 
   FME.SalvaTipoTran;
-    
+
   FRes := True;
 
   Close;
@@ -612,7 +618,7 @@ begin
   //MostrarUnit := False;
   FIDProd := 0;
   edDescr.EditValue := null;
-  
+
   FCanClose := True;
   FTot := TFrmTotal.Create(Self);
 

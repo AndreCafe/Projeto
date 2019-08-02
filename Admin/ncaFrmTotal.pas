@@ -13,9 +13,16 @@ uses
   LMDCustomPanel, LMDCustomBevelPanel, LMDSimplePanel, Menus, StdCtrls,
   cxButtons, LMDBaseControl, LMDBaseGraphicControl, LMDBaseGraphicButton,
   LMDCustomSpeedButton, LMDSpeedButton, ncEspecie, dxBarBuiltInMenu, DB,
-  kbmMemTable, cxMaskEdit, cxDropDownEdit, cxImageComboBox, cxDBEdit, nxdb;
+  kbmMemTable, cxMaskEdit, cxDropDownEdit, cxImageComboBox, cxDBEdit, nxdb,
+  cxImage, ncMovEst;
+
+const
+      kOpPagtoManter = 0; // manter
+      kOpPagtoPgTotal = 1; // pg.total
+      kOpPagtoZerar = 2; // zerar
 
 type
+
   TFrmTotal = class(TForm)
     panTot: TLMDSimplePanel;
     panInnerTot: TLMDSimplePanel;
@@ -68,8 +75,11 @@ type
     edCalc: TcxCurrencyEdit;
     lbCalc2: TcxLabel;
     lbCalc1: TcxLabel;
-    cbEspecie: TcxDBImageComboBox;
     lbEspecie: TcxLabel;
+    cbEspecie: TcxImageComboBox;
+    cxLabel1: TcxLabel;
+    cxImgOk: TcxImage;
+    cxImgBad: TcxImage;
     Tab: TnxTable;
     TabID: TWordField;
     TabTipo: TWordField;
@@ -79,7 +89,6 @@ type
     TabPermiteCred: TBooleanField;
     TabImg: TWordField;
     TabRecVer: TIntegerField;
-    dsTab: TDataSource;
     procedure lbDescClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure lbRecClick(Sender: TObject);
@@ -108,6 +117,8 @@ type
     procedure pgValPontosChange(Sender: TObject);
     procedure cbEspeciePropertiesChange(Sender: TObject);
     procedure lbEspecieClick(Sender: TObject);
+    procedure cbEspecieMouseUp(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
   private
     FTamanho: Byte;
     FAtualizando : Boolean;
@@ -115,13 +126,11 @@ type
     FDebCaption : String;
     FPontosDisp : Double;
     FRecAnt : Double;
-    FOpPagto : Byte;
-    FEspecie : dword;
-    //FPagEsp : TncPagEspecies;
+    FOpPagto : Byte; // 0 = manter, 1= pg.total, 2= zerar
+    FSelectedEspecieIdx : dword;
     { Private declarations }
 
     procedure OnTimerSelText(Sender: TObject);
-
 
     procedure CriaTimerSelect(aObj: TObject);
 
@@ -137,6 +146,10 @@ type
     procedure SetObs(const Value: String);
     function GetObs: String;
     procedure OnEspecieChange;
+    procedure setErroEspecie;
+    procedure setOkEspecie;
+    function PermiteCred: boolean;
+    function PermiteTroco: boolean;
   public
     procedure InitVal(aPagEsp: TncPagEspecies; aSubTot, aDesconto, aPago, aRecebido : Double; aObs: String; aParent: TWinControl; aShowObs: Boolean = True);
     procedure InitPontos(aNec, aDisp: Double; aObs: String; aParent: TWinControl; aShowObs: Boolean = True);
@@ -146,7 +159,7 @@ type
     procedure Limpa;
 
     procedure PagarFimAcesso;
-    
+
     function ValPanHeight : Integer;
 
     function Debito: Double;
@@ -154,11 +167,13 @@ type
     function Pago: Double;
     function Total: Double;
 
+    procedure CheckEspecie;
+
     property Obs: String read GetObs write SetObs;
 
     property Tamanho: Byte
       read FTamanho write SetTamanho;
-    
+
     property Recebido: Double
       read GetRecebido write SetRecebido;
 
@@ -172,7 +187,8 @@ type
       read GetSubTotal write SetSubTotal;
 
     property PontosNec: Double
-      read FPontosNec write SetPontosNec;  
+      read FPontosNec write SetPontosNec;
+
     { Public declarations }
   end;
 
@@ -181,7 +197,7 @@ var
 
 implementation
 
-uses ncClassesBase, ncaDM, ncIDRecursos, ncaDMImgEsp;
+uses ncClassesBase, ncaDM, ncIDRecursos, ncaDMImgEsp, ncaDMImgsVarios;
 
 // START resource string wizard section
 resourcestring
@@ -195,22 +211,14 @@ resourcestring
 
 {$R *.dfm}
 
-procedure TFrmTotal.lbZeroOpcoesClick(Sender: TObject);
-begin
-  edRec.Value := 0;
-  FOpPagto := 0;
-  edRec.SetFocus;
-  CriaTimerSelect(edRec);
-end;
-
 procedure TFrmTotal.lbRecClick(Sender: TObject);
 begin
   if edRec.Value<0.01 then begin
     edRec.Value := edTotal.Value;
-    FOpPagto := 1;
+    FOpPagto := kOpPagtoPgTotal;
   end else begin
     edRec.Value := 0;
-    FOpPagto := 0;
+    FOpPagto := kOpPagtoManter;
   end;
   edRec.SetFocus;
   CriaTimerSelect(edRec);
@@ -219,20 +227,46 @@ end;
 procedure TFrmTotal.lbTotalOpcoesClick(Sender: TObject);
 begin
   edRec.Value := edTotal.Value;
-  FOpPagto := 1;
+  FOpPagto := kOpPagtoPgTotal;
   edRec.SetFocus;
   CriaTimerSelect(edRec);
 end;
+
+procedure TFrmTotal.lbZeroOpcoesClick(Sender: TObject);
+begin
+  edRec.Value := 0;
+  FOpPagto := kOpPagtoManter;
+  edRec.SetFocus;
+  CriaTimerSelect(edRec);
+end;
+
+procedure TFrmTotal.btnPgTotalClick(Sender: TObject);
+begin
+  edRec.Value := edTotal.Value;
+  FOpPagto := kOpPagtoPgTotal;
+  edRec.SetFocus;
+  CriaTimerSelect(edRec);
+end;
+
+procedure TFrmTotal.btnZeroClick(Sender: TObject);
+begin
+  edRec.Value := 0;
+  FOpPagto := kOpPagtoZerar;
+  edRec.SetFocus;
+  CriaTimerSelect(edRec);
+end;
+
 
 procedure TFrmTotal.Limpa;
 begin
   FDebCaption := SDebitar;
   edDesconto.Properties.ReadOnly := not Permitido(daTraDesconto);
   lbDesc.Enabled := Permitido(daTraDesconto);
+  cbEspecie.ItemIndex := 0;
   FAtualizando := True;
   try
-    FEspecie := 1;
-    FOpPagto := 0;
+    FSelectedEspecieIdx := 0;
+    FOpPagto := kOpPagtoManter;
     edSubTotal.Value := 0;
     edCustoT.Value := 0;
     edDesconto.Value := 0;
@@ -307,9 +341,12 @@ procedure TFrmTotal.edRecExit(Sender: TObject);
 begin
 //  panOuterRec.Width := 215;
   if FRecAnt <> edRec.Value then begin
+
+    //CheckEspecie;
+
     if edRec.Value = edTotal.Value then
-      FOpPagto := 1 else
-      FOpPagto := 0;
+      FOpPagto := kOpPagtoPgTotal else
+      FOpPagto := kOpPagtoManter;
   end;
 end;
 
@@ -325,34 +362,32 @@ end;
 
 procedure TFrmTotal.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
-    //FPagEsp.Free;
     Action := caFree;
 end;
 
 procedure TFrmTotal.FormCreate(Sender: TObject);
 var
-    pagEspecie : TncPagEspecie;
+    i : integer;
 begin
   FTamanho := 0;
   Limpa;
 
   cbEspecie.Properties.Items.Clear;
 
-  FEspecie := 1;
-  dsTab.DataSet := nil;
-  with Tab do begin
-     first;
-     while not Eof do begin
+  FSelectedEspecieIdx := 0;
+
+  Tab.Open;
+  gEspecies.Limpa;
+  gEspecies.LeDataset(Tab);
+
+  for i := 0 to gEspecies.Count - 1 do begin
+
          with cbEspecie.Properties.Items.Add do begin
-             Value := TabID.Value;
-             ImageIndex := TabImg.Value;
-             Description := '  ' + TabNome.Value + '  ';
+             Value := gEspecies[i].ID;
+             ImageIndex := gEspecies[i].Img;
+             Description := '  ' + gEspecies[i].Nome + '  ';
          end;
-         next;
-     end;
-     first;
   end;
-  dsTab.DataSet := Tab;
 
 end;
 
@@ -458,10 +493,10 @@ procedure TFrmTotal.lbDescClick(Sender: TObject);
 begin
   if edDesconto.Value>0.009 then begin
     edDesconto.Value := 0;
-    FOpPagto := 0;
+    FOpPagto := kOpPagtoManter;
   end else begin
     edDesconto.Value := edSubTotal.Value;
-    FOpPagto := 2;
+    FOpPagto := kOpPagtoZerar;
   end;
   edDesconto.SetFocus;
   CriaTimerSelect(edDesconto);
@@ -482,6 +517,8 @@ begin
   try
     lbNomeDif.Left := 0;
     lbNomeDif.Realign;
+    if cxImgOk.Visible then cxImgOk.Repaint;
+    if cxImgBad.Visible then cxImgBad.Repaint;
   finally
     Sender.Free;
   end;
@@ -529,9 +566,21 @@ begin
     panObs.AlignWithMargins := True;
 end;
 
+procedure TFrmTotal.setErroEspecie;
+begin
+     cxImgOk.visible := false;
+     cxImgBad.visible := true and (edRec.Value <> edTotal.Value);
+end;
+
 procedure TFrmTotal.SetObs(const Value: String);
 begin
   meObs.Lines.Text := Value;
+end;
+
+procedure TFrmTotal.setOkEspecie;
+begin
+     cxImgOk.visible := true and (edRec.Value <> edTotal.Value);
+     cxImgBad.visible := false;
 end;
 
 procedure TFrmTotal.SetPontosDisp(const Value: Double);
@@ -642,11 +691,11 @@ begin
     if edDesconto.Value < edSubTotal.Value then
       edTotal.Value := edSubTotal.Value - edDesconto.Value else
       edTotal.Value := 0;
-      
+
     if edDesconto.Value > 0 then
       edDesconto.Style.TextColor := clRed else
       edDesconto.Style.TextColor := clSilver;
-  
+
     if edTotal.Value < 0.01 then
       edRec.Value := 0
     else
@@ -659,7 +708,7 @@ begin
     if edRec.Value > edTotal.Value then begin
       lbValorDif.Visible := True;
       lbNomeDif.Visible := True;
-      
+
       lbNomeDif.Style.Color := clGreen;
       lbNomeDif.Caption := STroco;
       lbValorDif.Style.Color := clGreen;
@@ -672,7 +721,6 @@ begin
       lbNomeDif.Visible := True;
       lbNomeDif.Left := 0;
       lbValorDif.Left := panOuterRec.Left-1;
-    
       lbNomeDif.Style.Color := clRed;
       lbNomeDif.Caption := '  '+FDebCaption+'  ';
       lbValorDif.Style.Color := clRed;
@@ -680,7 +728,14 @@ begin
     end else begin
       lbNomeDif.Visible := False;
       lbValorDif.Visible := False;
+      cxImgOk.Visible := False;
+      cxImgBad.Visible := False;
     end;
+
+   cxImgOk.Left := panDif.Width - lbValorDif.Width - 355;
+   cxImgBad.Left := cxImgOk.Left;
+   CheckEspecie;
+
     lbNomeDif.Left := 0;
     with TTimer.Create(Self) do begin
       Interval := 50;
@@ -692,20 +747,47 @@ begin
   end;
 end;
 
-procedure TFrmTotal.btnPgTotalClick(Sender: TObject);
+// dario 07/2019
+procedure TFrmTotal.CheckEspecie;
 begin
-  edRec.Value := edTotal.Value;
-  FOpPagto := 1;
-  edRec.SetFocus;
-  CriaTimerSelect(edRec);
+    //lbNomeDif.Style.Color := clGreen;
+    // Cliente oferece valor MAIOR que o Total.
+    // troco devido
+    if edRec.Value > edTotal.Value then begin
+      if PermiteTroco then
+          setOkEspecie else
+          setErroEspecie;
+    end else
+    //lbNomeDif.Style.Color := clRed;
+    // Cliente oferece MENOS que o Total
+    // Pode debitar?
+    if edRec.Value < edTotal.Value then begin
+      if PermiteCred then
+          setOkEspecie else
+          setErroEspecie;
+    end else
+    // Pago oferecido = Total
+    begin
+      setOkEspecie;
+    end;
+    PermiteCred;
 end;
 
-procedure TFrmTotal.btnZeroClick(Sender: TObject);
+function TFrmTotal.PermiteTroco:boolean;
 begin
-  edRec.Value := 0;
-  FOpPagto := 2;
-  edRec.SetFocus;
-  CriaTimerSelect(edRec);
+    result := gEspecies.Itens[FSelectedEspecieIdx].PermiteTroco = true;
+end;
+
+function TFrmTotal.PermiteCred:boolean;
+begin
+    result := gEspecies.Itens[FSelectedEspecieIdx].PermiteCred = true;
+end;
+
+procedure TFrmTotal.cbEspecieMouseUp(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+begin
+    cbEspecie.DroppedDown := true;
+
 end;
 
 procedure TFrmTotal.cbEspeciePropertiesChange(Sender: TObject);
@@ -717,7 +799,10 @@ end;
 procedure TFrmTotal.OnEspecieChange;
 begin
     lbEspecie.caption := trim(cbEspecie.Properties.Items[cbEspecie.ItemIndex].Description);
-    FEspecie :=  cbEspecie.Properties.Items[cbEspecie.ItemIndex].Value;
+    FSelectedEspecieIdx :=  cbEspecie.ItemIndex;
+    CheckEspecie;
+    //edRec.SetFocus;
+
 end;
 
 

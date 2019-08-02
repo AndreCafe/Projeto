@@ -163,6 +163,9 @@ object DM: TDM
     object tITranTipoTran: TWordField
       FieldName = 'TipoTran'
     end
+    object tITranTipoPag: TWordField
+      FieldName = 'TipoPag'
+    end
     object tITranTipoItem: TWordField
       FieldName = 'TipoItem'
     end
@@ -228,6 +231,9 @@ object DM: TDM
     end
     object tITranCaixaPag: TIntegerField
       FieldName = 'CaixaPag'
+    end
+    object tITranRecVer: TIntegerField
+      FieldName = 'RecVer'
     end
   end
   object tUsuario: TnxTable
@@ -1710,6 +1716,9 @@ object DM: TDM
     object tMovEstPago: TCurrencyField
       FieldName = 'Pago'
     end
+    object tMovEstTipoPag: TWordField
+      FieldName = 'TipoPag'
+    end
     object tMovEstDataHora: TDateTimeField
       FieldName = 'DataHora'
     end
@@ -1783,6 +1792,9 @@ object DM: TDM
     end
     object tMovEstComissaoLucro: TBooleanField
       FieldName = 'ComissaoLucro'
+    end
+    object tMovEstRecVer: TIntegerField
+      FieldName = 'RecVer'
     end
   end
   object tCaixa: TnxTable
