@@ -350,6 +350,8 @@ object FrmVenda: TFrmVenda
             object tsDescr: TcxTabSheet
               Caption = 'tsDescr'
               ImageIndex = 1
+              ExplicitWidth = 0
+              ExplicitHeight = 0
               object edDescr: TcxLookupComboBox
                 AlignWithMargins = True
                 Left = 6

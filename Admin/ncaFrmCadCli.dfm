@@ -280,7 +280,7 @@ object FrmCadCli: TFrmCadCli
             StyleFocused.LookAndFeel.SkinName = ''
             StyleHot.LookAndFeel.SkinName = ''
             TabOrder = 5
-            Width = 134
+            Width = 347
           end
           object edTelefone: TcxDBTextEdit
             Left = 78
@@ -1272,10 +1272,6 @@ object FrmCadCli: TFrmCadCli
             object tsFoto: TcxTabSheet
               Caption = 'Foto'
               ImageIndex = 1
-              ExplicitLeft = 0
-              ExplicitTop = 0
-              ExplicitWidth = 0
-              ExplicitHeight = 0
               object panFoto: TLMDSimplePanel
                 Left = 0
                 Top = 0
@@ -1343,9 +1339,9 @@ object FrmCadCli: TFrmCadCli
             Index = -1
           end
           object lcFichaGroup6: TdxLayoutGroup
+            Parent = lcFichaGroup_Root
             CaptionOptions.Text = 'Hidden Group'
             CaptionOptions.Visible = False
-            Parent = lcFichaGroup_Root
             ButtonOptions.Buttons = <>
             Hidden = True
             LayoutDirection = ldHorizontal
@@ -1353,33 +1349,33 @@ object FrmCadCli: TFrmCadCli
             Index = 0
           end
           object lcFichaGroup1: TdxLayoutGroup
+            Parent = lcFichaGroup6
             CaptionOptions.Text = 'Hidden Group'
             CaptionOptions.Visible = False
-            Parent = lcFichaGroup6
             ButtonOptions.Buttons = <>
             Hidden = True
             ShowBorder = False
             Index = 0
           end
           object lcFichaItem2: TdxLayoutItem
+            Parent = lcFichaGroup1
             AlignHorz = ahLeft
             CaptionOptions.Text = 'C'#243'digo'
-            Parent = lcFichaGroup1
             Control = edCodigo
             ControlOptions.ShowBorder = False
             Index = 0
           end
           object lcFichaItem3: TdxLayoutItem
-            CaptionOptions.Text = 'Nome'
             Parent = lcFichaGroup1
+            CaptionOptions.Text = 'Nome'
             Control = edNome
             ControlOptions.ShowBorder = False
             Index = 1
           end
           object lcFichaGroup13: TdxLayoutGroup
+            Parent = lcFichaGroup2
             CaptionOptions.Text = 'Hidden Group'
             CaptionOptions.Visible = False
-            Parent = lcFichaGroup2
             ButtonOptions.Buttons = <>
             Hidden = True
             LayoutDirection = ldHorizontal
@@ -1387,65 +1383,65 @@ object FrmCadCli: TFrmCadCli
             Index = 0
           end
           object lcUsername: TdxLayoutItem
-            CaptionOptions.Text = 'Username'
             Parent = lcFichaGroup13
+            CaptionOptions.Text = 'Username'
             Control = edUsername
             ControlOptions.ShowBorder = False
             Index = 0
           end
           object lcApelido: TdxLayoutItem
-            CaptionOptions.Text = 'Apelido'
             Parent = lcFichaGroup18
+            CaptionOptions.Text = 'Apelido'
             Control = edApelido
             ControlOptions.ShowBorder = False
             Index = 0
           end
           object lclbUsername: TdxLayoutItem
+            Parent = lcFichaGroup2
             CaptionOptions.Text = 'cxLabel6'
             CaptionOptions.Visible = False
             Offsets.Left = 66
-            Parent = lcFichaGroup2
             Visible = False
             Control = lbUsername
             ControlOptions.ShowBorder = False
             Index = 1
           end
           object lcFichaGroup4: TdxLayoutGroup
+            Parent = lcFichaGroup2
             CaptionOptions.Text = 'Hidden Group'
             CaptionOptions.Visible = False
-            Parent = lcFichaGroup2
             ButtonOptions.Buttons = <>
             Hidden = True
             ShowBorder = False
             Index = 2
           end
           object lcSenha: TdxLayoutItem
-            CaptionOptions.Text = 'Senha'
             Parent = lcFichaGroup13
+            CaptionOptions.Text = 'Senha'
             Control = edSenha
             ControlOptions.ShowBorder = False
             Index = 1
           end
           object lcFichaItem11: TdxLayoutItem
-            CaptionOptions.Text = 'Data Nasc.'
             Parent = lcFichaGroup3
+            CaptionOptions.Text = 'Data Nasc.'
             Control = edNasc
             ControlOptions.ShowBorder = False
             Index = 0
           end
           object lcFichaGroup8: TdxLayoutGroup
+            Parent = lcFichaGroup4
             CaptionOptions.Text = 'Hidden Group'
             CaptionOptions.Visible = False
-            Parent = lcFichaGroup4
             ButtonOptions.Buttons = <>
             Hidden = True
             ShowBorder = False
             Index = 1
           end
           object lcFichaGroup7: TdxLayoutGroup
+            Parent = lcFichaGroup8
             CaptionOptions.Text = 'Hidden Group'
             CaptionOptions.Visible = False
-            Parent = lcFichaGroup8
             ButtonOptions.Buttons = <>
             Hidden = True
             LayoutDirection = ldHorizontal
@@ -1453,32 +1449,32 @@ object FrmCadCli: TFrmCadCli
             Index = 0
           end
           object lcFichaItem8: TdxLayoutItem
-            CaptionOptions.Text = 'Telefone'
             Parent = lcFichaGroup7
+            CaptionOptions.Text = 'Telefone'
             Control = edTelefone
             ControlOptions.ShowBorder = False
             Index = 0
           end
           object lcFichaItem9: TdxLayoutItem
-            CaptionOptions.Text = 'Celular'
             Parent = lcFichaGroup7
+            CaptionOptions.Text = 'Celular'
             Control = edCelular
             ControlOptions.ShowBorder = False
             Index = 1
           end
           object lcFichaGroup5: TdxLayoutGroup
+            Parent = lcFichaGroup8
             CaptionOptions.Text = 'Hidden Group'
             CaptionOptions.Visible = False
-            Parent = lcFichaGroup8
             ButtonOptions.Buttons = <>
             Hidden = True
             ShowBorder = False
             Index = 1
           end
           object lcFichaGroup15: TdxLayoutGroup
+            Parent = lcFichaGroup5
             CaptionOptions.Text = 'Hidden Group'
             CaptionOptions.Visible = False
-            Parent = lcFichaGroup5
             ButtonOptions.Buttons = <>
             Hidden = True
             LayoutDirection = ldHorizontal
@@ -1486,23 +1482,23 @@ object FrmCadCli: TFrmCadCli
             Index = 0
           end
           object lcFichaItem10: TdxLayoutItem
-            CaptionOptions.Text = 'RG'
             Parent = lcFichaGroup15
+            CaptionOptions.Text = 'RG'
             Control = edRG
             ControlOptions.ShowBorder = False
             Index = 0
           end
           object lcFichaItem12: TdxLayoutItem
-            CaptionOptions.Text = 'CPF'
             Parent = lcFichaGroup15
+            CaptionOptions.Text = 'CPF'
             Control = edCPF
             ControlOptions.ShowBorder = False
             Index = 1
           end
           object lcFichaGroup16: TdxLayoutGroup
+            Parent = lcFichaGroup5
             CaptionOptions.Text = 'Hidden Group'
             CaptionOptions.Visible = False
-            Parent = lcFichaGroup5
             ButtonOptions.Buttons = <>
             Hidden = True
             LayoutDirection = ldHorizontal
@@ -1510,68 +1506,68 @@ object FrmCadCli: TFrmCadCli
             Index = 1
           end
           object lcFichaItem15: TdxLayoutItem
-            CaptionOptions.Text = 'T'#237't.Eleitor'
             Parent = lcFichaGroup16
+            CaptionOptions.Text = 'T'#237't.Eleitor'
             Control = edTitEleitor
             ControlOptions.ShowBorder = False
             Index = 0
           end
           object lcFichaItem6: TdxLayoutItem
+            Parent = lcFichaGroup16
             AlignHorz = ahLeft
             CaptionOptions.Text = 'Sexo'
             CaptionOptions.Width = 34
-            Parent = lcFichaGroup16
             Control = edSexo
             ControlOptions.ShowBorder = False
             Index = 1
           end
           object lcFichaItem24: TdxLayoutItem
+            Parent = lcFichaGroup6
             CaptionOptions.Text = 'cxPageControl2'
             CaptionOptions.Visible = False
             Offsets.Left = 10
-            Parent = lcFichaGroup6
             Control = pagFoto
             ControlOptions.AutoColor = True
             ControlOptions.ShowBorder = False
             Index = 1
           end
           object lcFichaGroup9: TdxLayoutGroup
+            Parent = lcFichaGroup_Root
             CaptionOptions.Text = 'Hidden Group'
             CaptionOptions.Visible = False
-            Parent = lcFichaGroup_Root
             ButtonOptions.Buttons = <>
             Hidden = True
             ShowBorder = False
             Index = 1
           end
           object lcFichaGroup10: TdxLayoutGroup
+            Parent = lcFichaGroup9
             CaptionOptions.Text = 'Hidden Group'
             CaptionOptions.Visible = False
-            Parent = lcFichaGroup9
             ButtonOptions.Buttons = <>
             Hidden = True
             ShowBorder = False
             Index = 0
           end
           object lcFichaItem17: TdxLayoutItem
-            CaptionOptions.Text = 'Endere'#231'o'
             Parent = lcFichaGroup10
+            CaptionOptions.Text = 'Endere'#231'o'
             Control = edEndereco
             ControlOptions.ShowBorder = False
             Index = 0
           end
           object lcFichaItem18: TdxLayoutItem
+            Parent = lcFichaGroup10
             AlignHorz = ahLeft
             CaptionOptions.Text = 'Bairro'
-            Parent = lcFichaGroup10
             Control = edBairro
             ControlOptions.ShowBorder = False
             Index = 1
           end
           object lcFichaGroup11: TdxLayoutGroup
+            Parent = lcFichaGroup10
             CaptionOptions.Text = 'Hidden Group'
             CaptionOptions.Visible = False
-            Parent = lcFichaGroup10
             ButtonOptions.Buttons = <>
             Hidden = True
             LayoutDirection = ldHorizontal
@@ -1579,39 +1575,39 @@ object FrmCadCli: TFrmCadCli
             Index = 2
           end
           object lcFichaItem19: TdxLayoutItem
-            CaptionOptions.Text = 'Cidade'
             Parent = lcFichaGroup11
+            CaptionOptions.Text = 'Cidade'
             Control = edCidade
             ControlOptions.ShowBorder = False
             Index = 0
           end
           object lcFichaItem20: TdxLayoutItem
+            Parent = lcFichaGroup11
             CaptionOptions.Text = 'UF'
             CaptionOptions.Width = 22
-            Parent = lcFichaGroup11
             Control = edUF
             ControlOptions.ShowBorder = False
             Index = 1
           end
           object lcFichaItem21: TdxLayoutItem
-            CaptionOptions.Text = 'CEP'
             Parent = lcFichaGroup11
+            CaptionOptions.Text = 'CEP'
             Control = edCEP
             ControlOptions.ShowBorder = False
             Index = 2
           end
           object lcEscola: TdxLayoutItem
+            Parent = lcFichaGroup10
             AlignHorz = ahLeft
             CaptionOptions.Text = 'Escola'
-            Parent = lcFichaGroup10
             Control = edEscola
             ControlOptions.ShowBorder = False
             Index = 3
           end
           object lcFichaGroup12: TdxLayoutGroup
+            Parent = lcFichaGroup9
             CaptionOptions.Text = 'Hidden Group'
             CaptionOptions.Visible = False
-            Parent = lcFichaGroup9
             ButtonOptions.Buttons = <>
             Hidden = True
             LayoutDirection = ldHorizontal
@@ -1619,54 +1615,54 @@ object FrmCadCli: TFrmCadCli
             Index = 1
           end
           object lcFichaItem14: TdxLayoutItem
-            CaptionOptions.Text = 'Pai'
             Parent = lcFichaGroup12
+            CaptionOptions.Text = 'Pai'
             Control = edPai
             ControlOptions.ShowBorder = False
             Index = 0
           end
           object lcFichaItem13: TdxLayoutItem
-            CaptionOptions.Text = 'M'#227'e'
             Parent = lcFichaGroup12
+            CaptionOptions.Text = 'M'#227'e'
             Control = edMae
             ControlOptions.ShowBorder = False
             Index = 1
           end
           object lcFichaItem22: TdxLayoutItem
+            Parent = lcFichaGroup_Root
             CaptionOptions.AlignVert = tavTop
             CaptionOptions.Text = 'E-mail'
-            Parent = lcFichaGroup_Root
             Control = edEmail
             ControlOptions.ShowBorder = False
             Index = 2
           end
           object lcFichaItem23: TdxLayoutItem
+            Parent = lcFichaGroup_Root
             CaptionOptions.AlignVert = tavTop
             CaptionOptions.Text = 'Observa'#231#245'es'
-            Parent = lcFichaGroup_Root
             Control = edObs
             ControlOptions.ShowBorder = False
             Index = 3
           end
           object lcFichaGroup18: TdxLayoutGroup
-            CaptionOptions.Text = 'Hidden Group'
             Parent = lcFichaGroup4
+            CaptionOptions.Text = 'Hidden Group'
             ButtonOptions.Buttons = <>
             Hidden = True
             ShowBorder = False
             Index = 0
           end
           object lcFichaGroup2: TdxLayoutGroup
-            CaptionOptions.Text = 'Hidden Group'
             Parent = lcFichaGroup1
+            CaptionOptions.Text = 'Hidden Group'
             ButtonOptions.Buttons = <>
             Hidden = True
             ShowBorder = False
             Index = 2
           end
           object lcFichaGroup3: TdxLayoutGroup
-            CaptionOptions.Text = 'Hidden Group'
             Parent = lcFichaGroup18
+            CaptionOptions.Text = 'Hidden Group'
             ButtonOptions.Buttons = <>
             Hidden = True
             LayoutDirection = ldHorizontal
@@ -1674,9 +1670,9 @@ object FrmCadCli: TFrmCadCli
             Index = 1
           end
           object lcFichaItem1: TdxLayoutItem
+            Parent = lcFichaGroup3
             CaptionOptions.Text = 'cxLabel2'
             CaptionOptions.Visible = False
-            Parent = lcFichaGroup3
             Control = lbIdade
             ControlOptions.ShowBorder = False
             Index = 1

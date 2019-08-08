@@ -47,6 +47,9 @@ object DM: TDM
     object tTranDesconto: TCurrencyField
       FieldName = 'Desconto'
     end
+    object tTranTipoPag: TWordField
+      FieldName = 'TipoPag'
+    end
     object tTranPago: TCurrencyField
       FieldName = 'Pago'
     end
@@ -138,6 +141,9 @@ object DM: TDM
     object tTranDescPerc: TFloatField
       FieldName = 'DescPerc'
     end
+    object tTranRecVer: TIntegerField
+      FieldName = 'RecVer'
+    end
   end
   object tITran: TnxTable
     Database = nxDB
@@ -162,9 +168,6 @@ object DM: TDM
     end
     object tITranTipoTran: TWordField
       FieldName = 'TipoTran'
-    end
-    object tITranTipoPag: TWordField
-      FieldName = 'TipoPag'
     end
     object tITranTipoItem: TWordField
       FieldName = 'TipoItem'
@@ -1122,6 +1125,12 @@ object DM: TDM
       FieldName = 'Urls'
       BlobType = ftMemo
     end
+    object tConfigVerBloqueioSites: TBooleanField
+      FieldName = 'VerBloqueioSites'
+    end
+    object tConfigRecVer: TIntegerField
+      FieldName = 'RecVer'
+    end
   end
   object tImp: TnxTable
     Database = nxDB
@@ -1715,9 +1724,6 @@ object DM: TDM
     end
     object tMovEstPago: TCurrencyField
       FieldName = 'Pago'
-    end
-    object tMovEstTipoPag: TWordField
-      FieldName = 'TipoPag'
     end
     object tMovEstDataHora: TDateTimeField
       FieldName = 'DataHora'

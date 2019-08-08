@@ -179,6 +179,9 @@ resourcestring
   SAjusteDeEstoqueSAÍDA = 'Correção de Estoque - SAÍDA';
   SAjusteDeEstoqueENTRADA = 'Correção de Estoque - ENTRADA';
 
+  SNaoPermiteCred = 'Crédito não permitido com ';
+  SNaoPermiteTroco = 'Troco não permitido com ';
+
 // END resource string wizard section
 
 
@@ -222,7 +225,7 @@ begin
     if W<>nil then W.SetFocus;
   except
   end;
-  
+
   if FidResgate then begin
     FME.Total := 0;
     FME.Desconto := 0;
@@ -236,42 +239,58 @@ begin
   FME.Recibo   := cbRecibo.Checked;
   FME.NomeCliente := FCli.Nome;
   FME.Cliente := FCli.ID;
-  
+  FME.TipoPag := FTot.TipoPag;   // dario 08/2009
+
   if FME.Itens.Count=0 then
     Raise ENexCafe.Create(SÉNecessárioHaverItensParaSalvar);
 
   if not FME.FidResgate then begin
-    if FME.Desconto-FME.Total > 0.001 then
-      Raise ENexCafe.Create(SDescontoNãoPodeSerMaiorQueOValor);
 
-    if FME.Desconto-FME.Total > 0.001 then
-      Raise ENexCafe.Create(SDescontoNãoPodeSerMaiorQueOValor);
+      if FME.Desconto-FME.Total > 0.001 then
+        Raise ENexCafe.Create(SDescontoNãoPodeSerMaiorQueOValor);
 
-    if (FME.Pago - (FME.Total - FME.Desconto)) > 0.001 then
-      Raise ENexCafe.Create(SValorPagoNãoPodeSerMaiorQueOTota);
+      if (FME.Pago - (FME.Total - FME.Desconto)) > 0.001 then
+        // dario. Ovalor pago pode ser maior q o total se permite Troco?
+        Raise ENexCafe.Create(SValorPagoNãoPodeSerMaiorQueOTota);
+
   end else begin
-    if FCli.ID=0 then 
-      raise ENexCafe.Create(SÉNecessárioInformarOCliente);
-      
-    if FTot.PontosNec>FCli.FidPontos then 
-      raise ENexCafe.Create(SClienteNãoPossuiQuantidadeDePont);
+
+      if FCli.ID=0 then
+        raise ENexCafe.Create(SÉNecessárioInformarOCliente);
+
+      if FTot.PontosNec>FCli.FidPontos then
+        raise ENexCafe.Create(SClienteNãoPossuiQuantidadeDePont);
+
   end;
-    
-  with Dados do   
+
+  with Dados do
   if (FME.Tipo=trEstVenda) and (FME.ValorDebitado>0.009) then begin
-    if FME.Cliente <> FCliAnt then FDebAnt := 0;
-    Debitar := FME.ValorDebitado - FDebAnt;
-  
-    if (FME.ValorDebitado>0.009) then begin
-      if (FME.Cliente=0) then
-        Raise ENexCafe.Create(SParaFicarEmDébitoéNecessárioSele);
-      if Debitar > 0.009 then begin
-        tbCli.Locate('ID', FME.Cliente, []); // do not localize
-        if LimiteDebito(tbCliLimiteDebito)<(Debitar+tbCliDebito.Value) then
-          Raise ENexCafe.Create(SOLimiteMáximoDeDébitoPermitidoPa);
+
+      if FME.Cliente <> FCliAnt then FDebAnt := 0;
+      Debitar := FME.ValorDebitado - FDebAnt;
+
+      if (FME.ValorDebitado>0.009) then begin
+
+          if (FME.Cliente=0) then
+            Raise ENexCafe.Create(SParaFicarEmDébitoéNecessárioSele);
+
+          if Debitar > 0.009 then begin
+      
+            tbCli.Locate('ID', FME.Cliente, []); // do not localize
+            if LimiteDebito(tbCliLimiteDebito)<(Debitar+tbCliDebito.Value) then
+              Raise ENexCafe.Create(SOLimiteMáximoDeDébitoPermitidoPa);
+
+          end;
+
       end;
-    end;
+
   end;
+
+  // if Ftot.PermiteCred then
+  // if Ftot.PermiteTroco then
+  // FME.TipoPag := FTot.TipoPag;
+  // SNaoPermiteCred = 'Crédito não permitido com ';
+  // SNaoPermiteTroco = 'Troco não permitido com ';
 
   if (FME.Tipo=trEstVenda) and (not FidResgate) then
     FME.SalvaDescPago;

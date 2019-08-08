@@ -1179,10 +1179,12 @@ type
     tConfigUrls: TnxMemoField;
     tSessaoCliVersaoRegistro: TIntegerField;
     tSessaoVersaoRegistro: TIntegerField;
-    tMovEstTipoPag: TWordField;
     tMovEstRecVer: TIntegerField;
-    tITranTipoPag: TWordField;
     tITranRecVer: TIntegerField;
+    tTranRecVer: TIntegerField;
+    tTranTipoPag: TWordField;
+    tConfigVerBloqueioSites: TBooleanField;
+    tConfigRecVer: TIntegerField;
     procedure tMovEstCalcFields(DataSet: TDataSet);
     procedure tAuxMECalcFields(DataSet: TDataSet);
     procedure tITranCalcFields(DataSet: TDataSet);
@@ -2466,7 +2468,7 @@ var
   str: String;
 begin
   Result := 0;
-  
+
   if S.CaixaF=0 then begin
     S.CaixaF := NumCaixaAberto;
     if S.CaixaF=0 then begin
@@ -2873,7 +2875,7 @@ end;
 function TDM.IncluiIME(IM: TncItemMovEst; ME: TncMovEst): Integer;
 begin
   Result := 0;
-  
+
   IM.imEstoqueAnt := ObtemSaldoAnt(IM.imProduto, IM.imDataHora, IM.imID);
   tMovEst.Insert;
   IM.imTran := ME.ID;
@@ -5355,7 +5357,8 @@ begin
       tTranCanceladoEm.Value := ME.CanceladoEm;
       tTranFidResgate.Value := ME.FidResgate;
       tTranCaixa.Value := ME.Caixa;
-      
+      tTranTipoPag.Value := ME.TipoPag;  // dario 06/09/2019
+
       tTranCaixaPag.Value := ME.CaixaPag;
       tTranCredito.Value := ME.PagEsp.Credito;
       tTranCreditoUsado.Value := ME.PagEsp.CreditoUsado;

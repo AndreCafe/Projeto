@@ -1047,6 +1047,11 @@ begin
         with AddField('Biometria', '', nxtBoolean, 0, 0, False) do
           with AddDefaultValue(TnxConstDefaultValueDescriptor) as TnxConstDefaultValueDescriptor do
             AsVariant := False;
+
+        // dario 09/2009
+        with AddField('VerBloqueioSites', '', nxtBoolean, 0, 0, False) do
+          with AddDefaultValue(TnxConstDefaultValueDescriptor) as TnxConstDefaultValueDescriptor do
+            AsVariant := False;
             
         with AddField('PMPausaAutomatica', '', nxtBoolean, 0, 0, False) do
           with AddDefaultValue(TnxConstDefaultValueDescriptor) as TnxConstDefaultValueDescriptor do
@@ -1869,7 +1874,6 @@ begin
         AddField('Tran', '', nxtWord32, 10, 0, False);
         AddField('Caixa', '', nxtWord32, 10, 0, False);
         AddField('CaixaPag', '', nxtWord32, 10, 0, False);
-        AddField('TipoPag', '', nxtByte, 3, 0, False);      // dario 01/08/2019
         AddField('Cliente', '', nxtWord32, 10, 0, False);
         AddField('Sessao', '', nxtWord32, 10, 0, False);
         AddField('DataHora', '', nxtDateTime, 0, 0, False);
@@ -2347,7 +2351,6 @@ begin
         AddField('Item', '', nxtByte, 3, 0, False);
         AddField('Desconto', '', nxtCurrency, 16, 0, False);
         AddField('Pago', '', nxtCurrency, 16, 0, False);
-        AddField('TipoPag', '', nxtByte, 3, 0, False);      // dario 01/08/2019
         AddField('PagoPost', '', nxtCurrency, 16, 0, False);
         AddField('DescPost', '', nxtCurrency, 16, 0, False);
         AddField('DataHora', '', nxtDateTime, 0, 0, False);
@@ -3465,6 +3468,7 @@ begin
         AddField('DataHora', '', nxtDateTime, 0, 0, False);
         AddField('Cliente', '', nxtWord32, 10, 0, False);
         AddField('Tipo', '', nxtByte, 3, 0, False);
+        AddField('TipoPag', '', nxtByte, 3, 0, False);      // dario 01/08/2019
         AddField('Func', '', nxtNullString, 20, 0, False);
         AddField('Total', '', nxtCurrency, 16, 0, False);
         AddField('Desconto', '', nxtCurrency, 16, 0, False);

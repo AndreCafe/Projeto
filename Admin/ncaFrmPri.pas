@@ -326,28 +326,31 @@ type
       message wm_atualizalic;  
 
     procedure wmVendaPlus(var Msg: TMessage);
-      message wm_vendaplus; 
+      message wm_vendaplus;
 
     procedure wmAbreAba(var Msg: TMessage);
       message wm_abreaba;
 
     procedure wmDownloadIntInfo(var Msg: TMessage);
-      message wm_downloadIntInfo;  
+      message wm_downloadIntInfo;
+
   public
+    procedure AtualizaBar; // dario 09/2009
+
     procedure MakeChatVisible(Sender: TObject);
     procedure AjustaVersao;
     procedure RegistraForms;
 
 
     procedure DownloadPrintDoc(aArq: String);
-    
+
     procedure MostraHint(X, Y: Integer; aHeader, aStr: String);
     procedure EscondeHint;
 
     procedure AjustaRestSpace;
 
     procedure Refresh_dpImp;
-    
+
     procedure TentaConectar(Reconexao: Boolean);
     procedure AtualizaDireitos;
 
@@ -362,7 +365,7 @@ type
 //    procedure AjustaMsgAssinatura;
 
     procedure AjustaVisSenha;
-    
+
     function VersaoStr: String;
 
     function FocusColor: TColor;
@@ -868,7 +871,11 @@ begin
     dpListaEsp.Visible := Versoes.PodeUsar(idre_listaespera);
     dpChat.Visible := Versoes.PodeUsar(idre_chat) and (gConfig.OpcaoChat<>ochDesabilitar);
   end;
-  
+
+
+  // dario 09/2009
+  AtualizaBar;
+
   with Dados do begin
     tbChat.SetRange([Now-1], [Now+1]);
     tbChat.First;
@@ -1198,6 +1205,7 @@ begin
   end;
 end;
 
+
 procedure TFrmPri.cmChatClick(Sender: TObject);
 begin
 { pagChat.Visible := cmCHat.Down;
@@ -1489,6 +1497,13 @@ begin
   end};
 end;
   
+procedure TFrmPri.AtualizaBar;      // dario 09/2009
+begin
+  if gConfig.VerBloqueioSites then
+     cmFiltroWeb.Visible := ivAlways else
+     cmFiltroWeb.Visible := ivNever;
+end;
+
 procedure TFrmPri.AtualizaDireitos;
 
 function SBBloqueioSiteExiste: Boolean;
@@ -1916,10 +1931,11 @@ procedure TFrmPri.cmMaquinasClick(Sender: TObject);
 var F : TFrmBaseClass;
 begin
   F := IndexToFormClass(TControl(Sender).Tag);
-//  cmSubExibir.Caption := 'E&xibir: ' + TdxBarItem(Sender).Caption;
+  // cmSubExibir.Caption := 'E&xibir: ' + TdxBarItem(Sender).Caption;
   cmSubExibir.Tag := Tag;
   if (F<>nil) then
     FM.Mostrar(F, 0, 0);
+
 end;
   
 procedure TFrmPri.cmMostrarTextoBotoesClick(Sender: TObject);

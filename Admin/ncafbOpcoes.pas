@@ -618,6 +618,8 @@ type
     MTNaoTransferirMaq: TBooleanField;
     nbgMeiosPagamento: TdxNavBarGroup;
     nbgMeiosPagamentoControl: TdxNavBarGroupControl;
+    cxDBCheckBox19: TcxDBCheckBox;
+    MTVerBloqueioSites: TBooleanField;
     procedure vgMCFundoDesktopEditPropertiesButtonClick(Sender: TObject;
       AButtonIndex: Integer);
     procedure FrmBasePaiCreate(Sender: TObject);
@@ -941,6 +943,11 @@ procedure TfbOpcoes.cmSalvarClick(Sender: TObject);
 begin
   inherited;
   Salvar;
+
+  
+
+  FrmPri.AtualizaBar;
+
 end;
 
 procedure TfbOpcoes.edPMPausaAutomaticaClick(Sender: TObject);

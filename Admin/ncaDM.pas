@@ -894,6 +894,14 @@ type
     tbConfigSky_URL: TStringField;
     tbConfigToolbar_URL: TStringField;
     tbConfigNaoTransferirMaq: TBooleanField;
+    tbTranTipoPag: TWordField;
+    tbTranRecVer: TIntegerField;
+    tbMovEstComissao: TCurrencyField;
+    tbMovEstComissaoPerc: TFloatField;
+    tbMovEstComissaoLucro: TBooleanField;
+    tbConfigVerBloqueioSites: TBooleanField;
+    tbConfigUrls: TnxMemoField;
+    tbConfigRecVer: TIntegerField;
     procedure DataModuleCreate(Sender: TObject);
     procedure FFTblMgrPause;
     procedure SoUmProgCustom(Sender: TObject);

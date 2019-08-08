@@ -27,7 +27,7 @@ uses
   dxLayoutControl, dxLayoutLookAndFeels, dxNavBarStyles,
   cxLookAndFeelPainters, ImgList, cxSpinEdit, LMDCustomImageList,
   LMDImageList, cxPCdxBarPopupMenu, dxLayoutcxEditAdapters, dxLayoutContainer,
-  LMDPNGImage, Menus, cxButtons;
+  LMDPNGImage, Menus, cxButtons, dxBarBuiltInMenu;
 
 type
   TFrmCadCli = class(TForm)

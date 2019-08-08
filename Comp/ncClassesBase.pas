@@ -845,7 +845,8 @@ type
 
     FPastaDownload          : String;
     FBiometria              : Boolean;
-    
+    FVerBloqueioSites       : Boolean;
+
     FPMPausaAutomatica      : Boolean;
     FPMConfirmaImpCliente   : Boolean;
     FPMConfirmaImpAdmin     : Boolean;
@@ -1612,6 +1613,9 @@ type
 
     property Biometria: Boolean
       read FBiometria write FBiometria;
+
+    property VerBloqueioSites: Boolean
+      read FVerBloqueioSites write FVerBloqueioSites;
 
     property PMPausaAutomatica: Boolean
       read GetPausaAutomatica write FPMPausaAutomatica;
@@ -4146,7 +4150,8 @@ begin
   FAutoLigarMaqCli        := True;
   FPastaDownload          := '';
   FBiometria              := False;
-  
+  FVerBloqueioSites       := False;
+
   FPMPausaAutomatica      := True;
   FPMConfirmaImpCliente   := True;
   FPMConfirmaImpAdmin     := False;
@@ -4771,6 +4776,7 @@ begin
   FAutoLigarMaqCli        := C.FAutoLigarMaqCli;
   FPastaDownload          := C.FPastaDownload;
   FBiometria              := C.FBiometria;
+  FVerBloqueioSites       := C.FVerBloqueioSites;
 
   FPMPausaAutomatica      := C.FPMPausaAutomatica;
   FPMConfirmaImpCliente   := C.PMConfirmaImpCliente;

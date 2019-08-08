@@ -127,7 +127,7 @@ type
     FPontosDisp : Double;
     FRecAnt : Double;
     FOpPagto : Byte; // 0 = manter, 1= pg.total, 2= zerar
-    FSelectedEspecieIdx : dword;
+    FTipoPag : Byte;
     { Private declarations }
 
     procedure OnTimerSelText(Sender: TObject);
@@ -148,8 +148,6 @@ type
     procedure OnEspecieChange;
     procedure setErroEspecie;
     procedure setOkEspecie;
-    function PermiteCred: boolean;
-    function PermiteTroco: boolean;
   public
     procedure InitVal(aPagEsp: TncPagEspecies; aSubTot, aDesconto, aPago, aRecebido : Double; aObs: String; aParent: TWinControl; aShowObs: Boolean = True);
     procedure InitPontos(aNec, aDisp: Double; aObs: String; aParent: TWinControl; aShowObs: Boolean = True);
@@ -166,6 +164,8 @@ type
     function Desconto: Double;
     function Pago: Double;
     function Total: Double;
+    function PermiteCred: boolean;
+    function PermiteTroco: boolean;
 
     procedure CheckEspecie;
 
@@ -179,6 +179,9 @@ type
 
     property OpPagto: Byte
       read FOpPagto write FOpPagto;
+
+    property TipoPag: Byte
+      read FTipoPag write FTipoPag;
 
     property PontosDisp: Double
       read FPontosDisp write SetPontosDisp;
@@ -265,7 +268,7 @@ begin
   cbEspecie.ItemIndex := 0;
   FAtualizando := True;
   try
-    FSelectedEspecieIdx := 0;
+    FTipoPag := 0;
     FOpPagto := kOpPagtoManter;
     edSubTotal.Value := 0;
     edCustoT.Value := 0;
@@ -374,7 +377,7 @@ begin
 
   cbEspecie.Properties.Items.Clear;
 
-  FSelectedEspecieIdx := 0;
+  FTipoPag := 0;
 
   Tab.Open;
   gEspecies.Limpa;
@@ -775,12 +778,12 @@ end;
 
 function TFrmTotal.PermiteTroco:boolean;
 begin
-    result := gEspecies.Itens[FSelectedEspecieIdx].PermiteTroco = true;
+    result := gEspecies.Itens[FTipoPag].PermiteTroco = true;
 end;
 
 function TFrmTotal.PermiteCred:boolean;
 begin
-    result := gEspecies.Itens[FSelectedEspecieIdx].PermiteCred = true;
+    result := gEspecies.Itens[FTipoPag].PermiteCred = true;
 end;
 
 procedure TFrmTotal.cbEspecieMouseUp(Sender: TObject; Button: TMouseButton;
@@ -799,7 +802,7 @@ end;
 procedure TFrmTotal.OnEspecieChange;
 begin
     lbEspecie.caption := trim(cbEspecie.Properties.Items[cbEspecie.ItemIndex].Description);
-    FSelectedEspecieIdx :=  cbEspecie.ItemIndex;
+    FTipoPag :=  cbEspecie.ItemIndex;
     CheckEspecie;
     //edRec.SetFocus;
 

@@ -261,7 +261,7 @@ object FrmPri: TFrmPri
                 Left = 0
                 Top = 0
                 Width = 210
-                Height = 287
+                Height = 275
                 AllowFloating = False
                 AutoHide = False
                 Caption = 'CHAT'
@@ -273,13 +273,13 @@ object FrmPri: TFrmPri
                 OnDock = dpCHATDock
                 DockingType = 2
                 OriginalWidth = 214
-                OriginalHeight = 287
+                OriginalHeight = 275
               end
               object dpImp: TdxDockPanel
                 Left = 0
-                Top = 287
+                Top = 275
                 Width = 210
-                Height = 356
+                Height = 344
                 Font.Charset = DEFAULT_CHARSET
                 Font.Color = clBlack
                 Font.Height = -12
@@ -297,7 +297,7 @@ object FrmPri: TFrmPri
                 OnDock = dpCHATDock
                 DockingType = 2
                 OriginalWidth = 214
-                OriginalHeight = 356
+                OriginalHeight = 344
               end
             end
           end
@@ -421,7 +421,7 @@ object FrmPri: TFrmPri
         0000001408060000008D891D0D000000017352474200AECE1CE9000000046741
         4D410000B18F0BFC6105000000206348524D00007A26000080840000FA000000
         80E8000075300000EA6000003A98000017709CBA513C00000009704859730000
-        0EB000000EB0014ECBFD3E0000012649444154384FCD94310E84201045DD63AB
+        0EAC00000EAC01DCA862830000012649444154384FCD94310E84201045DD63AB
         316A6267E109BC82959507D0DA525B3B132F6022B3FC89B0A0D90D26144B8221
         CCFF8F19045E4414786D00FAEC5E615C6D1886144591970E56005851144236C2
         87078EEDF4C0070627C5C0AAAA449EE71AEAC86310BAF482F10162B2691A9165

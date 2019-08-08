@@ -393,8 +393,6 @@ begin
     end;
   end;
 
-  FME.TipoPag := 2;
-
   if (FME.Tipo=trEstVenda) and (not FidResgate) then
     FME.SalvaDescPago;
 

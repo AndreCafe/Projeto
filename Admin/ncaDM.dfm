@@ -505,6 +505,12 @@ object Dados: TDados
     object tbTranDescPorPerc: TBooleanField
       FieldName = 'DescPorPerc'
     end
+    object tbTranTipoPag: TWordField
+      FieldName = 'TipoPag'
+    end
+    object tbTranRecVer: TIntegerField
+      FieldName = 'RecVer'
+    end
   end
   object tbMovEst: TnxTable
     Database = db
@@ -602,6 +608,15 @@ object Dados: TDados
     end
     object tbMovEstRecVer: TIntegerField
       FieldName = 'RecVer'
+    end
+    object tbMovEstComissao: TCurrencyField
+      FieldName = 'Comissao'
+    end
+    object tbMovEstComissaoPerc: TFloatField
+      FieldName = 'ComissaoPerc'
+    end
+    object tbMovEstComissaoLucro: TBooleanField
+      FieldName = 'ComissaoLucro'
     end
   end
   object tbConfig: TnxTable
@@ -1407,6 +1422,16 @@ object Dados: TDados
     end
     object tbConfigNaoTransferirMaq: TBooleanField
       FieldName = 'NaoTransferirMaq'
+    end
+    object tbConfigVerBloqueioSites: TBooleanField
+      FieldName = 'VerBloqueioSites'
+    end
+    object tbConfigUrls: TnxMemoField
+      FieldName = 'Urls'
+      BlobType = ftMemo
+    end
+    object tbConfigRecVer: TIntegerField
+      FieldName = 'RecVer'
     end
   end
   object dsConfig: TDataSource
@@ -6720,8 +6745,8 @@ object Dados: TDados
   object Timer1: TTimer
     Interval = 5000
     OnTimer = Timer1Timer
-    Left = 72
-    Top = 344
+    Left = 32
+    Top = 352
   end
   object PClient: TRtcHttpPortalClient
     UserNotify = True
@@ -9762,7 +9787,7 @@ object Dados: TDados
     TableName = 'CHorario'
     IndexName = 'IID'
     Left = 32
-    Top = 376
+    Top = 392
   end
   object mtPrev: TkbmMemTable
     DesignActivation = True
@@ -10040,7 +10065,7 @@ object Dados: TDados
     TableName = 'prodd'
     IndexName = 'uq_codbar'
     Left = 32
-    Top = 456
+    Top = 448
     object tbProdDcodbar: TStringField
       FieldName = 'codbar'
       Required = True
