@@ -255,6 +255,7 @@ object FrmImp: TFrmImp
         StyleFocused.BorderStyle = ebsSingle
         StyleFocused.Color = 11796479
         TabOrder = 1
+        ExplicitHeight = 21
         Width = 223
       end
     end
@@ -322,6 +323,7 @@ object FrmImp: TFrmImp
         StyleFocused.Color = 11796479
         TabOrder = 1
         Text = '115'
+        ExplicitHeight = 21
         Width = 40
       end
     end
@@ -330,8 +332,8 @@ object FrmImp: TFrmImp
     AllowReset = False
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
-    Font.Height = -12
-    Font.Name = 'Segoe UI'
+    Font.Height = -11
+    Font.Name = 'Tahoma'
     Font.Style = []
     Categories.Strings = (
       'Default')

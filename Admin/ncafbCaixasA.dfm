@@ -118,7 +118,6 @@ inherited fbCaixasA: TfbCaixasA
             DataBinding.FieldName = 'ID'
             PropertiesClassName = 'TcxMaskEditProperties'
             Properties.Alignment.Horz = taCenter
-            Properties.Alignment.Vert = taVCenter
             HeaderAlignmentHorz = taCenter
             Options.Filtering = False
             Width = 54
@@ -136,26 +135,21 @@ inherited fbCaixasA: TfbCaixasA
             DataBinding.FieldName = 'Abertura'
             PropertiesClassName = 'TcxDateEditProperties'
             Properties.Alignment.Horz = taCenter
-            Properties.Alignment.Vert = taVCenter
             DateTimeGrouping = dtgByDate
             HeaderAlignmentHorz = taCenter
-            HeaderAlignmentVert = vaCenter
           end
           object VFechamento1: TcxGridDBColumn
             DataBinding.FieldName = 'Fechamento'
             PropertiesClassName = 'TcxDateEditProperties'
             Properties.Alignment.Horz = taCenter
-            Properties.Alignment.Vert = taVCenter
             DateTimeGrouping = dtgByDate
             HeaderAlignmentHorz = taCenter
-            HeaderAlignmentVert = vaCenter
           end
           object TVSaldoAnt: TcxGridDBColumn
             Caption = 'Saldo Inicial'
             DataBinding.FieldName = 'SaldoAnt'
             PropertiesClassName = 'TcxCurrencyEditProperties'
             Properties.Alignment.Horz = taCenter
-            Properties.Alignment.Vert = taVCenter
             HeaderAlignmentHorz = taCenter
             Width = 82
           end
@@ -164,7 +158,6 @@ inherited fbCaixasA: TfbCaixasA
             DataBinding.FieldName = 'TotalFinal'
             PropertiesClassName = 'TcxCurrencyEditProperties'
             Properties.Alignment.Horz = taCenter
-            Properties.Alignment.Vert = taVCenter
             OnCustomDrawCell = TVTotalCustomDrawCell
             HeaderAlignmentHorz = taCenter
             Options.Filtering = False
@@ -175,10 +168,8 @@ inherited fbCaixasA: TfbCaixasA
             DataBinding.FieldName = 'Supr'
             PropertiesClassName = 'TcxCurrencyEditProperties'
             Properties.Alignment.Horz = taCenter
-            Properties.Alignment.Vert = taVCenter
             OnGetDisplayText = TVSangriaGetDisplayText
             HeaderAlignmentHorz = taCenter
-            HeaderAlignmentVert = vaCenter
             HeaderGlyphAlignmentHorz = taCenter
             Width = 95
           end
@@ -187,10 +178,8 @@ inherited fbCaixasA: TfbCaixasA
             DataBinding.FieldName = 'Sangria'
             PropertiesClassName = 'TcxCurrencyEditProperties'
             Properties.Alignment.Horz = taCenter
-            Properties.Alignment.Vert = taVCenter
             OnGetDisplayText = TVSangriaGetDisplayText
             HeaderAlignmentHorz = taCenter
-            HeaderAlignmentVert = vaCenter
             Width = 87
           end
           object TVSaldoFinal: TcxGridDBColumn
@@ -199,7 +188,6 @@ inherited fbCaixasA: TfbCaixasA
             DataBinding.FieldName = 'SaldoFinal'
             PropertiesClassName = 'TcxCurrencyEditProperties'
             Properties.Alignment.Horz = taCenter
-            Properties.Alignment.Vert = taVCenter
             OnCustomDrawCell = TVTotalCustomDrawCell
             HeaderAlignmentHorz = taCenter
             Options.Filtering = False
@@ -211,7 +199,6 @@ inherited fbCaixasA: TfbCaixasA
             DataBinding.FieldName = 'SaldoF'
             PropertiesClassName = 'TcxCurrencyEditProperties'
             HeaderAlignmentHorz = taCenter
-            HeaderAlignmentVert = vaCenter
             Width = 120
           end
           object TVQuebra: TcxGridDBColumn
@@ -219,7 +206,6 @@ inherited fbCaixasA: TfbCaixasA
             DataBinding.FieldName = 'Quebra'
             PropertiesClassName = 'TcxCurrencyEditProperties'
             HeaderAlignmentHorz = taCenter
-            HeaderAlignmentVert = vaCenter
             Width = 103
           end
           object TVReproc: TcxGridDBColumn
@@ -227,9 +213,7 @@ inherited fbCaixasA: TfbCaixasA
             DataBinding.FieldName = 'Reproc'
             PropertiesClassName = 'TcxDateEditProperties'
             Properties.Alignment.Horz = taCenter
-            Properties.Alignment.Vert = taVCenter
             HeaderAlignmentHorz = taCenter
-            HeaderAlignmentVert = vaCenter
             Width = 105
           end
           object TVObs: TcxGridDBColumn

@@ -3,7 +3,7 @@ object FrmEspecie: TFrmEspecie
   Top = 0
   BorderStyle = bsDialog
   Caption = 'Meio de pagamento'
-  ClientHeight = 307
+  ClientHeight = 270
   ClientWidth = 501
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -67,7 +67,7 @@ object FrmEspecie: TFrmEspecie
     DataBinding.DataSource = dsTab
     Style.BorderStyle = ebsFlat
     Style.StyleController = FrmPri.cxEditStyleController1
-    TabOrder = 6
+    TabOrder = 4
     Width = 326
   end
   object cxDBCheckBox1: TcxDBCheckBox
@@ -76,16 +76,7 @@ object FrmEspecie: TFrmEspecie
     Caption = 'Permite voltar troco'
     DataBinding.DataField = 'PermiteTroco'
     DataBinding.DataSource = dsTab
-    TabOrder = 9
-    Width = 347
-  end
-  object cxDBCheckBox2: TcxDBCheckBox
-    Left = 62
-    Top = 244
-    Caption = 'Permite deixar troco como cr'#233'dito em conta'
-    DataBinding.DataField = 'PermiteCred'
-    DataBinding.DataSource = dsTab
-    TabOrder = 10
+    TabOrder = 8
     Width = 347
   end
   object BarMgr: TdxBarManager

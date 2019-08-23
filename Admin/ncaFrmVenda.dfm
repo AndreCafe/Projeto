@@ -739,6 +739,7 @@ object FrmVenda: TFrmVenda
       Bevel.Mode = bmCustom
       ParentColor = True
       TabOrder = 1
+      ExplicitTop = 307
       object bdcLista: TdxBarDockControl
         Left = 0
         Top = 0

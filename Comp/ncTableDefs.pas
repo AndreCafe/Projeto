@@ -2975,9 +2975,13 @@ begin
         with AddField('IncluidoEm', '', nxtDateTime, 0, 0, False) do
           AddDefaultValue(TnxCurrentDateTimeDefaultValueDescriptor);
         AddField('RecVer', '', nxtWord32, 0, 0, False);
-        with EnsureIndicesDescriptor do 
+        with EnsureIndicesDescriptor do
           with AddIndex('IRecVer', 0, idAll), KeyDescriptor as TnxCompKeyDescriptor do
             Add(GetFieldFromName('RecVer'));
+        with AddField('Uploaded', '', nxtBoolean, 0, 0, False) do
+          with AddDefaultValue(TnxConstDefaultValueDescriptor) as TnxConstDefaultValueDescriptor do
+            AsVariant := False;
+
       end;
       with EnsureIndicesDescriptor do begin
         with AddIndex('ICodigo', 0, idAll), KeyDescriptor as TnxCompKeyDescriptor do
@@ -3033,7 +3037,7 @@ begin
           with Add(GetFieldFromName('IncluidoEm')) do
             Ascend := False;
         end;
-        
+
       end;
       CheckValid(False);
     end;

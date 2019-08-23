@@ -111,7 +111,7 @@ begin
 end;
 
 procedure TFrmImp.cmGravarClick(Sender: TObject);
-var Debitar, V : Currency;
+var Debitar : Currency;
 begin
   FImp.impCliente := FCli.Codigo;
   FImp.impPago := FTot.Pago;
@@ -159,7 +159,7 @@ begin
   panDadosImp.Visible := (not aImp.impManual);
   FNovo := aNovo;
   cmGravar.Enabled := aSalvar and (aNovo or Permitido(daTraAlterar));
-  Result := FRes;
+  //Result := FRes;
   panCli.Enabled := (FImp.impSessao=0);
   if FImp.impMaquina>0 then 
     cmMaq.Visible := ivAlways;

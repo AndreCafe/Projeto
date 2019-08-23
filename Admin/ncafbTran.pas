@@ -231,6 +231,10 @@ type
     TabCaixaPag: TIntegerField;
     TabPagFunc: TStringField;
     TabPagPend: TBooleanField;
+    TabTipoPag: TWordField;
+    TabRecVer: TIntegerField;
+    TVTipoPag: TcxGridDBColumn;
+    TabEsp: TnxTable;
     procedure FrmBasePaiCreate(Sender: TObject);
     procedure cmFiltroTipoClick(Sender: TObject);
     procedure TabCalcFields(DataSet: TDataSet);
@@ -316,11 +320,11 @@ uses
   ncIDRecursos, ncDMServ, ncaFrmTempo, ncaFrmDebito, ncaFrmImp, ncDMCaixa,
   ncaDMComp, ncDebTempo, ncaFrmDebTempo, ncaFrmCorrigeDataCaixa, ncaFrmObs,
   ncaFrmFechar, ncaFrmCorrigeData, ncaFrmConfigEmailCaixa, ncaFrmOpcoes,
-  ncaFrmConfigCaixaAbertura, ncaFrmConfigCaixaFechamento, ufmImagens;
+  ncaFrmConfigCaixaAbertura, ncaFrmConfigCaixaFechamento, ufmImagens,
+  ncaDMImgEsp, ncEspecie;
 
 // START resource string wizard section
 // MMX resource string wizard section REMOVIDA - 08/04/13 12:30
-
 
 {$R *.dfm}
 
@@ -328,6 +332,7 @@ uses
 
 class function TfbTran.Descricao: String;
 begin
+
   Result := SncafbTran_Transações;
 end;
 
@@ -520,6 +525,8 @@ begin
 end;
 
 procedure TfbTran.FrmBasePaiCreate(Sender: TObject);
+var
+  i : integer;
 begin
 {$IFDEF LOJA}
   TVMaquina.Free;
@@ -545,6 +552,23 @@ begin
   FiltroF := Null;
   inherited;
   NenhumTipo;
+
+  TabEsp.Open;
+  gEspecies.Limpa;
+  gEspecies.LeDataset(TabEsp);
+
+  for i := 0 to gEspecies.Count - 1 do begin
+
+         with TcxImageComboBoxProperties(TVTipoPag.Properties).Items.Add do begin
+             Value := gEspecies[i].ID;
+             ImageIndex := gEspecies[i].Img;
+             Description := '  ' + gEspecies[i].Nome + '  ';
+         end;
+  end;
+
+  Tab.Close;
+
+
 end;
 
 function TfbTran.GetGrid: TcxGrid;

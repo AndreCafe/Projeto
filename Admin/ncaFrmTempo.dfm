@@ -87,7 +87,6 @@ object FrmTempo: TFrmTempo
     Align = alClient
     Bevel.Mode = bmCustom
     TabOrder = 8
-    ExplicitHeight = 231
     object panTempo: TLMDSimplePanel
       AlignWithMargins = True
       Left = 214
@@ -104,7 +103,6 @@ object FrmTempo: TFrmTempo
       Bevel.Mode = bmEdge
       Bevel.StandardStyle = lsSingle
       TabOrder = 0
-      ExplicitHeight = 231
       object panAtalhoTempo: TLMDSimplePanel
         Left = 3
         Top = 154
@@ -871,8 +869,8 @@ object FrmTempo: TFrmTempo
   object BarMgr: TdxBarManager
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
-    Font.Height = -12
-    Font.Name = 'Segoe UI'
+    Font.Height = -11
+    Font.Name = 'Tahoma'
     Font.Style = []
     CanCustomize = False
     Categories.Strings = (

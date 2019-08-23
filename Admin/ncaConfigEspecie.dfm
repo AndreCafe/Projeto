@@ -102,7 +102,7 @@ object FrmConfigEspecie: TFrmConfigEspecie
     StyleDisabled.LookAndFeel.Kind = lfFlat
     StyleFocused.LookAndFeel.Kind = lfFlat
     StyleHot.LookAndFeel.Kind = lfFlat
-    TabOrder = 6
+    TabOrder = 5
     Height = 24
     Width = 352
   end

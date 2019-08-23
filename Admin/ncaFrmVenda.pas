@@ -339,8 +339,6 @@ begin
   if not PremiumOk then Exit;
   {$endif}
 
-  Ftot.CheckEspecie;
-
 
   if FidResgate then begin
     FME.Total := 0;

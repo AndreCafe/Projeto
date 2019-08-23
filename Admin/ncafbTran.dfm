@@ -386,6 +386,15 @@ inherited fbTran: TfbTran
                   Styles.OnGetContentStyle = TVDescrStylesGetContentStyle
                   Width = 83
                 end
+                object TVTipoPag: TcxGridDBColumn
+                  Caption = 'Pagamento'
+                  DataBinding.FieldName = 'TipoPag'
+                  PropertiesClassName = 'TcxImageComboBoxProperties'
+                  Properties.Images = dmImgEsp.imgs48
+                  Properties.Items = <>
+                  Properties.ShowDescriptions = False
+                  HeaderAlignmentHorz = taCenter
+                end
                 object TVDebito: TcxGridDBColumn
                   Caption = 'Debitado'
                   DataBinding.FieldName = 'Debito'
@@ -1172,6 +1181,12 @@ inherited fbTran: TfbTran
     object TabPagPend: TBooleanField
       FieldName = 'PagPend'
     end
+    object TabTipoPag: TWordField
+      FieldName = 'TipoPag'
+    end
+    object TabRecVer: TIntegerField
+      FieldName = 'RecVer'
+    end
   end
   object tAP: TnxTable
     Database = Dados.db
@@ -1562,5 +1577,11 @@ inherited fbTran: TfbTran
       FieldName = 'IDLivre'
       Size = 10
     end
+  end
+  object TabEsp: TnxTable
+    Database = Dados.db
+    TableName = 'Especie'
+    Left = 448
+    Top = 216
   end
 end

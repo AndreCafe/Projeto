@@ -43,6 +43,7 @@ object FrmPlus: TFrmPlus
         Height = 605
         Align = alClient
         TabOrder = 0
+        Silent = False
         OnDocumentComplete = WBDocumentComplete
         OnNavigateError = WBNavigateError
         DisableCtrlShortcuts = 'N'
@@ -56,7 +57,7 @@ object FrmPlus: TFrmPlus
         PrintOptions.Margins.Right = 19.050000000000000000
         PrintOptions.Margins.Top = 19.050000000000000000
         PrintOptions.Margins.Bottom = 19.050000000000000000
-        PrintOptions.Header = '&w&bP'#225'gina &p de &P'
+        PrintOptions.Header = '&w&bPage &p of &P'
         PrintOptions.HTMLHeader.Strings = (
           '<HTML></HTML>')
         PrintOptions.Footer = '&u&b&d'

@@ -12,7 +12,7 @@ uses
   LMDControl, LMDCustomControl, LMDCustomPanel, LMDCustomBevelPanel,
   LMDSimplePanel, LMDCustomParentPanel, LMDBackPanel, jpeg, ncafbPesqCli,
   cxPCdxBarPopupMenu, ncaFrmCli, ncaBaseWebApi,
-  ncaFrmSombra, ExtCtrls;
+  ncaFrmSombra, ExtCtrls, dxBarBuiltInMenu;
 
 type
  
@@ -200,6 +200,7 @@ var
   P : Integer;
   C : Char;
 begin
+  C := #0;
   P := Pos('?'+aParName+'=', aURL);
   if P>0 then 
     C := '?'
@@ -309,7 +310,7 @@ end;
 
 function TFrmPlus.GetWBImg: TjpegImage;
 var 
-  Ofs : Integer;
+  //Ofs : Integer;
   Bmp: TBitmap;
   DC : HDC;
 
@@ -471,7 +472,8 @@ procedure TFrmPlus.WBDocumentComplete(ASender: TObject;
   const pDisp: IDispatch; var URL: OleVariant);
 var 
   S: String; 
-  I, P: Integer;
+  //I,
+  P: Integer;
   SL : TStrings;
 begin
   S := WB.DocumentSource;
@@ -566,6 +568,7 @@ end;
 procedure TFrmPlus.wmSalvaTranPopup(var Msg: TMessage);
 var S: PString;
 begin
+  S := nil;
   try
     S := PString(Msg.WParam);
     SalvaTran(S^);
@@ -898,7 +901,7 @@ var
   dm : TdmPlus;
   Cod: Integer;
   V: Double;
-  S: String;
+//  S: String;
   M: TMemoryStream;
   J: TjpegImage;
 begin
@@ -1012,31 +1015,31 @@ begin
 end;
 
 end.
-
-NexCafé - Plus API
-  Autenticação
-  - getSvcTokenInfo(aInfoName)
-  - setSvcTokenInfo(aInfoName, aInfoValue);
-  
-  - getContaLoja
-  
-  - getFuncIsAdmin
-  - getFuncNome
-  - getfuncLogin
-  
-  Transacao
-  - saveTran
-                                                                                                          
-  Produtos
-  - addProd
-  - getProdAtivo
-  - setProdAtivo
-
-  getEmailCli
-  getNomeCli
-  sendMsgCli
-  
-  
+//
+//NexCafé - Plus API
+//  Autenticação
+//  - getSvcTokenInfo(aInfoName)
+//  - setSvcTokenInfo(aInfoName, aInfoValue);
+//
+//  - getContaLoja
+//
+//  - getFuncIsAdmin
+//  - getFuncNome
+//  - getfuncLogin
+//
+//  Transacao
+//  - saveTran
+//
+//  Produtos
+//  - addProd
+//  - getProdAtivo
+//  - setProdAtivo
+//
+//  getEmailCli
+//  getNomeCli
+//  sendMsgCli
+//
+//
 
   
   

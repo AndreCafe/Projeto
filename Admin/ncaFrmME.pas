@@ -244,14 +244,18 @@ begin
   if FME.Itens.Count=0 then
     Raise ENexCafe.Create(SÉNecessárioHaverItensParaSalvar);
 
+
+  if Ftot.SobrouTroco and (not FTot.PermiteTroco) then
+        Raise ENexCafe.Create(SNaoPermiteTroco + Ftot.TipoPagNome);
+
+
   if not FME.FidResgate then begin
 
       if FME.Desconto-FME.Total > 0.001 then
         Raise ENexCafe.Create(SDescontoNãoPodeSerMaiorQueOValor);
 
       if (FME.Pago - (FME.Total - FME.Desconto)) > 0.001 then
-        // dario. Ovalor pago pode ser maior q o total se permite Troco?
-        Raise ENexCafe.Create(SValorPagoNãoPodeSerMaiorQueOTota);
+            Raise ENexCafe.Create(SValorPagoNãoPodeSerMaiorQueOTota);
 
   end else begin
 
@@ -363,7 +367,7 @@ function TFrmME.Editar(aNovo: Boolean; aME: TncMovEst;
   aPodeSalvar: Boolean; aTamanho: Byte = {$IFDEF LAN} tamTelaNormal {$ELSE} tamTelaPDV1 {$ENDIF}): Boolean;
 var
   Func : String;
-  TC : Byte;
+  //TC : Byte;
   U : TncUsuario;
 begin
   FME := aME;
@@ -402,15 +406,16 @@ begin
   end;
 
   if aNovo then begin
-    TC := 1;
+    //TC := 1;
     Func := Dados.CM.UA.Nome;
     if Trim(Func)='' then
       Func := Dados.CM.UA.Username;
   end else begin
     FCli.ID := FME.Cliente;
-    if FME.Cliente>0 then
-      TC := 0 else
-      TC := 1;
+//    if FME.Cliente>0 then
+//      TC := 0
+//    else
+//      TC := 1;
     U := Dados.CM.Usuarios.PorUsername[FME.Func];
     if U=nil then 
       Func := '' 
@@ -436,7 +441,8 @@ begin
       FTot.OpPagto := 1 else
       FTot.OpPagto := 0;
   end;
-  
+  FTot.TipoPag := FME.TipoPag;
+
   FTot.Atualiza;
   ShowModal;
   Result := FRes;

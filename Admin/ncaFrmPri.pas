@@ -400,7 +400,7 @@ type
 
   TMYcxGridColumnHeaderFilterButtonViewInfo = class( TcxGridColumnHeaderFilterButtonViewInfo)
   public
-    function GetVisible: Boolean;
+    function GetVisible: Boolean; override;
   end;
   
   TThread_AbriuAdmin = class ( TThread )
@@ -527,6 +527,7 @@ end;
 
 function IndexToFormClass(aIndex: Integer): TFrmBaseClass;
 begin
+ Result := nil;
   case aIndex of
     0 : Result := TfbMaq;
     2 : Result := TfbClientes;

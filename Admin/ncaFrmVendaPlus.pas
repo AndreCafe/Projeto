@@ -24,7 +24,7 @@ uses
   cxGridLevel, cxGridCustomTableView, cxGridTableView, cxGridDBTableView,
   cxGridCustomView, cxGrid, cxGridCardView, cxGridDBCardView,
   cxGridCustomLayoutView, ComCtrls, cxListView, cxImageComboBox, ncaFrmCli, ncaFrmTotal,
-  cxNavigator;
+  cxNavigator, dxBarBuiltInMenu;
 
 type
   TFrmVendaPlus = class(TFrmPlus)
@@ -224,20 +224,18 @@ type
 
     procedure OnTimerVendaMaq(Sender: TObject);
 
-    function GetCli: TFrmCli; override;
-
     procedure AjustaVisCliMaq;
 
     property Etapa: Integer
       read FEtapa write SetEtapa;
 
     procedure wmCriaMovEst(var Msg: TMessage);
-      message wm_user + 1; 
+      message wm_user + 1;
   public
     function Editar(aME: TncMovEst; aPodeSalvar: Boolean; aPodeAlterarCli: Boolean = False): Boolean;
-    
     procedure Vender(aMaq: Integer; aVendaMaq: Boolean; const aCodParceiro: String = '');
-    
+    function GetCli: TFrmCli; override;
+
     { Public declarations }
   end;
 
@@ -430,7 +428,7 @@ end;
 procedure TFrmVendaPlus.cmRealizarVendaClick(Sender: TObject);
 var 
   S: TncSessao;
-  str: String; 
+  //str: String;
 begin
   inherited;
   
@@ -498,7 +496,7 @@ begin
 end;
 
 procedure TFrmVendaPlus.FormCreate(Sender: TObject);
-var I: Integer;
+//var I: Integer;
 begin
   inherited;
   FMaq := 0;

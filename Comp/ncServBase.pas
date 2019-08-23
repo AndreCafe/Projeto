@@ -1426,7 +1426,7 @@ end;
 
 
 procedure TncServidor.CriaServidorBD;
-var 
+var
   I : Integer;
   T : Cardinal;
   aSessao  : TnxSession;
@@ -1450,10 +1450,10 @@ begin
     if FileExists(ApekFName) then begin
       FiniApek := TIniFile.Create(ApekFName);
       FTimerApek.Enabled := True;
-    end else          
-      if Assigned(FiniApek) then 
+    end else
+      if Assigned(FiniApek) then
         FreeAndNil(FiniApek);
-    
+
     try
       ApagaNXTemp;
       DebugMsg('CriaServidorBD 4');
@@ -1556,7 +1556,7 @@ begin
       Usuarios.LeDataset(DM.tUsuario);
 
       DebugMsg('CriaServidorBD 7.9');
-      
+
       with DM do
       if tMaq.RecordCount=0 then begin
         tMaq.Insert;
@@ -1732,7 +1732,7 @@ begin
         end else
           DebugMsg('Monitor de impressoes não foi criado');
       except
-        on E: Exception do begin 
+        on E: Exception do begin
           DebugMsgEsp('TncSevidor.CriaServidorBD ERRO FMonitor.Create: '+E.Message, False, True);
           FMonitor := nil;
         end;
@@ -1741,8 +1741,8 @@ begin
       DebugMsg('CriaServidorBD 7.17');
 
       FJobs.Limpa;
-      with DM do 
-        while tPM.FindKey([null]) do 
+      with DM do
+        while tPM.FindKey([null]) do
           tPM.Delete;
       FJobs.LeDataset(DM.tPM);
 
@@ -1757,20 +1757,20 @@ begin
       end;
 
       DebugMsg('CriaServidorBD 7.19');
-      
+
       gTiposImp.Limpa;
       gTiposImp.LeDataset(DM.tTipoImp);
 
       DebugMsg('CriaServidorBD 7.20');
-      
+
       DM.AtualizaSiteProg(FMaquinas, FSessoes);
 
       DebugMsg('CriaServidorBD 7.21');
-  
+
       DM.RefreshPontosPremioAuto;
-  
+
       DM.GravaLog(2, 0, 'ENTROU');
-  
+
       DebugMsg('CriaServidorBD 8');
       with RegistroGlobal do begin
         CodEquipSerial(aCE, aSN);
@@ -1778,13 +1778,13 @@ begin
         ChecaNumMaq(LicencasValidas(False, aCE, aSN), Conta, aCE, RegistroGlobal.Status);
         DebugMsg('CriaServidorBD 10');
       end;
-  
+
       FAtualizaLic := TThreadAtualizaLic.Create;
-  
-      with gConfig do 
+
+      with gConfig do
 {      if EmailEnviarCaixa then   }
         InicializaProcEmail(EmailMetodo, EmailServ, EmailUsername, EmailSenha);
-        
+
       if Assigned(FMonitor) then
         RefreshJobs;
 
@@ -1799,11 +1799,13 @@ begin
 
       DebugMsg('CriaServidorBD 13');
 
+      // PUTA QUE DARIO
+
       FServAtivo := True;
       FServErro := '';
 
 //      OnTimerRecalcP(nil);
-    except 
+    except
       on E: Exception do begin
         DebugMsgEsp('TncServidor.CriaServidorBD - ERRO: '+E.Message, False, True);
         FServErro := E.Message;
@@ -1815,7 +1817,7 @@ begin
 
   finally
     Unlock;
-  end;    
+  end;
 end;
 
 function TncServidor.DesativarFWSessao(aSessao: Integer;
@@ -1860,7 +1862,9 @@ begin
   Lock;}
   try
 //    try TdmProdClient.Finalizar; except end;
-  
+
+    // DARIO finalizar threads
+
     FTimerApek.Enabled := False;
     DebugMsg('TncServidor.DestroiServidorBD - 2');
     FTimerRecalcP.Enabled := False;

@@ -194,7 +194,7 @@ type
 
     procedure OnMudouCliente(Sender: TObject);
 
-    procedure OnTimerDropDown(Sender: TObject);
+    //procedure OnTimerDropDown(Sender: TObject);
 
     { Private declarations }
   public
@@ -868,11 +868,11 @@ begin
   end;
 end;
 
-procedure TFrmTempo.OnTimerDropDown(Sender: TObject);
-begin
-  Sender.Free;
-  FCli.edCad.SetFocus;
-end;
+//procedure TFrmTempo.OnTimerDropDown(Sender: TObject);
+//begin
+//  Sender.Free;
+//  FCli.edCad.SetFocus;
+//end;
 
 procedure TFrmTempo.RefreshTACli;
 var V: Variant;

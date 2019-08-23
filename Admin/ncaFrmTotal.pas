@@ -78,8 +78,6 @@ type
     lbEspecie: TcxLabel;
     cbEspecie: TcxImageComboBox;
     cxLabel1: TcxLabel;
-    cxImgOk: TcxImage;
-    cxImgBad: TcxImage;
     Tab: TnxTable;
     TabID: TWordField;
     TabTipo: TWordField;
@@ -121,6 +119,7 @@ type
       Shift: TShiftState; X, Y: Integer);
   private
     FTamanho: Byte;
+    FSobrouTroco  : Boolean;
     FAtualizando : Boolean;
     FPontosNec : Double;
     FDebCaption : String;
@@ -143,11 +142,10 @@ type
     function GetRecebido: Double;
     procedure SetRecebido(const Value: Double);
     procedure SetTamanho(const Value: Byte);
+    procedure SetTipoPag(const Value: Byte);
     procedure SetObs(const Value: String);
     function GetObs: String;
     procedure OnEspecieChange;
-    procedure setErroEspecie;
-    procedure setOkEspecie;
   public
     procedure InitVal(aPagEsp: TncPagEspecies; aSubTot, aDesconto, aPago, aRecebido : Double; aObs: String; aParent: TWinControl; aShowObs: Boolean = True);
     procedure InitPontos(aNec, aDisp: Double; aObs: String; aParent: TWinControl; aShowObs: Boolean = True);
@@ -166,11 +164,13 @@ type
     function Total: Double;
     function PermiteCred: boolean;
     function PermiteTroco: boolean;
-
-    procedure CheckEspecie;
+    function TipoPagNome: string;
 
     property Obs: String read GetObs write SetObs;
 
+
+    property SobrouTroco: boolean read FSobrouTroco;
+    
     property Tamanho: Byte
       read FTamanho write SetTamanho;
 
@@ -181,7 +181,7 @@ type
       read FOpPagto write FOpPagto;
 
     property TipoPag: Byte
-      read FTipoPag write FTipoPag;
+      read FTipoPag write SetTipoPag;
 
     property PontosDisp: Double
       read FPontosDisp write SetPontosDisp;
@@ -391,6 +391,7 @@ begin
              Description := '  ' + gEspecies[i].Nome + '  ';
          end;
   end;
+  Tab.Close;
 
 end;
 
@@ -520,8 +521,6 @@ begin
   try
     lbNomeDif.Left := 0;
     lbNomeDif.Realign;
-    if cxImgOk.Visible then cxImgOk.Repaint;
-    if cxImgBad.Visible then cxImgBad.Repaint;
   finally
     Sender.Free;
   end;
@@ -569,21 +568,9 @@ begin
     panObs.AlignWithMargins := True;
 end;
 
-procedure TFrmTotal.setErroEspecie;
-begin
-     cxImgOk.visible := false;
-     cxImgBad.visible := true and (edRec.Value <> edTotal.Value);
-end;
-
 procedure TFrmTotal.SetObs(const Value: String);
 begin
   meObs.Lines.Text := Value;
-end;
-
-procedure TFrmTotal.setOkEspecie;
-begin
-     cxImgOk.visible := true and (edRec.Value <> edTotal.Value);
-     cxImgBad.visible := false;
 end;
 
 procedure TFrmTotal.SetPontosDisp(const Value: Double);
@@ -611,10 +598,10 @@ begin
 end;
 
 procedure TFrmTotal.SetTamanho(const Value: Byte);
-const 
+const
   minHeight = 24;
 var
-  H : Integer;  
+  H : Integer;
 
 procedure ApplyFontHeight(aSize: Integer);
 begin
@@ -636,13 +623,13 @@ begin
 
   lbValorDif.Style.Font.Size := aSize;
   lbNomeDif.Style.Font.Size := aSize-2;
-  
+
   if edCalc.Height > 24 then
     H := edCalc.Height else
     H := 24;
 
-  panTotCusto.Height := H;  
-  
+  panTotCusto.Height := H;
+
   panObsVal.Height := (H*3)+2;
   panSubTotal.Height := H;
   panDesconto.Height := H;
@@ -651,7 +638,7 @@ begin
 
   pgValPontos.Width := lbCalc1.Width + lbCalc2.Width + 5;
   panOuterRec.Width := pgValPontos.Width;
-  
+
   edSubTotal.Width := lbCalc2.Width;
   edDesconto.Width := lbCalc2.Width;
   edTotal.Width := lbCalc2.Width;
@@ -667,8 +654,17 @@ begin
   if Value = tamTelaPDV1 then
     ApplyFontHeight(20) else
     ApplyFontHeight(10);
-  
+
   FTamanho := Value;
+end;
+
+procedure TFrmTotal.SetTipoPag(const Value: Byte);
+begin
+    if value<>FTipoPag then begin
+        FTipoPag := value;
+        cbEspecie.ItemIndex := FTipoPag;
+        OnEspecieChange;
+    end;
 end;
 
 function TFrmTotal.Total: Double;
@@ -708,6 +704,7 @@ begin
       2 : edRec.Value := 0;
     end;
 
+    FSobrouTroco := false;
     if edRec.Value > edTotal.Value then begin
       lbValorDif.Visible := True;
       lbNomeDif.Visible := True;
@@ -718,6 +715,7 @@ begin
       lbValorDif.Caption := FloatToStrF(Abs(edRec.Value - edTotal.Value), ffCurrency, 10, 2)+'  ';
       lbNomeDif.Left := 0;
       lbValorDif.Left := panOuterRec.Left-1;
+      FSobrouTroco := true;
     end else
     if edRec.Value < edTotal.Value then begin
       lbValorDif.Visible := True;
@@ -731,13 +729,7 @@ begin
     end else begin
       lbNomeDif.Visible := False;
       lbValorDif.Visible := False;
-      cxImgOk.Visible := False;
-      cxImgBad.Visible := False;
     end;
-
-   cxImgOk.Left := panDif.Width - lbValorDif.Width - 355;
-   cxImgBad.Left := cxImgOk.Left;
-   CheckEspecie;
 
     lbNomeDif.Left := 0;
     with TTimer.Create(Self) do begin
@@ -750,32 +742,6 @@ begin
   end;
 end;
 
-// dario 07/2019
-procedure TFrmTotal.CheckEspecie;
-begin
-    //lbNomeDif.Style.Color := clGreen;
-    // Cliente oferece valor MAIOR que o Total.
-    // troco devido
-    if edRec.Value > edTotal.Value then begin
-      if PermiteTroco then
-          setOkEspecie else
-          setErroEspecie;
-    end else
-    //lbNomeDif.Style.Color := clRed;
-    // Cliente oferece MENOS que o Total
-    // Pode debitar?
-    if edRec.Value < edTotal.Value then begin
-      if PermiteCred then
-          setOkEspecie else
-          setErroEspecie;
-    end else
-    // Pago oferecido = Total
-    begin
-      setOkEspecie;
-    end;
-    PermiteCred;
-end;
-
 function TFrmTotal.PermiteTroco:boolean;
 begin
     result := gEspecies.Itens[FTipoPag].PermiteTroco = true;
@@ -784,6 +750,11 @@ end;
 function TFrmTotal.PermiteCred:boolean;
 begin
     result := gEspecies.Itens[FTipoPag].PermiteCred = true;
+end;
+
+function TFrmTotal.TipoPagNome: string;
+begin
+    result := gEspecies.Itens[FTipoPag].Nome;
 end;
 
 procedure TFrmTotal.cbEspecieMouseUp(Sender: TObject; Button: TMouseButton;
@@ -803,9 +774,7 @@ procedure TFrmTotal.OnEspecieChange;
 begin
     lbEspecie.caption := trim(cbEspecie.Properties.Items[cbEspecie.ItemIndex].Description);
     FTipoPag :=  cbEspecie.ItemIndex;
-    CheckEspecie;
     //edRec.SetFocus;
-
 end;
 
 

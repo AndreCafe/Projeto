@@ -29,7 +29,7 @@ type
     procedure SaveTo(aEsp: TncEspecie);
     procedure Valida;
   public
-    constructor Create(AOwner: TComponent; aEsp: TncEspecie);
+    constructor Create(AOwner: TComponent; aEsp: TncEspecie); reintroduce;
     procedure Salvar;
     function Alterou: Boolean;
 

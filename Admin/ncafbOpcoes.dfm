@@ -166,7 +166,6 @@ inherited fbOpcoes: TfbOpcoes
         OptionsGroupControl.AllowControlResizing = True
         OptionsGroupControl.ShowControl = True
         OptionsGroupControl.UseControl = True
-        OptionsExpansion.Expanded = False
         Links = <>
       end
       object nbOpcoesItem1: TdxNavBarItem
@@ -174,7 +173,7 @@ inherited fbOpcoes: TfbOpcoes
       end
       object nbgGeralControl: TdxNavBarGroupControl
         Left = 0
-        Top = -116
+        Top = -461
         Width = 602
         Height = 693
         Caption = 'nbgGeralControl'
@@ -5261,7 +5260,7 @@ inherited fbOpcoes: TfbOpcoes
       end
       object nbgMeiosPagamentoControl: TdxNavBarGroupControl
         Left = 0
-        Top = 398
+        Top = 444
         Width = 602
         Height = 300
         Caption = 'nbgMeiosPagamentoControl'

@@ -31,7 +31,6 @@ type
     edDBImg: TcxDBImageComboBox;
     cxDBTextEdit1: TcxDBTextEdit;
     cxDBCheckBox1: TcxDBCheckBox;
-    cxDBCheckBox2: TcxDBCheckBox;
     procedure cmGravarClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
