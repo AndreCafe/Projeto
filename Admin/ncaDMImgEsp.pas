@@ -8,6 +8,7 @@ uses
 type
   TdmImgEsp = class(TDataModule)
     imgs48: TcxImageList;
+    imgs24: TcxImageList;
   private
     { Private declarations }
   public

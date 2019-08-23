@@ -384,9 +384,8 @@ begin
   gEspecies.LeDataset(Tab);
 
   for i := 0 to gEspecies.Count - 1 do begin
-
          with cbEspecie.Properties.Items.Add do begin
-             Value := gEspecies[i].ID;
+             Value := gEspecies[i].Img;
              ImageIndex := gEspecies[i].Img;
              Description := '  ' + gEspecies[i].Nome + '  ';
          end;

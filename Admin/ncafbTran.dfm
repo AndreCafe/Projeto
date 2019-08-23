@@ -390,7 +390,7 @@ inherited fbTran: TfbTran
                   Caption = 'Pagamento'
                   DataBinding.FieldName = 'TipoPag'
                   PropertiesClassName = 'TcxImageComboBoxProperties'
-                  Properties.Images = dmImgEsp.imgs48
+                  Properties.Images = dmImgEsp.imgs24
                   Properties.Items = <>
                   Properties.ShowDescriptions = False
                   HeaderAlignmentHorz = taCenter
