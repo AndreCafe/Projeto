@@ -14,6 +14,13 @@ object Form16: TForm16
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
+  object Label1: TLabel
+    Left = 248
+    Top = 32
+    Width = 31
+    Height = 13
+    Caption = 'Label1'
+  end
   object PB: TProgressBar
     Left = 0
     Top = 0
@@ -53,13 +60,11 @@ object Form16: TForm16
     TabOrder = 3
   end
   object nxSession1: TnxSession
-    ActiveDesigntime = True
     ServerEngine = nxSE
     Left = 24
     Top = 24
   end
   object nxDB: TnxDatabase
-    ActiveDesigntime = True
     Session = nxSession1
     AliasPath = 'C:\meus programas\nexcafe\dadosX210'
     Left = 64
@@ -284,7 +289,6 @@ object Form16: TForm16
     end
   end
   object nxSE: TnxServerEngine
-    ActiveDesigntime = True
     ServerName = 'Nextar'
     Options = []
     TableExtension = 'nx1'

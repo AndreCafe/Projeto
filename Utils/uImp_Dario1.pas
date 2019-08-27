@@ -82,6 +82,7 @@ type
     tCliValorCred: TCurrencyField;
     tCliRecVer: TIntegerField;
     tCliID: TIntegerField;
+    Label1: TLabel;
     procedure Button1Click(Sender: TObject);
     procedure FormShow(Sender: TObject);
   private
@@ -255,7 +256,7 @@ procedure estado1(fld:TStringField; aCampo:string);
 var
     s: string;
 begin
-
+    s := aCampo;
     if aCampo = 'Acre' then s := 'AC';
     if aCampo = 'Alagoas' then s := 'AL';
     if aCampo = 'Amazonas' then s := 'AM';
@@ -278,6 +279,8 @@ begin
     if aCampo = 'São Paulo' then s := 'SP';
     if aCampo = 'Tocantins' then s := 'TO';
     if aCampo = 'sp' then s := 'SP';
+
+
 
     fld.Value := s;
 end;
@@ -308,6 +311,11 @@ begin
     end;
 end;
 
+function Memo2Str(s:string) :string;
+begin
+    while pos('/n', s)>0 do
+        s := stringReplace(s, '/n',#13#10, []);
+end;
 
 procedure data1(fld:TDateTimeField; aCampo:string);
 var
@@ -329,7 +337,18 @@ begin
              s2 := copy(s, 1, pos('/', s)-1);
              AMonth := strtoint(s2);
              s := copy(s, pos('/', s)+1, maxint);
-             AYear := strtoint(s);
+             if pos(' ', s)>0 then begin
+                 s2 := copy(s, 1, pos(' ', s)-1);
+                 AYear := strtoint(s2);
+                 s := copy(s, pos(' ', s)+1, maxint);
+                 if pos(':', s)>0 then begin
+                    s2 := copy(s, 1, pos(':', s)-1);
+                    AHour := strtoint(s2);
+                    s := copy(s, pos(':', s)+1, 2);
+                    AMinute := strtoint(s);
+                 end;
+             end else
+                AYear := strtoint(s);
              fld.Value := dateutils.EncodeDateTime(AYear, AMonth, ADay, AHour, AMinute, ASecond, AMilliSecond);
           end;
     end;
@@ -343,9 +362,12 @@ begin
   end;
 end;
 
+var
+    id:integer;
+
 begin
   SL := TStringList.Create;
-  SL.LoadFromFile('Z:\sharedVMs\nc\TCliente MOD 1.csv');
+  SL.LoadFromFile('Z:\sharedVMs\nc\BACK UP CADASTRO RCMS INTERNET EXPRESS.csv');
   PB.Max := SL.Count;
   PB.Position := 0;
   tCli.Open;
@@ -357,102 +379,68 @@ begin
 
 // "CÓDIGO","NOME","NICK","SENHA","RG","CPF","CRÉDITO","DATA CADASTRO","EMAIL","D.NASCIMENTO","ENDEREÇO","TELEFONE","NÚMERO","COMPLEMENTO","BAIRRO","CIDADE","ESTADO"
 
+// "iCliID","iCodigo","iGCID","sNome","sNick","sSenha","sRG","sCPF","mCredito","dCredito","dCadastro","iUsuID","sEmail","dNascimento","sEndereco","sFone","sObs","bAtivo","dInativacao","bAviso","bCusto","bAutorizacao","bLogar","sPai","sMae","sCEP","sNumero","sComplemento","sBairro","sCidade","sEstado","iTurnoID","bMensal","iCliIndicado","dIndicado","sEscola","dInicioAula","dFinalAula"
+
+
+
   for I := 1 to SL.Count-1 do begin
-    PB.Position := I + 1;
-    Application.ProcessMessages;
-    S := SL[I];
+  //for I := 1 to 4 do begin
+    try
+        PB.Position := I + 1;
+        Application.ProcessMessages;
+        S := SL[I];
 
-    tCli.Insert;
-    tCliID.Value := strtoint(ProxCampo);
-    tCliUsername.Value := ProxCampo;
-    tCliNickName.Value := ProxCampo;
-    tCliSenha.Value := ProxCampo;
-    tCliRg.Value := ProxCampo;
-    tCliCpf.Value := ProxCampo;
-    minutos1(tCliMinutos, ProxCampo);
-    data1(tCliIncluidoEm, ProxCampo);
-    tCliIncluidoPor.Value := 'importacao';
-    tCliEmail.Value := ProxCampo;
-    data1(tCliDataNasc, ProxCampo);
-    tCliEndereco.Value := ProxCampo;
-    tCliTelefone.Value := ProxCampo;
-    endereco1(tCliEndereco, ProxCampo, ProxCampo);
-    tCliBairro.Value := ProxCampo;
-    tCliCidade.Value := ProxCampo;
-    estado1(tCliUF, ProxCampo);
+        tCli.Insert;
+        id := strtoint(ProxCampo);   // "iCliID",
+        Label1.caption := inttostr(id);
+        tCliID.Value := id;
+        ProxCampo; //"iCodigo",
+        ProxCampo; //"iGCID",
+        tCliUsername.Value := ProxCampo; // "sNome",
+        tCliNickName.Value := ProxCampo; // "sNick",
+        tCliSenha.Value := ProxCampo;    // "sSenha",
+        tCliRg.Value := ProxCampo;       // "sRG",
+        tCliCpf.Value := ProxCampo;      // "sCPF",
+        ProxCampo; //"mCredito",
+        minutos1(tCliMinutos, ProxCampo);  // "dCredito",
+        data1(tCliIncluidoEm, ProxCampo);  // "dCadastro",
+        ProxCampo; //"iUsuID",
+        tCliIncluidoPor.Value := 'importacao';
+        tCliEmail.Value := ProxCampo;    // "sEmail",
+        data1(tCliDataNasc, ProxCampo);  // "dNascimento",
+        tCliEndereco.Value := ProxCampo; // "sEndereco",
+        tCliTelefone.Value := ProxCampo; // "sFone",
 
+        // "sObs",
+        tCliObs.Value := Memo2Str(ProxCampo);
+
+        //"bAtivo","dInativacao","bAviso","bCusto","bAutorizacao","bLogar",
+        ProxCampo; ProxCampo; ProxCampo; ProxCampo; ProxCampo; ProxCampo;
+
+        tCliPai.Value := ProxCampo; //"sPai",
+        tCliMae.Value := ProxCampo; //"sMae",
+        tCliCEP.Value := ProxCampo; // "sCEP",
+        endereco1(tCliEndereco, ProxCampo, ProxCampo); // "sNumero","sComplemento",
+        tCliBairro.Value := ProxCampo;   // "sBairro",
+        tCliCidade.Value := ProxCampo;   // "sCidade",
+
+        //tCliCidade.Value := ProxCampo;   // "sEstado",   
+        estado1(tCliUF, ProxCampo);      // "sEstado",
+
+        //"iTurnoID","bMensal","iCliIndicado","dIndicado",
+        ProxCampo; ProxCampo; ProxCampo; ProxCampo;
+
+        tCliEscola.Value := ProxCampo; // "sEscola",
+        data1(tCliEscolaHI, ProxCampo); // "dInicioAula",
+        data1(tCliEscolaHF, ProxCampo); // "dFinalAula"
+
+    except
+        on e:exception  do begin
+            tCliID.Value := id;
+        end;
+    end;
     tCli.Post;
 
-//    tCliNome.Value := ProxCampo;
-//    tCliValorCred.Value := StrToCurrency(ProxCampo);
-//    tCliIsento.Value := False;
-
-//    tCliID: TAutoIncField;
-//    tCliNome: TStringField;
-//    tCliEndereco: TStringField;
-//    tCliBairro: TStringField;
-//    tCliCidade: TStringField;
-//    tCliUF: TStringField;
-//    tCliCEP: TStringField;
-//    tCliSexo: TStringField;
-//    tCliObs: TnxMemoField;
-//    tCliCpf: TStringField;
-//    tCliRg: TStringField;
-//    tCliTelefone: TStringField;
-//    tCliEmail: TnxMemoField;
-//    tCliMinutos: TFloatField;
-//    tCliPassaportes: TFloatField;
-//    tCliMinutosUsados: TFloatField;
-//    tCliMinutosIniciais: TFloatField;
-//    tCliIsento: TBooleanField;
-//    tCliUsername: TStringField;
-//    tCliPai: TStringField;
-//    tCliMae: TStringField;
-//    tCliSenha: TStringField;
-//    tCliUltVisita: TDateTimeField;
-//    tCliDebito: TCurrencyField;
-//    tCliEscola: TStringField;
-//    tCliEscolaHI: TDateTimeField;
-//    tCliEscolaHF: TDateTimeField;
-//    tCliNickName: TStringField;
-//    tCliDataNasc: TDateTimeField;
-//    tCliCelular: TStringField;
-//    tCliTemDebito: TBooleanField;
-//    tCliLimiteDebito: TCurrencyField;
-//    tCliFoto: TGraphicField;
-//    tCliIncluidoEm: TDateTimeField;
-//    tCliAlteradoEm: TDateTimeField;
-//    tCliIncluidoPor: TStringField;
-//    tCliAlteradoPor: TStringField;
-//    tCliTitEleitor: TStringField;
-//    tCliFidPontos: TFloatField;
-//    tCliFidTotal: TFloatField;
-//    tCliFidResg: TFloatField;
-//    tCliAniversario: TStringField;
-//    tCliCotaImpEspecial: TBooleanField;
-//    tCliCotaImpDia: TIntegerField;
-//    tCliCotaImpMes: TIntegerField;
-//    tCliSemFidelidade: TBooleanField;
-//    tCliTemCredito: TBooleanField;
-//    tCliNaoGuardarCredito: TBooleanField;
-//    tCliPermiteLoginSemCred: TBooleanField;
-//    tCliCHorario: TIntegerField;
-//    tCliOpCHorario: TWordField;
-//    tCliHP1: TIntegerField;
-//    tCliHP2: TIntegerField;
-//    tCliHP3: TIntegerField;
-//    tCliHP4: TIntegerField;
-//    tCliHP5: TIntegerField;
-//    tCliHP6: TIntegerField;
-//    tCliHP7: TIntegerField;
-//    tCliInativo: TBooleanField;
-//    tCliTipoAcessoPref: TIntegerField;
-//    tCliFornecedor: TBooleanField;
-//    tCliValorCred: TCurrencyField;
-//    tCliRecVer: TIntegerField;
-//
-
-  // if i = 10 then  break;
 
   end;
   ShowMessage('Fim');

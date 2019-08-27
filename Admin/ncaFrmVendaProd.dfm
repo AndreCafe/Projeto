@@ -6,7 +6,7 @@ object FrmVendaProd: TFrmVendaProd
   BorderWidth = 5
   Caption = 'Venda Produto'
   ClientHeight = 411
-  ClientWidth = 478
+  ClientWidth = 584
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -29,7 +29,7 @@ object FrmVendaProd: TFrmVendaProd
     AlignWithMargins = True
     Left = 0
     Top = 42
-    Width = 478
+    Width = 584
     Height = 268
     Margins.Left = 0
     Margins.Top = 6
@@ -43,11 +43,12 @@ object FrmVendaProd: TFrmVendaProd
     Bevel.StandardStyle = lsNone
     Color = clWhite
     TabOrder = 0
+    ExplicitWidth = 478
     object Grid: TcxGrid
       AlignWithMargins = True
       Left = 1
       Top = 29
-      Width = 476
+      Width = 582
       Height = 201
       Margins.Left = 0
       Margins.Right = 0
@@ -64,6 +65,7 @@ object FrmVendaProd: TFrmVendaProd
       LookAndFeel.Kind = lfFlat
       LookAndFeel.NativeStyle = False
       RootLevelOptions.DetailFrameColor = clSilver
+      ExplicitWidth = 476
       object TV: TcxGridDBTableView
         OnDblClick = cmGravarClick
         OnMouseUp = TVMouseUp
@@ -145,7 +147,7 @@ object FrmVendaProd: TFrmVendaProd
       AlignWithMargins = True
       Left = 4
       Top = 1
-      Width = 470
+      Width = 576
       Height = 24
       Margins.Top = 0
       Margins.Bottom = 0
@@ -156,6 +158,7 @@ object FrmVendaProd: TFrmVendaProd
       Bevel.StandardStyle = lsNone
       ParentColor = True
       TabOrder = 0
+      ExplicitWidth = 470
       object rgDescr: TcxRadioButton
         Left = 74
         Top = 4
@@ -215,7 +218,7 @@ object FrmVendaProd: TFrmVendaProd
       AlignWithMargins = True
       Left = 1
       Top = 230
-      Width = 476
+      Width = 582
       Height = 37
       Margins.Left = 0
       Margins.Top = 0
@@ -226,6 +229,7 @@ object FrmVendaProd: TFrmVendaProd
       Bevel.Mode = bmStandard
       Bevel.StandardStyle = lsNone
       TabOrder = 3
+      ExplicitWidth = 476
       object cxLabel4: TcxLabel
         Left = 0
         Top = 1
@@ -280,7 +284,7 @@ object FrmVendaProd: TFrmVendaProd
         Width = 83
       end
       object panUnitario: TLMDSimplePanel
-        Left = 258
+        Left = 364
         Top = 1
         Width = 218
         Height = 36
@@ -288,6 +292,7 @@ object FrmVendaProd: TFrmVendaProd
         Bevel.Mode = bmCustom
         ParentColor = True
         TabOrder = 2
+        ExplicitLeft = 258
         object edUnitario: TcxCurrencyEdit
           AlignWithMargins = True
           Left = 98
@@ -349,33 +354,35 @@ object FrmVendaProd: TFrmVendaProd
         AlignWithMargins = True
         Left = 3
         Top = 0
-        Width = 470
+        Width = 576
         Height = 1
         Margins.Top = 0
         Margins.Bottom = 0
         Align = alTop
         Bevel.Mode = bmCustom
         TabOrder = 3
+        ExplicitWidth = 470
       end
     end
     object LMDSimplePanel3: TLMDSimplePanel
       AlignWithMargins = True
       Left = 4
       Top = 25
-      Width = 470
+      Width = 576
       Height = 1
       Margins.Top = 0
       Margins.Bottom = 0
       Align = alTop
       Bevel.Mode = bmCustom
       TabOrder = 1
+      ExplicitWidth = 470
     end
   end
   object panTot: TLMDSimplePanel
     AlignWithMargins = True
     Left = 0
     Top = 315
-    Width = 478
+    Width = 584
     Height = 96
     Margins.Left = 0
     Margins.Top = 5
@@ -385,6 +392,7 @@ object FrmVendaProd: TFrmVendaProd
     Bevel.Mode = bmStandard
     Bevel.StandardStyle = lsNone
     TabOrder = 1
+    ExplicitWidth = 478
   end
   object cbRecibo: TcxCheckBox
     Left = 259
@@ -406,8 +414,8 @@ object FrmVendaProd: TFrmVendaProd
     AllowReset = False
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
-    Font.Height = -12
-    Font.Name = 'Segoe UI'
+    Font.Height = -11
+    Font.Name = 'Tahoma'
     Font.Style = []
     Categories.Strings = (
       'Default')
