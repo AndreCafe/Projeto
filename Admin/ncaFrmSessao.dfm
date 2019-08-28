@@ -60,6 +60,8 @@ object FrmSessao: TFrmSessao
     ClientRectTop = 0
     object tsPagNormal: TcxTabSheet
       Caption = 'tsPagNormal'
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object panTot2: TLMDSimplePanel
         AlignWithMargins = True
         Left = 0
@@ -724,6 +726,8 @@ object FrmSessao: TFrmSessao
     end
     object tsPagManut: TcxTabSheet
       Caption = 'tsPagManut'
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object InspM: TcxDBVerticalGrid
         Left = 0
         Top = 0
@@ -958,6 +962,7 @@ object FrmSessao: TFrmSessao
         StyleFocused.BorderStyle = ebsSingle
         StyleFocused.Color = 11796479
         TabOrder = 0
+        ExplicitHeight = 21
         Width = 178
       end
       object lbGrupoTar: TcxLabel
@@ -1054,6 +1059,7 @@ object FrmSessao: TFrmSessao
         StyleFocused.BorderStyle = ebsSingle
         StyleFocused.Color = 11796479
         TabOrder = 1
+        ExplicitHeight = 21
         Width = 213
       end
     end
@@ -1062,8 +1068,8 @@ object FrmSessao: TFrmSessao
     AllowReset = False
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
-    Font.Height = -12
-    Font.Name = 'Segoe UI'
+    Font.Height = -11
+    Font.Name = 'Tahoma'
     Font.Style = []
     CanCustomize = False
     Categories.Strings = (

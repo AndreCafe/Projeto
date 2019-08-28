@@ -421,7 +421,7 @@ begin
     tProd.Filtered := True;
   end else
   if aEditaPag then 
-    FTot.InitVal(aIME.imPagEsp, aIME.imTotal, aIME.imDesconto, aIME.imPago, 0, '', panTot) else
+    FTot.InitVal(aIME.imPagEsp, aIME.imTotal, aIME.imDesconto, aIME.imPago, 0, 0, '', panTot) else
     FTot.InitCusto(aIME.imTotal, '', panTot, False);
 
   FTot.Obs := aIME.imObs;  

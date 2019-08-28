@@ -588,7 +588,7 @@ begin
     FPodeFechar := False;
   end;
 
-  FTot.InitVal(FME.PagEsp, FME.Total, FME.Desconto, FME.Pago, 0, FME.Obs, panTot);
+  FTot.InitVal(FME.PagEsp, FME.Total, FME.Desconto, FME.Pago, 0, 0, FME.Obs, panTot);
   Width := 546;
   Height := 550;  
 

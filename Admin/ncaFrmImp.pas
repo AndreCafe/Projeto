@@ -165,7 +165,7 @@ begin
     cmMaq.Visible := ivAlways;
 
   LeTipos;
-  FTot.InitVal(FImp.impPagEsp, FImp.Total, FImp.impDesconto, FImp.impPago, 0, '', panTotais);
+  FTot.InitVal(FImp.impPagEsp, FImp.Total, FImp.impDesconto, FImp.impPago, 0, 0, '', panTotais);
   
   if aNovo then begin
     if gConfig.PgImp then

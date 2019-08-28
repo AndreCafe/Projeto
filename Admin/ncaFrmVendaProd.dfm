@@ -43,7 +43,6 @@ object FrmVendaProd: TFrmVendaProd
     Bevel.StandardStyle = lsNone
     Color = clWhite
     TabOrder = 0
-    ExplicitWidth = 478
     object Grid: TcxGrid
       AlignWithMargins = True
       Left = 1
@@ -158,7 +157,6 @@ object FrmVendaProd: TFrmVendaProd
       Bevel.StandardStyle = lsNone
       ParentColor = True
       TabOrder = 0
-      ExplicitWidth = 470
       object rgDescr: TcxRadioButton
         Left = 74
         Top = 4
@@ -229,7 +227,6 @@ object FrmVendaProd: TFrmVendaProd
       Bevel.Mode = bmStandard
       Bevel.StandardStyle = lsNone
       TabOrder = 3
-      ExplicitWidth = 476
       object cxLabel4: TcxLabel
         Left = 0
         Top = 1
@@ -281,6 +278,7 @@ object FrmVendaProd: TFrmVendaProd
         StyleHot.BorderStyle = ebsSingle
         TabOrder = 1
         OnKeyUp = FormKeyUp
+        ExplicitHeight = 21
         Width = 83
       end
       object panUnitario: TLMDSimplePanel
@@ -292,7 +290,6 @@ object FrmVendaProd: TFrmVendaProd
         Bevel.Mode = bmCustom
         ParentColor = True
         TabOrder = 2
-        ExplicitLeft = 258
         object edUnitario: TcxCurrencyEdit
           AlignWithMargins = True
           Left = 98
@@ -328,6 +325,7 @@ object FrmVendaProd: TFrmVendaProd
           StyleHot.BorderStyle = ebsSingle
           TabOrder = 0
           OnKeyUp = FormKeyUp
+          ExplicitHeight = 21
           Width = 120
         end
         object lbUnit: TcxLabel
@@ -347,6 +345,7 @@ object FrmVendaProd: TFrmVendaProd
           StyleHot.TextStyle = [fsUnderline]
           Properties.Alignment.Vert = taVCenter
           OnClick = lbUnitClick
+          ExplicitLeft = -23
           AnchorY = 18
         end
       end

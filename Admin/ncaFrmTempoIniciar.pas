@@ -419,7 +419,7 @@ begin
   Grid.Enabled := aNovo;
   cbRecibo.Visible := (Dados.CM.Config.RecImprimir>0);
   cbRecibo.Checked := aNovo and (Dados.CM.Config.RecImprimir=2);
-  FTot.InitVal(FPagEsp, FDados^.dtValor, FDados^.dtDesc, FDados^.dtPago, 0, '', panTot, False);
+  FTot.InitVal(FPagEsp, FDados^.dtValor, FDados^.dtDesc, FDados^.dtPago, 0, 0, '', panTot, False);
   
   edValor.Value := FDados^.dtValor;
 

@@ -13,8 +13,9 @@ uses
   cxGridTableView, cxClasses, cxControls, cxGridCustomView, cxGrid, cxVGrid,
   cxDBVGrid, cxInplaceContainer, LMDCustomControl, LMDCustomPanel, ncDebito,
   LMDCustomBevelPanel, LMDSimplePanel, cxCheckBox, cxContainer, cxLabel,
-  cxImageComboBox, Buttons, ncClassesBase, LMDControl,
-  cxLookAndFeels, cxLookAndFeelPainters, cxNavigator;
+  cxImageComboBox, Buttons, ncClassesBase, LMDControl, ncaFrmTotal,
+  cxLookAndFeels, cxLookAndFeelPainters, cxNavigator, dxBarBuiltInMenu,
+  cxTextEdit, cxPC;
 
 type
   TFrmDebito = class(TForm)
@@ -22,13 +23,6 @@ type
     LMDSimplePanel1: TLMDSimplePanel;
     LMDSimplePanel2: TLMDSimplePanel;
     dxBarDockControl2: TdxBarDockControl;
-    panTotais: TLMDSimplePanel;
-    vgT: TcxVerticalGrid;
-    vgTTotal: TcxEditorRow;
-    vgTDesconto: TcxEditorRow;
-    vgTTotalF: TcxEditorRow;
-    vgTPagTotal: TcxEditorRow;
-    vgTPago: TcxEditorRow;
     Grid: TcxGrid;
     TV: TcxGridTableView;
     TVDescr: TcxGridColumn;
@@ -50,13 +44,35 @@ type
     TVDataHora: TcxGridColumn;
     lbNomeCli: TcxLabel;
     cxLabel2: TcxLabel;
-    vgTSel: TcxEditorRow;
     LMDSimplePanel3: TLMDSimplePanel;
-    LMDSimplePanel4: TLMDSimplePanel;
-    LMDSimplePanel6: TLMDSimplePanel;
     cmRecibo: TdxBarControlContainerItem;
     cbRecibo: TcxCheckBox;
-    cxLabel1: TcxLabel;
+    panTot: TLMDSimplePanel;
+    LMDSimplePanel4: TLMDSimplePanel;
+    pgValPontos: TcxPageControl;
+    tsTotVal: TcxTabSheet;
+    panTot1: TLMDSimplePanel;
+    panSubTotal: TLMDSimplePanel;
+    edTotalDebito: TcxCurrencyEdit;
+    lbSubTotal: TcxLabel;
+    LMDSimplePanel7: TLMDSimplePanel;
+    LMDSimplePanel8: TLMDSimplePanel;
+    tsTotPontos: TcxTabSheet;
+    LMDSimplePanel9: TLMDSimplePanel;
+    LMDSimplePanel10: TLMDSimplePanel;
+    cxLabel5: TcxLabel;
+    lbDisp: TcxLabel;
+    LMDSimplePanel11: TLMDSimplePanel;
+    cxLabel6: TcxLabel;
+    lbNec: TcxLabel;
+    LMDSimplePanel12: TLMDSimplePanel;
+    LMDSimplePanel13: TLMDSimplePanel;
+    tsCusto: TcxTabSheet;
+    panTotCusto: TLMDSimplePanel;
+    edCustoT: TcxCurrencyEdit;
+    lbTotCusto: TcxLabel;
+    cxLabel4: TcxLabel;
+    cxLabel3: TcxLabel;
     procedure cmNenhumClick(Sender: TObject);
     procedure cmTodosClick(Sender: TObject);
     procedure TVDblClick(Sender: TObject);
@@ -67,16 +83,13 @@ type
     procedure TVPagarCustomDrawCell(Sender: TcxCustomGridTableView;
       ACanvas: TcxCanvas; AViewInfo: TcxGridTableDataCellViewInfo;
       var ADone: Boolean);
-    procedure vgTDescontoEditPropertiesChange(Sender: TObject);
-    procedure vgTPagTotalEditPropertiesChange(Sender: TObject);
-    procedure vgTDescontoPropertiesGetEditingProperties(
-      Sender: TcxCustomEditorRowProperties; ARecordIndex: Integer;
-      var AProperties: TcxCustomEditProperties);
     procedure FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
     FDeb : TncDebito;
     FRes : Boolean;
+    FTot      : TFrmTotal;
 
     procedure LeItem(aItem: Integer);
   public
@@ -120,11 +133,11 @@ end;
 procedure TFrmDebito.cmGravarClick(Sender: TObject);
 var I: Integer;
 begin
-  vgT.HideEdit;
-  if vgTPago.Properties.Value > vgTTotalF.Properties.Value then
-    raise ENexCafe.Create(SValorPagoNãoPodeSerMaiorQueTotal);
+  //vgT.HideEdit;
+  //if vgTPago.Properties.Value > FTot.Total then
+    //raise ENexCafe.Create(SValorPagoNãoPodeSerMaiorQueTotal);
 
-  if vgTDEsconto.Properties.Value > vgTSel.Properties.Value then
+  if FTot.Desconto > FTot.SubTotal then
     raise ENexCafe.Create(SValorDoDescontoNãoPodeSerMaiorQu); 
   
   FRes := True;
@@ -138,47 +151,41 @@ begin
     end;
 
   FDeb.Recibo := cbRecibo.Checked;
-  FDeb.Total := vgTSel.Properties.Value;
-  FDeb.Desconto := vgTDesconto.Properties.Value;
-  FDeb.pago := vgTPago.Properties.Value;
-end;
+  FDeb.Total := FTot.SubTotal; //edTotalDebito.Value; //FTot.SubTotal;
+  FDeb.Desconto := FTot.Desconto;
+  FDeb.Obs := FTot.Obs;
+  if FTot.Pago=0 then
+    Fdeb.Pago := FTot.Total else
+    Fdeb.Pago := FTot.Pago;
+
+  FDeb.TipoPag := FTot.TipoPag;   // dario 08/2009
+
+ end;
 
 procedure TFrmDebito.cmNenhumClick(Sender: TObject);
 var I: Integer;
 begin
-  with TV.DataController do 
+  with TV.DataController do
   for I := 0 to FDeb.Itens.Count - 1 do
     Values[I, 0] := False;
-  
-  vgTSel.Properties.Value := 0;
-  vgTDesconto.Properties.Value := 0;
-  vgTTotalF.Properties.Value := 0;
-  vgTPago.Properties.Value := 0;
 
-  vgT.HideEdit;
-  vgT.ShowEdit; 
+  FTot.SubTotal := 0;
+  FTot.Desconto := 0;
 end;
 
 procedure TFrmDebito.cmTodosClick(Sender: TObject);
-var 
+var
   I: Integer;
   T: Currency;
 begin
-  T := 0; 
-  with TV.DataController do 
+  T := 0;
+  with TV.DataController do
   for I := 0 to FDeb.Itens.Count - 1 do begin
     Values[I, 0] := True;
     T := T + FDeb.Itens[I].idTotal;
   end;
-  
-  vgTSel.Properties.Value := T;
-  vgTTotalF.Properties.Value := T - vgTDesconto.Properties.Value;
-  if vgTPagTotal.Properties.Value=True then
-    vgTPago.Properties.Value := vgTTotalF.Properties.Value else
-    vgTPago.Properties.Value := 0;
 
-  vgT.HideEdit;
-  VGT.ShowEdit; 
+  FTot.SubTotal := T;
 end;
 
 function TFrmDebito.Editar(aNovo: Boolean; aDeb: TncDebito; aNomeCli: String): Boolean;
@@ -193,16 +200,19 @@ begin
       cmRecibo.Visible := ivAlways else
       cmRecibo.Visible := ivNever;
 
-    cbRecibo.Checked := aNovo and (RecImprimir=2);  
+    cbRecibo.Checked := aNovo and (RecImprimir=2);
   end;
 
   if not aNovo then begin
     TVTotal.Caption := SDébitoPago;
     cmGravar.Enabled := False;
-    panTotais.Enabled := False;
+    panTot.Enabled := False;
   end;
-  
-  with TV.DataController do 
+
+  FTot.InitVal(FDeb.PagEsp, FDeb.Total, FDeb.Desconto, FDeb.Pago, 0, FDeb.TipoPag, FDeb.Obs, panTot);
+  FTot.PagandoDebito;
+
+  with TV.DataController do
   for I := 0 to FDeb.Itens.Count - 1 do begin
     AppendRecord;
     Values[I, 0] := True;
@@ -210,13 +220,10 @@ begin
     Values[I, 3] := FDeb.Itens[I].idTotal;
   end;
 
-  vgTDesconto.Properties.Value := FDeb.Desconto;
-  vgTPago.Properties.Value := FDeb.Pago;
-  vgTPagTotal.Properties.Value := True;
+  FTot.Desconto := FDeb.Desconto;
 
   Totaliza;
-  vgTPago.Properties.Value := vgTTotalF.Properties.Value;
-  
+
   ShowModal;
 
   Result := FRes;
@@ -225,6 +232,13 @@ end;
 procedure TFrmDebito.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
   Action := caFree;
+end;
+
+procedure TFrmDebito.FormCreate(Sender: TObject);
+begin
+  FTot := TFrmTotal.Create(Self);
+  FTot.panTot.Parent := Self.panTot;
+
 end;
 
 procedure TFrmDebito.FormKeyUp(Sender: TObject; var Key: Word;
@@ -255,7 +269,7 @@ begin
       end else
         Values[aItem, 1] := SAcesso;
     end;
-    
+
     itMovEst : begin
       Values[aItem, 1] := SVenda;
       if not tbMovEst.Locate('ID', idItemID, []) then Exit; // do not localize
@@ -283,7 +297,7 @@ end;
 procedure TFrmDebito.Totaliza;
 var
   I: Integer;
-  V: Variant; 
+  V: Variant;
   T, S: Currency;
 begin
   T := 0;
@@ -295,9 +309,11 @@ begin
       S := S + FDeb.Itens[I].idTotal;
     T := T + FDeb.Itens[I].idTotal;
   end;
-  vgTTotal.Properties.Value := T;
-  vgTSel.Properties.Value := S;
-  vgTTotalF.Properties.Value := S-vgTDesconto.Properties.Value;
+  edTotalDebito.Value := T;
+  FTot.SubTotal := S;
+  //FTot.Total := S-FTot.Desconto;
+
+  Ftot.SubTotal := T;
 end;
 
 procedure TFrmDebito.TVDblClick(Sender: TObject);
@@ -305,22 +321,22 @@ var
   V: Variant;
   I: Integer;
 begin
-  if not panTotais.Enabled then Exit;
-  
+  if not panTot.Enabled then Exit;
+
   with TV.DataController do begin
     I := FocusedRecordIndex;
     V := not Values[I, 0];
     Values[I, 0] := V;
-    if V=True then 
-      vgTSel.Properties.Value := vgTSel.Properties.Value + FDeb.Itens[I].idTotal else
-      vgTSel.Properties.Value := vgTSel.Properties.Value - FDeb.Itens[I].idTotal;
-    if vgTDesconto.Properties.Value > vgTSel.Properties.Value then
-      vgTDesconto.Properties.Value := vgTSel.Properties.Value;
-    vgTTotalF.Properties.Value := vgTSel.Properties.Value - vgTDesconto.Properties.Value;   
-    if vgTPagTotal.Properties.Value=True then
-      vgTPago.Properties.Value := vgTTotalF.Properties.Value else
-    if vgTPago.Properties.Value > vgTTotalF.Properties.Value then
-      vgTPago.Properties.Value := vgTTotalF.Properties.Value; 
+    if V=True then
+      FTot.SubTotal := FTot.SubTotal + FDeb.Itens[I].idTotal else
+      FTot.SubTotal := FTot.SubTotal - FDeb.Itens[I].idTotal;
+    if FTot.Desconto > FTot.SubTotal then
+      FTot.Desconto := FTot.SubTotal;
+    //FTot.Total := FTot.SubTotal - FTot.Desconto;
+//    if vgTPagTotal.Properties.Value=True then
+//      vgTPago.Properties.Value := FTot.Total else
+//    if vgTPago.Properties.Value > FTot.Total then
+//      vgTPago.Properties.Value := FTot.Total;
   end;
 end;
 
@@ -329,32 +345,12 @@ procedure TFrmDebito.TVPagarCustomDrawCell(Sender: TcxCustomGridTableView;
   var ADone: Boolean);
 begin
   with AViewInfo do
-  if (Value <>null) and (Value=True) then 
+  if (Value <>null) and (Value=True) then
     ACanvas.Font.Style := [fsBold];
 end;
 
-procedure TFrmDebito.vgTDescontoEditPropertiesChange(Sender: TObject);
-begin
-  vgTTotalF.Properties.Value := vgTSel.Properties.Value - vgTDesconto.Properties.Value;
-  if vgTPago.Properties.Value > vgTTotalF.Properties.Value then
-    vgTPago.Properties.Value := vgTTotalF.Properties.Value;
-  if vgTPagTotal.Properties.Value then
-    vgTPago.Properties.Value := vgTTotalF.Properties.Value;
-end;
 
-procedure TFrmDebito.vgTDescontoPropertiesGetEditingProperties(
-  Sender: TcxCustomEditorRowProperties; ARecordIndex: Integer;
-  var AProperties: TcxCustomEditProperties);
-begin
-  AProperties.ReadOnly := not Permitido(daTraDesconto);
-end;
 
-procedure TFrmDebito.vgTPagTotalEditPropertiesChange(Sender: TObject);
-begin
-  if vgTPagTotal.Properties.Value then
-    vgTPago.Properties.Value := vgTTotalF.Properties.Value else
-    vgTPago.Properties.Value := 0;
-end;
 
 end.
 

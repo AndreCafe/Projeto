@@ -2,8 +2,8 @@ object FrmDebito: TFrmDebito
   Left = 0
   Top = 0
   Caption = 'Pagamento de D'#233'bito'
-  ClientHeight = 425
-  ClientWidth = 516
+  ClientHeight = 519
+  ClientWidth = 775
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -14,6 +14,7 @@ object FrmDebito: TFrmDebito
   OldCreateOrder = False
   Position = poScreenCenter
   OnClose = FormClose
+  OnCreate = FormCreate
   OnKeyUp = FormKeyUp
   OnShow = FormShow
   PixelsPerInch = 96
@@ -21,7 +22,7 @@ object FrmDebito: TFrmDebito
   object panCab2: TLMDSimplePanel
     Left = 0
     Top = 40
-    Width = 516
+    Width = 775
     Height = 24
     Align = alTop
     Bevel.Mode = bmEdge
@@ -66,7 +67,7 @@ object FrmDebito: TFrmDebito
       AnchorY = 12
     end
     object LMDSimplePanel3: TLMDSimplePanel
-      Left = 509
+      Left = 768
       Top = 2
       Width = 5
       Height = 20
@@ -79,7 +80,7 @@ object FrmDebito: TFrmDebito
   object LMDSimplePanel1: TLMDSimplePanel
     Left = 0
     Top = 36
-    Width = 516
+    Width = 775
     Height = 4
     Align = alTop
     Bevel.Mode = bmCustom
@@ -88,177 +89,28 @@ object FrmDebito: TFrmDebito
   object LMDSimplePanel2: TLMDSimplePanel
     Left = 0
     Top = 68
-    Width = 516
-    Height = 357
+    Width = 775
+    Height = 192
     Align = alClient
     Bevel.Mode = bmCustom
     TabOrder = 2
     object dxBarDockControl2: TdxBarDockControl
       Left = 0
       Top = 0
-      Width = 516
+      Width = 775
       Height = 28
       Align = dalTop
       BarManager = BarMgr
       SunkenBorder = True
       UseOwnSunkenBorder = True
     end
-    object panTotais: TLMDSimplePanel
-      Left = 0
-      Top = 226
-      Width = 516
-      Height = 131
-      Align = alBottom
-      Bevel.Mode = bmStandard
-      Bevel.StandardStyle = lsNone
-      TabOrder = 1
-      object vgT: TcxVerticalGrid
-        Left = 255
-        Top = 4
-        Width = 261
-        Height = 123
-        Align = alRight
-        LookAndFeel.Kind = lfFlat
-        LookAndFeel.NativeStyle = True
-        OptionsView.PaintStyle = psDelphi
-        OptionsView.RowHeaderWidth = 165
-        TabOrder = 0
-        Version = 1
-        object vgTTotal: TcxEditorRow
-          Options.Focusing = False
-          Options.TabStop = False
-          Properties.Caption = 'D'#233'bito Total'
-          Properties.EditPropertiesClassName = 'TcxCurrencyEditProperties'
-          Properties.EditProperties.Alignment.Horz = taRightJustify
-          Properties.EditProperties.ReadOnly = False
-          Properties.EditProperties.UseLeftAlignmentOnEditing = False
-          Properties.DataBinding.ValueType = 'Currency'
-          Properties.Value = 0c
-          ID = 0
-          ParentID = -1
-          Index = 0
-          Version = 1
-        end
-        object vgTSel: TcxEditorRow
-          Options.Focusing = False
-          Options.TabStop = False
-          Properties.Caption = 'Selecionado p/ Pagamento'
-          Properties.EditPropertiesClassName = 'TcxCurrencyEditProperties'
-          Properties.EditProperties.Alignment.Horz = taRightJustify
-          Properties.EditProperties.ReadOnly = False
-          Properties.DataBinding.ValueType = 'Currency'
-          Properties.Value = 0c
-          ID = 1
-          ParentID = -1
-          Index = 1
-          Version = 1
-        end
-        object vgTDesconto: TcxEditorRow
-          Properties.Caption = 'Desconto'
-          Properties.EditPropertiesClassName = 'TcxCurrencyEditProperties'
-          Properties.EditProperties.Alignment.Horz = taRightJustify
-          Properties.EditProperties.UseLeftAlignmentOnEditing = False
-          Properties.EditProperties.OnChange = vgTDescontoEditPropertiesChange
-          Properties.DataBinding.ValueType = 'Currency'
-          Properties.Value = 0c
-          Properties.OnGetEditingProperties = vgTDescontoPropertiesGetEditingProperties
-          Styles.Content = cxStyle2
-          ID = 2
-          ParentID = -1
-          Index = 2
-          Version = 1
-        end
-        object vgTTotalF: TcxEditorRow
-          Options.Focusing = False
-          Options.TabStop = False
-          Properties.Caption = 'Total-Final'
-          Properties.EditPropertiesClassName = 'TcxCurrencyEditProperties'
-          Properties.EditProperties.Alignment.Horz = taRightJustify
-          Properties.EditProperties.ReadOnly = False
-          Properties.EditProperties.UseLeftAlignmentOnEditing = False
-          Properties.DataBinding.ValueType = 'Currency'
-          Properties.Value = 0c
-          ID = 3
-          ParentID = -1
-          Index = 3
-          Version = 1
-        end
-        object vgTPagTotal: TcxEditorRow
-          Properties.Caption = 'Pagamento Total ?'
-          Properties.EditPropertiesClassName = 'TcxRadioGroupProperties'
-          Properties.EditProperties.Columns = 2
-          Properties.EditProperties.ImmediatePost = True
-          Properties.EditProperties.Items = <
-            item
-              Caption = 'Sim'
-              Value = True
-            end
-            item
-              Caption = 'N'#227'o'
-              Value = False
-            end>
-          Properties.EditProperties.OnChange = vgTPagTotalEditPropertiesChange
-          Properties.DataBinding.ValueType = 'Boolean'
-          Properties.Value = True
-          ID = 4
-          ParentID = -1
-          Index = 4
-          Version = 1
-        end
-        object vgTPago: TcxEditorRow
-          Properties.Caption = 'Valor Pago'
-          Properties.EditPropertiesClassName = 'TcxCurrencyEditProperties'
-          Properties.EditProperties.Alignment.Horz = taRightJustify
-          Properties.EditProperties.UseLeftAlignmentOnEditing = False
-          Properties.DataBinding.ValueType = 'Currency'
-          Properties.Value = 0c
-          ID = 5
-          ParentID = -1
-          Index = 5
-          Version = 1
-        end
-      end
-      object LMDSimplePanel4: TLMDSimplePanel
-        Left = 0
-        Top = 0
-        Width = 516
-        Height = 4
-        Align = alTop
-        Bevel.Mode = bmCustom
-        TabOrder = 1
-      end
-      object LMDSimplePanel6: TLMDSimplePanel
-        Left = 0
-        Top = 127
-        Width = 516
-        Height = 4
-        Align = alBottom
-        Bevel.Mode = bmCustom
-        TabOrder = 2
-      end
-      object cxLabel1: TcxLabel
-        AlignWithMargins = True
-        Left = 5
-        Top = 9
-        Margins.Left = 5
-        Margins.Top = 5
-        Margins.Right = 5
-        Margins.Bottom = 5
-        Align = alClient
-        Caption = 
-          'D'#234' um duplo clique no item para marcar/desmarcar sua sele'#231#227'o par' +
-          'a pagamento'
-        Properties.WordWrap = True
-        Width = 245
-      end
-    end
     object Grid: TcxGrid
       Left = 0
       Top = 28
-      Width = 516
-      Height = 198
+      Width = 775
+      Height = 164
       Align = alClient
-      TabOrder = 2
+      TabOrder = 1
       LookAndFeel.Kind = lfFlat
       LookAndFeel.NativeStyle = False
       object TV: TcxGridTableView
@@ -343,7 +195,7 @@ object FrmDebito: TFrmDebito
   object LMDSimplePanel5: TLMDSimplePanel
     Left = 0
     Top = 64
-    Width = 516
+    Width = 775
     Height = 4
     Align = alTop
     Bevel.Mode = bmCustom
@@ -362,17 +214,451 @@ object FrmDebito: TFrmDebito
     StyleFocused.LookAndFeel.NativeStyle = True
     StyleHot.LookAndFeel.Kind = lfFlat
     StyleHot.LookAndFeel.NativeStyle = True
-    TabOrder = 8
+    TabOrder = 6
     Visible = False
     Height = 21
     Width = 86
+  end
+  object panTot: TLMDSimplePanel
+    Left = 0
+    Top = 260
+    Width = 775
+    Height = 259
+    Align = alBottom
+    Bevel.Mode = bmStandard
+    Bevel.StandardStyle = lsNone
+    TabOrder = 9
+    object LMDSimplePanel4: TLMDSimplePanel
+      AlignWithMargins = True
+      Left = 0
+      Top = 0
+      Width = 775
+      Height = 25
+      Margins.Left = 0
+      Margins.Top = 0
+      Margins.Right = 0
+      Margins.Bottom = 0
+      Align = alTop
+      Bevel.Mode = bmCustom
+      ParentColor = True
+      TabOrder = 0
+      object pgValPontos: TcxPageControl
+        AlignWithMargins = True
+        Left = 528
+        Top = 0
+        Width = 247
+        Height = 25
+        Margins.Left = 5
+        Margins.Top = 0
+        Margins.Right = 0
+        Margins.Bottom = 0
+        Align = alRight
+        TabOrder = 0
+        Properties.ActivePage = tsTotVal
+        Properties.CustomButtons.Buttons = <>
+        Properties.HideTabs = True
+        LookAndFeel.NativeStyle = False
+        ClientRectBottom = 25
+        ClientRectRight = 247
+        ClientRectTop = 0
+        object tsTotVal: TcxTabSheet
+          Caption = 'tsTotVal'
+          ImageIndex = 0
+          object panTot1: TLMDSimplePanel
+            Left = 0
+            Top = 0
+            Width = 247
+            Height = 25
+            Margins.Right = 0
+            Margins.Bottom = 0
+            Align = alClient
+            Bevel.StyleInner = bvNormal
+            Bevel.WidthInner = 0
+            Bevel.BorderColor = 11645361
+            Bevel.BorderSides = [fsLeft]
+            Bevel.BorderInnerWidth = 1
+            Bevel.Mode = bmCustom
+            Bevel.StandardStyle = lsNone
+            Color = clWhite
+            TabOrder = 0
+            object panSubTotal: TLMDSimplePanel
+              Left = 1
+              Top = 1
+              Width = 245
+              Height = 24
+              Margins.Bottom = 0
+              Align = alTop
+              Bevel.Mode = bmCustom
+              ParentColor = True
+              TabOrder = 0
+              object edTotalDebito: TcxCurrencyEdit
+                Left = 125
+                Top = 0
+                Align = alRight
+                AutoSize = False
+                EditValue = 80.000000000000000000
+                Enabled = False
+                ParentFont = False
+                Properties.Alignment.Horz = taRightJustify
+                Style.BorderColor = 11645361
+                Style.BorderStyle = ebsNone
+                Style.Font.Charset = DEFAULT_CHARSET
+                Style.Font.Color = clWindowText
+                Style.Font.Height = -13
+                Style.Font.Name = 'Tahoma'
+                Style.Font.Style = [fsBold]
+                Style.IsFontAssigned = True
+                StyleDisabled.BorderColor = 11645361
+                StyleDisabled.Color = clWhite
+                StyleDisabled.TextColor = clGray
+                TabOrder = 0
+                Height = 24
+                Width = 120
+              end
+              object lbSubTotal: TcxLabel
+                AlignWithMargins = True
+                Left = 6
+                Top = 0
+                Margins.Left = 6
+                Margins.Top = 0
+                Margins.Bottom = 0
+                Align = alClient
+                AutoSize = False
+                Caption = 'Total D'#233'bito'
+                FocusControl = edTotalDebito
+                ParentFont = False
+                Style.Font.Charset = DEFAULT_CHARSET
+                Style.Font.Color = clGray
+                Style.Font.Height = -11
+                Style.Font.Name = 'Tahoma'
+                Style.Font.Style = []
+                Style.HotTrack = False
+                Style.IsFontAssigned = True
+                Properties.Alignment.Horz = taLeftJustify
+                Properties.Alignment.Vert = taVCenter
+                Height = 24
+                Width = 116
+                AnchorY = 12
+              end
+            end
+            object LMDSimplePanel7: TLMDSimplePanel
+              AlignWithMargins = True
+              Left = 4
+              Top = 25
+              Width = 239
+              Height = 1
+              Margins.Top = 0
+              Margins.Bottom = 0
+              Align = alTop
+              Bevel.Mode = bmCustom
+              TabOrder = 1
+            end
+            object LMDSimplePanel8: TLMDSimplePanel
+              AlignWithMargins = True
+              Left = 4
+              Top = 26
+              Width = 239
+              Height = 1
+              Margins.Top = 0
+              Margins.Bottom = 0
+              Align = alTop
+              Bevel.Mode = bmCustom
+              TabOrder = 2
+            end
+          end
+        end
+        object tsTotPontos: TcxTabSheet
+          Caption = 'tsTotPontos'
+          ImageIndex = 1
+          object LMDSimplePanel9: TLMDSimplePanel
+            Left = 0
+            Top = 0
+            Width = 247
+            Height = 25
+            Margins.Right = 0
+            Margins.Bottom = 0
+            Align = alClient
+            Bevel.StyleInner = bvNormal
+            Bevel.WidthInner = 0
+            Bevel.BorderColor = 11645361
+            Bevel.BorderSides = [fsLeft]
+            Bevel.BorderInnerWidth = 1
+            Bevel.Mode = bmCustom
+            Bevel.StandardStyle = lsNone
+            Color = clWhite
+            TabOrder = 0
+            object LMDSimplePanel10: TLMDSimplePanel
+              Left = 1
+              Top = 26
+              Width = 245
+              Height = 24
+              Margins.Left = 0
+              Margins.Top = 2
+              Margins.Right = 0
+              Margins.Bottom = 0
+              Align = alTop
+              Bevel.Mode = bmCustom
+              ParentColor = True
+              TabOrder = 0
+              object cxLabel5: TcxLabel
+                AlignWithMargins = True
+                Left = 6
+                Top = 0
+                Margins.Left = 6
+                Margins.Top = 0
+                Margins.Bottom = 0
+                Align = alLeft
+                Caption = 'Pontos Dispon'#237'veis'
+                ParentFont = False
+                Style.Font.Charset = DEFAULT_CHARSET
+                Style.Font.Color = clBlack
+                Style.Font.Height = -11
+                Style.Font.Name = 'Tahoma'
+                Style.Font.Style = []
+                Style.HotTrack = False
+                Style.IsFontAssigned = True
+                StyleFocused.BorderStyle = ebsNone
+                StyleHot.BorderStyle = ebsNone
+                StyleHot.TextColor = clBlue
+                StyleHot.TextStyle = [fsUnderline]
+                Properties.Alignment.Horz = taLeftJustify
+                Properties.Alignment.Vert = taVCenter
+                AnchorY = 12
+              end
+              object lbDisp: TcxLabel
+                Left = 152
+                Top = 0
+                Align = alRight
+                AutoSize = False
+                Caption = '0'
+                ParentFont = False
+                Style.Font.Charset = DEFAULT_CHARSET
+                Style.Font.Color = clWindowText
+                Style.Font.Height = -16
+                Style.Font.Name = 'Tahoma'
+                Style.Font.Style = [fsBold]
+                Style.IsFontAssigned = True
+                Properties.Alignment.Horz = taRightJustify
+                Properties.Alignment.Vert = taVCenter
+                Height = 24
+                Width = 93
+                AnchorX = 245
+                AnchorY = 12
+              end
+            end
+            object LMDSimplePanel11: TLMDSimplePanel
+              Left = 1
+              Top = 1
+              Width = 245
+              Height = 24
+              Margins.Bottom = 0
+              Align = alTop
+              Bevel.Mode = bmCustom
+              ParentColor = True
+              TabOrder = 1
+              object cxLabel6: TcxLabel
+                AlignWithMargins = True
+                Left = 6
+                Top = 0
+                Margins.Left = 6
+                Margins.Top = 0
+                Margins.Bottom = 0
+                Align = alLeft
+                Caption = 'Pontos Necess'#225'rios'
+                ParentFont = False
+                Style.Font.Charset = DEFAULT_CHARSET
+                Style.Font.Color = clBlack
+                Style.Font.Height = -11
+                Style.Font.Name = 'Tahoma'
+                Style.Font.Style = []
+                Style.HotTrack = False
+                Style.IsFontAssigned = True
+                Properties.Alignment.Horz = taLeftJustify
+                Properties.Alignment.Vert = taVCenter
+                AnchorY = 12
+              end
+              object lbNec: TcxLabel
+                Left = 152
+                Top = 0
+                Align = alRight
+                AutoSize = False
+                Caption = '0'
+                ParentFont = False
+                Style.Font.Charset = DEFAULT_CHARSET
+                Style.Font.Color = clWindowText
+                Style.Font.Height = -16
+                Style.Font.Name = 'Tahoma'
+                Style.Font.Style = [fsBold]
+                Style.IsFontAssigned = True
+                Properties.Alignment.Horz = taRightJustify
+                Properties.Alignment.Vert = taVCenter
+                Height = 24
+                Width = 93
+                AnchorX = 245
+                AnchorY = 12
+              end
+            end
+            object LMDSimplePanel12: TLMDSimplePanel
+              AlignWithMargins = True
+              Left = 4
+              Top = 25
+              Width = 239
+              Height = 1
+              Margins.Top = 0
+              Margins.Bottom = 0
+              Align = alTop
+              Bevel.Mode = bmCustom
+              TabOrder = 2
+            end
+            object LMDSimplePanel13: TLMDSimplePanel
+              AlignWithMargins = True
+              Left = 4
+              Top = 50
+              Width = 239
+              Height = 1
+              Margins.Top = 0
+              Margins.Bottom = 0
+              Align = alTop
+              Bevel.Mode = bmCustom
+              TabOrder = 3
+            end
+          end
+        end
+        object tsCusto: TcxTabSheet
+          Caption = 'tsCusto'
+          ImageIndex = 2
+          object panTotCusto: TLMDSimplePanel
+            Left = 0
+            Top = 0
+            Width = 247
+            Height = 26
+            Margins.Left = 0
+            Margins.Top = 2
+            Margins.Right = 0
+            Margins.Bottom = 0
+            Align = alTop
+            Bevel.BorderColor = 11645361
+            Bevel.BorderInnerWidth = 1
+            Bevel.Mode = bmStandard
+            Bevel.StandardStyle = lsNone
+            Color = clWhite
+            TabOrder = 0
+            object edCustoT: TcxCurrencyEdit
+              Left = 126
+              Top = 1
+              TabStop = False
+              Align = alRight
+              EditValue = 80.000000000000000000
+              Enabled = False
+              ParentFont = False
+              Properties.Alignment.Horz = taRightJustify
+              Properties.ReadOnly = True
+              Style.BorderColor = 11645361
+              Style.BorderStyle = ebsNone
+              Style.Font.Charset = DEFAULT_CHARSET
+              Style.Font.Color = clWindowText
+              Style.Font.Height = -13
+              Style.Font.Name = 'Tahoma'
+              Style.Font.Style = [fsBold]
+              Style.IsFontAssigned = True
+              StyleDisabled.Color = clWhite
+              StyleDisabled.TextColor = clBlack
+              StyleFocused.BorderStyle = ebsNone
+              TabOrder = 0
+              Width = 120
+            end
+            object lbTotCusto: TcxLabel
+              AlignWithMargins = True
+              Left = 7
+              Top = 1
+              Cursor = crHandPoint
+              Margins.Left = 6
+              Margins.Top = 0
+              Margins.Bottom = 0
+              Align = alLeft
+              Caption = 'Total'
+              ParentColor = False
+              ParentFont = False
+              Style.Color = clWhite
+              Style.Font.Charset = DEFAULT_CHARSET
+              Style.Font.Color = clWindowText
+              Style.Font.Height = -13
+              Style.Font.Name = 'Tahoma'
+              Style.Font.Style = [fsBold]
+              Style.HotTrack = False
+              Style.TextColor = 6974058
+              Style.IsFontAssigned = True
+              StyleHot.TextColor = clBlue
+              StyleHot.TextStyle = [fsBold, fsUnderline]
+              Properties.Alignment.Horz = taLeftJustify
+              Properties.Alignment.Vert = taVCenter
+              AnchorY = 13
+            end
+            object cxLabel4: TcxLabel
+              AlignWithMargins = True
+              Left = 108
+              Top = 1
+              Cursor = crHandPoint
+              Margins.Left = 10
+              Margins.Top = 0
+              Margins.Bottom = 0
+              Align = alRight
+              Caption = '='
+              ParentColor = False
+              ParentFont = False
+              Style.Color = clWhite
+              Style.Font.Charset = DEFAULT_CHARSET
+              Style.Font.Color = clWindowText
+              Style.Font.Height = -13
+              Style.Font.Name = 'Tahoma'
+              Style.Font.Style = [fsBold]
+              Style.HotTrack = True
+              Style.TextColor = 6118749
+              Style.IsFontAssigned = True
+              StyleFocused.BorderStyle = ebsNone
+              StyleHot.BorderStyle = ebsNone
+              StyleHot.TextColor = clBlue
+              StyleHot.TextStyle = [fsBold, fsUnderline]
+              Properties.Alignment.Horz = taLeftJustify
+              Properties.Alignment.Vert = taVCenter
+              AnchorY = 13
+            end
+          end
+        end
+      end
+      object cxLabel3: TcxLabel
+        AlignWithMargins = True
+        Left = 0
+        Top = 2
+        Margins.Left = 0
+        Margins.Top = 2
+        Margins.Right = 0
+        Margins.Bottom = 0
+        Align = alClient
+        Caption = 
+          'D'#234' um duplo clique no item para marcar/desmarcar sua sele'#231#227'o par' +
+          'a pagamento'
+        ParentFont = False
+        Style.Font.Charset = DEFAULT_CHARSET
+        Style.Font.Color = clGray
+        Style.Font.Height = -11
+        Style.Font.Name = 'Tahoma'
+        Style.Font.Style = [fsBold]
+        Style.IsFontAssigned = True
+        Properties.Alignment.Horz = taCenter
+        Properties.WordWrap = True
+        ExplicitHeight = 25
+        Width = 523
+        AnchorX = 262
+      end
+    end
   end
   object BarMgr: TdxBarManager
     AllowReset = False
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
-    Font.Height = -12
-    Font.Name = 'Segoe UI'
+    Font.Height = -11
+    Font.Name = 'Tahoma'
     Font.Style = []
     Categories.Strings = (
       'Default')

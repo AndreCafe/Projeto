@@ -391,7 +391,7 @@ begin
     tPro.Filter := '(plus<>true) and (fidpontos>0)'; // do not localize
   end else
   if aME.Tipo=trEstVenda then
-    FTot.InitVal(FME.PagEsp, 0, aME.Desconto, aME.Pago, 0, aME.Obs, panTot)
+    FTot.InitVal(FME.PagEsp, 0, aME.Desconto, aME.Pago, 0, aME.TipoPag, aME.Obs, panTot)
   else begin
     FTot.InitCusto(0, aME.Obs, panTot);
     FTot.pgValPontos.Visible := (aME.Tipo=trEstCompra);

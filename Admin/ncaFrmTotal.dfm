@@ -200,8 +200,6 @@ object FrmTotal: TFrmTotal
           Bevel.StandardStyle = lsNone
           ParentColor = True
           TabOrder = 0
-          ExplicitLeft = -24
-          ExplicitTop = -3
           object panOuterRec: TLMDSimplePanel
             Left = 396
             Top = 0
@@ -221,7 +219,6 @@ object FrmTotal: TFrmTotal
               Bevel.Mode = bmCustom
               Color = clWindow
               TabOrder = 0
-              ExplicitWidth = 253
               object edRec: TcxCurrencyEdit
                 Left = 138
                 Top = 1
@@ -256,7 +253,7 @@ object FrmTotal: TFrmTotal
                 TabOrder = 0
                 OnEnter = edRecEnter
                 OnExit = edRecExit
-                ExplicitLeft = 144
+                ExplicitHeight = 21
                 Width = 108
               end
               object lbRec: TcxLabel
@@ -288,7 +285,6 @@ object FrmTotal: TFrmTotal
                 Properties.Alignment.Vert = taVCenter
                 Properties.WordWrap = True
                 OnClick = lbRecClick
-                ExplicitLeft = 81
                 Width = 63
                 AnchorX = 107
                 AnchorY = 32
@@ -334,8 +330,6 @@ object FrmTotal: TFrmTotal
                 StyleHot.BorderColor = clWindow
                 TabOrder = 2
                 OnMouseUp = cbEspecieMouseUp
-                ExplicitLeft = 13
-                ExplicitWidth = 68
                 Height = 62
                 Width = 66
               end
@@ -400,7 +394,7 @@ object FrmTotal: TFrmTotal
             StyleHot.TextColor = clRed
             Properties.Alignment.Horz = taLeftJustify
             Properties.Alignment.Vert = taVCenter
-            ExplicitLeft = 332
+            ExplicitLeft = 270
             AnchorY = 32
           end
           object lbNomeDif: TcxLabel
@@ -429,8 +423,6 @@ object FrmTotal: TFrmTotal
             StyleHot.TextColor = clRed
             Properties.Alignment.Horz = taRightJustify
             Properties.Alignment.Vert = taVCenter
-            ExplicitLeft = 96
-            ExplicitWidth = 236
             Height = 62
             Width = 337
             AnchorX = 338
@@ -735,7 +727,7 @@ object FrmTotal: TFrmTotal
                     Top = 0
                     Align = alRight
                     AutoSize = False
-                    EditValue = 80.000000000000000000
+                    EditValue = '12.550'
                     Enabled = False
                     ParentFont = False
                     Properties.Alignment.Horz = taRightJustify
@@ -751,6 +743,7 @@ object FrmTotal: TFrmTotal
                     StyleDisabled.Color = clWhite
                     StyleDisabled.TextColor = clGray
                     TabOrder = 0
+                    ExplicitLeft = 128
                     Height = 24
                     Width = 120
                   end
@@ -1004,6 +997,7 @@ object FrmTotal: TFrmTotal
                   StyleDisabled.TextColor = clBlack
                   StyleFocused.BorderStyle = ebsNone
                   TabOrder = 0
+                  ExplicitHeight = 21
                   Width = 120
                 end
                 object lbTotCusto: TcxLabel
@@ -1061,6 +1055,7 @@ object FrmTotal: TFrmTotal
                   Properties.Alignment.Horz = taLeftJustify
                   Properties.Alignment.Vert = taVCenter
                   OnClick = lbRecClick
+                  ExplicitLeft = 2
                   AnchorY = 13
                 end
               end

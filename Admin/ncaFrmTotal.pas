@@ -143,11 +143,13 @@ type
     procedure SetRecebido(const Value: Double);
     procedure SetTamanho(const Value: Byte);
     procedure SetTipoPag(const Value: Byte);
+    function GetDesconto: Double;
+    procedure SetDesconto(const Value: Double);
     procedure SetObs(const Value: String);
     function GetObs: String;
     procedure OnEspecieChange;
   public
-    procedure InitVal(aPagEsp: TncPagEspecies; aSubTot, aDesconto, aPago, aRecebido : Double; aObs: String; aParent: TWinControl; aShowObs: Boolean = True);
+    procedure InitVal(aPagEsp: TncPagEspecies; aSubTot, aDesconto, aPago, aRecebido : Double; aTipoPag: byte; aObs: String; aParent: TWinControl; aShowObs: Boolean = True);
     procedure InitPontos(aNec, aDisp: Double; aObs: String; aParent: TWinControl; aShowObs: Boolean = True);
     procedure InitCusto(aCusto: Double; aObs: String; aParent: TWinControl; aShowObs: Boolean = True);
 
@@ -155,11 +157,11 @@ type
     procedure Limpa;
 
     procedure PagarFimAcesso;
+    procedure PagandoDebito;
 
     function ValPanHeight : Integer;
 
     function Debito: Double;
-    function Desconto: Double;
     function Pago: Double;
     function Total: Double;
     function PermiteCred: boolean;
@@ -176,6 +178,9 @@ type
 
     property Recebido: Double
       read GetRecebido write SetRecebido;
+
+    property Desconto: Double
+      read GetDesconto write SetDesconto;
 
     property OpPagto: Byte
       read FOpPagto write FOpPagto;
@@ -207,7 +212,9 @@ resourcestring
   SDebitar = 'Debitar';
   SDescontoNãoPodeSerMaiorQueSubTot = 'Desconto não pode ser maior que sub-total';
   SPagarNoFinalDoAcesso = 'Pagar no final do acesso';
+  SDebitoRestante = 'Débito a pagar';
   STroco = '  Troco  ';
+  SSelecionadoPagamento = 'Selec. p/Pagamento';
 
 // END resource string wizard section
 
@@ -289,10 +296,18 @@ begin
     Result := 0;
 end;
 
-function TFrmTotal.Desconto: Double;
+function TFrmTotal.GetDesconto: Double;
 begin
   Result := edDesconto.Value;
 end;
+
+procedure TFrmTotal.SetDesconto(const Value: Double);
+begin
+    edDesconto.Value := value;
+    edDescontoExit(nil);
+end;
+
+
 
 procedure TFrmTotal.edDescontoEnter(Sender: TObject);
 begin
@@ -344,9 +359,6 @@ procedure TFrmTotal.edRecExit(Sender: TObject);
 begin
 //  panOuterRec.Width := 215;
   if FRecAnt <> edRec.Value then begin
-
-    //CheckEspecie;
-
     if edRec.Value = edTotal.Value then
       FOpPagto := kOpPagtoPgTotal else
       FOpPagto := kOpPagtoManter;
@@ -469,7 +481,7 @@ begin
   panTot.Parent.ClientHeight := 78;
 end;
 
-procedure TFrmTotal.InitVal(aPagEsp: TncPagEspecies; aSubTot, aDesconto, aPago, aRecebido: Double;
+procedure TFrmTotal.InitVal(aPagEsp: TncPagEspecies; aSubTot, aDesconto, aPago, aRecebido: Double; aTipoPag: byte;
   aObs: String; aParent: TWinControl; aShowObs: Boolean = True);
 begin
   pgValPontos.ActivePage := tsTotVal;
@@ -483,6 +495,8 @@ begin
     edDesconto.Value := aDesconto;
     edRec.Value := aRecebido;
     panRec.Visible := True;
+    fTipoPag := aTipoPag;
+    cbEspecie.ItemIndex := aTipoPag
   finally
     FAtualizando := False;
   end;
@@ -531,6 +545,12 @@ begin
   if Focused then SelectAll;
   
   Sender.Free;
+end;
+
+procedure TFrmTotal.PagandoDebito;
+begin
+  FDebCaption := SDebitoRestante;
+  lbSubTotal.Caption := SSelecionadoPagamento;
 end;
 
 procedure TFrmTotal.PagarFimAcesso;

@@ -501,7 +501,7 @@ begin
   end;
 
   LeTran;
-  FTot.InitVal(aSessao.PagEsp, aSessao.TotalGeral, aSessao.DescTran, aSessao.PagoTran, 0, aSessao.ObsFim, panTot2);
+  FTot.InitVal(aSessao.PagEsp, aSessao.TotalGeral, aSessao.DescTran, aSessao.PagoTran, 0, 0, aSessao.ObsFim, panTot2);
 
   U := Dados.CM.Usuarios.PorUsername[FSessao.FuncI];
   if U=nil then 

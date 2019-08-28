@@ -36,7 +36,6 @@ inherited FrmVendaPlus: TFrmVendaPlus
       inherited WB: TEmbeddedWB
         Width = 494
         Height = 262
-        Silent = True
         ExplicitLeft = 2
         ExplicitWidth = 506
         ExplicitHeight = 225
