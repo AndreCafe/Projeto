@@ -62,8 +62,6 @@ object FrmCopia: TFrmCopia
           Align = alClient
           Bevel.Mode = bmCustom
           TabOrder = 0
-          ExplicitTop = 16
-          ExplicitHeight = 374
           object cxLabel1: TcxLabel
             Left = 10
             Top = 45
@@ -234,8 +232,6 @@ object FrmCopia: TFrmCopia
           Align = alClient
           Bevel.Mode = bmCustom
           TabOrder = 0
-          ExplicitTop = 16
-          ExplicitHeight = 374
           object pbR: TcxProgressBar
             Left = 10
             Top = 48
@@ -352,6 +348,9 @@ object FrmCopia: TFrmCopia
       object cxTabSheet4: TcxTabSheet
         Caption = 'cxTabSheet4'
         ImageIndex = 1
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
         object PagCorrigir: TcxPageControl
           AlignWithMargins = True
           Left = 10
@@ -377,8 +376,6 @@ object FrmCopia: TFrmCopia
           object cxTabSheet1: TcxTabSheet
             Caption = 'cxTabSheet1'
             ImageIndex = 0
-            ExplicitWidth = 455
-            ExplicitHeight = 323
             object cxLabel2: TcxLabel
               Left = 0
               Top = 0
@@ -389,15 +386,12 @@ object FrmCopia: TFrmCopia
                 'gamento inadequado do Windows/Computador, Queda de energia, Trav' +
                 'amentos, Problemas com disco r'#237'gido, ou V'#237'rus.'
               Properties.WordWrap = True
-              ExplicitWidth = 437
-              ExplicitHeight = 301
               Width = 445
             end
           end
           object cxTabSheet2: TcxTabSheet
             Caption = 'cxTabSheet2'
             ImageIndex = 1
-            ExplicitHeight = 323
             object pbC: TcxProgressBar
               Left = 0
               Top = 0

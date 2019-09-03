@@ -321,8 +321,6 @@ object FrmVenda: TFrmVenda
             object tsBuscarCod: TcxTabSheet
               Caption = 'tsBuscarCod'
               ImageIndex = 0
-              ExplicitWidth = 0
-              ExplicitHeight = 0
               object edCod: TcxTextEdit
                 AlignWithMargins = True
                 Left = 6
@@ -350,8 +348,6 @@ object FrmVenda: TFrmVenda
             object tsDescr: TcxTabSheet
               Caption = 'tsDescr'
               ImageIndex = 1
-              ExplicitWidth = 0
-              ExplicitHeight = 0
               object edDescr: TcxLookupComboBox
                 AlignWithMargins = True
                 Left = 6
@@ -739,7 +735,6 @@ object FrmVenda: TFrmVenda
       Bevel.Mode = bmCustom
       ParentColor = True
       TabOrder = 1
-      ExplicitTop = 307
       object bdcLista: TdxBarDockControl
         Left = 0
         Top = 0
@@ -1163,21 +1158,26 @@ object FrmVenda: TFrmVenda
     object tProlastProdModif: TDateTimeField
       FieldName = 'lastProdModif'
     end
-    object tProuploadR: TWordField
-      FieldName = 'uploadR'
-    end
-    object tProuploadS: TWordField
-      FieldName = 'uploadS'
-    end
-    object tProfk_produ: TIntegerField
-      FieldName = 'fk_produ'
-    end
-    object tProbatchUID: TGuidField
-      FieldName = 'batchUID'
-      Size = 38
-    end
     object tProIncluidoEm: TDateTimeField
       FieldName = 'IncluidoEm'
+    end
+    object tProPrecoAuto: TBooleanField
+      FieldName = 'PrecoAuto'
+    end
+    object tProMargem: TFloatField
+      FieldName = 'Margem'
+    end
+    object tProComissaoPerc: TFloatField
+      FieldName = 'ComissaoPerc'
+    end
+    object tProComissaoLucro: TBooleanField
+      FieldName = 'ComissaoLucro'
+    end
+    object tProRecVer: TIntegerField
+      FieldName = 'RecVer'
+    end
+    object tProuploadVer: TWordField
+      FieldName = 'uploadVer'
     end
   end
   object DataSource1: TDataSource

@@ -26,7 +26,7 @@ uses
   dxPScxPageControlProducer, dxPScxEditorProducers, dxPScxExtEditorProducers,
   dxPScxGridLnk, dxPScxGridLayoutViewLnk, cxNavigator,
   dxPScxPivotGridLnk, uNexTransResourceStrings_PT, cxButtons, ImgList, cxImage,
-  cxDBEdit, LMDPNGImage, cxPCdxBarPopupMenu, cxPC;
+  cxDBEdit, LMDPNGImage, cxPCdxBarPopupMenu, cxPC, dxBarBuiltInMenu;
 
 type
   TFrmProdPesq = class(TForm)
@@ -65,10 +65,6 @@ type
     TabFidPontos: TIntegerField;
     Tabmd5Imagem: TStringField;
     TablastProdModif: TDateTimeField;
-    TabuploadR: TWordField;
-    TabuploadS: TWordField;
-    Tabfk_produ: TIntegerField;
-    TabbatchUID: TGuidField;
     TabCadastroRapido: TBooleanField;
     TabIncluidoEm: TDateTimeField;
     panPri: TLMDSimplePanel;

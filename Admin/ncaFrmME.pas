@@ -73,10 +73,6 @@ type
     tProFidelidade: TBooleanField;
     tPromd5Imagem: TStringField;
     tProlastProdModif: TDateTimeField;
-    tProuploadR: TWordField;
-    tProuploadS: TWordField;
-    tProfk_produ: TIntegerField;
-    tProbatchUID: TGuidField;
     tProIncluidoEm: TDateTimeField;
     tProPermiteVendaFracionada: TBooleanField;
     cmConfig: TdxBarLargeButton;
@@ -88,6 +84,12 @@ type
     cmGravar: TdxBarButton;
     cmCancelar: TdxBarButton;
     panBuscaProd: TLMDSimplePanel;
+    tProPrecoAuto: TBooleanField;
+    tProMargem: TFloatField;
+    tProComissaoPerc: TFloatField;
+    tProComissaoLucro: TBooleanField;
+    tProRecVer: TIntegerField;
+    tProuploadVer: TWordField;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure cmCancelarClick(Sender: TObject);
     procedure cmGravarClick(Sender: TObject);

@@ -393,6 +393,7 @@ inherited fbTran: TfbTran
                   Properties.Images = dmImgEsp.imgs24
                   Properties.Items = <>
                   Properties.ShowDescriptions = False
+                  FooterAlignmentHorz = taCenter
                   HeaderAlignmentHorz = taCenter
                 end
                 object TVDebito: TcxGridDBColumn
@@ -470,9 +471,6 @@ inherited fbTran: TfbTran
         object tsCedula: TcxTabSheet
           Caption = 'Contador de C'#233'dulas'
           ImageIndex = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object gridCedula: TcxGrid
             Left = 0
             Top = 0

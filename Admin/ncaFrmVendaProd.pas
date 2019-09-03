@@ -126,10 +126,6 @@ type
     tProdAtivo: TBooleanField;
     tProdmd5Imagem: TStringField;
     tProdlastProdModif: TDateTimeField;
-    tProduploadR: TWordField;
-    tProduploadS: TWordField;
-    tProdfk_produ: TIntegerField;
-    tProdbatchUID: TGuidField;
     tProdCadastroRapido: TBooleanField;
     tProdIncluidoEm: TDateTimeField;
     tProdRecVer: TIntegerField;

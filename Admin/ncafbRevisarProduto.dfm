@@ -1,10 +1,10 @@
 inherited fbRevisarProduto: TfbRevisarProduto
   Caption = 'Revisar produtos cadastrados rapidamente'
-  ExplicitWidth = 320
-  ExplicitHeight = 240
+  ExplicitWidth = 676
+  ExplicitHeight = 378
   PixelsPerInch = 96
   TextHeight = 13
-  inherited panPri: TLMDSimplePanel
+  inherited panPri: TParentedPanel
     inherited dxBarDockControl1: TdxBarDockControl
       Height = 32
       ExplicitHeight = 32
@@ -218,18 +218,26 @@ inherited fbRevisarProduto: TfbRevisarProduto
     object TablastProdModif: TDateTimeField
       FieldName = 'lastProdModif'
     end
-    object TabuploadR: TWordField
-      FieldName = 'uploadR'
+    object TabPrecoAuto: TBooleanField
+      FieldName = 'PrecoAuto'
     end
-    object TabuploadS: TWordField
-      FieldName = 'uploadS'
+    object TabMargem: TFloatField
+      FieldName = 'Margem'
     end
-    object Tabfk_produ: TIntegerField
-      FieldName = 'fk_produ'
+    object TabPermiteVendaFracionada: TBooleanField
+      FieldName = 'PermiteVendaFracionada'
     end
-    object TabbatchUID: TGuidField
-      FieldName = 'batchUID'
-      Size = 38
+    object TabComissaoPerc: TFloatField
+      FieldName = 'ComissaoPerc'
+    end
+    object TabComissaoLucro: TBooleanField
+      FieldName = 'ComissaoLucro'
+    end
+    object TabRecVer: TIntegerField
+      FieldName = 'RecVer'
+    end
+    object TabuploadVer: TWordField
+      FieldName = 'uploadVer'
     end
   end
   object DataSource1: TDataSource

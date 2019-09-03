@@ -3,8 +3,8 @@ inherited FrmPanVendaProd2: TFrmPanVendaProd2
   ClientHeight = 413
   ClientWidth = 1080
   OnResize = FormResize
-  ExplicitWidth = 1096
-  ExplicitHeight = 451
+  ExplicitWidth = 1088
+  ExplicitHeight = 440
   PixelsPerInch = 96
   TextHeight = 13
   inherited panVendaProd: TLMDSimplePanel
@@ -623,21 +623,26 @@ inherited FrmPanVendaProd2: TFrmPanVendaProd2
     object tProlastProdModif: TDateTimeField
       FieldName = 'lastProdModif'
     end
-    object tProuploadR: TWordField
-      FieldName = 'uploadR'
-    end
-    object tProuploadS: TWordField
-      FieldName = 'uploadS'
-    end
-    object tProfk_produ: TIntegerField
-      FieldName = 'fk_produ'
-    end
-    object tProbatchUID: TGuidField
-      FieldName = 'batchUID'
-      Size = 38
-    end
     object tProIncluidoEm: TDateTimeField
       FieldName = 'IncluidoEm'
+    end
+    object tProPrecoAuto: TBooleanField
+      FieldName = 'PrecoAuto'
+    end
+    object tProMargem: TFloatField
+      FieldName = 'Margem'
+    end
+    object tProComissaoPerc: TFloatField
+      FieldName = 'ComissaoPerc'
+    end
+    object tProComissaoLucro: TBooleanField
+      FieldName = 'ComissaoLucro'
+    end
+    object tProRecVer: TIntegerField
+      FieldName = 'RecVer'
+    end
+    object tProuploadVer: TWordField
+      FieldName = 'uploadVer'
     end
   end
   object DataSource1: TDataSource

@@ -815,10 +815,6 @@ type
     tbProdDid_upd: TIntegerField;
     tbPromd5Imagem: TStringField;
     tbProlastProdModif: TDateTimeField;
-    tbProuploadR: TWordField;
-    tbProuploadS: TWordField;
-    tbProfk_produ: TIntegerField;
-    tbProbatchUID: TGuidField;
     tbProCadastroRapido: TBooleanField;
     tbProIncluidoEm: TDateTimeField;
     tbConfigAutoCad: TBooleanField;
@@ -902,6 +898,8 @@ type
     tbConfigVerBloqueioSites: TBooleanField;
     tbConfigUrls: TnxMemoField;
     tbConfigRecVer: TIntegerField;
+    tbProRecVer: TIntegerField;
+    tbProuploadVer: TWordField;
     procedure DataModuleCreate(Sender: TObject);
     procedure FFTblMgrPause;
     procedure SoUmProgCustom(Sender: TObject);

@@ -2961,14 +2961,15 @@ begin
         AddField('FidPontos', '', nxtInt32, 10, 0, False);
         AddField('md5Imagem', '', nxtShortString, 32, 0, False);
         AddField('lastProdModif', '', nxtDateTime, 0, 0, False);
-        with AddField('uploadR', '', nxtByte, 3, 0, False) do
-          with AddDefaultValue(TnxConstDefaultValueDescriptor) as TnxConstDefaultValueDescriptor do
-            AsVariant := 5;
-        with AddField('uploadS', '', nxtByte, 3, 0, False) do
-          with AddDefaultValue(TnxConstDefaultValueDescriptor) as TnxConstDefaultValueDescriptor do
-            AsVariant := 0;
-        AddField('fk_produ', '', nxtInt32, 10, 0, False);
-        AddField('batchUID', '', nxtGUID, 0, 0, False);
+        // removido 30/08/2019
+        // with AddField('uploadR', '', nxtByte, 3, 0, False) do
+        //   with AddDefaultValue(TnxConstDefaultValueDescriptor) as TnxConstDefaultValueDescriptor do
+        //     AsVariant := 5;
+        // with AddField('uploadS', '', nxtByte, 3, 0, False) do
+        //   with AddDefaultValue(TnxConstDefaultValueDescriptor) as TnxConstDefaultValueDescriptor do
+        //     AsVariant := 0;
+        // AddField('fk_produ', '', nxtInt32, 10, 0, False);
+        // AddField('batchUID', '', nxtGUID, 0, 0, False);
         with AddField('CadastroRapido', '', nxtBoolean, 0, 0, False) do
           with AddDefaultValue(TnxConstDefaultValueDescriptor) as TnxConstDefaultValueDescriptor do
             AsVariant := False;
@@ -2978,9 +2979,10 @@ begin
         with EnsureIndicesDescriptor do
           with AddIndex('IRecVer', 0, idAll), KeyDescriptor as TnxCompKeyDescriptor do
             Add(GetFieldFromName('RecVer'));
-        with AddField('Uploaded', '', nxtBoolean, 0, 0, False) do
+        // added 30/08/2019
+        with AddField('uploadVer', '', nxtByte, 3, 0, False) do
           with AddDefaultValue(TnxConstDefaultValueDescriptor) as TnxConstDefaultValueDescriptor do
-            AsVariant := False;
+            AsVariant := 0;
 
       end;
       with EnsureIndicesDescriptor do begin
@@ -3025,18 +3027,22 @@ begin
             Ascend := False;
             NullBehaviour := nbBottom;
           end;
-        with AddIndex('Iupload', 0, idAll), KeyDescriptor as TnxCompKeyDescriptor do begin
-          Add(GetFieldFromName('uploadR'));
-          Add(GetFieldFromName('uploadS'));
-        end;
-        with AddIndex('fk_produ', 0, idAll), KeyDescriptor as TnxCompKeyDescriptor do
-          Add(GetFieldFromName('fk_produ'));
+        // removido 30/08/2019
+        // with AddIndex('Iupload', 0, idAll), KeyDescriptor as TnxCompKeyDescriptor do begin
+        //   Add(GetFieldFromName('uploadR'));
+        //   Add(GetFieldFromName('uploadS'));
+        // end;
+        // with AddIndex('fk_produ', 0, idAll), KeyDescriptor as TnxCompKeyDescriptor do
+        //   Add(GetFieldFromName('fk_produ'));
         with AddIndex('ICadastroRapido', 0, idAll), KeyDescriptor as TnxCompKeyDescriptor do begin
           with Add(GetFieldFromName('CadastroRapido')) do
             Ascend := False;
           with Add(GetFieldFromName('IncluidoEm')) do
             Ascend := False;
         end;
+        // added 30/08/2019
+        with AddIndex('IuploadVersion', 0, idAll), KeyDescriptor as TnxCompKeyDescriptor do
+           Add(GetFieldFromName('uploadVer'));
 
       end;
       CheckValid(False);

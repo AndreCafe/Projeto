@@ -14,7 +14,8 @@ uses
   cxData, cxDataStorage, cxEdit, cxNavigator, DB, cxDBData,
   cxGridCustomTableView, cxGridTableView, cxGridDBTableView, nxdb, cxGridLevel,
   cxGridCustomView, cxGrid, dxDockControl, dxPScxPivotGridLnk, LMDControl,
-  LMDCustomControl, LMDCustomPanel, LMDCustomBevelPanel, LMDSimplePanel;
+  LMDCustomControl, LMDCustomPanel, LMDCustomBevelPanel, LMDSimplePanel,
+  uParentedPanel;
 
 type
   TfbRevisarProduto = class(TFrmBase)
@@ -54,13 +55,16 @@ type
     TabFidPontos: TIntegerField;
     Tabmd5Imagem: TStringField;
     TablastProdModif: TDateTimeField;
-    TabuploadR: TWordField;
-    TabuploadS: TWordField;
-    Tabfk_produ: TIntegerField;
-    TabbatchUID: TGuidField;
     TVColumnDescricao: TcxGridDBColumn;
     DataSource1: TDataSource;
     TVColumnID: TcxGridDBColumn;
+    TabPrecoAuto: TBooleanField;
+    TabMargem: TFloatField;
+    TabPermiteVendaFracionada: TBooleanField;
+    TabComissaoPerc: TFloatField;
+    TabComissaoLucro: TBooleanField;
+    TabRecVer: TIntegerField;
+    TabuploadVer: TWordField;
     procedure cmEditarClick(Sender: TObject);
   private
     fDockingControl: TdxCustomDockControl;

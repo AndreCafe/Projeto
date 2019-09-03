@@ -101,7 +101,7 @@ var
 implementation
 
 uses ncServBD, ncsFrmPri, ncDMServ, ncImpCM, ncTableDefs, WindowList, nxsdTypes, nxllException,
-  ncFrmProgress, ncDebug, ncDMProdClient;
+  ncFrmProgress, ncDebug; //, ncDMProdClient;
 
 {$R *.dfm}
 
@@ -576,7 +576,7 @@ begin
 
     btnRestaurar.Enabled := False;
     FrmPri.SB.Enabled := False;
-    dmProdClient.StopUpdateSrvThread;
+    //dmProdClient.StopUpdateSrvThread;
     try
       lbRest.Visible := True;
       pbR.Visible := True;
@@ -595,7 +595,7 @@ begin
       lbRest.Visible := False;
       pbR.Visible := False;
     end;
-    dmProdClient.StartUpdateSrvThread;
+    //dmProdClient.StartUpdateSrvThread;
   finally
     SL.Free;
   end;

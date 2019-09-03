@@ -34,6 +34,21 @@
       
       
       
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
       <Excluded_Packages Name="C:\Users\Public\Documents\RAD Studio\5.0\Bpl\kbmMemDesD2007Std.bpl">File C:\Users\Public\Documents\RAD Studio\5.0\Bpl\kbmMemDesD2007Std.bpl not found</Excluded_Packages>
       <Excluded_Packages Name="C:\Users\Public\Documents\RAD Studio\5.0\Bpl\kbmMWDesD2007.bpl">kbmMW ProPlus Edition - n-tier development - D2007/Win32 - Designtime - www.Components4Developers.com</Excluded_Packages>
       <Excluded_Packages Name="C:\Users\Public\Documents\RAD Studio\5.0\Bpl\MWChatD2007.bpl">File C:\Users\Public\Documents\RAD Studio\5.0\Bpl\MWChatD2007.bpl not found</Excluded_Packages>
@@ -137,8 +152,6 @@
     <DCCReference Include="..\Comp\ncPrinterInfo8.pas" />
     <DCCReference Include="..\comp\ncPrintException.pas" />
     <DCCReference Include="..\Comp\ncPrintMon.pas" />
-    <DCCReference Include="..\comp\ncProdD.pas" />
-    <DCCReference Include="..\comp\ncProdU.pas" />
     <DCCReference Include="..\comp\ncServAtualizaLic_Indy.pas">
       <Form>dmAtualizaLic</Form>
       <DesignClass>TDataModule</DesignClass>
@@ -207,11 +220,6 @@
     </DCCReference>
     <DCCReference Include="Lan\ncsFrmPri.pas">
       <Form>frmPri</Form>
-    </DCCReference>
-    <DCCReference Include="ncChecarServidor.pas" />
-    <DCCReference Include="ncDMProdClient.pas">
-      <Form>dmProdClient</Form>
-      <DesignClass>TDataModule</DesignClass>
     </DCCReference>
     <DCCReference Include="ncsCallbackEvents.pas" />
     <DCCReference Include="ncsDMBackup.pas">

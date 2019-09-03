@@ -55,10 +55,6 @@ type
     tProFidelidade: TBooleanField;
     tPromd5Imagem: TStringField;
     tProlastProdModif: TDateTimeField;
-    tProuploadR: TWordField;
-    tProuploadS: TWordField;
-    tProfk_produ: TIntegerField;
-    tProbatchUID: TGuidField;
     tProIncluidoEm: TDateTimeField;
     DataSource1: TDataSource;
     tCodR: TnxTable;
@@ -86,6 +82,12 @@ type
     lbDigiteProduto: TcxLabel;
     lbUnidade: TcxLabel;
     TimerAutoPop: TTimer;
+    tProPrecoAuto: TBooleanField;
+    tProMargem: TFloatField;
+    tProComissaoPerc: TFloatField;
+    tProComissaoLucro: TBooleanField;
+    tProRecVer: TIntegerField;
+    tProuploadVer: TWordField;
     procedure FormCreate(Sender: TObject);
     procedure btnLancarClick(Sender: TObject);
     procedure edQtdKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);

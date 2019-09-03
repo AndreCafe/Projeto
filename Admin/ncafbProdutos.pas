@@ -91,10 +91,6 @@ type
     TabPermiteVendaFracionada: TBooleanField;
     Tabmd5Imagem: TStringField;
     TablastProdModif: TDateTimeField;
-    TabuploadR: TWordField;
-    TabuploadS: TWordField;
-    Tabfk_produ: TIntegerField;
-    TabbatchUID: TGuidField;
     TabIncluidoEm: TDateTimeField;
     TVprodID: TcxGridDBColumn;
     TVprodCodigo: TcxGridDBColumn;
@@ -128,6 +124,8 @@ type
     TimerSelBusca: TTimer;
     TabComissaoPerc: TFloatField;
     TabComissaoLucro: TBooleanField;
+    TabRecVer: TIntegerField;
+    TabuploadVer: TWordField;
     procedure cmReprocessarClick(Sender: TObject);
     procedure cmNovoClick(Sender: TObject);
     procedure cmEditarClick(Sender: TObject);

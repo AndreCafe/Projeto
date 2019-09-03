@@ -396,7 +396,7 @@ inherited fbProdutos: TfbProdutos
           000000180806000000E0773DF8000000017352474200AECE1CE9000000046741
           4D410000B18F0BFC6105000000206348524D00007A26000080840000FA000000
           80E8000075300000EA6000003A98000017709CBA513C00000009704859730000
-          0B0B00000B0B016D0484B7000001B449444154484BAD95494B0341108567A211
+          0B0A00000B0A01BF436653000001B449444154484BAD95494B0341108567A211
           8C2108897A1335A226E8C1837B8C0BAE2022220A2E3988FA83FD1D1EBC7B18DF
           1B3AF2D2F6744F8C8147323D55F555575757E2244922D7278EE371AC4F400B50
           197A873EA04FF87C399D5C8B04A86033099D42CFD09BA5573C5F4173B65FD6B3
@@ -819,7 +819,6 @@ inherited fbProdutos: TfbProdutos
     Top = 188
   end
   object Tab: TnxTable
-    ActiveDesigntime = True
     Database = Dados.db
     Timeout = 10000
     Filter = '(plus <> true)'
@@ -959,19 +958,6 @@ inherited fbProdutos: TfbProdutos
     object TablastProdModif: TDateTimeField
       FieldName = 'lastProdModif'
     end
-    object TabuploadR: TWordField
-      FieldName = 'uploadR'
-    end
-    object TabuploadS: TWordField
-      FieldName = 'uploadS'
-    end
-    object Tabfk_produ: TIntegerField
-      FieldName = 'fk_produ'
-    end
-    object TabbatchUID: TGuidField
-      FieldName = 'batchUID'
-      Size = 38
-    end
     object TabIncluidoEm: TDateTimeField
       FieldName = 'IncluidoEm'
     end
@@ -990,6 +976,12 @@ inherited fbProdutos: TfbProdutos
     end
     object TabComissaoLucro: TBooleanField
       FieldName = 'ComissaoLucro'
+    end
+    object TabRecVer: TIntegerField
+      FieldName = 'RecVer'
+    end
+    object TabuploadVer: TWordField
+      FieldName = 'uploadVer'
     end
   end
   object dsTab: TDataSource

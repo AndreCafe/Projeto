@@ -4,7 +4,8 @@ interface
 
 uses
   SysUtils, Classes, nxdb, nxsrSqlEngineBase, nxsqlEngine,
-  nxllComponent, nxsdServerEngine, nxsrServerEngine, ncChecarServidor,
+  nxllComponent, nxsdServerEngine, nxsrServerEngine,
+  //ncChecarServidor,
   ncProdD, ncProdU, ncClassesBase;
 
 type
@@ -23,7 +24,7 @@ type
     fdbPath : string;
     fdbDownloadPath : string;
     fdbUploadPath : string;
-    fUpdateSrvThread : TChecarServidorThread;
+    //fUpdateSrvThread : TChecarServidorThread;
     fSenha: String;
     fEmailConta: String;
     fCodEquip: String;

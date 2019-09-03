@@ -64,7 +64,6 @@ object FrmVendaProd: TFrmVendaProd
       LookAndFeel.Kind = lfFlat
       LookAndFeel.NativeStyle = False
       RootLevelOptions.DetailFrameColor = clSilver
-      ExplicitWidth = 476
       object TV: TcxGridDBTableView
         OnDblClick = cmGravarClick
         OnMouseUp = TVMouseUp
@@ -278,7 +277,6 @@ object FrmVendaProd: TFrmVendaProd
         StyleHot.BorderStyle = ebsSingle
         TabOrder = 1
         OnKeyUp = FormKeyUp
-        ExplicitHeight = 21
         Width = 83
       end
       object panUnitario: TLMDSimplePanel
@@ -325,7 +323,6 @@ object FrmVendaProd: TFrmVendaProd
           StyleHot.BorderStyle = ebsSingle
           TabOrder = 0
           OnKeyUp = FormKeyUp
-          ExplicitHeight = 21
           Width = 120
         end
         object lbUnit: TcxLabel
@@ -345,7 +342,6 @@ object FrmVendaProd: TFrmVendaProd
           StyleHot.TextStyle = [fsUnderline]
           Properties.Alignment.Vert = taVCenter
           OnClick = lbUnitClick
-          ExplicitLeft = -23
           AnchorY = 18
         end
       end
@@ -360,7 +356,6 @@ object FrmVendaProd: TFrmVendaProd
         Align = alTop
         Bevel.Mode = bmCustom
         TabOrder = 3
-        ExplicitWidth = 470
       end
     end
     object LMDSimplePanel3: TLMDSimplePanel
@@ -374,7 +369,6 @@ object FrmVendaProd: TFrmVendaProd
       Align = alTop
       Bevel.Mode = bmCustom
       TabOrder = 1
-      ExplicitWidth = 470
     end
   end
   object panTot: TLMDSimplePanel
@@ -391,7 +385,6 @@ object FrmVendaProd: TFrmVendaProd
     Bevel.Mode = bmStandard
     Bevel.StandardStyle = lsNone
     TabOrder = 1
-    ExplicitWidth = 478
   end
   object cbRecibo: TcxCheckBox
     Left = 259
@@ -869,19 +862,6 @@ object FrmVendaProd: TFrmVendaProd
     end
     object tProdlastProdModif: TDateTimeField
       FieldName = 'lastProdModif'
-    end
-    object tProduploadR: TWordField
-      FieldName = 'uploadR'
-    end
-    object tProduploadS: TWordField
-      FieldName = 'uploadS'
-    end
-    object tProdfk_produ: TIntegerField
-      FieldName = 'fk_produ'
-    end
-    object tProdbatchUID: TGuidField
-      FieldName = 'batchUID'
-      Size = 38
     end
     object tProdCadastroRapido: TBooleanField
       FieldName = 'CadastroRapido'

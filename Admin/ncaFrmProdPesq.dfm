@@ -67,15 +67,12 @@ object FrmProdPesq: TFrmProdPesq
       Properties.ActivePage = tsBusca
       Properties.CustomButtons.Buttons = <>
       Properties.HideTabs = True
-      ExplicitTop = 0
-      ExplicitHeight = 516
       ClientRectBottom = 508
       ClientRectRight = 946
       ClientRectTop = 0
       object tsBusca: TcxTabSheet
         Caption = 'tsBusca'
         ImageIndex = 0
-        ExplicitHeight = 516
         object LMDSimplePanel1: TLMDSimplePanel
           Left = 736
           Top = 0
@@ -87,7 +84,6 @@ object FrmProdPesq: TFrmProdPesq
           Bevel.Mode = bmCustom
           Color = 7471103
           TabOrder = 0
-          ExplicitHeight = 516
           object cxDBImage1: TcxDBImage
             AlignWithMargins = True
             Left = 5
@@ -132,7 +128,6 @@ object FrmProdPesq: TFrmProdPesq
           OnExit = GridExit
           LookAndFeel.Kind = lfUltraFlat
           LookAndFeel.NativeStyle = False
-          ExplicitHeight = 516
           object TV: TcxGridDBTableView
             OnDblClick = TVDblClick
             Navigator.Buttons.CustomButtons = <>
@@ -270,7 +265,6 @@ object FrmProdPesq: TFrmProdPesq
       object tsCadRapido: TcxTabSheet
         Caption = 'tsCadRapido'
         ImageIndex = 1
-        ExplicitHeight = 516
         object panCadRapido: TLMDSimplePanel
           AlignWithMargins = True
           Left = 0
@@ -289,7 +283,6 @@ object FrmProdPesq: TFrmProdPesq
           Bevel.StandardStyle = lsNone
           Color = clWhite
           TabOrder = 0
-          ExplicitHeight = 516
           object btnSalvar: TcxButton
             Left = 20
             Top = 203
@@ -509,7 +502,6 @@ object FrmProdPesq: TFrmProdPesq
           Bevel.Mode = bmCustom
           Color = 7471103
           TabOrder = 1
-          ExplicitHeight = 516
           object cxDBImage2: TcxDBImage
             AlignWithMargins = True
             Left = 5
@@ -667,19 +659,6 @@ object FrmProdPesq: TFrmProdPesq
     object TablastProdModif: TDateTimeField
       FieldName = 'lastProdModif'
     end
-    object TabuploadR: TWordField
-      FieldName = 'uploadR'
-    end
-    object TabuploadS: TWordField
-      FieldName = 'uploadS'
-    end
-    object Tabfk_produ: TIntegerField
-      FieldName = 'fk_produ'
-    end
-    object TabbatchUID: TGuidField
-      FieldName = 'batchUID'
-      Size = 38
-    end
     object TabCadastroRapido: TBooleanField
       FieldName = 'CadastroRapido'
     end
@@ -706,8 +685,8 @@ object FrmProdPesq: TFrmProdPesq
   object BarMgr: TdxBarManager
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
-    Font.Height = -12
-    Font.Name = 'Segoe UI'
+    Font.Height = -11
+    Font.Name = 'Tahoma'
     Font.Style = []
     Categories.Strings = (
       'Default')

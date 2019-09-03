@@ -352,19 +352,6 @@ object Dados: TDados
     object tbProlastProdModif: TDateTimeField
       FieldName = 'lastProdModif'
     end
-    object tbProuploadR: TWordField
-      FieldName = 'uploadR'
-    end
-    object tbProuploadS: TWordField
-      FieldName = 'uploadS'
-    end
-    object tbProfk_produ: TIntegerField
-      FieldName = 'fk_produ'
-    end
-    object tbProbatchUID: TGuidField
-      FieldName = 'batchUID'
-      Size = 38
-    end
     object tbProCadastroRapido: TBooleanField
       FieldName = 'CadastroRapido'
     end
@@ -386,6 +373,12 @@ object Dados: TDados
     end
     object tbProComissaoLucro: TBooleanField
       FieldName = 'ComissaoLucro'
+    end
+    object tbProRecVer: TIntegerField
+      FieldName = 'RecVer'
+    end
+    object tbProuploadVer: TWordField
+      FieldName = 'uploadVer'
     end
   end
   object tbTran: TnxTable

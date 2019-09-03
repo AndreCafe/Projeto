@@ -241,7 +241,6 @@ uses
   ncafbPagEsp in 'ncafbPagEsp.pas' {fbPagEsp: TFrmBasePai},
   ncaFrmEditContatoPeq in 'ncaFrmEditContatoPeq.pas' {FrmEditContatoPeq},
   ncaFrmEditContatoValidar in 'ncaFrmEditContatoValidar.pas' {FrmEditContatoValidar},
-  ncaDMImgEsp in 'ncaDMImgEsp.pas' {dmImgEsp: TDataModule},
   ncaFrmEspecie in 'ncaFrmEspecie.pas' {FrmEspecie},
   ncaFrmConfigEspecies in 'ncaFrmConfigEspecies.pas' {FrmConfigEspecies},
   ncaFrmEditDesc in 'ncaFrmEditDesc.pas' {FrmEditDesc},
@@ -285,7 +284,8 @@ uses
   ncMyImage in '..\..\MyImage\ncMyImage.pas',
   ncServAtualizaLic_Indy in '..\comp\ncServAtualizaLic_Indy.pas' {dmAtualizaLic: TDataModule},
   ncaFrmPagEspecie in 'ncaFrmPagEspecie.pas' {FrmPagEspecie},
-  ncafbEspecie in 'ncafbEspecie.pas' {fbEspecie: TFrmBasePai};
+  ncafbEspecie in 'ncafbEspecie.pas' {fbEspecie: TFrmBasePai},
+  ncaDMImgEsp in 'ncaDMImgEsp.pas' {dmImgEsp: TDataModule};
 
 {$R *.res}
 {$R uac.res}
@@ -305,6 +305,7 @@ begin
   Application.CreateForm(TFrmPri, FrmPri);
   Application.CreateForm(TFrmPagEspecie, FrmPagEspecie);
   Application.CreateForm(TfbEspecie, fbEspecie);
+  Application.CreateForm(TdmImgEsp, dmImgEsp);
   gWndParent := FrmPri.Handle;
   Application.CreateForm(TFrmLocalizaCli, FrmLocalizaCli);
   Application.CreateForm(TFormWinPopUp, FormWinPopUp);
