@@ -48,7 +48,8 @@ uses
   ncPrintMon,
   ncTipoImp,
   ncsPrintPDF,
-  ncPrintDoc;
+  ncPrintDoc,
+  ncUploadMain;
   
 type  
   THackTMClasse = class ( TncClasse );
@@ -73,6 +74,9 @@ type
     FTimerApek    : TTimer;
     FiniApek      : TIniFile;
     FNotifyHWND   : HWND;
+
+    FUpLoad : TncUploadThread;
+    
     FPDFPrintMgr  : TncPDFPrintManager;
 
     procedure EnviaEventoStreamObj(Mensagem: Integer; Obj: TncClasse);
@@ -1799,7 +1803,14 @@ begin
 
       DebugMsg('CriaServidorBD 13');
 
-      // PUTA QUE DARIO
+      // DARIO upload2009
+      fUpLoad := TncUploadThread.Create;
+      fUpLoad.Email := gconfig.Conta; // 'elemailAli@gmail.com';
+      fUpLoad.PaylodSecret := 'qkyH8e5PCWJDvvr'; // qkyH8e5PCWJDvvr for mongo Atlas;
+      fUpLoad.ServerEngine := DM.nxRSE;
+      fUpLoad.Resume;
+
+      DebugMsg('CriaServidorBD 14');
 
       FServAtivo := True;
       FServErro := '';
@@ -1863,7 +1874,17 @@ begin
   try
 //    try TdmProdClient.Finalizar; except end;
 
-    // DARIO finalizar threads
+    // DARIO upload2009
+    //  finalizar threads
+    DebugMsg('TncServidor.DestroiServidorBD - 1');
+    if fUpload<>nil then begin
+        if not fUpLoad.Terminated then begin
+            fUpLoad.Terminate;
+            fUpLoad.WaitFor;
+        end;
+        fUpLoad.Free;
+        fUpLoad := nil;
+    end;
 
     FTimerApek.Enabled := False;
     DebugMsg('TncServidor.DestroiServidorBD - 2');

@@ -98,7 +98,13 @@ uses
   ncServAtualizaLic_Indy in '..\comp\ncServAtualizaLic_Indy.pas' {dmAtualizaLic: TDataModule},
   ncGuidUtils in '..\comp\ncGuidUtils.pas',
   nexUrls in '..\..\nxUrl\nexUrls.pas',
-  ncKiteApi in '..\..\kapi\ncKiteApi.pas';
+  ncKiteApi in '..\..\kapi\ncKiteApi.pas',
+  ncUploadMain in '..\Comp\ncUploadMain.pas',
+  ncUploadGetParams in '..\Comp\ncUploadGetParams.pas',
+  ncUploadConst in '..\Comp\ncUploadConst.pas',
+  ncUploadDelay in '..\Comp\ncUploadDelay.pas',
+  ncUploadPost in '..\Comp\ncUploadPost.pas',
+  uHMAC_sha256 in '..\Comp\uHMAC_sha256.pas';
 
 {$R *.res}
 {$R uacserv.res}
