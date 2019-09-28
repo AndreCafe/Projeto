@@ -1401,6 +1401,7 @@ begin
   cmUsuarios.ShowCaption := cmMaquinas.ShowCaption;
   cmFiltroWeb.ShowCaption := cmMaquinas.ShowCaption;
   cmEstatisticas.ShowCaption := cmMaquinas.ShowCaption;
+  cmImpressoes.ShowCaption := cmMaquinas.ShowCaption;
 {  with SB.Groups[0] do 
   for I := 0 to ItemCount - 1 do
     if gConfig.EscondeTextoBotoes then

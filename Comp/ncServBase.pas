@@ -1804,6 +1804,8 @@ begin
       DebugMsg('CriaServidorBD 13');
 
       // DARIO upload2009
+
+      //Glog.active := true;
       fUpLoad := TncUploadThread.Create;
       fUpLoad.Email := gconfig.Conta; // 'elemailAli@gmail.com';
       fUpLoad.PaylodSecret := 'qkyH8e5PCWJDvvr'; // qkyH8e5PCWJDvvr for mongo Atlas;

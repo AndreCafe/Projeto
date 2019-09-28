@@ -358,6 +358,7 @@ begin
      fnxSession1.UserName := 'admin';
      fnxSession1.Password := 'delphi9856';
 
+     fnxSession1.Open;
      if not fnxSession1.IsConnected then begin
          GLog.Log(self,[lcDebug],'fnxSession1 is not conn');
          fnxSession1.ServerEngine.Open;

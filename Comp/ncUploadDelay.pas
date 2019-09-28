@@ -20,7 +20,7 @@ begin
     if aMinutes=0 then begin
         GLog.Log(nil,[lcDebug], aLabel + ' delay=0, continue.');
         exit;
-    end;
+    end;              
     
     d := (aMinutes * 60000) + random( trunc( aMinutes * aDelta * 60000 ));
     GLog.Log(nil,[lcDebug], aLabel +' '+ floattostr( d / 60000) + ' min.');
