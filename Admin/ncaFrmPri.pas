@@ -1906,7 +1906,7 @@ begin
         if FM.FormAtivo.ClassName = 'TfbMaq' then
             with TfbMaq(FM.FormAtivo) do
                 if FM.FormAtivo.ClassName = 'TfbMaquinas' then
-                     Dados.NovoMovEst(trEstVenda, 0);
+                     TfbMaquinas(FM.FormAtivo).cmVendaClick(nil);
   end;
 end;
 

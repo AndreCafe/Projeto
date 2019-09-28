@@ -391,7 +391,15 @@ inherited fbTran: TfbTran
                   DataBinding.FieldName = 'TipoPag'
                   PropertiesClassName = 'TcxImageComboBoxProperties'
                   Properties.Images = dmImgEsp.imgs24
-                  Properties.Items = <>
+                  Properties.Items = <
+                    item
+                      ImageIndex = 0
+                      Value = 0
+                    end
+                    item
+                      ImageIndex = 1
+                      Value = 1
+                    end>
                   Properties.ShowDescriptions = False
                   FooterAlignmentHorz = taCenter
                   HeaderAlignmentHorz = taCenter
@@ -1049,6 +1057,7 @@ inherited fbTran: TfbTran
       end>
   end
   object Tab: TnxTable
+    ActiveDesigntime = True
     Database = Dados.db
     FilterOptions = [foCaseInsensitive]
     FlipOrder = True

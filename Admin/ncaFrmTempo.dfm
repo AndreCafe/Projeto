@@ -3,7 +3,7 @@ object FrmTempo: TFrmTempo
   Top = 0
   BorderWidth = 3
   Caption = 'Adicionar Tempo'
-  ClientHeight = 469
+  ClientHeight = 520
   ClientWidth = 566
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -41,7 +41,7 @@ object FrmTempo: TFrmTempo
   object panTot: TLMDSimplePanel
     AlignWithMargins = True
     Left = 0
-    Top = 345
+    Top = 396
     Width = 566
     Height = 124
     Margins.Left = 0
@@ -51,6 +51,7 @@ object FrmTempo: TFrmTempo
     Align = alBottom
     Bevel.Mode = bmCustom
     TabOrder = 1
+    ExplicitTop = 345
   end
   object cbRecibo: TcxCheckBox
     Left = 351
@@ -79,7 +80,7 @@ object FrmTempo: TFrmTempo
     Left = 0
     Top = 132
     Width = 566
-    Height = 207
+    Height = 258
     Margins.Left = 0
     Margins.Top = 6
     Margins.Right = 0
@@ -87,12 +88,13 @@ object FrmTempo: TFrmTempo
     Align = alClient
     Bevel.Mode = bmCustom
     TabOrder = 8
+    ExplicitHeight = 207
     object panTempo: TLMDSimplePanel
       AlignWithMargins = True
       Left = 214
       Top = 0
       Width = 352
-      Height = 207
+      Height = 258
       Margins.Left = 6
       Margins.Top = 0
       Margins.Right = 0
@@ -103,6 +105,7 @@ object FrmTempo: TFrmTempo
       Bevel.Mode = bmEdge
       Bevel.StandardStyle = lsSingle
       TabOrder = 0
+      ExplicitHeight = 207
       object panAtalhoTempo: TLMDSimplePanel
         Left = 3
         Top = 154
@@ -612,21 +615,21 @@ object FrmTempo: TFrmTempo
       Left = 0
       Top = 0
       Width = 208
-      Height = 207
+      Height = 258
       Align = alClient
       Bevel.Mode = bmCustom
       TabOrder = 1
-      ExplicitHeight = 231
+      ExplicitHeight = 207
       object Grid: TcxGrid
         Left = 0
         Top = 0
         Width = 208
-        Height = 207
+        Height = 258
         Align = alClient
         TabOrder = 0
         LookAndFeel.Kind = lfFlat
         LookAndFeel.NativeStyle = False
-        ExplicitHeight = 231
+        ExplicitHeight = 207
         object TV: TcxGridDBTableView
           Navigator.Buttons.CustomButtons = <>
           OnCanFocusRecord = TVCanFocusRecord

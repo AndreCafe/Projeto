@@ -124,6 +124,7 @@ inherited fbOpcoes: TfbOpcoes
         Caption = 'J.  Publicidade'
         SelectedLinkIndex = -1
         TopVisibleLinkIndex = 0
+        Visible = False
         OptionsGroupControl.AllowControlResizing = True
         OptionsGroupControl.ShowControl = True
         OptionsGroupControl.UseControl = True
@@ -173,7 +174,7 @@ inherited fbOpcoes: TfbOpcoes
       end
       object nbgGeralControl: TdxNavBarGroupControl
         Left = 0
-        Top = -461
+        Top = -433
         Width = 602
         Height = 693
         Caption = 'nbgGeralControl'
@@ -3652,20 +3653,21 @@ inherited fbOpcoes: TfbOpcoes
       end
       object nbgPubControl: TdxNavBarGroupControl
         Left = 0
-        Top = 190
-        Width = 862
-        Height = 172
+        Top = 0
+        Width = 618
+        Height = 744
         TabOrder = 12
         GroupIndex = 9
         OriginalHeight = 172
         object LMDSimplePanel5: TLMDSimplePanel
           Left = 0
           Top = 0
-          Width = 862
+          Width = 618
           Height = 40
           Align = alTop
           Bevel.Mode = bmCustom
           TabOrder = 0
+          ExplicitWidth = 862
           object cxLabel51: TcxLabel
             Left = 0
             Top = 0
@@ -3686,7 +3688,8 @@ inherited fbOpcoes: TfbOpcoes
             Properties.Alignment.Horz = taLeftJustify
             Properties.Alignment.Vert = taVCenter
             Properties.WordWrap = True
-            Width = 862
+            ExplicitWidth = 862
+            Width = 618
             AnchorY = 20
           end
         end
@@ -3707,7 +3710,8 @@ inherited fbOpcoes: TfbOpcoes
           Style.BorderStyle = ebsFlat
           TabOrder = 1
           OnClick = cbFidAtivoClick
-          Width = 846
+          ExplicitWidth = 846
+          Width = 602
         end
         object cxDBCheckBox20: TcxDBCheckBox
           AlignWithMargins = True
@@ -3729,7 +3733,8 @@ inherited fbOpcoes: TfbOpcoes
           TabOrder = 2
           OnClick = cbFidAtivoClick
           ExplicitTop = 97
-          Width = 846
+          ExplicitWidth = 846
+          Width = 602
         end
         object cxDBCheckBox21: TcxDBCheckBox
           AlignWithMargins = True
@@ -3748,7 +3753,8 @@ inherited fbOpcoes: TfbOpcoes
           Style.BorderStyle = ebsFlat
           TabOrder = 3
           OnClick = cbFidAtivoClick
-          Width = 846
+          ExplicitWidth = 846
+          Width = 602
         end
       end
       object nbgImpControl: TdxNavBarGroupControl
@@ -3817,7 +3823,7 @@ inherited fbOpcoes: TfbOpcoes
             object edRegValorImp: TcxCheckBox
               AlignWithMargins = True
               Left = 15
-              Top = 41
+              Top = 20
               Margins.Left = 15
               Margins.Top = 5
               Margins.Right = 0
@@ -3843,12 +3849,13 @@ inherited fbOpcoes: TfbOpcoes
               StyleHot.LookAndFeel.NativeStyle = True
               TabOrder = 1
               OnClick = edRegValorImpClick
+              ExplicitTop = 41
               Width = 532
             end
             object edNaoCobrarImpFunc: TcxDBCheckBox
               AlignWithMargins = True
               Left = 15
-              Top = 67
+              Top = 25
               Margins.Left = 15
               Margins.Top = 5
               Margins.Right = 0
@@ -3876,12 +3883,13 @@ inherited fbOpcoes: TfbOpcoes
               StyleHot.LookAndFeel.Kind = lfFlat
               StyleHot.LookAndFeel.NativeStyle = True
               TabOrder = 2
+              ExplicitTop = 67
               Width = 532
             end
             object cxDBCheckBox14: TcxDBCheckBox
               AlignWithMargins = True
               Left = 15
-              Top = 93
+              Top = 30
               Margins.Left = 15
               Margins.Top = 5
               Margins.Right = 0
@@ -3909,12 +3917,13 @@ inherited fbOpcoes: TfbOpcoes
               StyleHot.LookAndFeel.Kind = lfFlat
               StyleHot.LookAndFeel.NativeStyle = True
               TabOrder = 3
+              ExplicitTop = 93
               Width = 532
             end
             object edPMPDF: TcxDBCheckBox
               AlignWithMargins = True
               Left = 15
-              Top = 119
+              Top = 35
               Margins.Left = 15
               Margins.Top = 5
               Margins.Right = 0
@@ -3944,6 +3953,7 @@ inherited fbOpcoes: TfbOpcoes
               StyleHot.LookAndFeel.Kind = lfFlat
               StyleHot.LookAndFeel.NativeStyle = True
               TabOrder = 4
+              ExplicitTop = 119
               Width = 532
             end
             object edPMPDFPrintEng: TcxDBImageComboBox
@@ -3978,6 +3988,10 @@ inherited fbOpcoes: TfbOpcoes
           object cxTabSheet2: TcxTabSheet
             Caption = 'Pausa Autom'#225'tica'
             ImageIndex = 1
+            ExplicitLeft = 0
+            ExplicitTop = 0
+            ExplicitWidth = 0
+            ExplicitHeight = 0
             object cxLabel54: TcxLabel
               AlignWithMargins = True
               Left = 15
@@ -4030,7 +4044,7 @@ inherited fbOpcoes: TfbOpcoes
             object edPMPausarServ: TcxDBCheckBox
               AlignWithMargins = True
               Left = 15
-              Top = 79
+              Top = 58
               Margins.Left = 15
               Margins.Top = 5
               Margins.Right = 15
@@ -4059,12 +4073,13 @@ inherited fbOpcoes: TfbOpcoes
               StyleHot.LookAndFeel.NativeStyle = True
               TabOrder = 2
               OnClick = edPMConfirmaImpCliClick
+              ExplicitTop = 79
               Width = 517
             end
             object panPMNaoPausar: TLMDSimplePanel
               AlignWithMargins = True
               Left = 0
-              Top = 106
+              Top = 64
               Width = 547
               Height = 92
               Margins.Left = 0
@@ -4074,6 +4089,7 @@ inherited fbOpcoes: TfbOpcoes
               Align = alTop
               Bevel.Mode = bmCustom
               TabOrder = 3
+              ExplicitTop = 106
               object lbPMNaoPausar: TcxLabel
                 AlignWithMargins = True
                 Left = 33
@@ -4121,7 +4137,7 @@ inherited fbOpcoes: TfbOpcoes
             object edPMConfirmaImpCli: TcxDBCheckBox
               AlignWithMargins = True
               Left = 15
-              Top = 203
+              Top = 161
               Margins.Left = 15
               Margins.Top = 5
               Margins.Right = 15
@@ -4150,12 +4166,13 @@ inherited fbOpcoes: TfbOpcoes
               StyleHot.LookAndFeel.NativeStyle = True
               TabOrder = 4
               OnClick = edPMConfirmaImpCliClick
+              ExplicitTop = 203
               Width = 517
             end
             object edPMMostrarPaginasCli: TcxDBCheckBox
               AlignWithMargins = True
               Left = 30
-              Top = 229
+              Top = 166
               Margins.Left = 30
               Margins.Top = 5
               Margins.Right = 15
@@ -4184,12 +4201,13 @@ inherited fbOpcoes: TfbOpcoes
               StyleHot.LookAndFeel.Kind = lfFlat
               StyleHot.LookAndFeel.NativeStyle = True
               TabOrder = 5
+              ExplicitTop = 229
               Width = 502
             end
             object edPMMostrarValorCli: TcxDBCheckBox
               AlignWithMargins = True
               Left = 30
-              Top = 255
+              Top = 171
               Margins.Left = 30
               Margins.Top = 5
               Margins.Right = 15
@@ -4219,11 +4237,12 @@ inherited fbOpcoes: TfbOpcoes
               StyleHot.LookAndFeel.NativeStyle = True
               TabOrder = 6
               OnClick = edPMMostrarValorCliClick
+              ExplicitTop = 255
               Width = 502
             end
             object LMDSimplePanel3: TLMDSimplePanel
               Left = 0
-              Top = 276
+              Top = 171
               Width = 547
               Height = 31
               Align = alTop
@@ -4280,12 +4299,13 @@ inherited fbOpcoes: TfbOpcoes
             end
             object LMDSimplePanel4: TLMDSimplePanel
               Left = 0
-              Top = 307
+              Top = 202
               Width = 547
               Height = 91
               Align = alTop
               Bevel.Mode = bmCustom
               TabOrder = 8
+              ExplicitTop = 307
               object lbPMObs: TcxLabel
                 AlignWithMargins = True
                 Left = 48
@@ -4356,7 +4376,7 @@ inherited fbOpcoes: TfbOpcoes
             object edPMCotasPorCli: TcxDBCheckBox
               AlignWithMargins = True
               Left = 15
-              Top = 141
+              Top = 120
               Margins.Left = 15
               Margins.Top = 5
               Margins.Right = 15
@@ -4386,7 +4406,6 @@ inherited fbOpcoes: TfbOpcoes
               StyleHot.LookAndFeel.NativeStyle = True
               TabOrder = 0
               OnClick = edPMConfirmaImpCliClick
-              ExplicitTop = 120
               Width = 517
             end
             object edPMCotas: TcxDBCheckBox
@@ -4440,7 +4459,7 @@ inherited fbOpcoes: TfbOpcoes
             end
             object panPMCotasMaxPagDia: TLMDSimplePanel
               Left = 0
-              Top = 74
+              Top = 53
               Width = 547
               Height = 31
               Align = alTop
@@ -4479,7 +4498,7 @@ inherited fbOpcoes: TfbOpcoes
             end
             object panPMCotasMaxPagMes: TLMDSimplePanel
               Left = 0
-              Top = 105
+              Top = 84
               Width = 547
               Height = 31
               Align = alTop
@@ -4518,7 +4537,7 @@ inherited fbOpcoes: TfbOpcoes
             end
             object LMDSimplePanel6: TLMDSimplePanel
               Left = 0
-              Top = 162
+              Top = 120
               Width = 547
               Height = 31
               Align = alTop
@@ -4564,7 +4583,7 @@ inherited fbOpcoes: TfbOpcoes
             end
             object LMDSimplePanel7: TLMDSimplePanel
               Left = 0
-              Top = 193
+              Top = 151
               Width = 547
               Height = 72
               Align = alTop
@@ -5260,7 +5279,7 @@ inherited fbOpcoes: TfbOpcoes
       end
       object nbgMeiosPagamentoControl: TdxNavBarGroupControl
         Left = 0
-        Top = 444
+        Top = 453
         Width = 602
         Height = 300
         Caption = 'nbgMeiosPagamentoControl'

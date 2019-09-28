@@ -457,7 +457,7 @@ uses ufmImagens, ncaDM, ncaFrmPri, ncIDRecursos,
   ncFrmCreditos, ncPassaportes, ncaFrmPass, synamisc, ncaFrmLiga,
   ncaFrmOperMaq, ncJob, ncaFrmInfoMaq, ncaFrmCadCli, ncaFrmMsgChat, ncafbMaq,
   ncDebug, ncaFrmTempoIniciar, ncaFrmIniciarSessao, ncaFrmTempoDesligaMon,
-  ncaPlusAPI, ncaFrmVendaPlus, ncaFrmPanTopo, ncPrintDoc;
+  ncaPlusAPI, ncaFrmVendaPlus, ncaFrmPanTopo, ncPrintDoc, ncErros;
 
 // START resource string wizard section
 resourcestring
@@ -503,6 +503,8 @@ resourcestring
   SEmManutenção = 'Em Manutenção';
   SReservado_1 = 'Reservado: ';
   SCaixaEstáFechado = 'Caixa está fechado!';
+
+  SAcaoNaoPermitidaNaVersaoFree = 'Esta opção não se encontra disponível na versão FREE';
 
 // END resource string wizard section
 
@@ -2641,6 +2643,11 @@ var
   IME : TncItemMovEst;
   ME : TncMovEst;
 begin
+
+    if not gConfig.IsPremium then
+        Raise ENexCafe.Create(SAcaoNaoPermitidaNaVersaoFree);
+
+
   if CaixaFechado then Exit;
   with Dados do
   S := CM.Sessoes.PorMaq[mtMaquinaNumero.Value];
@@ -2697,7 +2704,10 @@ end;
 
 procedure TfbMaquinas.cmVendaClick(Sender: TObject);
 begin
-  Dados.NovoMovEst(trEstVenda, 0);
+  if not gConfig.IsPremium then
+      Raise ENexCafe.Create(SAcaoNaoPermitidaNaVersaoFree)
+  else
+      Dados.NovoMovEst(trEstVenda, 0);
 end;
 
 procedure TfbMaquinas.cmVendaPLUSClick(Sender: TObject);
