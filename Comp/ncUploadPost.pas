@@ -48,7 +48,7 @@ end;
 implementation
 
 uses
-    upLoadConst;
+    ncUploadConst;        
     
 { TncUploadPost }
 
