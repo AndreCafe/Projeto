@@ -2089,6 +2089,10 @@ begin
 
     DebugMsg('TFrmPri.CalcShowAD - 3');
 
+    // Ajustar config para versão X211
+    gConfig.PubAd := false;
+    gConfig.PubToolbar := false;
+
     gTemAD := (M<>nil) and ((M.Direito=dmFree) or gConfig.PubAd);
 
     if (M<>nil) and ((M.Direito=dmFree) or gConfig.PubToolbar) then
@@ -4080,6 +4084,9 @@ end;
 
 procedure TFrmPri.OpenHomePub(M: TncMaquina);
 begin
+   // Ajustar config para versão X211
+   gConfig.PubHomePage := false;
+
   if (((M<>nil) and (M.Direito=dmFree)) or gConfig.PubHomePage) then begin
     FHomeOpened := True;
 //    ShellExecute(0, 'Open', PChar(gConfig.HomePageURL(True)), nil, nil, SW_Maximize);
@@ -4486,6 +4493,9 @@ var
   M : TncMaquina;
   S : String;
 begin
+  // Ajustar config para versão X211
+  gConfig.PubHomePage := false;
+
   try
     M := CM.MaquinaObj;
     if M=nil then

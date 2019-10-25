@@ -456,7 +456,10 @@ begin
   FInicio := GetTickCount;
 
   DebugMsg('TfrmPri.FrmCreate - 15 - FIM');
-end;
+
+
+
+ end;
 
 procedure TfrmPri.TrayDblClick(Sender: TObject);
 begin

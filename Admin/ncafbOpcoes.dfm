@@ -174,7 +174,7 @@ inherited fbOpcoes: TfbOpcoes
       end
       object nbgGeralControl: TdxNavBarGroupControl
         Left = 0
-        Top = -433
+        Top = -442
         Width = 602
         Height = 693
         Caption = 'nbgGeralControl'
@@ -3667,7 +3667,6 @@ inherited fbOpcoes: TfbOpcoes
           Align = alTop
           Bevel.Mode = bmCustom
           TabOrder = 0
-          ExplicitWidth = 862
           object cxLabel51: TcxLabel
             Left = 0
             Top = 0
@@ -3688,7 +3687,6 @@ inherited fbOpcoes: TfbOpcoes
             Properties.Alignment.Horz = taLeftJustify
             Properties.Alignment.Vert = taVCenter
             Properties.WordWrap = True
-            ExplicitWidth = 862
             Width = 618
             AnchorY = 20
           end
@@ -3710,13 +3708,12 @@ inherited fbOpcoes: TfbOpcoes
           Style.BorderStyle = ebsFlat
           TabOrder = 1
           OnClick = cbFidAtivoClick
-          ExplicitWidth = 846
           Width = 602
         end
         object cxDBCheckBox20: TcxDBCheckBox
           AlignWithMargins = True
           Left = 16
-          Top = 118
+          Top = 76
           Margins.Left = 16
           Margins.Top = 10
           Margins.Right = 0
@@ -3733,13 +3730,12 @@ inherited fbOpcoes: TfbOpcoes
           TabOrder = 2
           OnClick = cbFidAtivoClick
           ExplicitTop = 97
-          ExplicitWidth = 846
           Width = 602
         end
         object cxDBCheckBox21: TcxDBCheckBox
           AlignWithMargins = True
           Left = 16
-          Top = 87
+          Top = 66
           Margins.Left = 16
           Margins.Top = 10
           Margins.Right = 0
@@ -3753,7 +3749,7 @@ inherited fbOpcoes: TfbOpcoes
           Style.BorderStyle = ebsFlat
           TabOrder = 3
           OnClick = cbFidAtivoClick
-          ExplicitWidth = 846
+          ExplicitTop = 87
           Width = 602
         end
       end
@@ -5279,7 +5275,7 @@ inherited fbOpcoes: TfbOpcoes
       end
       object nbgMeiosPagamentoControl: TdxNavBarGroupControl
         Left = 0
-        Top = 453
+        Top = 444
         Width = 602
         Height = 300
         Caption = 'nbgMeiosPagamentoControl'

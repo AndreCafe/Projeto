@@ -884,6 +884,7 @@ object FrmPri: TFrmPri
       Style.TextStyle = [fsBold]
       Style.IsFontAssigned = True
       Properties.Alignment.Vert = taVCenter
+      ExplicitLeft = 124
       AnchorY = 10
     end
     object cxLabel2: TcxLabel
@@ -3250,8 +3251,8 @@ object FrmPri: TFrmPri
     Top = 160
   end
   object DispSw: TDisplaySwitcher
-    CurrentWidth = 1360
-    CurrentHeight = 768
+    CurrentWidth = 1920
+    CurrentHeight = 1080
     Left = 352
     Top = 216
   end
