@@ -104,7 +104,12 @@ uses
   ncUploadConst in '..\Comp\ncUploadConst.pas',
   ncUploadDelay in '..\Comp\ncUploadDelay.pas',
   ncUploadPost in '..\Comp\ncUploadPost.pas',
-  uHMAC_sha256 in '..\Comp\uHMAC_sha256.pas';
+  uHMAC_sha256 in '..\Comp\uHMAC_sha256.pas',
+  ncDMmate in '..\Comp\ncDMmate.pas' {dmMate: TDataModule},
+  ncMateReadThread in '..\Comp\ncMateReadThread.pas',
+  ncMateServerThread in '..\Comp\ncMateServerThread.pas',
+  ncMateTls in '..\Comp\ncMateTls.pas',
+  ncMateWriteThread in '..\Comp\ncMateWriteThread.pas';
 
 {$R *.res}
 {$R uacserv.res}

@@ -15,15 +15,15 @@ uses
   LMDIniCtrl, ncClassesBase, ncServBase, jpeg,
   LMDCustomLabel, LMDLabel, cxLookAndFeelPainters, cxControls, cxContainer,
   cxEdit, cxLabel, cxButtons, cxPC, cxStyles, cxGraphics, cxMaskEdit,
-  cxMemo, cxVGrid, cxInplaceContainer, cxSpinEdit, cxRadioGroup, 
-  nxllComponent, nxdb, nxdbBackupController, Buttons, 
+  cxMemo, cxVGrid, cxInplaceContainer, cxSpinEdit, cxRadioGroup,
+  nxllComponent, nxdb, nxdbBackupController, Buttons,
   cxCustomData, cxFilter, cxData, cxDataStorage, DB, cxDBData, kbmMemTable,
   cxGridLevel, cxClasses, cxGridCustomView, cxGridCustomTableView,
   cxGridTableView, cxGridDBTableView, cxGrid, cxGridBandedTableView,
   cxGridDBBandedTableView, cxButtonEdit, ImgList, cxTextEdit,
   cxDropDownEdit, cxCalendar, cxGridStrs, cxGroupBox,
   ncsFrmBackup, ShellApi, LMDSysInfo, AppEvnts,
-  cxCheckBox, LMDDockSpeedButton, dmGateConnUnit, rdServer, 
+  cxCheckBox, LMDDockSpeedButton, dmGateConnUnit, rdServer,
   LMDTrayIcon, LMDBaseController, LMDCustomContainer, LMDGenericList,
   cxLookAndFeels, OleServer, ActiveX, cxHyperLinkEdit,
   cxPCdxBarPopupMenu,
@@ -137,11 +137,11 @@ type
     FSL : TStrings;
 
     procedure AtualizaDadosComp;
-    
+
     procedure VeSePode(S: String);
     procedure RetiraReadOnly;
     procedure SetVerPri(const Value: Word);
-    
+
     procedure WMQueryEndSession(var Msg: TMessage);
       message WM_QUERYENDSESSION;
 
@@ -149,20 +149,20 @@ type
       message WM_ENDSESSION;
 
     procedure WMDadosLicenca(var Msg: TMessage);
-      message WM_User + 1;  
+      message WM_User + 1;
 
     procedure WMParPub(var Msg: TMessage);
-      message WM_User + 2; 
+      message WM_User + 2;
 
     procedure wmabreserv(var Msg: TMessage);
-      message wm_user + 3;  
+      message wm_user + 3;
 
     procedure wminiciar(var Msg: TMessage);
-      message wm_user + 5;  
+      message wm_user + 5;
 
-    function VersaoStr: String; 
+    function VersaoStr: String;
 
-    function VersaoCompleta: String; 
+    function VersaoCompleta: String;
 
     procedure On_Error(const s:string);
 
@@ -171,16 +171,16 @@ type
     SRV:TrdServerModule;
     CON:TdmConn;
     FFechar: Boolean;
-    
+
     procedure DadosLicenca;
 
     procedure FreeCaption(S: String);
-    
-    procedure Ativar;   
+
+    procedure Ativar;
     procedure Desativar;
 
     procedure AbreMostra(aOp: Integer);
-  
+
     procedure AjustaIconeTray;
     procedure RecriaTray;
     property VerPri: Word
@@ -193,19 +193,20 @@ var
   hndFrmPri : HWND;
 
   MessageID: Integer;
-  
+
 
 implementation
 
-uses 
-  uLicExeCryptor, 
-  ncIDRecursos, 
+uses
+  uLicExeCryptor,
+  ncIDRecursos,
   ncsFrmLogin,
-  ncVersoes, 
-  ncServAtualizaLic_Indy, 
+  ncVersoes,
+  ncServAtualizaLic_Indy,
   ncFrmSuporteRem, ncIPAddr, ncSyncLic, ncDebug,
-  ncVersionInfo, ncShellStart, ncFrmProgress, 
-  ncPrintMon, ncMsgCom, ncJob, ncFirewall;
+  ncVersionInfo, ncShellStart, ncFrmProgress,
+  ncPrintMon, ncMsgCom, ncJob,
+  ncFirewall;
 
 const
   SegMS = 1000;
@@ -377,7 +378,7 @@ begin
 
   FreeCaption('');
   Paginas.ActivePageIndex := 0;
-  
+
   Serv := TncServidor.Create(Self);
 
   DebugMsg('TfrmPri.FrmCreate - 2');
@@ -558,6 +559,10 @@ end;
 
 procedure TfrmPri.wminiciar(var Msg: TMessage);
 begin
+
+
+
+
   try
     if not Serv.Ativo then Ativar;
   finally

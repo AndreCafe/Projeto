@@ -21,7 +21,11 @@ uses
   SyncObjs,
   madKernel,
   Variants,
-  ncErros, uNexTransResourceStrings_PT;
+  ncErros,
+  {$IFDEF MATE}
+  ncDMmate,
+  {$ENDIF}
+  uNexTransResourceStrings_PT;
 
 const
   wm_registrapag = wm_user;
@@ -2156,6 +2160,11 @@ type
     procedure ChecaErro(Erro: Integer);
     
   public
+
+   {$IFDEF MATE}
+    Mate : TdmMate;
+    {$ENDIF}
+  
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
 
@@ -2418,14 +2427,14 @@ var
   slDadosMin : TStrings;
   ServidorAtivo : Boolean = False;
   VerProg : String = '';
-  MaxMaquinas : Integer = 0; 
+  MaxMaquinas : Integer = 0;
   gGuardSide : Boolean = True;
   handleFrmPri : HWND;
 
-threadvar  
+threadvar
   HandleCliAtual : Integer;
   UsernameAtual: String;
-  
+
 implementation
 
 uses Graphics, md5, ncVersoes, ncDebug, ncTipoImp, forms, ulogs, math, nexUrls;
@@ -3303,6 +3312,12 @@ end;
 constructor TncServidorBase.Create(AOwner: TComponent);
 begin
   inherited;
+
+  {$IFDEF MATE}
+  Mate := TdmMate.Create(nil);
+  {$ENDIF}
+
+
   FClientes := TThreadList.Create;
   FUltimoHandle := 0;
   FAtivo := False;
@@ -3311,6 +3326,11 @@ end;
 
 destructor TncServidorBase.Destroy;
 begin
+  {$IFDEF MATE}
+  Mate.free;
+  {$ENDIF}
+
+
   FreeAndNil(FClientes);
   inherited;
 end;

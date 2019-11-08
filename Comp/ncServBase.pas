@@ -76,7 +76,7 @@ type
     FNotifyHWND   : HWND;
 
     FUpLoad : TncUploadThread;
-    
+
     FPDFPrintMgr  : TncPDFPrintManager;
 
     procedure EnviaEventoStreamObj(Mensagem: Integer; Obj: TncClasse);
@@ -104,23 +104,24 @@ type
 
     procedure JobNotification( const jobinfo: TncJob );
     procedure _JobNotification( const jobinfo: TncJob );
-    
+
 
     procedure RefreshJobs;
 
-  protected  
-    procedure AoCriarObj(Obj: TncClasse); virtual; 
-    procedure AoAlterarObj(Obj: TncClasse); virtual; 
-    procedure AoDestruirObj(Obj: TncClasse); virtual; 
-    
+  protected
+
+    procedure AoCriarObj(Obj: TncClasse); virtual;
+    procedure AoAlterarObj(Obj: TncClasse); virtual;
+    procedure AoDestruirObj(Obj: TncClasse); virtual;
+
     function ObtemLista(aTipoClasse: Integer): TListaClasseCS; override;
-  
+
     procedure SetAtivo(Valor: Boolean); override;
 
     procedure CriaServidorBD;
-    procedure DestroiServidorBD;     
+    procedure DestroiServidorBD;
 
-    procedure LoadPrintDocs;          
+    procedure LoadPrintDocs;
 
     procedure Notificacao(Obj: TncClasse; TipoNot: TTipoNotificacao);
 
@@ -148,9 +149,11 @@ type
     procedure LoadCotas(J: TncJob);
     procedure ProcessaCotas(J: TncJob);
 
-    function RegistraPaginasImpressasEsp(aJobID: Cardinal; aMaq: Word; aPaginas: Integer; aImp, aDoc: String; aForce: Boolean): Integer; 
+    function RegistraPaginasImpressasEsp(aJobID: Cardinal; aMaq: Word; aPaginas: Integer; aImp, aDoc: String; aForce: Boolean): Integer;
 
-  public  
+  public
+
+
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
 
@@ -446,6 +449,7 @@ begin
   DebugMsg('TncServidor.Destroy - 1');
   Lock;
   try
+
     gUrls.OnRefresh := nil;
     DebugMsg('TncServidor.Destroy - 2');
     DestroyWindow(FNotifyHWND);
@@ -614,7 +618,7 @@ begin
     finally
       Unlock;
     end;
-    FiniApek.WriteString('GERAL','chave',cripta(FormatDateTime('ddmmyyyy',Date)+FormatDateTime('hhmm',Time)));    
+    FiniApek.WriteString('GERAL','chave',cripta(FormatDateTime('ddmmyyyy',Date)+FormatDateTime('hhmm',Time)));
     for I := 0 to sl.Count-1 do 
       FiniApek.WriteString('Maquinas', sl.Names[I], sl.ValueFromIndex[i]);
   finally
@@ -1441,6 +1445,8 @@ var
   S: String;
   IsEof : Boolean;
 begin
+
+
   DebugMsg('CriaServidorBD 1');
   FAtualizaLic := nil;
   EncerrarThreads := False;
@@ -1461,29 +1467,29 @@ begin
     try
       ApagaNXTemp;
       DebugMsg('CriaServidorBD 4');
-      
-  
+
+
 {      if FileExists(S) then
         TFrmImpNX2.Create(Self).ShowModal;}
 
-      Application.CreateForm(TdmServidorBD, dmServidorBD);  
+      Application.CreateForm(TdmServidorBD, dmServidorBD);
       DebugMsg('CriaServidorBD 5');
-      
+
 //      IniciaServidorBD;
 
       CliNotifyHandle := FNotifyHWND;
-  
+
       aSessao := CreateSession;
       DebugMsg('CriaServidorBD 6');
-      
+
       aDB := TnxDatabase.Create(Self);
       aDB.Session  := aSessao;
       aDB.AliasName    := 'NexCafe';
       aDB.Connected := True;
       aDB.Timeout := 30000;
       DebugMsg('CriaServidorBD 7');
-      
-      try                   
+
+      try
         OpenProgressForm;
         ProgTables.Clear;
         try
@@ -1491,9 +1497,9 @@ begin
           DebugMsg('CriaServidorBD 7.1');
           ncTableDefs.BuildAndEvolveDatabase(aDB, FrmProg.OnProgress, 'toromalbec');
           DebugMsg('CriaServidorBD 7.2');
-          
+
         except
-          on E: Exception do begin 
+          on E: Exception do begin
             DebugMsg('CriaServidorBD - BuildAndEvolve - E.Message: '+E.Message);
             Raise;
           end;
@@ -1518,7 +1524,7 @@ begin
           end;
         end;
         DebugMsg('CriaServidorBD 7.3');
-        
+
       finally
         FechaProgressForm;
         aDB.Free;
@@ -1533,19 +1539,19 @@ begin
       DebugMsg('CriaServidorBD 7.5');
 
       TThreadPopulateCategUnid.Create(False).FreeOnTerminate := True;
-  
+
       Application.CreateForm(TDM, DM);
       DM.FSessoes := Sessoes;
 
       DebugMsg('CriaServidorBD 7.6');
-      
+
       DM.nxSession.ServerEngine := dmServidorBD.ServerEngine;
       DM.Open;
       DM.tRec.EmptyTable;
 
       DebugMsg('CriaServidorBD 7.7');
-             
-      with DM do       
+
+      with DM do
       if tUsuario.RecordCount = 0 then begin
         tUsuario.Insert;
         tUsuarioUsername.Value := 'admin';
@@ -1556,7 +1562,7 @@ begin
       end;
 
       DebugMsg('CriaServidorBD 7.8');
-      
+
       Usuarios.LeDataset(DM.tUsuario);
 
       DebugMsg('CriaServidorBD 7.9');
@@ -1567,7 +1573,7 @@ begin
         tMaqNumero.Value := 1;
         tMaqNome.Value:= 'Máquina 1';
         tMaq.Post;
-  
+
         tMaq.Insert;
         tMaqNumero.Value := 2;
         tMaqNome.Value := 'Máquina 2';
@@ -1590,11 +1596,11 @@ begin
       end;
 
       DebugMsg('CriaServidorBD 7.10');
-  
+
       Maquinas.LeDataset(DM.tMaq);
 
       DebugMsg('CriaServidorBD 7.11');
-  
+
       with DM do begin
         if tConfig.RecordCount > 0 then begin
           gConfig.LeDataset(tConfig);
@@ -1602,7 +1608,7 @@ begin
           tConfig.Insert;
           gConfig.SalvaDataset(tConfig);
           tConfig.Post;
-        end;  
+        end;
 
         if gConfig.ChecaCores then begin
           tConfig.Edit;
@@ -1612,7 +1618,7 @@ begin
         ObtemValorMinMaxImp(aMin, aMax);
         gConfig.PMValorMin := aMin;
         gConfig.PMValorMax := aMax;
-        
+
         gNaoPausar.SetNaoPausar(gConfig.PMNaoPausar);
         gNaoPausar.SetPausarEsteComp(gConfig.PMPausarServ);
       end;
@@ -1627,7 +1633,7 @@ begin
         tTipoImp.Post;
       end;
 
-      with DM do begin   
+      with DM do begin
         if tEspecie.IsEmpty then begin
           tEspecie.Insert;
           tEspecieID.Value := 1;
@@ -1638,7 +1644,7 @@ begin
           tEspecieTipo.Value := tipoesp_dinheiro;
           tEspecieImg.Value := 0;
           tEspecie.Post;
-  
+
           tEspecie.Insert;
           tEspecieID.Value := 2;
           tEspecieNome.Value := rsCartaoCred;
@@ -1648,7 +1654,7 @@ begin
           tEspecieTipo.Value := tipoesp_cartao;
           tEspecieImg.Value := 1;
           tEspecie.Post;
-  
+
           tEspecie.Insert;
           tEspecieID.Value := 3;
           tEspecieNome.Value := rsCartaoDeb;
@@ -1658,7 +1664,7 @@ begin
           tEspecieTipo.Value := tipoesp_cartao;
           tEspecieImg.Value := 2;
           tEspecie.Post;
-  
+
           tEspecie.Insert;
           tEspecieID.Value := 4;
           tEspecieNome.Value := rsCheque;
@@ -1671,14 +1677,14 @@ begin
         end;
         gEspecies.Limpa;
         gEspecies.LeDataset(tEspecie);
-      end;      
+      end;
 
       DebugMsg('CriaServidorBD 7.13');
-      
+
       RefreshPrecos;
 
       DebugMsg('CriaServidorBD 7.14');
-  
+
       with DM do
       try
         Sessoes.Limpa;
@@ -1698,25 +1704,25 @@ begin
           end;
           RefreshSessao(FSessoes[I]);
         end;
-        
+
       finally
         tSessao.IndexName := 'IID';
         tSessao.CancelRange;
       end;
 
       DebugMsg('CriaServidorBD 7.15');
-  
+
       try
         DM.RefreshEspera(Sessoes, Maquinas);
       except
-        on E: Exception do 
+        on E: Exception do
           DebugMsgEsp('TncServidor.CriaServidorBD ERRO DM.RefreshEspera: '+E.Message, False, True);
       end;
 
       DebugMsg('CriaServidorBD 7.16');
 
       FMonitor := nil;
-      
+
 //      if gConfig.DetectarImpServ or gConfig.PMPausaAutomatica then
       try
         if Win32Platform = VER_PLATFORM_WIN32_NT	then begin
@@ -1728,7 +1734,7 @@ begin
             FMonitor.Active := true;
             DebugMsg('Monitor de impressoes criado');
           except
-            on E: EOSError do 
+            on E: EOSError do
               DebugMsg('Falha na criação do PrinterMonitor: '+E.Message);
             on E: Exception do
               DebugMsg('Falha na criação do PrinterMonitor: '+E.Message);
@@ -1803,7 +1809,7 @@ begin
 
       DebugMsg('CriaServidorBD 13');
 
-      // DARIO upload2009
+      // DARIO upload2009 X211
 
       //Glog.active := true;
       fUpLoad := TncUploadThread.Create;
@@ -1813,6 +1819,7 @@ begin
       fUpLoad.Resume;
 
       DebugMsg('CriaServidorBD 14');
+
 
       FServAtivo := True;
       FServErro := '';
@@ -1887,6 +1894,7 @@ begin
         fUpLoad.Free;
         fUpLoad := nil;
     end;
+
 
     FTimerApek.Enabled := False;
     DebugMsg('TncServidor.DestroiServidorBD - 2');
@@ -2078,6 +2086,7 @@ end;
 procedure TncServidor.SetAtivo(Valor: Boolean);
 var T: Cardinal;
 begin
+
   DebugMsg('TncServidor.SetAtivo - 1');
   if (Valor = FAtivo) or (csLoading in ComponentState) then Exit;
   DebugMsg('TncServidor.SetAtivo - 2');
