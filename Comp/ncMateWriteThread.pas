@@ -38,33 +38,33 @@ end;
 
 
 procedure TMateWriteThread.Execute;
-var
-    sl : TStringList;
-    b : Pointer;
-    len : uint64;
+//var
+//    sl : TStringList;
+//    b : Pointer;
+//    len : uint64;
 
 begin
     glog.Log(self,[lcDebug], 'TMateWriteThread.Execute' );
-
-    sl := TStringList.Create();
-    sl.LoadFromFile('C:\925600.txt');
+//
+//    sl := TStringList.Create();
+//    sl.LoadFromFile('C:\925600.txt');
 
     while not terminated do begin
 
-        len := length(sl.Text);
-        Getmem(b,len);
-        try
-          move(sl.Text[1], b^, len);
-          TMateServerThread(FMateServerThread).Write(b, len);
-        finally
-          freemem(b);
-        end;
+//        len := length(sl.Text);
+//        Getmem(b,len);
+//        try
+//          move(sl.Text[1], b^, len);
+//          TMateServerThread(FMateServerThread).Write(b, len);
+//        finally
+//          freemem(b);
+//        end;
 
         sleep(0);
 
     end;
 
     glog.Log(self,[lcDebug], 'TMateWriteThread ends execution' );
- end;
+end;
 
 end.

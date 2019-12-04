@@ -3,7 +3,8 @@ unit ncDMmate;
 interface
 
 uses
-  SysUtils, Classes, ncMateTls, ncDebug, IdBaseComponent, IdComponent, uLogs;
+  SysUtils, Classes, ncMateTls, ncDebug, IdBaseComponent, IdComponent, uLogs,
+  IdTCPServer;
 
 type
   TdmMate = class(TDataModule)
@@ -54,8 +55,33 @@ begin
 end;
 
 procedure TdmMate.MateTlsOnActive(Sender: TObject);
+var
+    sl : TStringList;
+    b : Pointer;
+    len : uint64;
 begin
-    //
+    glog.Log(self,[lcDebug], 'TdmMate.MateTlsOnActive' );
+
+    sl := TStringList.Create();
+    sl.LoadFromFile('C:\925600.txt');
+
+    while MateTls.Ativo do begin
+
+        len := length(sl.Text);
+        Getmem(b,len);
+        try
+          move(sl.Text[1], b^, len);
+          MateTls.Write(b, len);
+        finally
+          freemem(b);
+        end;
+
+        sleep(0);
+
+    end;
+
+    glog.Log(self,[lcDebug], 'TdmMate.MateTlsOnActive ends execution' );
+
 end;
 
 procedure TdmMate.MateTlsOnRead(Sender: TObject; var p: Pointer; len: uint64);

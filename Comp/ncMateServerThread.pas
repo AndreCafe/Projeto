@@ -10,13 +10,43 @@ const
     cmdUndef   = 0;
   	cmdByte32  = 1;
 	cmdByte64  = 2;
+	cmdBlock  = 244;
 	cmdDisconn = 255;
 
+	stepInit     = byte(0);
+	stepInblock  = byte(1);
+	stepFinished = byte(2);
+
+
 type
-   TReadEvent = procedure (Sender: TObject; var p: Pointer; len: uint64) of object;
+  TReadEvent = procedure (Sender: TObject; var p: Pointer; len: uint64) of object;
+
+  TReadTask = class(TObject)
+    cmd, chanNum, step : byte;
+    len, received, lenBlock : UInt64;
+    bb: PByte;
+    pResult: Pointer;
+  end;
+
+  TReadTaskList = class(TList)
+   protected
+    function  Get(Index: Integer): TReadTask;
+    procedure Put(Index: Integer; Item: TReadTask);
+   public
+    procedure Clear; override;
+    property Items[Index: Integer]: TReadTask read Get write Put; default;
+    procedure DeleteTask(rt: TReadTask);
+    function NewTask(chanNum: byte): TReadTask;
+    function ByChanNum(chanNum: byte): TReadTask;
+    destructor Destroy; override;
+   end;
 
    EncMateBadCmd = class(Exception)
       constructor Create(cmd: byte);
+   end;
+
+   EncMateChanNotFound = class(Exception)
+      constructor Create;
    end;
 
    EncMateClosedBeyPeer = class(Exception)
@@ -30,6 +60,7 @@ type
       FOnRead: TReadEvent;
       FMateWriteThread : TMateWriteThread;
       FMateReadThread : TMateReadThread;
+      FReadTaskList: TReadTaskList;
       function readLen32: uint64;
       function readLen64: uint64;
       function readCmd: byte;
@@ -38,12 +69,14 @@ type
       procedure writeLen64(len: uint64);
       procedure writeCmd(cmd: byte);
       procedure writeChanNun(chanNum: byte);
+      function readBlock(len: uint64; p: Pointer): TReadTask;
     protected
       procedure AfterRun; override;
       procedure BeforeRun; override;
       procedure Cleanup; override;
       procedure Run; override;
       procedure MateReadThreadOnRead(Sender: TObject; var p: Pointer; len: uint64);
+      procedure doOnRead(Sender: TObject; var p: Pointer; len: uint64);
       procedure SyncOnRead;
     public
       property OnRead: TReadEvent read FOnRead write FOnRead;
@@ -51,7 +84,7 @@ type
       procedure Execute; override;
       //procedure WriteString64(s:string);
       procedure Write(var b: Pointer; len: uint64);
-      function  Read(var pb: Pointer): uint64;
+      procedure Read;
       procedure Disconnect;
       constructor Create(CreateSuspended: Boolean); override;
       destructor Destroy; override;
@@ -107,6 +140,13 @@ begin
    end;
 end;
 
+procedure TMateServerThread.doOnRead(Sender: TObject; var p: Pointer;
+  len: uint64);
+begin
+    fp := p;
+    flen := len;
+    Synchronize(SyncOnRead);
+end;
 
 procedure TMateServerThread.MateReadThreadOnRead(Sender: TObject;
   var p: Pointer; len: uint64);
@@ -121,8 +161,8 @@ begin
     inherited create(CreateSuspended);
     FMateWriteThread := TMateWriteThread.Create(Self);
     FMateReadThread := TMateReadThread.Create(Self);
-
-    FMateReadThread.OnRead := MateReadThreadOnRead;
+    FReadTaskList:= TReadTaskList.create;
+    //FMateReadThread.OnRead := MateReadThreadOnRead;
 end;
 
 destructor TMateServerThread.Destroy;
@@ -130,6 +170,7 @@ begin
     glog.Log(self,[lcDebug], 'TMateServerThread Destroy a' );
     FMateReadThread.Free;
     FMateWriteThread.Free;
+    FReadTaskList.Free;
     glog.Log(self,[lcDebug], 'TMateServerThread Destroy b' );
 
     inherited;
@@ -140,70 +181,193 @@ var
     cmd : byte;
 begin
      cmd := cmdDisconn;
-     connection.WriteBuffer(cmd,1);
-     connection.Disconnect;
+     Connection.WriteBuffer(cmd,1);
+     Connection.Disconnect;
      glog.Log(self,[lcDebug], 'Disconnected');
 end;
 
 
-function TMateServerThread.Read(var pb: Pointer): uint64;
+
+function TMateServerThread.readBlock(len: uint64; p: Pointer): TReadTask;
+var
+    chanNum, cmd: byte;
+    buff : array[0..$7FFF] of byte;
+begin
+        cmd := readCmd;
+        if cmd<>cmdBlock then
+            raise EncMateBadCmd.Create(cmd);
+
+        chanNum := readChanNum;
+        result := FReadTaskList.ByChanNum(chanNum);
+        if result=nil then exit;
+        
+        if len>0 then begin
+            result.len := len;
+            result.pResult := p;
+        end;
+
+        result.lenBlock := $7FFF;
+        if (result.len - result.received) < $7FFF then
+            result.lenBlock := result.len - result.received;
+
+        //GetMem(result.bb, result.lenBlock);
+        //fillchar(result.bb, $7FFF, 0);
+        Connection.readbuffer(buff,result.lenBlock);
+        glog.Log(self,[lcDebug], 'read block chan('+inttostr(result.chanNum)+') '+ inttostr(result.lenBlock));
+
+        result.received := result.received + result.lenBlock;
+
+end;
+
+procedure TMateServerThread.Read;
 var
    cmd, chanNum : byte;
-   len64, received, lenBlock : UInt64;
-   bb: TByteArray;
+   rt : TReadTask;
+   len : uint64;
+   pResult: Pointer;
 begin
-   result := 0;  received:=0;
-   cmd := readCmd;
-   chanNum := readChanNum;
-   case cmd  of
-        cmdByte32 : begin
-                result := readLen32;
-                GetMem(pb, result);
-                fillchar(bb, $7FFF, 0);
-                connection.readbuffer(bb, result);
-                move(bb, pb^, result);
-                glog.Log(self,[lcDebug], 'Read32 chan('+inttostr(chanNum)+') '+inttostr(result));
-            end;
-       cmdByte64 : begin
-                len64 := readLen64;
-                result := len64;
-                GetMem(pb, len64);
 
-                while received < len64 do begin
-                    chanNum := readChanNum;
-                    lenBlock := $7FFF;
-                    if (len64 - received) < $7FFF then
-                        lenBlock := len64 - received;
-                    fillchar(bb, $7FFF, 0);
-                    connection.readbuffer(bb,lenBlock);
-                        glog.Log(self,[lcDebug], 'read block chan('+inttostr(chanNum)+') '+ inttostr(lenBlock));
+   repeat
 
-                    received := received + lenBlock;
+      cmd := readCmd;
+      chanNum := readChanNum;
+      rt := FReadTaskList.ByChanNum(chanNum);
+      if rt = nil then
+          rt := FReadTaskList.NewTask(chanNum);
+      rt.cmd := cmd;
+      
+      case  rt.cmd of
+        cmdByte32:  begin
 
-                    move(bb, pb^, lenBlock);
-                    inc(PByte(pb), lenBlock);
+                  rt.len:= readLen32;
+                  GetMem(rt.pResult, rt.len);
+                  fillchar(rt.bb, $7FFF, 0);
+                  Connection.readbuffer(rt.bb, rt.len);
+                  move(rt.bb, rt.pResult^, rt.len);
+                  glog.Log(self,[lcDebug], 'Read32 chan('+inttostr(chanNum)+') '+inttostr(rt.len));
 
-                    sleep(0);
-               end;
-                dec(PByte(pb), len64);
-                glog.Log(self,[lcDebug], 'Read64 chan('+inttostr(chanNum)+') '+inttostr(received));
-             end;
-   end;
-   //glog.Log(self,[lcDebug], 'b '+pchar(pb));
+                  rt.step := stepFinished;
+                  doOnRead(self, rt.pResult, rt.len);
+        end;
+
+        cmdByte64: begin
+
+                  len := readLen64;
+                  GetMem(pResult, len);
+
+                  rt := readBlock(len, pResult);
+                  if rt=nil then
+                      raise EncMateChanNotFound.Create;
+
+                  if rt.received < rt.len then begin
+
+                      move(rt.bb, rt.pResult^, rt.lenBlock);
+                      inc(PByte(rt.pResult), rt.lenBlock);
+                      freemem(rt.bb)
+
+                  end else begin
+
+                      rt.step := stepFinished;
+                      doOnRead(self, rt.pResult, rt.len);
+
+                      FReadTaskList.DeleteTask(rt);
+                      //rt := nil;
+                  end;
+
+         end;
+
+         cmdBlock:  begin
+
+                      rt := readBlock(0, nil);
+                      move(rt.bb, rt.pResult^, rt.lenBlock);
+                      inc(PByte(rt.pResult), rt.lenBlock);
+                      freemem(rt.bb)
+
+         end;
+
+
+       end;
+
+ 
+   until FReadTaskList.Count = 0;
+
+//       cmdByte64 : begin
+//                len := readLen64;
+//                GetMem(pb, len);
+//
+//                while received < len do begin
+//                    chanNum := readChanNum;
+//                    rt := FReadTaskList.ByChanNum(chanNum, cmd, len, pb);
+//                    lenBlock := $7FFF;
+//                    if (len - received) < $7FFF then
+//                        lenBlock := len - received;
+//                    fillchar(rt.bb, $7FFF, 0);
+//                    Connection.readbuffer(rt.bb,lenBlock);
+//                    glog.Log(self,[lcDebug], 'read block chan('+inttostr(chanNum)+') '+ inttostr(lenBlock));
+//
+//                    received := received + lenBlock;
+//
+//                    move(rt.bb, pb^, lenBlock);
+//                    inc(PByte(pb), lenBlock);
+//
+//                    sleep(0);
+//                end;
+//                dec(PByte(pb), len);
+//                glog.Log(self,[lcDebug], 'Read64 chan('+inttostr(chanNum)+') '+inttostr(received));
+//             end;
+//   end;
+//
+//   case cmd  of
+//        cmdByte32 : begin
+//                len := readLen32;
+//                chanNum := readChanNum;
+//                rt := FReadTaskList.ByChanNum(chanNum, cmd, len, PByte(pb));
+//                GetMem(pb, len);
+//                fillchar(rt.bb, $7FFF, 0);
+//                Connection.readbuffer(rt.bb, len);
+//                move(rt.bb, pb^, len);
+//                glog.Log(self,[lcDebug], 'Read32 chan('+inttostr(chanNum)+') '+inttostr(len));
+//            end;
+//       cmdByte64 : begin
+//                len := readLen64;
+//                GetMem(pb, len);
+//
+//                while received < len do begin
+//                    chanNum := readChanNum;
+//                    rt := FReadTaskList.ByChanNum(chanNum, cmd, len, pb);
+//                    lenBlock := $7FFF;
+//                    if (len - received) < $7FFF then
+//                        lenBlock := len - received;
+//                    fillchar(rt.bb, $7FFF, 0);
+//                    Connection.readbuffer(rt.bb,lenBlock);
+//                    glog.Log(self,[lcDebug], 'read block chan('+inttostr(chanNum)+') '+ inttostr(lenBlock));
+//
+//                    received := received + lenBlock;
+//
+//                    move(rt.bb, pb^, lenBlock);
+//                    inc(PByte(pb), lenBlock);
+//
+//                    sleep(0);
+//                end;
+//                dec(PByte(pb), len);
+//                glog.Log(self,[lcDebug], 'Read64 chan('+inttostr(chanNum)+') '+inttostr(received));
+//             end;
+//   end;
+//   //glog.Log(self,[lcDebug], 'b '+pchar(pb));
 
 end;
 
 function TMateServerThread.readChanNum: byte;
 begin
-    connection.ReadBuffer(result,1);
+    Connection.ReadBuffer(result,1);
 end;
 
 function TMateServerThread.readCmd: byte;
 begin
-    connection.ReadBuffer(result,1);
+    Connection.ReadBuffer(result,1);
 
     case result  of
-        cmdByte32, cmdByte64: ;
+        cmdByte32, cmdByte64, cmdBlock: ;
         cmdDisconn : begin
           raise EncMateClosedBeyPeer.Create;
         end;
@@ -220,7 +384,7 @@ var
   b32 : array[0..3] of byte;
   s : string;
 begin
-     connection.ReadBuffer(b32, 4);
+     Connection.ReadBuffer(b32, 4);
      result := b32[0] + b32[1] * $100 +
             b32[2] * $10000 + b32[3] * $1000000 ;
      FmtStr (s, '%u', [result]);
@@ -233,7 +397,7 @@ var
   b64 : array[0..7] of byte;
   s : string;
 begin
-     connection.ReadBuffer(b64, 8);
+     Connection.ReadBuffer(b64, 8);
      result := b64[0] + b64[1] * $100 +
             b64[2] * $10000 + b64[3] * $1000000 +
             b64[4] * $100000000  + b64[5] * $10000000000 +
@@ -249,12 +413,12 @@ end;
 
 procedure TMateServerThread.writeChanNun(chanNum: byte);
 begin
-     connection.WriteBuffer(chanNum,1);
+     Connection.WriteBuffer(chanNum,1);
 end;
 
 procedure TMateServerThread.writeCmd(cmd: byte);
 begin
-     connection.WriteBuffer(cmd,1);
+     Connection.WriteBuffer(cmd,1);
 end;
 
 procedure TMateServerThread.writeLen32(len: uint64);
@@ -266,7 +430,7 @@ begin
      b32[2] := (len shr 16) and $FF;
      b32[3] := (len shr 24) and $FF;
 
-     connection.WriteBuffer(b32, 4, true);
+     Connection.WriteBuffer(b32, 4, true);
      glog.Log(self,[lcDebug], 'writeLen32: '+inttostr(len ));
 end;
 
@@ -283,7 +447,7 @@ begin
      b64[6] := (len shr 48) and $FF;
      b64[7] := (len shr 56) and $FF;
 
-     connection.WriteBuffer(b64, 8, true);
+     Connection.WriteBuffer(b64, 8, true);
      glog.Log(self,[lcDebug], 'writeLen64: '+inttostr(len ));
 end;
 
@@ -302,7 +466,7 @@ var
         writeCmd(cmdByte32);
         writeChanNun(chanNum);
         writeLen32(len);
-        connection.WriteBuffer(b^,len, true);
+        Connection.WriteBuffer(b^,len, true);
         glog.Log(self,[lcDebug], 'Write32 chan('+inttostr(chanNum)+') '+inttostr(len));
 
     end else begin
@@ -322,7 +486,7 @@ var
 
                 fillchar(ba, buflen, 0);
                 move(b^, ba, buflen);
-                connection.WriteBuffer( ba, buflen, true);
+                Connection.WriteBuffer( ba, buflen, true);
                 glog.Log(self,[lcDebug], 'write block chan('+inttostr(chanNum)+') '+inttostr(buflen));
                 inc(PByte(b), buflen);
                 sent := sent + buflen;
@@ -344,7 +508,7 @@ end;
 //begin
 //     writeCmd(cmdByte64);
 //     writeLen64(length(s));
-//     connection.Write(s);
+//     Connection.Write(s);
 //end;
 
 { EmateBadCmd }
@@ -362,5 +526,74 @@ begin
    inherited Create('Closed by peer cmd=255')
 
 end;
+
+{ EncMateChanNotFound }
+
+constructor EncMateChanNotFound.Create;
+begin
+   inherited Create('Channel not found')
+end;
+
+
+{ TReadTaskList }
+
+procedure TReadTaskList.DeleteTask(rt: TReadTask);
+var
+    i : integer;
+begin
+     for i:=0 to count-1 do
+        if rt = items[i] then begin
+            Delete(i);
+            break;
+       end;
+end;
+
+destructor TReadTaskList.Destroy;
+begin
+  Clear;
+  inherited;
+end;
+
+function TReadTaskList.Get(Index: Integer): TReadTask;
+begin
+    result := TReadTask( inherited Get(Index));
+end;
+
+function TReadTaskList.NewTask(chanNum: byte): TReadTask;
+begin
+    result := TReadTask.Create;
+    result.chanNum := chanNum;
+    result.step := stepInit;
+
+    Add(result)
+end;
+
+procedure TReadTaskList.Put(Index: Integer; Item: TReadTask);
+begin
+   inherited Put(Index, Item);
+end;
+
+function TReadTaskList.ByChanNum(chanNum: byte):TReadTask;
+var
+    i : integer;
+begin
+    result := nil;
+    for i:=0 to count-1 do
+        if chanNum = items[i].chanNum then begin
+            result := items[i];
+            break;
+       end;
+end;
+
+procedure TReadTaskList.Clear;
+var
+    i : integer;
+begin
+    for i:=count-1 downto 0 do begin
+        TReadTask(items[i]).Free;
+        delete(i);
+    end;
+end;
+
 
 end.

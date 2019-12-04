@@ -17,6 +17,7 @@ type
     FOnActive: TNotifyEvent;
     IdTCPServer1: TIdTCPServer;
     IdServerIOHandlerSSL1: TIdServerIOHandlerSSL;
+    FMateServerThread: TMateServerThread;
     FAtivo: boolean;
     FIP: string;
     FPort: integer;
@@ -45,6 +46,7 @@ type
     property Ativo: boolean read FAtivo;
     property IP: string read FIP write SetIP;
     property Port: integer read FPort write SetPort;
+    procedure Write(var b: Pointer; len: uint64);
     procedure Execute; override;
     constructor Create;
     destructor Destroy; override;
@@ -58,6 +60,7 @@ constructor TMateTls.Create;
 begin
     inherited Create(true);
 
+    FMateServerThread := nil;
     IdTCPServer1 := TIdTCPServer.Create(nil);
     IdTCPServer1.ThreadClass :=  TMateServerThread;
 
@@ -65,6 +68,8 @@ begin
 
     IdTCPServer1.CommandHandlersEnabled := false;
     IdTCPServer1.IOHandler := IdServerIOHandlerSSL1;
+    IdTCPServer1.ListenQueue := 0;
+    IdTCPServer1.MaxConnections := 1;
 
     IdTCPServer1.OnConnect := IdTCPServer1Connect;
     IdTCPServer1.OnExecute := IdTCPServer1Execute;
@@ -122,6 +127,7 @@ procedure TMateTls.IdTCPServer1Exception(AThread: TIdPeerThread;
   AException: Exception);
 begin
      glog.Log(self,[lcDebug], 'IdTCPServer1Exception ' +  AException.Message );
+     FMateServerThread := nil;
 end;
 
 procedure TMateTls.IdTCPServer1ListenException(AThread: TIdListenerThread;
@@ -176,8 +182,14 @@ begin
    end;
 end;
 
+procedure TMateTls.Write(var b: Pointer; len: uint64);
+begin
+    FMateServerThread.Write(b, len);
+end;
+
 procedure TMateTls.MateReadThreadOnRead(Sender: TObject; var p: Pointer; len: uint64);
 begin
+   glog.Log(self,[lcDebug], 'TMateTls.MateReadThreadOnRead '+inttostr(len));
     fp := p;
     flen := len;
     Synchronize(SyncOnRead);
@@ -188,7 +200,11 @@ begin
 
    glog.Log(self,[lcDebug], 'TMateTls.IdTCPServer1Execute');
 
-   TMateServerThread(AThread).OnRead := MateReadThreadOnRead;
+   if FMateServerThread<>nil then
+        raise exception.Create('2cond thread');
+
+   FMateServerThread := TMateServerThread(AThread);
+   FMateServerThread.OnRead := MateReadThreadOnRead;
 
    FAtivo := true;
    Synchronize(SyncOnActive);

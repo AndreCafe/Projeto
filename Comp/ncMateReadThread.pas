@@ -13,14 +13,14 @@ type
 
  TMateReadThread = class(TThread)
   private
-    fp : Pointer;
-    flen : uint64;
-    FOnRead: TReadEvent;
+//    fp : Pointer;
+//    flen : uint64;
+//    FOnRead: TReadEvent;
     FMateServerThread: TObject;
-    procedure doOnRead(Sender: TObject; var p: Pointer; len: uint64);
-    procedure SyncOnRead;
+//    procedure doOnRead(Sender: TObject; var p: Pointer; len: uint64);
+//    procedure SyncOnRead;
   public
-    property OnRead: TReadEvent read FOnRead write FOnRead;
+//    property OnRead: TReadEvent read FOnRead write FOnRead;
     procedure Execute; override;
     constructor Create(aMateServerThread : TObject);
     destructor Destroy; override;
@@ -43,24 +43,24 @@ begin
   inherited;
 end;
 
-procedure TMateReadThread.SyncOnRead;
-begin
-   if assigned(FOnRead) then begin
-       doOnRead(self, fp, flen);
-   end;
-end;
-
-
-procedure TMateReadThread.doOnRead(Sender: TObject; var p: Pointer; len: uint64);
-begin
-   if assigned(FOnRead) then
-       FOnRead(self, p, len);
-end;
+//procedure TMateReadThread.SyncOnRead;
+//begin
+//   if assigned(FOnRead) then begin
+//       doOnRead(self, fp, flen);
+//   end;
+//end;
+//
+//
+//procedure TMateReadThread.doOnRead(Sender: TObject; var p: Pointer; len: uint64);
+//begin
+//   if assigned(FOnRead) then
+//       FOnRead(self, p, len);
+//end;
 
 procedure TMateReadThread.Execute;
-var
-    s : string;
-      p : Pointer;
+//var
+//    s : string;
+//      p : Pointer;
 //    len : uint64;
 begin
 
@@ -69,17 +69,17 @@ begin
    while not terminated do begin
        try
 
-          flen := TMateServerThread(FMateServerThread).Read(p);
-          fp := p;
-          //try
-               glog.Log(self,[lcDebug], inttostr(flen));
-
-               SetLength(s, flen);
-               move(p^, s[1], flen);
-
-               Synchronize(SyncOnRead);
-
-               glog.Log(self,[lcDebug], 'lidos '+inttostr(flen));
+          TMateServerThread(FMateServerThread).Read;
+//          fp := p;
+//          //try
+//               glog.Log(self,[lcDebug], inttostr(flen));
+//
+//               SetLength(s, flen);
+//               move(p^, s[1], flen);
+//
+//               Synchronize(SyncOnRead);
+//
+//               glog.Log(self,[lcDebug], 'lidos '+inttostr(flen));
 //          finally
 //               freemem(b);
 //          end;
