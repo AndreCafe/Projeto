@@ -19,6 +19,7 @@ type
         fRecordsByRequest: integer;
         fMaxRecords: integer;
         fInterBlockDelayM : integer;
+        fQuery : string;
         procedure Clear;
      public
         property Version: integer read fVersion;
@@ -28,6 +29,7 @@ type
         property RecordsByRequest: integer read fRecordsByRequest;
         property MaxRecords: integer read fMaxRecords;
         property InterBlockDelayM: integer read fInterBlockDelayM;
+        property Query: string read fQuery;
 
         procedure Assign(Source: TPersistent); override;
         procedure ReadJson(aJsonObj:TJsonObject);
@@ -209,6 +211,7 @@ begin
        fRecordsByRequest := TUploadParams(Source).RecordsByRequest;
        fMaxRecords := TUploadParams(Source).MaxRecords;
        fInterBlockDelayM := TUploadParams(Source).InterBlockDelayM;
+       fQuery := TUploadParams(Source).Query;
     end;
 end;
 
@@ -221,7 +224,8 @@ begin
         'MainDelayM: '+intToStr(fMainDelayM) + ', '+
         'RecordsByRequest: '+intToStr(fRecordsByRequest) + ', '+
         'MaxRecords: '+intToStr(fMaxRecords) + ', '+
-        'InterBlockDelayM: '+intToStr(fInterBlockDelayM);
+        'InterBlockDelayM: '+intToStr(fInterBlockDelayM) + ', '+
+        'Query: "'+ fQuery + '"';
 end;
 
 procedure TUploadParams.Clear;
@@ -233,6 +237,8 @@ begin
     fRecordsByRequest := kDefRecordsByRequest;
     fMaxRecords := kDefMaxRecords;
     fInterBlockDelayM := kDefInterBlockDelayM;
+    fQuery := '';
+
 end;
 
 constructor TUploadParams.Create(
@@ -253,6 +259,7 @@ begin
     fRecordsByRequest := aRecordsByRequest;
     fMaxRecords := aMaxRecords;
     fInterBlockDelayM := aInterBlockDelayM;
+    fQuery := '';
 
 end;
 
@@ -267,6 +274,7 @@ begin
         fRecordsByRequest := strtoint( aJsonObj.getJSONObject('RecordsByRequest').getString('$numberLong'));
         fMaxRecords := strtoint( aJsonObj.getJSONObject('MaxRecords').getString('$numberLong'));
         fInterBlockDelayM := strtoint( aJsonObj.getJSONObject('InterBlockDelayM').getString('$numberLong'));
+        fQuery := aJsonObj.getString('Query');
     end;
 
 end;

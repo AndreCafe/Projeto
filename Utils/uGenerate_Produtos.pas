@@ -1,4 +1,4 @@
-unit uImpCSV_Produtos;
+unit uGenerate_Produtos;
 
 interface
 
@@ -20,34 +20,8 @@ type
     DataSource1: TDataSource;
     tEst: TnxTable;
     tProd: TnxTable;
-    tProdID: TAutoIncField;
-    tProdCodigo: TStringField;
-    tProdDescricao: TStringField;
-    tProdUnid: TStringField;
-    tProdPreco: TCurrencyField;
-    tProdObs: TnxMemoField;
-    tProdImagem: TGraphicField;
-    tProdCategoria: TStringField;
-    tProdFornecedor: TIntegerField;
-    tProdSubCateg: TStringField;
-    tProdEstoqueAtual: TFloatField;
-    tProdCustoUnitario: TCurrencyField;
-    tProdEstoqueACE: TFloatField;
-    tProdEstoqueACS: TFloatField;
-    tProdPodeAlterarPreco: TBooleanField;
-    tProdNaoControlaEstoque: TBooleanField;
-    tProdEstoqueMin: TFloatField;
-    tProdEstoqueMax: TFloatField;
-    tProdAbaixoMin: TBooleanField;
-    tProdAbaixoMinDesde: TDateTimeField;
-    tProdEstoqueRepor: TFloatField;
-    tProdplus: TBooleanField;
-    tProdplusURL: TnxMemoField;
-    tProdplusCodParceiro: TStringField;
-    tProdplusCodProduto: TStringField;
-    tProdAtivo: TBooleanField;
-    tProdFidelidade: TBooleanField;
-    tProdFidPontos: TIntegerField;
+    tFor: TnxTable;
+    Label1: TLabel;
     tEstID: TAutoIncField;
     tEstTran: TIntegerField;
     tEstProduto: TIntegerField;
@@ -72,10 +46,53 @@ type
     tEstTipoTran: TWordField;
     tEstSessao: TIntegerField;
     tEstplusID: TGuidField;
+    tEstComissao: TCurrencyField;
+    tEstComissaoPerc: TFloatField;
+    tEstComissaoLucro: TBooleanField;
     tEstplusTran: TBooleanField;
+    tEstPermSemEstoque: TBooleanField;
     tEstFidResgate: TBooleanField;
     tEstFidPontos: TFloatField;
-    tFor: TnxTable;
+    tEstRecVer: TIntegerField;
+    tProdID: TAutoIncField;
+    tProdCodigo: TStringField;
+    tProdDescricao: TStringField;
+    tProdUnid: TStringField;
+    tProdPreco: TCurrencyField;
+    tProdPrecoAuto: TBooleanField;
+    tProdMargem: TFloatField;
+    tProdObs: TnxMemoField;
+    tProdImagem: TGraphicField;
+    tProdCategoria: TStringField;
+    tProdFornecedor: TIntegerField;
+    tProdSubCateg: TStringField;
+    tProdEstoqueAtual: TFloatField;
+    tProdCustoUnitario: TCurrencyField;
+    tProdEstoqueACE: TFloatField;
+    tProdEstoqueACS: TFloatField;
+    tProdPodeAlterarPreco: TBooleanField;
+    tProdPermiteVendaFracionada: TBooleanField;
+    tProdNaoControlaEstoque: TBooleanField;
+    tProdEstoqueMin: TFloatField;
+    tProdEstoqueMax: TFloatField;
+    tProdAbaixoMin: TBooleanField;
+    tProdAbaixoMinDesde: TDateTimeField;
+    tProdEstoqueRepor: TFloatField;
+    tProdplus: TBooleanField;
+    tProdplusURL: TnxMemoField;
+    tProdplusCodParceiro: TStringField;
+    tProdplusCodProduto: TStringField;
+    tProdComissaoPerc: TFloatField;
+    tProdComissaoLucro: TBooleanField;
+    tProdAtivo: TBooleanField;
+    tProdFidelidade: TBooleanField;
+    tProdFidPontos: TIntegerField;
+    tProdmd5Imagem: TStringField;
+    tProdlastProdModif: TDateTimeField;
+    tProdCadastroRapido: TBooleanField;
+    tProdIncluidoEm: TDateTimeField;
+    tProdRecVer: TIntegerField;
+    tProduploadVer: TWordField;
     tForID: TAutoIncField;
     tForNome: TStringField;
     tForEndereco: TStringField;
@@ -138,25 +155,6 @@ type
     tForTipoAcessoPref: TIntegerField;
     tForFornecedor: TBooleanField;
     tForValorCred: TCurrencyField;
-    tEstComissao: TCurrencyField;
-    tEstComissaoPerc: TFloatField;
-    tEstComissaoLucro: TBooleanField;
-    tEstPermSemEstoque: TBooleanField;
-    tEstRecVer: TIntegerField;
-    tProdPrecoAuto: TBooleanField;
-    tProdMargem: TFloatField;
-    tProdPermiteVendaFracionada: TBooleanField;
-    tProdComissaoPerc: TFloatField;
-    tProdComissaoLucro: TBooleanField;
-    tProdmd5Imagem: TStringField;
-    tProdlastProdModif: TDateTimeField;
-    tProduploadR: TWordField;
-    tProduploadS: TWordField;
-    tProdfk_produ: TIntegerField;
-    tProdbatchUID: TGuidField;
-    tProdCadastroRapido: TBooleanField;
-    tProdIncluidoEm: TDateTimeField;
-    tProdRecVer: TIntegerField;
     tForRecVer: TIntegerField;
     procedure Button1Click(Sender: TObject);
   private
@@ -217,36 +215,44 @@ begin
 end;
 
 function LimpaRG(S: String): String;
-var I: Integer;
+//var I: Integer;
 begin
   Result := '';
   while (Length(S)>0) and (not (S[1] in ['0'..'9'])) do
     Delete(S, 1, 1);
-  Result := Trim(S);  
+  Result := Trim(S);
 end;
 
 function MeuTrim(S: String): String;
-var 
-   I: Integer; 
+var
+   I: Integer;
 begin
   Result := '';
-  for I := 1 to Length(S) do 
+  for I := 1 to Length(S) do
     if Ord(S[i])=160 then
       Result := Result + ' ' else
       Result := Result + S[i];
 end;
 
 procedure TForm16.Button1Click(Sender: TObject);
-var 
-  SL: TStrings;
+var
+  //SL: TStrings;
   I, J, Min, Cod: Integer;
   S, s2, s3, sDoc: String;
   Mon : Currency;
   DT: TDateTime;
   Qtd : Integer;
 
+  prodCod : integer;
+   hours, mins, secs, milliSecs : Word;
+   fornecedores : array[0..31] of string;
+   myExtended : Extended;
+
+const MaxProd = 100000;
+
+
 function ProxCampo: String;
-var 
+var
   P: Integer;
   C: Char;
 begin
@@ -254,13 +260,13 @@ begin
     Result := '';
     Exit;
   end;
-  
+
   if S[1]='"' then begin
     Delete(S, 1, 1);
     C := '"';
-  end else 
+  end else
     C := ';';
-  
+
   P := Pos(C, S);
   if P>0 then begin
     Result := Trim(Copy(S, 1, P-1));
@@ -272,7 +278,7 @@ begin
   S := Trim(S);
   if (C='"') and (S>'') and (S[1]=';') then Delete(S, 1, 1);
 
-  for P := Length(Result) downto 1 do 
+  for P := Length(Result) downto 1 do
     if Result[P]='"' then Delete(Result, P, 1);
   Result := Trim(MeuTrim(Result));
 end;
@@ -291,10 +297,78 @@ begin
   tProdDescricao.Value := tProdDescricao.Value + ' ' + D;
 end;
 
+function alignInt(i, sz:integer):string;
 begin
-  SL := TStringList.Create;
-  SL.LoadFromFile('c:\nexcafe\produtos.csv');
-  PB.Max := SL.Count;
+     result := StringOfChar('0', sz) + inttostr(i);
+     result := copy(result, length(result)-sz+1,  sz);
+
+end;
+
+function genword:string;
+var
+    q: integer;
+begin
+    result := '';
+    for q:=0  to 4 + random(10) do begin
+//      randomize;
+       result := result + char( 65 + random( 26 ) )
+    end;
+end;
+
+function genwords:string;
+var
+    q : integer;
+begin
+    result := '';
+    for q:=0  to 2 + random(3) do
+       result := trim( result + ' ' + genword)
+end;
+
+procedure genfornecedores;
+var
+    q : integer;
+begin
+    for q:=0  to 31 do
+       fornecedores[q] := genwords;
+end;
+
+function getFornecedor:string;
+begin
+    result := fornecedores[random(32)]
+end;
+
+
+
+function genProdLine:string;
+begin
+    inc(prodCod);
+    myExtended := 1000 * random;
+    result := alignInt(prodCod, 8) + ';' +    // cod
+        '"' + genwords + '"' + ';'  + //  desc
+        '"' + getFornecedor + '"' + ';'  + //  fornece
+        '"' + genwords + '"' + ';'  + //  obs
+        '"' + genwords + '"' + ';'  + //  desc
+        '"' + genwords + '"' + ';'  + //
+        '"' + genwords + '"' + ';'  + //
+        '"' + genwords + '"' + ';'  + //
+        inttostr( 10 + random(100) )+ ';'  + //   tProdEstoqueAtual
+        floattostr(myExtended) + ';'  + // tProdCustoUnitario
+        floattostr(myExtended*1.5) + ';'  + //   tProdPreco
+
+        '';
+end;
+
+
+begin
+   DecodeTime(now, hours, mins, secs, milliSecs);
+
+  RandSeed := milliSecs;
+  //SL := TStringList.Create;
+  //SL.LoadFromFile('c:\nexcafe\produtos.csv');
+
+  genfornecedores;
+
+  PB.Max := MaxProd;
   PB.Position := 0;
   tProd.Open;
   tEst.Open;
@@ -303,15 +377,17 @@ begin
   tEst.EmptyTable;
   tFor.EmptyTable;
   ShortDateFormat := 'dd/mm/yyyy';
-//  for J := 1 to 2 do 
-  for I := 1 to SL.Count-1 do begin
+//  for J := 1 to 2 do
+  for I := 0 to MaxProd-1 do begin
     PB.Position := I + 1;
     Application.ProcessMessages;
-    S := SL[I];                      
+    //S := SL[I];
+    S := genProdLine; // + chr(13)+char(10) + genProdLine;
     tProd.Append;
     tProdCodigo.Value := ProxCampo;
     tProdDescricao.Value := ProxCampo;
-    tProdFornecedor.Value := Fornecedor(ProxCampo, ProxCampo);  ProxCampo;
+    tProdFornecedor.Value := Fornecedor(ProxCampo, ProxCampo);
+
     if tProdFornecedor.Value=0 then tProdFornecedor.Clear;
     AddDescr(ProxCampo);
     s2 := ProxCampo;
@@ -338,6 +414,8 @@ begin
     end;
     
   end;
+
+  Label1.caption := 'ok';
 end;
 
 function TForm16.Fornecedor(aNome, aObs: String): Integer;

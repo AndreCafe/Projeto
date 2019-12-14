@@ -10,11 +10,12 @@ const
 
      kDefActive = false;
      kDefVersion = 1;
-     kDefIniDelayM = 5;
+
+     kDefIniDelayM = 0;
      kDefMainDelayM = 30;
      kDefRecordsByRequest = 500;
      kDefMaxRecords = 2500;
-     kDefInterBlockDelayM = 10;
+     kDefInterBlockDelayM = 30;
 
 implementation
 

@@ -37,16 +37,22 @@ type
   function DatabaseVersion: Cardinal;
   function DatabaseVersionStr: String;
   function GetTableDictionary(aDatabase : TnxDatabase; const aTableName : String): TnxDataDictionary;
-  procedure GetTableNames(aSL: TStrings); 
+  procedure GetTableNames(aSL: TStrings);
   function GetTablePrimaryKey(aTable: String): String;
   function GetTableID(aTable: String): Integer;
+//  procedure RestructureTable(aDatabase : TnxDatabase;
+//      const aTableName, aPassword : String;
+//      aNewDict : TnxDataDictionary;
+//      aProgressCallback : TnxcgProgressCallback;
+//      var aCancelTask : Boolean;
+//      aFreeDict : Boolean = False);
 
 const
   sEncPass = 'CEWk4jhsad3f';
 
-var 
-  gTableNames : TStrings;  
-       
+var
+  gTableNames : TStrings;
+
 implementation
 
 uses
@@ -71,6 +77,7 @@ uses
 
 type
   TnxcgCreateDictCallback = function(aDatabase : TnxDatabase): TnxDataDictionary;
+
 
 // Aviso
 function __Aviso(aDatabase : TnxDatabase): TnxDataDictionary;
@@ -3844,6 +3851,29 @@ begin
   end;
 end;
 
+function __RemoteCtrl(aDatabase : TnxDatabase): TnxDataDictionary;
+begin
+  Result := TnxDataDictionary.Create;
+  try
+    with Result do begin
+      AddRecordDescriptor(TnxBaseRecordDescriptor);
+      with FieldsDescriptor do begin
+        AddField('NumSeq', '', nxtAutoInc, 10, 0, False);
+        with AddField('LastQuery', '', nxtWord32, 0, 0, False) do
+          with AddDefaultValue(TnxConstDefaultValueDescriptor) as TnxConstDefaultValueDescriptor do
+            AsVariant := 0;
+      end;
+      with EnsureIndicesDescriptor do
+        with AddIndex('INumSeq', 0, idAll), KeyDescriptor as TnxCompKeyDescriptor do
+          Add(GetFieldFromName('NumSeq'));
+      CheckValid(False);
+    end;
+  except
+    FreeAndNil(Result);
+    raise;
+  end;
+end;
+
 
 type
   TnxcgTableInfo = record
@@ -3852,7 +3882,7 @@ type
   end;
 
 const
-  TableInfos : array[0..59] of TnxcgTableInfo =
+  TableInfos : array[0..60] of TnxcgTableInfo =
     ((TableName : 'Aviso'; Callback : __Aviso),
      (TableName : 'Biometria'; Callback : __Biometria),
      (TableName : 'Caixa'; Callback : __Caixa),
@@ -3912,7 +3942,8 @@ const
      (TableName : 'Unidade'; Callback: __Unidade),
      (TableName : 'Especie'; Callback: __Especies),
      (TableName : 'PagEspecies'; Callback: __PagEspecies),
-     (TableName : 'RecDel'; Callback: __RecDel));
+     (TableName : 'RecDel'; Callback: __RecDel),
+     (TableName : 'RemoteCtrl'; Callback: __RemoteCtrl));
 
 function TableCount: Integer;
 begin

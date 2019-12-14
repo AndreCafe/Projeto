@@ -13,6 +13,13 @@ object Form16: TForm16
   OldCreateOrder = False
   PixelsPerInch = 96
   TextHeight = 13
+  object Label1: TLabel
+    Left = 440
+    Top = 112
+    Width = 31
+    Height = 13
+    Caption = 'Label1'
+  end
   object PB: TProgressBar
     Left = 0
     Top = 0
@@ -156,15 +163,6 @@ object Form16: TForm16
       FieldName = 'plusID'
       Size = 38
     end
-    object tEstplusTran: TBooleanField
-      FieldName = 'plusTran'
-    end
-    object tEstFidResgate: TBooleanField
-      FieldName = 'FidResgate'
-    end
-    object tEstFidPontos: TFloatField
-      FieldName = 'FidPontos'
-    end
     object tEstComissao: TCurrencyField
       FieldName = 'Comissao'
     end
@@ -174,8 +172,17 @@ object Form16: TForm16
     object tEstComissaoLucro: TBooleanField
       FieldName = 'ComissaoLucro'
     end
+    object tEstplusTran: TBooleanField
+      FieldName = 'plusTran'
+    end
     object tEstPermSemEstoque: TBooleanField
       FieldName = 'PermSemEstoque'
+    end
+    object tEstFidResgate: TBooleanField
+      FieldName = 'FidResgate'
+    end
+    object tEstFidPontos: TFloatField
+      FieldName = 'FidPontos'
     end
     object tEstRecVer: TIntegerField
       FieldName = 'RecVer'
@@ -193,11 +200,11 @@ object Form16: TForm16
     end
     object tProdCodigo: TStringField
       FieldName = 'Codigo'
-      Size = 15
+      Size = 30
     end
     object tProdDescricao: TStringField
       FieldName = 'Descricao'
-      Size = 55
+      Size = 100
     end
     object tProdUnid: TStringField
       FieldName = 'Unid'
@@ -205,6 +212,12 @@ object Form16: TForm16
     end
     object tProdPreco: TCurrencyField
       FieldName = 'Preco'
+    end
+    object tProdPrecoAuto: TBooleanField
+      FieldName = 'PrecoAuto'
+    end
+    object tProdMargem: TFloatField
+      FieldName = 'Margem'
     end
     object tProdObs: TnxMemoField
       FieldName = 'Obs'
@@ -240,6 +253,9 @@ object Form16: TForm16
     object tProdPodeAlterarPreco: TBooleanField
       FieldName = 'PodeAlterarPreco'
     end
+    object tProdPermiteVendaFracionada: TBooleanField
+      FieldName = 'PermiteVendaFracionada'
+    end
     object tProdNaoControlaEstoque: TBooleanField
       FieldName = 'NaoControlaEstoque'
     end
@@ -273,6 +289,12 @@ object Form16: TForm16
       FieldName = 'plusCodProduto'
       Size = 15
     end
+    object tProdComissaoPerc: TFloatField
+      FieldName = 'ComissaoPerc'
+    end
+    object tProdComissaoLucro: TBooleanField
+      FieldName = 'ComissaoLucro'
+    end
     object tProdAtivo: TBooleanField
       FieldName = 'Ativo'
     end
@@ -282,40 +304,12 @@ object Form16: TForm16
     object tProdFidPontos: TIntegerField
       FieldName = 'FidPontos'
     end
-    object tProdPrecoAuto: TBooleanField
-      FieldName = 'PrecoAuto'
-    end
-    object tProdMargem: TFloatField
-      FieldName = 'Margem'
-    end
-    object tProdPermiteVendaFracionada: TBooleanField
-      FieldName = 'PermiteVendaFracionada'
-    end
-    object tProdComissaoPerc: TFloatField
-      FieldName = 'ComissaoPerc'
-    end
-    object tProdComissaoLucro: TBooleanField
-      FieldName = 'ComissaoLucro'
-    end
     object tProdmd5Imagem: TStringField
       FieldName = 'md5Imagem'
       Size = 32
     end
     object tProdlastProdModif: TDateTimeField
       FieldName = 'lastProdModif'
-    end
-    object tProduploadR: TWordField
-      FieldName = 'uploadR'
-    end
-    object tProduploadS: TWordField
-      FieldName = 'uploadS'
-    end
-    object tProdfk_produ: TIntegerField
-      FieldName = 'fk_produ'
-    end
-    object tProdbatchUID: TGuidField
-      FieldName = 'batchUID'
-      Size = 38
     end
     object tProdCadastroRapido: TBooleanField
       FieldName = 'CadastroRapido'
@@ -325,6 +319,9 @@ object Form16: TForm16
     end
     object tProdRecVer: TIntegerField
       FieldName = 'RecVer'
+    end
+    object tProduploadVer: TWordField
+      FieldName = 'uploadVer'
     end
   end
   object tFor: TnxTable

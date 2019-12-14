@@ -8,14 +8,16 @@ uses
   IdAntiFreezeBase, IdAntiFreeze, IdBaseComponent, IdComponent, IdTCPConnection,
   IdTCPClient, IdHTTP, IdIOHandler, IdIOHandlerSocket, IdSSLOpenSSL,
   nxsdDataDictionary, nxsdTypes, IdCookieManager, IdCookie,
-  ncUploadPost, dateutils, kbmMemTable, nxdbBase, ncUploadGetParams;
+  ncUploadPost, dateutils, kbmMemTable, nxdbBase, ncUploadGetParams,
+  nxllException, ncClassesBase, ncTableDefs;
 
 type
 
   TncUploadThread = class(TThread)
   private
-    fnxtable1 : TnxTable;
-    fnxQuery1 : TnxQuery;
+    fnxAllRecordsTempTable : TnxTable;
+    fnxServerQuery : TnxQuery;
+    fnxUpdateQuery : TnxQuery;
     fnxSession1 : TnxSession;
     fnxDatabase1: TnxDatabase;
     fKbmMemTable1: TkbmMemTable;
@@ -31,6 +33,7 @@ type
     fParams : TUploadParams;
     fPostFatalError : boolean;
     fRemoteUploadVersion :integer;
+    fServerQuery : string;
     
     fIndentStep: integer;
     fNewLine : string;
@@ -78,6 +81,9 @@ implementation
 
 uses  ncDMserv, strutils, ncUploadConst, ncUploadDelay;
 
+const upload_temp_tablename = '<upload_temp>';
+const RemoteCtrlResult_tablename = '<RemoteCtrlResult>';
+
 procedure TncUploadThread.createNxDbOjects;
 begin
     GLog.Log(self,[lcDebug],'createNxDbOjects start');
@@ -85,12 +91,15 @@ begin
      fnxSession1.ServerEngine := fNxSE;
      fnxDatabase1 := TnxDatabase.Create(nil);
      fnxDatabase1.Session := fnxSession1;
-     fnxtable1 := TnxTable.Create(nil);
-     fnxtable1.Database := fnxDatabase1;
-     fnxtable1.Session := fnxSession1;
-     fnxQuery1 := TnxQuery.Create(nil);
-     fnxQuery1.Database := fnxDatabase1;
-     fnxQuery1.Session := fnxSession1;
+     fnxAllRecordsTempTable := TnxTable.Create(nil);
+     fnxAllRecordsTempTable.Database := fnxDatabase1;
+     fnxAllRecordsTempTable.Session := fnxSession1;
+     fnxServerQuery := TnxQuery.Create(nil);
+     fnxServerQuery.Database := fnxDatabase1;
+     fnxServerQuery.Session := fnxSession1;
+     fnxUpdateQuery := TnxQuery.Create(nil);
+     fnxUpdateQuery.Database := fnxDatabase1;
+     fnxUpdateQuery.Session := fnxSession1;
 
     GLog.Log(self,[lcDebug],'createNxDbOjects end');
 end;
@@ -98,10 +107,11 @@ end;
 procedure TncUploadThread.freeNxDbOjects;
 begin
     GLog.Log(self,[lcDebug],'freeNxDbOjects start');
-    fnxtable1.free;
-    fnxQuery1.free;
+    fnxServerQuery.free;
+    fnxUpdateQuery.free;
     fnxSession1.free;
     fnxDatabase1.free;
+    fnxAllRecordsTempTable.free;
     GLog.Log(self,[lcDebug],'freeNxDbOjects end');
 end;
 
@@ -116,6 +126,8 @@ begin
      createNxDbOjects;
      fKbmMemTable1 := TKbmMemTable.Create(nil);
      fParams := TUploadParams.Create;
+
+     Priority := tpLower;
 
  end;
 
@@ -149,7 +161,7 @@ end;
 //  \r  Carriage return
 //  \t  Tab
 //  \"  Double quote
-//  \\  Backslash character
+//  \\  Backslash character               
 //
 function TncUploadThread.escape(s:widestring):widestring;
 var
@@ -341,9 +353,9 @@ end;
 
 //procedure TUpload.ZerarUploadVer;
 //begin
-//      fnxQuery1.SQL.Text := 'update produto set uploadVer=0';
+//      fnxUpdateQuery.SQL.Text := 'update produto set uploadVer=0';
 //      try
-//          fnxQuery1.ExecSQL;
+//          fnxUpdateQuery.ExecSQL;
 //      except
 //          on e:Exception do
 //              GLog.Log(self,[lcExcept], e.Message);
@@ -355,8 +367,8 @@ procedure TncUploadThread.openDB;
 begin
      GLog.Log(self,[lcDebug],'openDB start');
      fnxDatabase1.AliasName := 'nexcafe';
-     fnxSession1.UserName := 'admin';
-     fnxSession1.Password := 'delphi9856';
+     fnxSession1.UserName := SessionUser;
+     fnxSession1.Password := SessionPass;
 
      fnxSession1.Open;
      if not fnxSession1.IsConnected then begin
@@ -418,8 +430,17 @@ begin
         end;
         GLog.Log(self,[lcDebug],'getUploadParams: '+fParams.asString);
 
-        if fParams.IniDelayM>0 then
-            delay(self, fParams.IniDelayM, 0.5, 'delay inicial');
+
+        fMaxRecords := fParams.MaxRecords;
+        fInterBlockDelay := fParams.InterBlockDelayM;
+        fRecordsByRequest := fParams.RecordsByRequest;
+        fRemoteUploadVersion := fParams.Version;
+        fServerQuery := fParams.Query;
+
+
+
+//        if fParams.IniDelayM>0 then
+//            delay(self, fParams.IniDelayM, 0.5, 'delay inicial');
 
         while (not Terminated) do begin
 
@@ -427,6 +448,7 @@ begin
             fInterBlockDelay := fParams.InterBlockDelayM;
             fRecordsByRequest := fParams.RecordsByRequest;
             fRemoteUploadVersion := fParams.Version;
+            fServerQuery := fParams.Query;
 
             while (not Terminated) do begin
 
@@ -464,33 +486,119 @@ end;
 
 function TncUploadThread.copyTableToMem: boolean;
 
-    procedure openTable;
+    procedure createRemoteCtrlResult;
+    var
+        Dict : TnxDataDictionary;
+        nxQuery1 : TnxQuery;
+        i: integer;
     begin
-        GLog.Log(self,[lcDebug],'openTable start');
-        fnxtable1.Open;
-        fnxtable1.First;
+        GLog.Log(self,[lcDebug],'createRemoteCtrlResult start');
+
+        fnxAllRecordsTempTable.TableName := RemoteCtrlResult_tablename;
+
+
+        fnxServerQuery.Open;
+        GLog.Log(self,[lcDebug],'fnxServerQuery recordcount '+inttostr(fnxServerQuery.RecordCount));
+        fnxServerQuery.First;
+
+        fnxDatabase1.CreateTable(true, upload_temp_tablename , '', fnxServerQuery._Dictionary,  tsTempGlobal);
+
+
+        Dict := TnxDataDictionary.Create;
+        try
+            nxCheck(fnxDatabase1.GetDataDictionaryEx( upload_temp_tablename , '', Dict));
+            with Dict.FieldsDescriptor do begin
+
+                AddField('upload_ID', '', nxtAutoInc, 10, 0, False);
+
+                with AddField('upload_done', '', nxtByte, 1, 0, False) do
+                  with AddDefaultValue(TnxConstDefaultValueDescriptor) as TnxConstDefaultValueDescriptor do
+                    AsVariant := 0;
+
+            end;
+            with Dict.EnsureIndicesDescriptor do begin
+
+                with AddIndex('upload_IID', 0, idAll), KeyDescriptor as TnxCompKeyDescriptor do
+                    Add(Dict.GetFieldFromName('upload_ID'));
+
+                with AddIndex('IuploadDone', 0, idAll), KeyDescriptor as TnxCompKeyDescriptor do
+                    Add(Dict.GetFieldFromName('upload_done'));
+
+            end;
+
+            //RestructureTable( fnxDatabase1, RemoteCtrlResult_tablename, '', Dict, nil, CancelTask);
+            fnxDatabase1.CreateTable(true, RemoteCtrlResult_tablename , '', Dict,  tsTempGlobal);
+
+        finally
+            Dict.Free;
+        end;
+
+        fnxAllRecordsTempTable.Open;
+        GLog.Log(self,[lcDebug],'fnxAllRecordsTempTable recordcount '+inttostr(fnxAllRecordsTempTable.RecordCount));
+        //fnxAllRecordsTempTable.CopyRecordsEx(fnxServerQuery, true, 0, true);
+
+        while not fnxServerQuery.Eof do begin
+            fnxAllRecordsTempTable.Insert;
+            for i:=0 to fnxServerQuery.FieldCount-1 do begin
+
+                if fnxServerQuery.FieldList[i].isNull then continue;
+                if fnxServerQuery.FieldList[i].isBlob then
+                    fnxAllRecordsTempTable.FieldList[i].AsString := fnxServerQuery.FieldList[i].AsString
+                else
+                    fnxAllRecordsTempTable.FieldList[i].Value :=  fnxServerQuery.FieldList[i].Value;
+
+            end;
+            if (i mod 100)=0 then
+               GLog.Log(self,[lcDebug],'fnxAllRecordsTempTable recordcount '+inttostr(fnxAllRecordsTempTable.RecordCount));
+
+            fnxAllRecordsTempTable.Post;
+            fnxServerQuery.Next;
+        end;
+        fnxServerQuery.Close;
+        fnxAllRecordsTempTable.First;
+
+        fnxDatabase1.DeleteTable( upload_temp_tablename ,'');
+
+        GLog.Log(self,[lcDebug],'fnxAllRecordsTempTable recordcount '+inttostr(fnxAllRecordsTempTable.RecordCount));
+        GLog.Log(self,[lcDebug],'createRemoteCtrlResult end');
+
+   end;
+
+   procedure openQuery;
+    begin
+        GLog.Log(self,[lcDebug],'openQuery start');
+
+        if not fnxDatabase1.TableExists( RemoteCtrlResult_tablename ,'')  then
+                createRemoteCtrlResult;
+
+        fnxAllRecordsTempTable.Open;
+        fnxAllRecordsTempTable.First;
+
         fKbmMemTable1.EmptyTable;
-        fKbmMemTable1.CreateTableAs(fnxtable1,[mtcpoStructure,mtcpoProperties]);
+        fKbmMemTable1.CreateTableAs(fnxAllRecordsTempTable,[mtcpoStructure,mtcpoProperties]);
         fKbmMemTable1.Open;
-        fKbmMemTable1.LoadFromDataSet(fnxtable1,[]);
+        fKbmMemTable1.LoadFromDataSet(fnxServerQuery,[]);
         fKbmMemTable1.First;
-        fnxtable1.Close;
+        fnxServerQuery.Close;
         result := true;
-       GLog.Log(self,[lcDebug],'openTable end');
+        GLog.Log(self,[lcDebug],'openQuery end');
     end;
+
 begin
 
     GLog.Log(self,[lcDebug],'copyTableToMem start');
     result := false;
 
-    fnxtable1.TableName := 'Produto';
-    fnxtable1.IndexName := 'IuploadVersion';
-    // fnxtable1.Filter := 'ID=1704 or ID=3137';
-    fnxtable1.Filter := 'uploadVer<'+inttostr(fRemoteUploadVersion);
-    fnxtable1.FilterType := ftSqlWhere;
-    fnxtable1.Filtered := true;
+    fnxServerQuery.SQL.Text := stringReplace(fServerQuery,'\"','"',[rfReplaceAll]);
+
+    //fnxServerQuery.TableName := 'Produto';
+    //fnxServerQuery.IndexName := 'IuploadVersion';
+    // fnxServerQuery.Filter := 'ID=1704 or ID=3137';
+    fnxAllRecordsTempTable.Filter := 'upload_done<'+inttostr(fRemoteUploadVersion);
+    fnxAllRecordsTempTable.FilterType := ftSqlWhere;
+    fnxAllRecordsTempTable.Filtered := true;
     try
-        openTable;
+        openQuery;
     except
        on e: EnxDatabaseError do begin
             GLog.Log(self,[lcDebug],'open table exception class: '+e.ClassName);
@@ -500,7 +608,7 @@ begin
             createNxDbOjects;
 
             openDB;
-            openTable;
+            openQuery;
        end;
     end;
 
@@ -535,7 +643,7 @@ begin
                     fJsonStr := fJsonStr + ',' + fNewLine;
 
                     //GLog.Log(self,[lcDebug],'id: '+nxTable1.FieldByName('ID').AsString);
-                    fRecords.Add(fKbmMemTable1.FieldByName('ID').AsString);
+                    fRecords.Add(fKbmMemTable1.FieldByName('upload_IID').AsString);
                     fKbmMemTable1.Next;
 
                     RecordsInRequest := RecordsInRequest + 1;
@@ -634,14 +742,15 @@ begin
                 //writeln ( memLogFile, sdt +'; '+ inttostr(aId) + '; ', inttostr(aResponseCode) + '; '+ inttostr(aExecTime) + '; ' + inttostr(insertedIds.length));
                 GLog.Log(self,[lcDebug],'postResponse  id:'+ inttostr(aId) + ' '+ inttostr(aResponseCode)+ ' '+ inttostr(insertedIds.length) );
 
-                fnxQuery1.SQL.Text := 'update produto set uploadVer='+inttostr(fRemoteUploadVersion)+' where id in ('+fRecords.CommaText+')';
+                //fnxUpdateQuery.SQL.Text := 'update produto set uploadVer='+inttostr(fRemoteUploadVersion)+' where id in ('+fRecords.CommaText+')';
+                fnxUpdateQuery.SQL.Text := 'update "' + RemoteCtrlResult_tablename + '" set upload_done ='+inttostr(fRemoteUploadVersion)+' where upload_IID in ('+fRecords.CommaText+')';
                 try
-                    fnxQuery1.ExecSQL;
+                    fnxUpdateQuery.ExecSQL;
                 except
                     on e:Exception do
                         GLog.Log(self,[lcExcept], e.Message);
                 end;
-                GLog.Log(self,[lcDebug],'fRecords: '+fRecords.CommaText);
+                //GLog.Log(self,[lcDebug],'fRecords: '+fRecords.CommaText);
 
 
             end else begin
