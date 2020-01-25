@@ -13,7 +13,7 @@ uses
      
 function delay(aThread: TThread; aSeconds: integer; aDelta: double; aLabel:string):boolean;
 var
-    d, i: integer;
+    d: integer;
 begin
     result := true;
 

@@ -40,12 +40,6 @@ type
   procedure GetTableNames(aSL: TStrings);
   function GetTablePrimaryKey(aTable: String): String;
   function GetTableID(aTable: String): Integer;
-//  procedure RestructureTable(aDatabase : TnxDatabase;
-//      const aTableName, aPassword : String;
-//      aNewDict : TnxDataDictionary;
-//      aProgressCallback : TnxcgProgressCallback;
-//      var aCancelTask : Boolean;
-//      aFreeDict : Boolean = False);
 
 const
   sEncPass = 'CEWk4jhsad3f';
@@ -3769,7 +3763,7 @@ begin
           with AddIndex('IRecVer', 0, idAll), KeyDescriptor as TnxCompKeyDescriptor do
             Add(GetFieldFromName('RecVer'));
       end;
-      with EnsureIndicesDescriptor do 
+      with EnsureIndicesDescriptor do
         with AddIndex('IID', 0, idAll), KeyDescriptor as TnxCompKeyDescriptor do
           Add(GetFieldFromName('ID'));
       CheckValid(False);
@@ -3798,24 +3792,24 @@ begin
         AddField('Doc', '', nxtNullString, 50, 0, False);
         AddField('Cancelado', '', nxtBoolean, 0, 0, False);
         AddField('RecVer', '', nxtWord32, 0, 0, False);
-        with EnsureIndicesDescriptor do 
+        with EnsureIndicesDescriptor do
           with AddIndex('IRecVer', 0, idAll), KeyDescriptor as TnxCompKeyDescriptor do
             Add(GetFieldFromName('RecVer'));
       end;
       with EnsureIndicesDescriptor do begin
         with AddIndex('IID', 0, idAll), KeyDescriptor as TnxCompKeyDescriptor do
           Add(GetFieldFromName('ID'));
-        with AddIndex('IDoc', 0, idAll), KeyDescriptor as TnxCompKeyDescriptor do 
+        with AddIndex('IDoc', 0, idAll), KeyDescriptor as TnxCompKeyDescriptor do
           Add(GetFieldFromName('Doc'));
         with AddIndex('ITranID', 0, idAll), KeyDescriptor as TnxCompKeyDescriptor do  begin
           Add(GetFieldFromName('Tran'));
           Add(GetFieldFromName('ID'));
-        end;  
+        end;
         with AddIndex('ICaixaID', 0, idAll), KeyDescriptor as TnxCompKeyDescriptor do begin
           Add(GetFieldFromName('Caixa'));
           Add(GetFieldFromName('ID'));
-        end;  
-      end;    
+        end;
+      end;
       CheckValid(False);
     end;
   except
@@ -3823,6 +3817,96 @@ begin
     raise;
   end;
 end;
+
+function __RemoteQuery(aDatabase : TnxDatabase): TnxDataDictionary;
+begin
+  Result := TnxDataDictionary.Create;
+  try
+    with Result do begin
+      AddRecordDescriptor(TnxBaseRecordDescriptor );
+      with FieldsDescriptor do begin
+        AddField('ID', '', nxtAutoInc, 10, 0, False);
+        AddField('dataHora', '', nxtDateTime, 0, 0, True);
+        AddField('ServerQuery', '', nxtBLOBMemo, 0, 0, True);
+        with AddField('uploadVer', '', nxtWord32, 0, 0, False)do
+            with AddDefaultValue(TnxConstDefaultValueDescriptor) as TnxConstDefaultValueDescriptor do
+                AsVariant := 0;
+        with AddField('lastRecord', '', nxtWord32, 0, 0, False) do
+            with AddDefaultValue(TnxConstDefaultValueDescriptor) as TnxConstDefaultValueDescriptor do
+                AsVariant := 0;
+        AddField('RecVer', '', nxtWord32, 0, 0, False);
+      end;
+      with EnsureIndicesDescriptor do begin
+        with AddIndex('IID', 0, idAll), KeyDescriptor as TnxCompKeyDescriptor do
+          Add(GetFieldFromName('ID'));
+        with AddIndex('IRecVer', 0, idAll), KeyDescriptor as TnxCompKeyDescriptor do
+          Add(GetFieldFromName('RecVer'));
+      end;
+      with EnsureRefIntegrityDescriptor(Result) do
+        with AddReference(TnxReferenceDescriptor, TnxTableTargetCursorDescriptor) do begin
+          with TargetCursor as TnxTableTargetCursorDescriptor do
+            TableName := 'RemoteQueryPost';
+          TargetIndex := 'IRemoteQuery';
+          with AddSource(TnxFieldSourceDescriptor) as TnxFieldSourceDescriptor do
+            FieldNumber := GetFieldFromName('ID');
+          AddAction(TnxBlockDeleteActionDescriptor);
+          AddAction(TnxBlockModifyActionDescriptor);
+        end;
+
+      CheckValid(False);
+    end;
+  except
+    FreeAndNil(Result);
+    raise;
+  end;
+end;
+
+function __RemoteQueryPost(aDatabase : TnxDatabase): TnxDataDictionary;
+begin
+  Result := TnxDataDictionary.Create;
+  try
+    with Result do begin
+      AddRecordDescriptor(TnxBaseRecordDescriptor );
+      with FieldsDescriptor do begin
+        AddField('ID', '', nxtAutoInc, 10, 0, False);
+        AddField('dataHora', '', nxtDateTime, 0, 0, True);
+        AddField('fk_RemoteQuery', '', nxtWord32, 0, 0, True);
+        AddField('firstRecord', '', nxtWord32, 0, 0, True);
+        AddField('lastRecord', '', nxtWord32, 0, 0, True);
+        AddField('Records', '', nxtBLOBMemo, 0, 0, True);
+        AddField('InsertedIds', '', nxtBLOBMemo, 0, 0, True);
+        AddField('upload_error', '', nxtBoolean, 0, 0, False);
+        AddField('upload_errormsg', '', nxtBLOBMemo, 0, 0, False);
+        AddField('upload_jsonsource', '', nxtBLOBMemo, 0, 0, False);
+
+        AddField('RecVer', '', nxtWord32, 0, 0, False);
+      end;
+      with EnsureIndicesDescriptor do begin
+        with AddIndex('IID', 0, idAll), KeyDescriptor as TnxCompKeyDescriptor do
+          Add(GetFieldFromName('ID'));
+        with AddIndex('IRemoteQuery', 0, idAll), KeyDescriptor as TnxCompKeyDescriptor do
+          Add(GetFieldFromName('fk_RemoteQuery'));
+        with AddIndex('IRecVer', 0, idAll), KeyDescriptor as TnxCompKeyDescriptor do
+          Add(GetFieldFromName('RecVer'));
+      end;
+      with EnsureRefIntegrityDescriptor(Result) do
+        with AddReference(TnxReferenceDescriptor, TnxTableTargetCursorDescriptor) do begin
+          with TargetCursor as TnxTableTargetCursorDescriptor do
+            TableName := 'RemoteQuery';
+          TargetIndex := 'IID';
+          with AddSource(TnxFieldSourceDescriptor) as TnxFieldSourceDescriptor do
+            FieldNumber := GetFieldFromName('fk_RemoteQuery');
+          AddAction(TnxTargetRequiredActionDescriptor);
+        end;
+      
+      CheckValid(False);
+    end;
+  except
+    FreeAndNil(Result);
+    raise;
+  end;
+end;
+
 
 function __RecDel(aDatabase : TnxDatabase): TnxDataDictionary;
 begin
@@ -3835,37 +3919,14 @@ begin
         AddField('Tab', '', nxtWord16, 5, 0, False);
         AddField('Key', '', nxtNullString, 35, 0, False);
         AddField('RecVer', '', nxtWord32, 0, 0, False);
-        with EnsureIndicesDescriptor do 
+        with EnsureIndicesDescriptor do
           with AddIndex('IRecVer', 0, idAll), KeyDescriptor as TnxCompKeyDescriptor do
             Add(GetFieldFromName('RecVer'));
       end;
       with EnsureIndicesDescriptor do begin
         with AddIndex('IID', 0, idAll), KeyDescriptor as TnxCompKeyDescriptor do
           Add(GetFieldFromName('ID'));
-      end;    
-      CheckValid(False);
-    end;
-  except
-    FreeAndNil(Result);
-    raise;
-  end;
-end;
-
-function __RemoteCtrl(aDatabase : TnxDatabase): TnxDataDictionary;
-begin
-  Result := TnxDataDictionary.Create;
-  try
-    with Result do begin
-      AddRecordDescriptor(TnxBaseRecordDescriptor);
-      with FieldsDescriptor do begin
-        AddField('NumSeq', '', nxtAutoInc, 10, 0, False);
-        with AddField('LastQuery', '', nxtWord32, 0, 0, False) do
-          with AddDefaultValue(TnxConstDefaultValueDescriptor) as TnxConstDefaultValueDescriptor do
-            AsVariant := 0;
       end;
-      with EnsureIndicesDescriptor do
-        with AddIndex('INumSeq', 0, idAll), KeyDescriptor as TnxCompKeyDescriptor do
-          Add(GetFieldFromName('NumSeq'));
       CheckValid(False);
     end;
   except
@@ -3873,7 +3934,6 @@ begin
     raise;
   end;
 end;
-
 
 type
   TnxcgTableInfo = record
@@ -3882,7 +3942,7 @@ type
   end;
 
 const
-  TableInfos : array[0..60] of TnxcgTableInfo =
+  TableInfos : array[0..61] of TnxcgTableInfo =
     ((TableName : 'Aviso'; Callback : __Aviso),
      (TableName : 'Biometria'; Callback : __Biometria),
      (TableName : 'Caixa'; Callback : __Caixa),
@@ -3941,9 +4001,10 @@ const
      (TableName : 'Post'; Callback: __Post),
      (TableName : 'Unidade'; Callback: __Unidade),
      (TableName : 'Especie'; Callback: __Especies),
+     (TableName : 'RemoteQuery'; Callback: __RemoteQuery),
+     (TableName : 'RemoteQueryPost'; Callback: __RemoteQueryPost),
      (TableName : 'PagEspecies'; Callback: __PagEspecies),
-     (TableName : 'RecDel'; Callback: __RecDel),
-     (TableName : 'RemoteCtrl'; Callback: __RemoteCtrl));
+     (TableName : 'RecDel'; Callback: __RecDel));
 
 function TableCount: Integer;
 begin

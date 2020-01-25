@@ -17,21 +17,28 @@ type
   private
     fnxAllRecordsTempTable : TnxTable;
     fnxServerQuery : TnxQuery;
-    fnxUpdateQuery : TnxQuery;
+    fnxQuery : TnxQuery;
     fnxSession1 : TnxSession;
     fnxDatabase1: TnxDatabase;
-    fKbmMemTable1: TkbmMemTable;
+    fKbmMemBlockRecordsTable: TkbmMemTable;
 
     fStartDT : TDatetime;
     fEmail: string;
     fJsonStr : string;
+    fRemoteQueryId,
     fIndentlevel : integer;
+    fFirstRecord,
+    fLastRecord,
     fRecCount: integer;
     fRecords : TStringList;
+    fAllRecordsCount: integer;
+    fAllRecordsTempTableRecordCount: integer;
+
     //    memLogFile : Textfile;
     //    memLogFileName : string;
     fParams : TUploadParams;
     fPostFatalError : boolean;
+    fPostFatalMessage: string;
     fRemoteUploadVersion :integer;
     fServerQuery : string;
     
@@ -45,20 +52,25 @@ type
     fNxSE: TnxBaseServerEngine;
 
     function escape(s: widestring): widestring;
+    //function unescape(s: widestring): widestring;
     function jsonFooter(var indentLevel: integer; jsonString: string): string;
     function jsonHeader(var indentLevel: integer; email: string): string;
     function recordToJson(indentlevel: integer; email:string): string;
     //procedure paramsOnResponse(Sender: TObject; aResponse:boolean; aParams:TParams; aExecTime: int64);
-    procedure postOnResponse(Sender: TObject; aId,
-      aResponseCode: integer; aJsonString: string; aExecTime: int64);
-    function lastRecord: boolean;
+    procedure postOnResponse(Sender: TObject; aId, aResponseCode: integer; aJsonQueryString, aJsonResponseString: string; aExecTime: int64);
+    procedure postOnBeforePost(Sender: TObject; aId: integer; aJsonQueryString: string);
+    function lastBlockRecord: boolean;
     procedure SetServerEngine(se: TnxBaseServerEngine);
-    procedure doUpload;
+    procedure doBlockUpload;
     procedure openDB;
     procedure closeDB;
     function copyTableToMem: boolean;
     procedure createNxDbOjects;
     procedure freeNxDbOjects;
+    function insertRemoteQuery: integer;
+    procedure finishRemoteQuery;
+    procedure updateRemoteQuery;
+    procedure updateRemoteQueryPost(aRemoteQueryId, aFirstRecord, aLastRecord: integer; aRecords, insertedIds: string; aUpload_err: boolean; aUploadErrorString, aJsonSource:string );
     //procedure ZerarUploadVer;
     { Private declarations }
   protected
@@ -77,38 +89,49 @@ type
   { Public declarations }
   end;
 
+const RemoteQueryResult_tablename = 'RemoteQueryResult';
+
 implementation
 
-uses  ncDMserv, strutils, ncUploadConst, ncUploadDelay;
+uses  ncDMserv, strutils, ncUploadConst, ncUploadDelay, DCPbase64;
 
+const RemoteQuery_tablename = 'RemoteQuery';
+const RemoteQueryPost_tablename = 'RemoteQueryPost';
+const upload_ID_fieldname = 'upload_ID';
 const upload_temp_tablename = '<upload_temp>';
-const RemoteCtrlResult_tablename = '<RemoteCtrlResult>';
 
 procedure TncUploadThread.createNxDbOjects;
 begin
-    GLog.Log(self,[lcDebug],'createNxDbOjects start');
+     GLog.Log(self,[lcDebug],'createNxDbOjects start');
+
      fnxSession1 := TnxSession.Create(nil);
      fnxSession1.ServerEngine := fNxSE;
      fnxDatabase1 := TnxDatabase.Create(nil);
      fnxDatabase1.Session := fnxSession1;
+
      fnxAllRecordsTempTable := TnxTable.Create(nil);
+     fnxAllRecordsTempTable.Name := 'fnxAllRecordsTempTable';
      fnxAllRecordsTempTable.Database := fnxDatabase1;
      fnxAllRecordsTempTable.Session := fnxSession1;
+
      fnxServerQuery := TnxQuery.Create(nil);
+     fnxServerQuery.Name := 'fnxServerQuery';
      fnxServerQuery.Database := fnxDatabase1;
      fnxServerQuery.Session := fnxSession1;
-     fnxUpdateQuery := TnxQuery.Create(nil);
-     fnxUpdateQuery.Database := fnxDatabase1;
-     fnxUpdateQuery.Session := fnxSession1;
 
-    GLog.Log(self,[lcDebug],'createNxDbOjects end');
+     fnxQuery := TnxQuery.Create(nil);
+     fnxQuery.Name := 'fnxQuery';
+     fnxQuery.Database := fnxDatabase1;
+     fnxQuery.Session := fnxSession1;
+
+     GLog.Log(self,[lcDebug],'createNxDbOjects end');
 end;
 
 procedure TncUploadThread.freeNxDbOjects;
 begin
     GLog.Log(self,[lcDebug],'freeNxDbOjects start');
     fnxServerQuery.free;
-    fnxUpdateQuery.free;
+    fnxQuery.free;
     fnxSession1.free;
     fnxDatabase1.free;
     fnxAllRecordsTempTable.free;
@@ -124,7 +147,7 @@ begin
 
      fRecords := TStringList.Create;
      createNxDbOjects;
-     fKbmMemTable1 := TKbmMemTable.Create(nil);
+     fKbmMemBlockRecordsTable := TKbmMemTable.Create(nil);
      fParams := TUploadParams.Create;
 
      Priority := tpLower;
@@ -136,7 +159,7 @@ begin
     freeNxDbOjects;
     fRecords.free;
     fParams.Free;
-    fKbmMemTable1.Free;
+    fKbmMemBlockRecordsTable.Free;
     inherited;
 end;
 
@@ -161,52 +184,89 @@ end;
 //  \r  Carriage return
 //  \t  Tab
 //  \"  Double quote
-//  \\  Backslash character               
+//  \\  Backslash character
 //
+//  'u' hex hex hex hex
+
 function TncUploadThread.escape(s:widestring):widestring;
 var
     us: UCS4String;
     i:integer;
     rs : string;
-    isE : boolean;
 begin
 
     rs := '';
     us := WideStringToUCS4String(s);
 
-    //GLog.Log(self,[lcDebug], '>' + s);
-    isE := false;
     for i:=0 to length(us) - 1 do begin
 
-        // if "\"
-        if (us[i] = 92) then begin
-            isE := true;
-            rs := rs + '\';
-        end else
-        if isE then begin
-            isE := false;
-            case us[i] of
-                34, 92, 47, 98, 102, 110, 114, 116 :
-                    rs := rs + char(us[i]);
-            else
-                rs := rs + 'u'+intToHex( us[i], 4);
-            end;
-        end else
+        case us[i] of
+            8 : rs := rs + '\b';
+            10 : rs := rs + '\n';
+            13 : rs := rs + '\r';
+            9 : rs := rs + '\t';
+            34 : rs := rs + '\"';
+            92 : rs := rs + '\\';
+            47 : rs := rs + '\/';
+        else
             if (us[i]>31) and (us[i]<128) then
-                rs := rs + char( us[i])
+                rs := rs + char(us[i])
             else
             if us[i]<>0 then
                 rs := rs + '\u'+intToHex( us[i], 4);
-
+        end;
     end;
 
     //GLog.Log(self,[lcDebug], '=' + rs);
     result := rs;
 end;
 
+//function TncUploadThread.unescape(s:widestring):widestring;
+//var
+//    us: UCS4String;
+//    i:integer;
+//    rs : string;
+//    isE : boolean;
+//begin
+//
+//    rs := '';
+//    us := WideStringToUCS4String(s);
+//
+//    //GLog.Log(self,[lcDebug], '>' + s);
+//    isE := false;
+//    for i:=0 to length(us) - 1 do begin
+//
+//        // if "\"
+//        if (us[i] = 92) then begin
+//            isE := true;
+//            rs := rs + '\';
+//        end else
+//        if isE then begin
+//            isE := false;
+//            case us[i] of
+//                34, 92, 47, 98, 102, 110, 114, 116 :
+//                    rs := rs + char(us[i]);
+//            else
+//                rs := rs + 'u'+intToHex( us[i], 4);
+//            end;
+//        end else
+//            if (us[i]>31) and (us[i]<128) then
+//                rs := rs + char( us[i])
+//            else
+//            if us[i]<>0 then
+//                rs := rs + '\u'+intToHex( us[i], 4);
+//
+//    end;
+//
+//    //GLog.Log(self,[lcDebug], '=' + rs);
+//    result := rs;
+//end;
+
+// MongoDB Extended JSON (v2)
+//
 function TncUploadThread.recordToJson(indentlevel: integer; email:string):string;
 var
-    jsonstr, jsonval : string;
+    jsonstr, jsonval, payload : string;
     fldDef : TFieldDef;
     fd : TFieldDefs;
     fld : TField;
@@ -217,9 +277,16 @@ begin
     fs.DecimalSeparator := '.';
     fs.ThousandSeparator := ',';
 
+    fd := fKbmMemBlockRecordsTable.FieldDefs;
+
     jsonstr := StringOfChar(' ', indentlevel * fIndentStep) + '{' + fNewLine;
-    fd := fKbmMemTable1.FieldDefs;
     jsonstr := jsonstr + StringOfChar(' ', (indentlevel + 1)* fIndentStep) +
+                '"version": ' +  inttostr( fRemoteUploadVersion ) + ',' + fNewLine;
+    jsonstr := jsonstr + StringOfChar(' ', (indentlevel + 1)* fIndentStep) +
+                '"query": ' +  '"' + escape(fServerQuery) + '",' + fNewLine;
+    jsonstr := jsonstr + StringOfChar(' ', (indentlevel + 1)* fIndentStep) +
+                '"data": {' +  fNewLine;
+    jsonstr := jsonstr + StringOfChar(' ', (indentlevel + 2)* fIndentStep) +
                 '"email": ' +  '"' + escape( email) + '",' + fNewLine;
 
     // Iterates fields
@@ -227,7 +294,7 @@ begin
 
         jsonval := '';
         fldDef := fd.Items[i];
-        fld := fKbmMemTable1.FieldByName(fldDef.Name);
+        fld := fKbmMemBlockRecordsTable.FieldByName(fldDef.Name);
 
         if fld.IsNull = false then begin
 
@@ -279,9 +346,13 @@ begin
                 ftParadoxOle, ftDBaseOle, ftTypedBinary, ftCursor,
                 ftADT, ftArray, ftReference, ftDataSet, ftOraBlob, ftOraClob,
                 ftVariant, ftInterface, ftIDispatch, ftFMTBcd,
-                ftOraTimeStamp, ftOraInterval:
+                ftOraTimeStamp, ftOraInterval: begin
 
-                        jsonval :='"IMPLEMENTAR '+FieldTypeNames[fldDef.DataType]+'"';
+                         //jsonval :='"IMPLEMENTAR '+FieldTypeNames[fldDef.DataType]+'"';
+                         payload := DCPbase64.Base64EncodeStr( fld.AsString );
+                         jsonval :=
+                            '{ "$binary": { "base64": "' +payload+ '", "subType": "05" }}';
+                end;
 
            end;
 
@@ -291,7 +362,7 @@ begin
 
         end;
 
-        jsonstr := jsonstr + StringOfChar(' ', (indentlevel + 1)* fIndentStep) + '"' + fldDef.Name +'": '+jsonval;
+        jsonstr := jsonstr + StringOfChar(' ', (indentlevel + 2)* fIndentStep) + '"' + fldDef.Name +'": '+jsonval;
 
         if i < fd.Count - 1 then
             jsonstr := jsonstr + ',';
@@ -299,6 +370,7 @@ begin
         jsonstr := jsonstr + fNewLine;
     end;
 
+    jsonstr := jsonstr + StringOfChar(' ', (indentlevel + 1) * fIndentStep) + '}'+fNewLine;
     jsonstr := jsonstr + StringOfChar(' ', indentlevel * fIndentStep) + '}';
     recordToJson := jsonstr;
 
@@ -336,11 +408,11 @@ begin
     Result := i1 - i2
 end;
 
-function TncUploadThread.lastRecord:boolean;
+function TncUploadThread.lastBlockRecord:boolean;
 var
      mr : integer;
 begin
-    if fKbmMemTable1.eof then begin
+    if fKbmMemBlockRecordsTable.eof then begin
         result := true;
         exit;
     end;
@@ -353,9 +425,9 @@ end;
 
 //procedure TUpload.ZerarUploadVer;
 //begin
-//      fnxUpdateQuery.SQL.Text := 'update produto set uploadVer=0';
+//      fnxQuery.SQL.Text := 'update produto set uploadVer=0';
 //      try
-//          fnxUpdateQuery.ExecSQL;
+//          fnxQuery.ExecSQL;
 //      except
 //          on e:Exception do
 //              GLog.Log(self,[lcExcept], e.Message);
@@ -436,11 +508,14 @@ begin
         fRecordsByRequest := fParams.RecordsByRequest;
         fRemoteUploadVersion := fParams.Version;
         fServerQuery := fParams.Query;
+        fFirstRecord := 0;
+        fLastRecord := 0;
 
+        // if fParams.IniDelayM>0 then
+        //     delay(self, fParams.IniDelayM, 0.5, 'delay inicial');
 
-
-//        if fParams.IniDelayM>0 then
-//            delay(self, fParams.IniDelayM, 0.5, 'delay inicial');
+       if not copyTableToMem then exit;
+       fRemoteQueryId := insertRemoteQuery;
 
         while (not Terminated) do begin
 
@@ -453,7 +528,7 @@ begin
             while (not Terminated) do begin
 
                  if fParams.Active then
-                     doUpload;
+                     doBlockUpload;
 
                  if not fPostFatalError then begin
 
@@ -462,6 +537,8 @@ begin
                      break;
                  end;
             end;
+
+            finishRemoteQuery;
 
             GLog.Log(self,[lcDebug],'init Params: '+fParams.asString);
             getParams := TGetUploadParams.Create;
@@ -478,6 +555,7 @@ begin
 
         end;
 
+
     finally
         GLog.Log(self,[lcDebug],'UpLoad Thread end');
     end;
@@ -486,119 +564,134 @@ end;
 
 function TncUploadThread.copyTableToMem: boolean;
 
-    procedure createRemoteCtrlResult;
+    procedure createRemoteQueryResult;
     var
         Dict : TnxDataDictionary;
-        nxQuery1 : TnxQuery;
         i: integer;
     begin
-        GLog.Log(self,[lcDebug],'createRemoteCtrlResult start');
+        GLog.Log(self,[lcDebug],'createRemoteQueryResult start');
 
-        fnxAllRecordsTempTable.TableName := RemoteCtrlResult_tablename;
+        if fnxDatabase1.TableExists( upload_temp_tablename ,'')  then
+             fnxDatabase1.DeleteTable( upload_temp_tablename ,'');
+        if fnxDatabase1.TableExists( RemoteQueryResult_tablename ,'')  then
+             fnxDatabase1.DeleteTable( RemoteQueryResult_tablename ,'');
 
-
+        // create fnxAllRecordsTempTable from fnxServerQuery Dictionary
         fnxServerQuery.Open;
-        GLog.Log(self,[lcDebug],'fnxServerQuery recordcount '+inttostr(fnxServerQuery.RecordCount));
-        fnxServerQuery.First;
-
-        fnxDatabase1.CreateTable(true, upload_temp_tablename , '', fnxServerQuery._Dictionary,  tsTempGlobal);
-
-
-        Dict := TnxDataDictionary.Create;
         try
-            nxCheck(fnxDatabase1.GetDataDictionaryEx( upload_temp_tablename , '', Dict));
-            with Dict.FieldsDescriptor do begin
+            GLog.Log(self,[lcDebug],'fnxServerQuery recordcount '+inttostr(fnxServerQuery.RecordCount));
+            fnxServerQuery.First;
 
-                AddField('upload_ID', '', nxtAutoInc, 10, 0, False);
+            fnxDatabase1.CreateTable(true, upload_temp_tablename , '', fnxServerQuery._Dictionary,  tsTempGlobal);
 
-                with AddField('upload_done', '', nxtByte, 1, 0, False) do
-                  with AddDefaultValue(TnxConstDefaultValueDescriptor) as TnxConstDefaultValueDescriptor do
-                    AsVariant := 0;
+
+            Dict := TnxDataDictionary.Create;
+            try
+                nxCheck(fnxDatabase1.GetDataDictionaryEx( upload_temp_tablename , '', Dict));
+
+                with Dict.FieldsDescriptor do
+                    AddField( upload_ID_fieldname , '', nxtAutoInc, 10, 0, False);
+
+
+                with Dict.EnsureIndicesDescriptor do begin
+
+                    with AddIndex('IID', 0, idAll), KeyDescriptor as TnxCompKeyDescriptor do
+                      Add(Dict.GetFieldFromName('ID'));
+
+                    with AddIndex('Iupload_ID', 0, idAll), KeyDescriptor as TnxCompKeyDescriptor do
+                        Add(Dict.GetFieldFromName( upload_ID_fieldname ));
+
+                    with AddIndex('IuploadVer', 0, idAll), KeyDescriptor as TnxCompKeyDescriptor do
+                        Add(Dict.GetFieldFromName( 'uploadVer' ));
+
+                end;
+
+                fnxDatabase1.CreateTable(true, RemoteQueryResult_tablename , '', Dict,  tsPersistent);
+
+            finally
+                Dict.Free;
+            end;
+            fnxDatabase1.DeleteTable( upload_temp_tablename ,'');
+
+
+            // copy values from fnxServerQuery to fnxAllRecordsTempTable
+
+            fAllRecordsCount := 0;
+            fAllRecordsTempTableRecordCount := 0;
+
+            try
+                fnxAllRecordsTempTable.Open;
+                try
+
+                    while not fnxServerQuery.Eof do begin
+
+                        fnxAllRecordsTempTable.Insert;
+                        for i:=0 to fnxServerQuery.FieldCount-1 do begin
+
+                            if fnxServerQuery.FieldList[i].isNull then continue;
+                            if fnxServerQuery.FieldList[i].isBlob then
+                                fnxAllRecordsTempTable.FieldList[i].AsString := fnxServerQuery.FieldList[i].AsString
+                            else
+                                fnxAllRecordsTempTable.FieldList[i].Value :=  fnxServerQuery.FieldList[i].Value;
+                        end;
+
+                        fnxAllRecordsTempTable.Post;
+                        fnxServerQuery.Next;
+                    end;
+
+                    fAllRecordsTempTableRecordCount := fnxAllRecordsTempTable.RecordCount;
+                    GLog.Log(self,[lcDebug],'fnxAllRecordsTempTable recordcount '+inttostr(fnxAllRecordsTempTable.RecordCount));
+
+                finally
+                    fnxAllRecordsTempTable.Close;
+                end;
+
+            except
+                on e:exception do begin
+                    GLog.Log(self,[lcExcept],'fnxAllRecordsTempTable.Open '+e.Message);
+                end;
 
             end;
-            with Dict.EnsureIndicesDescriptor do begin
-
-                with AddIndex('upload_IID', 0, idAll), KeyDescriptor as TnxCompKeyDescriptor do
-                    Add(Dict.GetFieldFromName('upload_ID'));
-
-                with AddIndex('IuploadDone', 0, idAll), KeyDescriptor as TnxCompKeyDescriptor do
-                    Add(Dict.GetFieldFromName('upload_done'));
-
-            end;
-
-            //RestructureTable( fnxDatabase1, RemoteCtrlResult_tablename, '', Dict, nil, CancelTask);
-            fnxDatabase1.CreateTable(true, RemoteCtrlResult_tablename , '', Dict,  tsTempGlobal);
-
         finally
-            Dict.Free;
+            fnxServerQuery.Close;
         end;
 
-        fnxAllRecordsTempTable.Open;
-        GLog.Log(self,[lcDebug],'fnxAllRecordsTempTable recordcount '+inttostr(fnxAllRecordsTempTable.RecordCount));
-        //fnxAllRecordsTempTable.CopyRecordsEx(fnxServerQuery, true, 0, true);
-
-        while not fnxServerQuery.Eof do begin
-            fnxAllRecordsTempTable.Insert;
-            for i:=0 to fnxServerQuery.FieldCount-1 do begin
-
-                if fnxServerQuery.FieldList[i].isNull then continue;
-                if fnxServerQuery.FieldList[i].isBlob then
-                    fnxAllRecordsTempTable.FieldList[i].AsString := fnxServerQuery.FieldList[i].AsString
-                else
-                    fnxAllRecordsTempTable.FieldList[i].Value :=  fnxServerQuery.FieldList[i].Value;
-
-            end;
-            if (i mod 100)=0 then
-               GLog.Log(self,[lcDebug],'fnxAllRecordsTempTable recordcount '+inttostr(fnxAllRecordsTempTable.RecordCount));
-
-            fnxAllRecordsTempTable.Post;
-            fnxServerQuery.Next;
-        end;
-        fnxServerQuery.Close;
-        fnxAllRecordsTempTable.First;
-
-        fnxDatabase1.DeleteTable( upload_temp_tablename ,'');
-
-        GLog.Log(self,[lcDebug],'fnxAllRecordsTempTable recordcount '+inttostr(fnxAllRecordsTempTable.RecordCount));
-        GLog.Log(self,[lcDebug],'createRemoteCtrlResult end');
+        GLog.Log(self,[lcDebug],'createRemoteQueryResult end');
 
    end;
-
-   procedure openQuery;
-    begin
-        GLog.Log(self,[lcDebug],'openQuery start');
-
-        if not fnxDatabase1.TableExists( RemoteCtrlResult_tablename ,'')  then
-                createRemoteCtrlResult;
-
-        fnxAllRecordsTempTable.Open;
-        fnxAllRecordsTempTable.First;
-
-        fKbmMemTable1.EmptyTable;
-        fKbmMemTable1.CreateTableAs(fnxAllRecordsTempTable,[mtcpoStructure,mtcpoProperties]);
-        fKbmMemTable1.Open;
-        fKbmMemTable1.LoadFromDataSet(fnxServerQuery,[]);
-        fKbmMemTable1.First;
-        fnxServerQuery.Close;
-        result := true;
-        GLog.Log(self,[lcDebug],'openQuery end');
-    end;
 
 begin
 
     GLog.Log(self,[lcDebug],'copyTableToMem start');
-    result := false;
 
-    fnxServerQuery.SQL.Text := stringReplace(fServerQuery,'\"','"',[rfReplaceAll]);
-
-    //fnxServerQuery.TableName := 'Produto';
-    //fnxServerQuery.IndexName := 'IuploadVersion';
-    // fnxServerQuery.Filter := 'ID=1704 or ID=3137';
-    fnxAllRecordsTempTable.Filter := 'upload_done<'+inttostr(fRemoteUploadVersion);
-    fnxAllRecordsTempTable.FilterType := ftSqlWhere;
-    fnxAllRecordsTempTable.Filtered := true;
     try
-        openQuery;
+
+        fnxServerQuery.SQL.Text := stringReplace(fServerQuery,'\"','"',[rfReplaceAll]);
+
+        fnxAllRecordsTempTable.TableName := RemoteQueryResult_tablename;
+        fnxAllRecordsTempTable.IndexName := 'IuploadVer';
+        fnxAllRecordsTempTable.Filter := 'uploadVer<'+inttostr(fRemoteUploadVersion);
+        fnxAllRecordsTempTable.FilterType := ftSqlWhere;
+        fnxAllRecordsTempTable.Filtered := false;
+
+        createRemoteQueryResult;
+
+        fnxAllRecordsTempTable.Open;
+        try
+            fnxAllRecordsTempTable.Filtered := true;
+            fnxAllRecordsTempTable.First;
+
+            fKbmMemBlockRecordsTable.EmptyTable;
+            fKbmMemBlockRecordsTable.CreateTableAs(fnxAllRecordsTempTable,[mtcpoStructure,mtcpoProperties]);
+            fKbmMemBlockRecordsTable.Open;
+            fKbmMemBlockRecordsTable.LoadFromDataSet(fnxAllRecordsTempTable,[]);
+            fKbmMemBlockRecordsTable.First;
+            result := true;
+            GLog.Log(self,[lcDebug],'fKbmMemTable1 recordCount '+inttostr(fKbmMemBlockRecordsTable.recordCount));
+       finally
+            fnxAllRecordsTempTable.Close;
+        end;
+
     except
        on e: EnxDatabaseError do begin
             GLog.Log(self,[lcDebug],'open table exception class: '+e.ClassName);
@@ -607,15 +700,14 @@ begin
             freeNxDbOjects;
             createNxDbOjects;
 
-            openDB;
-            openQuery;
+            result := false;
        end;
     end;
 
     GLog.Log(self,[lcDebug],'copyTableToMem end');
 end;
 
-procedure TncUploadThread.doUpload;
+procedure TncUploadThread.doBlockUpload;
 var
     Post : TncUploadPost;
     RecordsInRequest, PostId : integer;
@@ -628,37 +720,52 @@ begin
         PostId := 0;
 
         try
-            if not copyTableToMem then exit;
 
             fStartDT := now;
-            while not lastRecord do begin
+
+
+
+            while not lastBlockRecord do begin
 
 
                 fJsonStr := jsonHeader(fIndentlevel, fEmail);
+
                 while RecordsInRequest < fRecordsByRequest do begin
 
-                    if lastRecord then break;
+                    if lastBlockRecord then break;
 
                     fJsonStr := fJsonStr + recordToJson(fIndentlevel, fEmail);
                     fJsonStr := fJsonStr + ',' + fNewLine;
 
-                    //GLog.Log(self,[lcDebug],'id: '+nxTable1.FieldByName('ID').AsString);
-                    fRecords.Add(fKbmMemTable1.FieldByName('upload_IID').AsString);
-                    fKbmMemTable1.Next;
+                    //GLog.Log(self,[lcDebug],'id: '+fKbmMemTable1.FieldByName('ID').AsString);
+                    //fRecords.Add( fKbmMemTable1.FieldByName( 'ID' ).AsString);
+                    fRecords.Add( fKbmMemBlockRecordsTable.FieldByName( upload_ID_fieldname ).AsString);
 
+                    fKbmMemBlockRecordsTable.Next;
+
+                    fAllRecordsCount := fAllRecordsCount + 1;
                     RecordsInRequest := RecordsInRequest + 1;
                     fRecCount := fRecCount + 1;
                 end;
 
+                if fRecords.Count>0 then begin
+                    fFirstRecord := strtoint(fRecords[0]);
+                    fLastRecord := strtoint(fRecords[fRecords.Count-1]);
+                end else begin
+                    fFirstRecord := 0;
+                    fLastRecord := 0;
+                end;
+                GLog.Log(self,[lcDebug],'fLastRecord: '+inttostr(fLastRecord));
+
                 fJsonStr := copy(fJsonStr, 1, length(fJsonStr)-length(fNewLine)-1);
                 fJsonStr := jsonFooter(fIndentlevel, fJsonStr);
 
-                //GLog.Log(self,[lcDebug],'fJsonStr: '+fJsonStr);
 
                 PostId := PostId + 1;
                 fPostFatalError := false;
                 post := TncUploadPost.Create(PostId);
                 post.PaylodSecret := fPaylodSecret;
+                post.OnBeforePost:= postOnBeforePost;
                 post.OnResponse := postOnResponse;
                 try
                     post.JsonString := fJsonStr;
@@ -667,6 +774,7 @@ begin
                 finally
                     post.Free;
                 end;
+
                 RecordsInRequest := 0;
                 fRecords.Clear;
 
@@ -674,11 +782,11 @@ begin
                 GLog.ForceLogWrite;
 
                 if fPostFatalError then begin
-                    GLog.Log(self,[lcDebug],'Fatal Error in Server Response.');
+                    GLog.Log(self,[lcDebug],'Fatal Error in Server Response: '+ fPostFatalMessage);
                     exit;
                 end;
 
-                if lastRecord then break;
+                if lastBlockRecord then break;
 
                 delay(self, fParams.InterBlockDelayM , 0.5, 'inter block delay');
 
@@ -688,12 +796,13 @@ begin
             GLog.Log(self,[lcDebug],'Rec Count: '+inttostr(fRecCount));
 
             //  closeFile(memLogFile);
-            
+
         except
             on e:exception do begin
                  GLog.Log(self,[lcExcept], e.Message);
             end;
         end;
+
 
         GLog.Log(self,[lcDebug],'UpLoad Thread doUpload end');
 
@@ -706,73 +815,270 @@ end;
 //    GLog.Log(self,[lcDebug],'paramsOnResponse: '+ boolToStr(aResponse, true) );
 //end;
 
-procedure TncUploadThread.postOnResponse(Sender: TObject; aId:integer; aResponseCode:integer; aJsonString: string; aExecTime: int64);
+procedure TncUploadThread.postOnBeforePost(Sender: TObject; aId: integer; aJsonQueryString: string);
+begin
+
+end;
+
+
+procedure TncUploadThread.postOnResponse(Sender: TObject; aId:integer; aResponseCode:integer; aJsonQueryString, aJsonResponseString: string; aExecTime: int64);
 var
     r1 : TJsonObject;
     insertedIds : TJsonArray;
     sdt : String;
+
 begin
 
-    aJsonString := stringReplace(aJsonString,'\"','"',[rfReplaceAll]);
-    //aJsonString := copy(aJsonString, 2, length(aJsonString)-2);
-
-    GLog.Log(self,[lcDebug],'postResponse  id:'+ inttostr(aId) + ' '+ aJsonString );
-
+    aJsonResponseString := stringReplace(aJsonResponseString,'\"','"',[rfReplaceAll]);
     sdt := formatdatetime('hh:mm:ss',fStartDT-now);
+
+    if aResponseCode = 200 then begin
+        r1 := TJsonObject.create(aJsonResponseString);
+        try
+            if r1.has('Error') then begin
+
+                if r1.getBoolean('Error')=true then begin
+
+                    fPostFatalError := true;
+                     if r1.has('ErrMsg') then begin
+                        fPostFatalMessage := r1.getString('ErrMsg');
+                        fPostFatalMessage := stringReplace( fPostFatalMessage ,'"', '''''', [rfReplaceAll]);
+                    end else begin
+                        fPostFatalMessage := '';
+                    end;
+                end;
+                updateRemoteQueryPost(fRemoteQueryId, fFirstRecord, fLastRecord, '', '', true, fPostFatalMessage,  aJsonQueryString );
+
+            end;
+            if r1.has('insertedIds') then begin
+                insertedIds := r1.getJSONArray('insertedIds');
+                updateRemoteQueryPost(fRemoteQueryId, fFirstRecord, fLastRecord, fRecords.Text, insertedIds.toString, false, '', ''  );
+             end;
+
+        finally
+            r1.Free;
+        end;
+
+    end else
+        updateRemoteQueryPost(fRemoteQueryId, fFirstRecord, fLastRecord, fRecords.Text, '', true, inttostr(aResponseCode), aJsonQueryString  );
 
     if aResponseCode = 200 then begin
 
         try
-            r1 := TJsonObject.create(aJsonString);
-            if r1.has('Error') then begin
+            r1 := TJsonObject.create(aJsonResponseString);
+            try
+                if r1.has('Error') then begin
 
-                if r1.getBoolean('Error')=true then begin
-                    fPostFatalError := true;
-                     if r1.has('ErrorMsg') then
-                        GLog.Log(self,[lcDebug],'postResponse  id:'+ inttostr(aId) + ' server error: '+r1.getString('ErrorDesc') )
-                    else
-                        GLog.Log(self,[lcDebug],'postResponse  id:'+ inttostr(aId) + ' server error / resposta: '+aJsonString );
-                    exit;
+                    if r1.getBoolean('Error')=true then begin
+                        fPostFatalError := true;
+                         if r1.has('ErrMsg') then begin
+                            fPostFatalMessage := r1.getString('ErrMsg');
+                            //emsg := stringReplace( emsg ,'''', '''''', [rfReplaceAll]);
+                            fPostFatalMessage := stringReplace( fPostFatalMessage ,'"', '''''', [rfReplaceAll]);
+                            GLog.Log(self,[lcDebug],'postResponse 1 id:'+ inttostr(aId) + ' server error: ' + fPostFatalMessage );
+                            //GLog.Log(self,[lcDebug],'postResponse 1 aJsonQueryString: ' + aJsonQueryString );
+
+
+                        end else begin
+                            fPostFatalMessage := 'N/A';
+                            GLog.Log(self,[lcDebug],'postResponse 2 id:'+ inttostr(aId) + ' server error / resposta: '+aJsonResponseString );
+                        end;
+
+                        //fnxQuery.SQL.Text :=  '#T 0 update "' + RemoteQueryResult_tablename + '"'+
+                        fnxQuery.SQL.Text :=  'update "' + RemoteQueryResult_tablename + '"'+
+                            ' set uploadVer:uploadVer ' +
+    //                        '     upload_error=true,' +
+    //                        '     upload_errormsg=:upload_errormsg,' +
+    //                        '     upload_jsonsource=:upload_jsonsource' +
+                            ' where upload_ID' +
+                            ' in ('+fRecords.CommaText+')';
+                        fnxQuery.ParamByName('uploadVer').AsInteger := fRemoteUploadVersion;
+    //                    fnxQuery.ParamByName('upload_errormsg').AsString := fPostFatalMessage;
+    //                    fnxQuery.ParamByName('upload_jsonsource').AsString := aJsonQueryString;
+                        GLog.Log(self,[lcDebug], 'UpdateQuery 2 sql ' + fnxQuery.SQL.Text );
+
+                        try
+                            fnxQuery.ExecSQL;
+                            GLog.Log(self,[lcDebug], 'UpdateQuery 2 RowsAffected ' + inttostr( fnxQuery.RowsAffected ));
+                        except
+                            on e:Exception do
+                                GLog.Log(self,[lcExcept], 'UpdateQuery 2 ' + e.Message);
+                        end;
+
+                        exit;
+                    end;
                 end;
-                // GLog.Log(self,[lcDebug],'postResponse  id:'+ inttostr(aId) + ' error / resposta: '+aJsonString );
+
+                if r1.has('insertedIds') then begin
+                    insertedIds := r1.getJSONArray('insertedIds');
+                    GLog.Log(self,[lcDebug],'postResponse 5 id:'+ inttostr(aId) + ' '+ inttostr(aResponseCode)+ ' '+ inttostr(insertedIds.length) );
+
+                    //fnxQuery.SQL.Text := 'update produto set uploadVer='+inttostr(fRemoteUploadVersion)+' where id in ('+fRecords.CommaText+')';
+                    fnxQuery.SQL.Text :=  '#T 0 update "' + RemoteQueryResult_tablename + '"'+
+                                                ' set uploadVer=:uploadVer' +
+                                                ' where upload_ID' +
+                                                ' in ('+fRecords.CommaText+')';
+                    fnxQuery.ParamByName('uploadVer').AsInteger := fRemoteUploadVersion;
+                    GLog.Log(self,[lcDebug], 'UpdateRemoteQueryResult 1 sql ' + fnxQuery.SQL.Text );
+                    try
+                        fnxQuery.ExecSQL;
+                        GLog.Log(self,[lcDebug], 'UpdateRemoteQueryResult 1 RowsAffected ' + inttostr( fnxQuery.RowsAffected ));
+                    except
+                        on e:Exception do
+                            GLog.Log(self,[lcExcept], 'UpdateRemoteQueryResult 1 ' + e.Message);
+                    end;
+
+
+                end else
+                    GLog.Log(self,[lcDebug],'postResponse 6 id:'+ inttostr(aId) + ' '+ inttostr(aResponseCode)+ ' '+ inttostr(length(aJsonResponseString)) + #13#10 + aJsonResponseString );
+
+            finally
+                r1.Free;
             end;
-
-            if r1.has('insertedIds') then begin
-                insertedIds := r1.getJSONArray('insertedIds');
-                //writeln ( memLogFile, sdt +'; '+ inttostr(aId) + '; ', inttostr(aResponseCode) + '; '+ inttostr(aExecTime) + '; ' + inttostr(insertedIds.length));
-                GLog.Log(self,[lcDebug],'postResponse  id:'+ inttostr(aId) + ' '+ inttostr(aResponseCode)+ ' '+ inttostr(insertedIds.length) );
-
-                //fnxUpdateQuery.SQL.Text := 'update produto set uploadVer='+inttostr(fRemoteUploadVersion)+' where id in ('+fRecords.CommaText+')';
-                fnxUpdateQuery.SQL.Text := 'update "' + RemoteCtrlResult_tablename + '" set upload_done ='+inttostr(fRemoteUploadVersion)+' where upload_IID in ('+fRecords.CommaText+')';
-                try
-                    fnxUpdateQuery.ExecSQL;
-                except
-                    on e:Exception do
-                        GLog.Log(self,[lcExcept], e.Message);
-                end;
-                //GLog.Log(self,[lcDebug],'fRecords: '+fRecords.CommaText);
-
-
-            end else begin
-                //writeln ( memLogFile, sdt +'; ' + inttostr(aId) + '; ', inttostr(aResponseCode) + '; '+ inttostr(aExecTime) + '; 0');
-                GLog.Log(self,[lcDebug],'postResponse  id:'+ inttostr(aId) + ' '+ inttostr(aResponseCode)+ ' '+ inttostr(length(aJsonString)) + #13#10 + aJsonString );
-            end;
-
 
         except
-            on e:exception do
-               GLog.Log(self,[lcExcept],'postResponse  id:'+ inttostr(aId) + ' error: '+e.Message + ' resposta: '+aJsonString );
+            on e:exception do begin
+                GLog.Log(self,[lcExcept],'postResponse 7 id:'+ inttostr(aId) + ' error: '+e.Message + ' resposta: '+aJsonResponseString );
 
+                fnxQuery.SQL.Text :=  '#T 0 update "' + RemoteQueryResult_tablename + '"'+
+                                            ' set uploadVer=:uploadVer,' +
+//                                            '     upload_error=true,' +
+//                                            '     upload_errormsg=:upload_errormsg,' +
+//                                            '     upload_jsonsource=:upload_jsonsource' +
+                                            ' where upload_ID' +
+                                            ' in ('+fRecords.CommaText+')';
+                fnxQuery.ParamByName('uploadVer').AsInteger := fRemoteUploadVersion;
+//                fnxQuery.ParamByName('upload_errormsg').AsString := e.Message;
+//                fnxQuery.ParamByName('upload_jsonsource').AsString := aJsonQueryString;
+                try
+                    fnxQuery.ExecSQL;
+                except
+                    on e:Exception do
+                        GLog.Log(self,[lcExcept], 'UpdateQuery 3 ' + e.Message);
+                end;
+
+
+            end;
         end;
 
 
 
     end else begin
         //writeln ( memLogFile, sdt +'; ' + inttostr(aId) + '; ', inttostr(aResponseCode) + '; 0; 0');
-        GLog.Log(self,[lcDebug],'postResponse  id:'+ inttostr(aId) + ' '+ inttostr(aResponseCode)+ ' '+ inttostr(length(aJsonString)) + #13#10 + aJsonString );
+        GLog.Log(self,[lcDebug],'postResponse 8 id:'+ inttostr(aId) + ' '+ inttostr(aResponseCode)+ ' '+ inttostr(length(aJsonResponseString)) + #13#10 + aJsonResponseString );
     end;
 
+    updateRemoteQuery;
+
     GLog.ForceLogWrite;
+
+end;
+
+function TncUploadThread.insertRemoteQuery: integer;
+begin
+      result := -1;
+
+      fnxQuery.SQL.Text :=  'insert into "' + RemoteQuery_tablename + '"'+
+          ' (datahora, ServerQuery) VALUES (:datahora, :ServerQuery)';
+      fnxQuery.ParamByName('datahora').AsDateTime := now;
+      fnxQuery.ParamByName('ServerQuery').AsString := fServerQuery;
+
+      GLog.Log(self,[lcDebug], 'insertRemoteQuery -> ' + fnxQuery.SQL.Text );
+
+      try
+          fnxQuery.ExecSql;
+
+          fnxQuery.SQL.Text :=  'select max("ID") from "' + RemoteQuery_tablename + '"';
+          fnxQuery.Open;
+
+          result := fnxQuery.Fields[0].AsInteger;
+          GLog.Log(self,[lcDebug], 'insert into RemoteQuery 1d: ' + inttostr( result ));
+          fnxQuery.Close;
+      except
+          on e:Exception do
+              GLog.Log(self,[lcExcept], 'insertRemoteQuery ' + e.Message);
+      end;
+
+end;
+
+procedure TncUploadThread.updateRemoteQuery;
+begin
+
+      fnxQuery.SQL.Text :=  'update "' + RemoteQuery_tablename + '"'+
+          ' set lastRecord=:lastRecord '+
+          ' where ID=:id';
+      fnxQuery.ParamByName('lastRecord').AsInteger := fLastRecord;
+      fnxQuery.ParamByName('id').AsInteger := fRemoteQueryId;
+
+      GLog.Log(self,[lcDebug], 'updateRemoteQuery -> ' + fnxQuery.SQL.Text + ' id: ' + inttostr(fRemoteQueryId));
+
+      try
+          fnxQuery.ExecSql;
+      except
+          on e:Exception do
+              GLog.Log(self,[lcExcept], 'updateRemoteQuery ' + e.Message);
+      end;
+
+end;
+
+procedure TncUploadThread.updateRemoteQueryPost(aRemoteQueryId, aFirstRecord,
+  aLastRecord: integer; aRecords, insertedIds: string; aUpload_err: boolean;
+  aUploadErrorString, aJsonSource: string);
+begin
+
+
+      fnxQuery.SQL.Text :=  'insert into "' + RemoteQueryPost_tablename + '"'+
+          ' (dataHora, fk_RemoteQuery, firstRecord, lastRecord, Records, InsertedIds, upload_error, upload_errormsg, upload_jsonsource) VALUES '+
+          ' (:datahora, :aRemoteQueryId, :aFirstRecord, :aLastRecord, :aRecords, :insertedIds, :aUpload_err, :aUploadErrorString, :aJsonSource )';
+
+      fnxQuery.ParamByName('datahora').AsDateTime := now;
+      fnxQuery.ParamByName('aRemoteQueryId').AsInteger := aRemoteQueryId;
+      fnxQuery.ParamByName('aFirstRecord').AsInteger := aFirstRecord;
+      fnxQuery.ParamByName('aLastRecord').AsInteger := aLastRecord;
+      fnxQuery.ParamByName('aRecords').AsString := aRecords;
+      fnxQuery.ParamByName('insertedIds').AsString := insertedIds;
+      fnxQuery.ParamByName('aUpload_err').AsBoolean := aUpload_err;
+      fnxQuery.ParamByName('aUploadErrorString').AsString := aUploadErrorString;
+      fnxQuery.ParamByName('aJsonSource').AsString := aUploadErrorString;
+
+      GLog.Log(self,[lcDebug], 'updateRemoteQueryPost -> ' + fnxQuery.SQL.Text );
+
+      try
+          fnxQuery.ExecSql;
+      except
+          on e:Exception do
+              GLog.Log(self,[lcExcept], 'updateRemoteQueryPost ' + e.Message);
+      end;
+
+
+end;
+
+procedure TncUploadThread.finishRemoteQuery;
+var
+     uploadVer: integer;
+begin
+
+      fnxQuery.SQL.Text :=  'update "' + RemoteQuery_tablename + '"'+
+          ' set lastRecord=:lastRecord, uploadVer=:uploadVer '+
+          ' where ID=:id';
+      fnxQuery.ParamByName('lastRecord').AsInteger := fLastRecord;
+
+      if fAllRecordsCount = fAllRecordsTempTableRecordCount then
+            uploadVer := fRemoteUploadVersion
+      else
+            uploadVer := 0;
+
+      fnxQuery.ParamByName('uploadVer').AsInteger := uploadVer;
+      fnxQuery.ParamByName('id').AsInteger := fRemoteQueryId;
+
+      GLog.Log(self,[lcDebug], 'finishRemoteQuery -> ' + fnxQuery.SQL.Text );
+
+      try
+          fnxQuery.ExecSql;
+      except
+          on e:Exception do
+              GLog.Log(self,[lcExcept], 'finishRemoteQuery ' + e.Message);
+      end;
 
 end;
 

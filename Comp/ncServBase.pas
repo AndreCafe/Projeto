@@ -1489,6 +1489,9 @@ begin
       aDB.Timeout := 30000;
       DebugMsg('CriaServidorBD 7');
 
+      if aDB.TableExists(  RemoteQueryResult_tablename ,'')  then
+             aDB.DeleteTable( RemoteQueryResult_tablename ,'');
+
       try
         OpenProgressForm;
         ProgTables.Clear;
@@ -1534,6 +1537,7 @@ begin
       DebugMsg('CriaServidorBD 7.4');
 
       CorrigeAutoInc;
+      DebugMsg('CriaServidorBD 7.4.1');
       StartRecVer;
 
       DebugMsg('CriaServidorBD 7.5');

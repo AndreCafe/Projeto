@@ -11,7 +11,8 @@ uses
 
  type
 
-   TResponseEvent   = procedure(Sender: TObject; aId:integer; aResponseCode:integer; aJsonString: string; aExecTime: int64) of object;
+   TResponseEvent     = procedure(Sender: TObject; aId:integer; aResponseCode:integer; aJsonQueryString, aJsonResponseString: string; aExecTime: int64) of object;
+   TBeforePostEvent   = procedure(Sender: TObject; aId:integer; aJsonQueryString: string) of object;
 
    TncUploadPost = class(TObject)
     private
@@ -20,8 +21,10 @@ uses
       fId : integer;
       fRecords : string;
       fPaylodSecret: string;
-      fJsonString : string;
+      fJsonQueryString : string;
+      fJsonResponseString : string;
       fOnResponse   : TResponseEvent;
+      fOnBeforePost   : TBeforePostEvent;
       fExecTime: int64;
       IdHTTP1: TIdHTTP;
       IdSSLIOHandlerSocket1: TIdSSLIOHandlerSocket;
@@ -30,15 +33,17 @@ uses
         var VMethod: TIdHTTPMethod);
     protected
       procedure doResponse;
+      procedure doBeforePost;
    public
       property ExecTime: int64 read fExecTime;
       property Finished: boolean read fFinished;
       property ID: integer read fID;
-      property JsonString: string read fJsonString write  fJsonString;
+      property JsonString: string read fJsonQueryString write  fJsonQueryString;
       property PaylodSecret: string read fPaylodSecret write  fPaylodSecret;
       property Records: string read fRecords write fRecords;
       property ResponseCode: integer read fResponseCode;
       property OnResponse : TResponseEvent read fOnResponse write fOnResponse;
+      property OnBeforePost : TBeforePostEvent read fOnBeforePost write fOnBeforePost;
       procedure Run;
       constructor Create(id:integer);
       destructor Destroy; override;
@@ -74,12 +79,21 @@ var
     responseQueryDT : TDateTime;
     upStream: TStringStream;
 begin
-    inherited;
+     inherited;
 
-    //GLog.Log(self,[lcDebug],'TncUploadPost Run init '+ inttostr(fid));
+     //GLog.Log(self,[lcDebug],'TncUploadPost Run init '+ inttostr(fid));
 
-    startQueryDT := now;
+     startQueryDT := now;
 
+     try
+         doBeforePost();
+     except
+        on E: Exception do begin
+            GLog.Log(self,[lcExcept],'c trh ' + inttostr(Fid) +  ' Error:' + e.Message);
+        end;
+     end;
+
+     try
          IdSSLIOHandlerSocket1:= TIdSSLIOHandlerSocket.Create(nil);
          IdHTTP1:= TIdHTTP.Create(nil);
          IdHTTP1.IOHandler := IdSSLIOHandlerSocket1;
@@ -91,26 +105,27 @@ begin
              IdHTTP1.HandleRedirects := True;
 
 
-                 GLog.Log(self,[lcDebug],'trh ' + inttostr(Fid) +  ' POST '+inttostr(length(fJsonString)));
+                 GLog.Log(self,[lcDebug],'trh ' + inttostr(Fid) +  ' POST '+inttostr(length(fJsonQueryString)));
                  GLog.ForceLogWrite;
 
                  IdHTTP1.Request.CustomHeaders.Add(
                     'X-Hook-Signature:sha256='+
-                    tHmac_sha256.calc(  fPaylodSecret , fJsonString));
+                    tHmac_sha256.calc(  fPaylodSecret , fJsonQueryString));
 
-                 upStream := TStringStream.Create(fJsonString);
-                 fJsonString:='';
+                 upStream := TStringStream.Create(fJsonQueryString);
+                 fJsonResponseString:='';
                  upStream.Seek(0,0);
                  try
                      GLog.Log(self,[lcDebug],'trh ' + inttostr(Fid) +  ' POST /api/...webhook0');
-                     fJsonString := IdHTTP1.Post('/api/client/v2.0/app/upcafe-mysmu/service/svc1/incoming_webhook/webhook0', upStream);
+                     fJsonResponseString := IdHTTP1.Post('/api/client/v2.0/app/upcafe-mysmu/service/svc1/incoming_webhook/webhook0', upStream);
                      responseQueryDT := now;
                      fResponseCode := 200;
                  except
                     on E: EIdHTTPProtocolException do begin
                         responseQueryDT := now;
                         fResponseCode := IdHTTP1.ResponseCode;
-                        GLog.Log(self,[lcExcept],'trh ' + inttostr(Fid) +  ' Error:' + e.Message + ' '+ inttostr(idHTTP1.Response.ContentStream.Size));
+                        GLog.Log(self,[lcExcept],'a trh ' + inttostr(Fid) +  ' Error:' + e.Message + ' '+ inttostr(idHTTP1.Response.ContentStream.Size));
+                        raise e;
                     end;
                  end;
                  upStream.free;
@@ -120,11 +135,22 @@ begin
             IdHTTP1.Free;
          end;
 
-    fExecTime := dateutils.MilliSecondsBetween(startQueryDT, responseQueryDT);
-    GLog.Log(self,[lcDebug],'Query exec time (' + inttostr(Fid) + ') ' + inttostr( fExecTime) + ' ms');
+         fExecTime := dateutils.MilliSecondsBetween(startQueryDT, responseQueryDT);
+         GLog.Log(self,[lcDebug],'Query exec time (' + inttostr(Fid) + ') ' + inttostr( fExecTime) + ' ms');
 
-    doResponse();
+     except
+        on E: Exception do begin
+            GLog.Log(self,[lcExcept],'b trh ' + inttostr(Fid) +  ' Error:' + e.Message);
+        end;
+     end;
 
+     try
+         doResponse();
+     except
+        on E: Exception do begin
+            GLog.Log(self,[lcExcept],'c trh ' + inttostr(Fid) +  ' Error:' + e.Message);
+        end;
+     end;
     //GLog.Log(self,[lcDebug],'TncUploadPost Run end ' + inttostr(Fid) );
 
     fFinished := true;
@@ -140,11 +166,19 @@ begin
 end;
 
 
+procedure TncUploadPost.doBeforePost;
+begin
+    if assigned(fOnBeforePost) then begin
+        //GLog.Log(self,[lcDebug], inttostr(Fid) +  ' doBeforePost');
+        fOnBeforePost(self, fid, fJsonQueryString);
+    end;
+end;
+
 procedure TncUploadPost.doResponse;
 begin
     if assigned(fOnResponse) then begin
         //GLog.Log(self,[lcDebug], inttostr(Fid) +  ' doResponse');
-        fOnResponse(self, fid, fResponseCode, fJsonString, fExecTime);
+        fOnResponse(self, fid, fResponseCode, fJsonQueryString, fJsonResponseString, fExecTime);
     end;
 end;
 
