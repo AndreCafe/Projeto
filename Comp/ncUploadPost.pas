@@ -12,7 +12,6 @@ uses
  type
 
    TResponseEvent     = procedure(Sender: TObject; aId:integer; aResponseCode:integer; aJsonQueryString, aJsonResponseString: string; aExecTime: int64) of object;
-   TBeforePostEvent   = procedure(Sender: TObject; aId:integer; aJsonQueryString: string) of object;
 
    TncUploadPost = class(TObject)
     private
@@ -24,7 +23,6 @@ uses
       fJsonQueryString : string;
       fJsonResponseString : string;
       fOnResponse   : TResponseEvent;
-      fOnBeforePost   : TBeforePostEvent;
       fExecTime: int64;
       IdHTTP1: TIdHTTP;
       IdSSLIOHandlerSocket1: TIdSSLIOHandlerSocket;
@@ -33,7 +31,6 @@ uses
         var VMethod: TIdHTTPMethod);
     protected
       procedure doResponse;
-      procedure doBeforePost;
    public
       property ExecTime: int64 read fExecTime;
       property Finished: boolean read fFinished;
@@ -43,7 +40,6 @@ uses
       property Records: string read fRecords write fRecords;
       property ResponseCode: integer read fResponseCode;
       property OnResponse : TResponseEvent read fOnResponse write fOnResponse;
-      property OnBeforePost : TBeforePostEvent read fOnBeforePost write fOnBeforePost;
       procedure Run;
       constructor Create(id:integer);
       destructor Destroy; override;
@@ -81,17 +77,7 @@ var
 begin
      inherited;
 
-     //GLog.Log(self,[lcDebug],'TncUploadPost Run init '+ inttostr(fid));
-
      startQueryDT := now;
-
-     try
-         doBeforePost();
-     except
-        on E: Exception do begin
-            GLog.Log(self,[lcExcept],'c trh ' + inttostr(Fid) +  ' Error:' + e.Message);
-        end;
-     end;
 
      try
          IdSSLIOHandlerSocket1:= TIdSSLIOHandlerSocket.Create(nil);
@@ -165,19 +151,9 @@ begin
     Glog.Log(self, [lcDebug], 'redir VMethod '+MethodString[VMethod]);
 end;
 
-
-procedure TncUploadPost.doBeforePost;
-begin
-    if assigned(fOnBeforePost) then begin
-        //GLog.Log(self,[lcDebug], inttostr(Fid) +  ' doBeforePost');
-        fOnBeforePost(self, fid, fJsonQueryString);
-    end;
-end;
-
 procedure TncUploadPost.doResponse;
 begin
     if assigned(fOnResponse) then begin
-        //GLog.Log(self,[lcDebug], inttostr(Fid) +  ' doResponse');
         fOnResponse(self, fid, fResponseCode, fJsonQueryString, fJsonResponseString, fExecTime);
     end;
 end;

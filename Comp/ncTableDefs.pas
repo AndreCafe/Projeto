@@ -2980,10 +2980,6 @@ begin
         with EnsureIndicesDescriptor do
           with AddIndex('IRecVer', 0, idAll), KeyDescriptor as TnxCompKeyDescriptor do
             Add(GetFieldFromName('RecVer'));
-        // added 30/08/2019
-        with AddField('uploadVer', '', nxtByte, 3, 0, False) do
-          with AddDefaultValue(TnxConstDefaultValueDescriptor) as TnxConstDefaultValueDescriptor do
-            AsVariant := 0;
 
       end;
       with EnsureIndicesDescriptor do begin
@@ -3041,9 +3037,6 @@ begin
           with Add(GetFieldFromName('IncluidoEm')) do
             Ascend := False;
         end;
-        // added 30/08/2019
-        with AddIndex('IuploadVersion', 0, idAll), KeyDescriptor as TnxCompKeyDescriptor do
-           Add(GetFieldFromName('uploadVer'));
 
       end;
       CheckValid(False);
@@ -3834,6 +3827,9 @@ begin
         with AddField('lastRecord', '', nxtWord32, 0, 0, False) do
             with AddDefaultValue(TnxConstDefaultValueDescriptor) as TnxConstDefaultValueDescriptor do
                 AsVariant := 0;
+        with AddField('totalRecords', '', nxtWord32, 0, 0, False) do
+            with AddDefaultValue(TnxConstDefaultValueDescriptor) as TnxConstDefaultValueDescriptor do
+                AsVariant := 0;
         AddField('RecVer', '', nxtWord32, 0, 0, False);
       end;
       with EnsureIndicesDescriptor do begin
@@ -3845,7 +3841,7 @@ begin
       with EnsureRefIntegrityDescriptor(Result) do
         with AddReference(TnxReferenceDescriptor, TnxTableTargetCursorDescriptor) do begin
           with TargetCursor as TnxTableTargetCursorDescriptor do
-            TableName := 'RemoteQueryPost';
+            TableName := '_RemoteQueryPost';
           TargetIndex := 'IRemoteQuery';
           with AddSource(TnxFieldSourceDescriptor) as TnxFieldSourceDescriptor do
             FieldNumber := GetFieldFromName('ID');
@@ -3874,7 +3870,7 @@ begin
         AddField('firstRecord', '', nxtWord32, 0, 0, True);
         AddField('lastRecord', '', nxtWord32, 0, 0, True);
         AddField('Records', '', nxtBLOBMemo, 0, 0, True);
-        AddField('InsertedIds', '', nxtBLOBMemo, 0, 0, True);
+        AddField('InsertedIds', '', nxtBLOBMemo, 0, 0, False);
         AddField('upload_error', '', nxtBoolean, 0, 0, False);
         AddField('upload_errormsg', '', nxtBLOBMemo, 0, 0, False);
         AddField('upload_jsonsource', '', nxtBLOBMemo, 0, 0, False);
@@ -3892,7 +3888,7 @@ begin
       with EnsureRefIntegrityDescriptor(Result) do
         with AddReference(TnxReferenceDescriptor, TnxTableTargetCursorDescriptor) do begin
           with TargetCursor as TnxTableTargetCursorDescriptor do
-            TableName := 'RemoteQuery';
+            TableName := '_RemoteQuery';
           TargetIndex := 'IID';
           with AddSource(TnxFieldSourceDescriptor) as TnxFieldSourceDescriptor do
             FieldNumber := GetFieldFromName('fk_RemoteQuery');
@@ -4001,8 +3997,8 @@ const
      (TableName : 'Post'; Callback: __Post),
      (TableName : 'Unidade'; Callback: __Unidade),
      (TableName : 'Especie'; Callback: __Especies),
-     (TableName : 'RemoteQuery'; Callback: __RemoteQuery),
-     (TableName : 'RemoteQueryPost'; Callback: __RemoteQueryPost),
+     (TableName : '_RemoteQuery'; Callback: __RemoteQuery),
+     (TableName : '_RemoteQueryPost'; Callback: __RemoteQueryPost),
      (TableName : 'PagEspecies'; Callback: __PagEspecies),
      (TableName : 'RecDel'; Callback: __RecDel));
 
