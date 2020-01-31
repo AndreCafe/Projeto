@@ -1489,8 +1489,8 @@ begin
       aDB.Timeout := 30000;
       DebugMsg('CriaServidorBD 7');
 
-      if aDB.TableExists(  RemoteQueryResult_tablename ,'')  then
-             aDB.DeleteTable( RemoteQueryResult_tablename ,'');
+      if aDB.TableExists(  remoteQueryResult_tablename ,'')  then
+             aDB.DeleteTable( remoteQueryResult_tablename ,'');
 
       try
         OpenProgressForm;

@@ -3830,6 +3830,9 @@ begin
         with AddField('totalRecords', '', nxtWord32, 0, 0, False) do
             with AddDefaultValue(TnxConstDefaultValueDescriptor) as TnxConstDefaultValueDescriptor do
                 AsVariant := 0;
+        with AddField('ms', '', nxtWord32, 0, 0, False) do
+            with AddDefaultValue(TnxConstDefaultValueDescriptor) as TnxConstDefaultValueDescriptor do
+                AsVariant := 0;
         AddField('RecVer', '', nxtWord32, 0, 0, False);
       end;
       with EnsureIndicesDescriptor do begin
@@ -3845,7 +3848,7 @@ begin
           TargetIndex := 'IRemoteQuery';
           with AddSource(TnxFieldSourceDescriptor) as TnxFieldSourceDescriptor do
             FieldNumber := GetFieldFromName('ID');
-          AddAction(TnxBlockDeleteActionDescriptor);
+          AddAction(TnxCascadeDeleteActionDescriptor);
           AddAction(TnxBlockModifyActionDescriptor);
         end;
 
