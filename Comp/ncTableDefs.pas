@@ -3830,9 +3830,6 @@ begin
         with AddField('totalRecords', '', nxtWord32, 0, 0, False) do
             with AddDefaultValue(TnxConstDefaultValueDescriptor) as TnxConstDefaultValueDescriptor do
                 AsVariant := 0;
-        with AddField('ms', '', nxtWord32, 0, 0, False) do
-            with AddDefaultValue(TnxConstDefaultValueDescriptor) as TnxConstDefaultValueDescriptor do
-                AsVariant := 0;
         AddField('RecVer', '', nxtWord32, 0, 0, False);
       end;
       with EnsureIndicesDescriptor do begin
@@ -3872,8 +3869,11 @@ begin
         AddField('fk_RemoteQuery', '', nxtWord32, 0, 0, True);
         AddField('firstRecord', '', nxtWord32, 0, 0, True);
         AddField('lastRecord', '', nxtWord32, 0, 0, True);
-        AddField('Records', '', nxtBLOBMemo, 0, 0, True);
+        AddField('Records', '', nxtBLOBMemo, 0, 0, false);
         AddField('InsertedIds', '', nxtBLOBMemo, 0, 0, False);
+        with AddField('ms', '', nxtWord32, 0, 0, False) do
+            with AddDefaultValue(TnxConstDefaultValueDescriptor) as TnxConstDefaultValueDescriptor do
+                AsVariant := 0;
         AddField('upload_error', '', nxtBoolean, 0, 0, False);
         AddField('upload_errormsg', '', nxtBLOBMemo, 0, 0, False);
         AddField('upload_jsonsource', '', nxtBLOBMemo, 0, 0, False);
