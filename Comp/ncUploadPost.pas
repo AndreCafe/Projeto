@@ -61,7 +61,7 @@ begin
      fIdSSLIOHandlerSocket1:= TIdSSLIOHandlerSocket.Create(nil);
      fIdHTTP1:= TIdHTTP.Create(nil);
      fIdHTTP1.IOHandler := fIdSSLIOHandlerSocket1;
-     fIdHTTP1.Host := 'webhooks.mongodb-stitch.com';
+     fIdHTTP1.Host := kMongodbStichWebhooksHost;
      fIdHTTP1.Port := 80;
      fIdHTTP1.OnRedirect := IdHTTP1Redirect;
      fidHTTP1.AllowCookies := True;
@@ -96,6 +96,7 @@ begin
      try
 
          GLog.Log(self,[lcDebug],'trh ' + inttostr(Fid) +  ' POST '+inttostr(length(fJsonQueryString)));
+         //GLog.Log(self,[lcDebug],'trh ' + inttostr(Fid) +  ' POST ' + #13#10 +fJsonQueryString);
          GLog.ForceLogWrite;
 
          fIdHTTP1.Request.CustomHeaders.Clear;
@@ -112,8 +113,7 @@ begin
                  GLog.Log(self,[lcDebug],'trh ' + inttostr(Fid) +  ' POST /api/...webhook0');
                  //raise EIdHTTPProtocolException.CreateError(401, 'Pau', 'Pau' );
 
-                 fJsonResponseString := fIdHTTP1.Post('/api/client/v2.0/app/upcafe-mysmu/service/svc1/incoming_webhook/webhook0',
-                    upStream);
+                 fJsonResponseString := fIdHTTP1.Post(kMongodbStichWebhooksUrl+kWebhookPostResults, upStream);
                  fResponseCode := 200;
                  responseQueryDT := now;
              except

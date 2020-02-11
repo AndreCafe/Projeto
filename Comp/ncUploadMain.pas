@@ -24,7 +24,7 @@ type
     fnxDatabase1: TnxDatabase;
     fKbmMemBlockRecordsTable: TkbmMemTable;
 
-    fFisrtRemoteParametersCall : boolean;
+    //fFisrtRemoteParametersCall : boolean;
     fStartDT : TDatetime;
     fEmail: string;
     fJsonStr : string;
@@ -45,10 +45,11 @@ type
     fPostFatalMessage: string;
     fRemoteUploadVersion :integer;
     fServerQuery : string;
-
+    fServerOid :string;
+    
     fIndentStep: integer;
     fNewLine : string;
-    fPaylodSecret : string;
+    fPayloadSecret : string;
     fRecordsByRequest : integer;
     fMaxRecords : integer;
     fInterBlockDelay : integer;
@@ -86,7 +87,7 @@ type
     property Email: string read fEmail write fEmail;
     property NewLine: string read fNewLine write fNewLine;
     property IndentStep: integer read fIndentStep write fIndentStep;
-    property PaylodSecret: string read fPaylodSecret write fPaylodSecret;
+    property PaylodSecret: string read fPayloadSecret;
     property ServerEngine: TnxBaseServerEngine write SetServerEngine;
     property Terminated: Boolean read FTerminated;
 
@@ -103,7 +104,7 @@ implementation
 
 uses  ncDMserv, strutils, ncUploadConst, ncUploadDelay, DCPbase64;
 
-const kNothingToDo = -1;
+//const kNothingToDo = -1;
 const kCheckAgain = 0;
 const kRemoteQuery_tablename = '_RemoteQuery';
 const kRemoteQueryPost_tablename = '_RemoteQueryPost';
@@ -164,7 +165,9 @@ begin
      inherited Create(true);
 
      fIndentStep :=  0;    // tab value for pretty json
+     fIndentStep :=  4;    // tab value for pretty json
      fNewLine := '';       // newline valur for pretty json
+     fNewLine := #13#10;       // newline valur for pretty json
 
      fAtlasPost := TncUploadPost.Create;
      fAtlasPost.OnResponse := postOnResponse;
@@ -173,7 +176,8 @@ begin
      createNxDbOjects;
      fKbmMemBlockRecordsTable := TKbmMemTable.Create(nil);
      fParams := TUploadParams.Create;
-     fFisrtRemoteParametersCall := true;
+     //fFisrtRemoteParametersCall := true;
+     fPayloadSecret := kMongodbStichWebhooksPayloadSecret;
 
      Priority := tpLower;
 
@@ -305,15 +309,26 @@ begin
 
     fd := fKbmMemBlockRecordsTable.FieldDefs;
 
+//    jsonstr := StringOfChar(' ', indentlevel * fIndentStep) + '{' + fNewLine;
+//    jsonstr := jsonstr + StringOfChar(' ', (indentlevel + 1)* fIndentStep) +
+//                '"version": ' +  inttostr( fRemoteUploadVersion ) + ',' + fNewLine;
+//    jsonstr := jsonstr + StringOfChar(' ', (indentlevel + 1)* fIndentStep) +
+//                '"query": ' +  '"' + escape(fServerQuery) + '",' + fNewLine;
+//    jsonstr := jsonstr + StringOfChar(' ', (indentlevel + 1)* fIndentStep) +
+//                '"data": {' +  fNewLine;
+//    jsonstr := jsonstr + StringOfChar(' ', (indentlevel + 2)* fIndentStep) +
+//                '"email": ' +  '"' + escape( email) + '",' + fNewLine;
+
     jsonstr := StringOfChar(' ', indentlevel * fIndentStep) + '{' + fNewLine;
-    jsonstr := jsonstr + StringOfChar(' ', (indentlevel + 1)* fIndentStep) +
-                '"version": ' +  inttostr( fRemoteUploadVersion ) + ',' + fNewLine;
-    jsonstr := jsonstr + StringOfChar(' ', (indentlevel + 1)* fIndentStep) +
-                '"query": ' +  '"' + escape(fServerQuery) + '",' + fNewLine;
-    jsonstr := jsonstr + StringOfChar(' ', (indentlevel + 1)* fIndentStep) +
-                '"data": {' +  fNewLine;
-    jsonstr := jsonstr + StringOfChar(' ', (indentlevel + 2)* fIndentStep) +
-                '"email": ' +  '"' + escape( email) + '",' + fNewLine;
+
+//    jsonstr := jsonstr + StringOfChar(' ', (indentlevel + 1)* fIndentStep) +
+//                '"_id": "' +  fServerOid + '",' + fNewLine;
+//    jsonstr := jsonstr + StringOfChar(' ', (indentlevel + 1)* fIndentStep) +
+//                '"version": ' +  inttostr( fRemoteUploadVersion ) + ',' + fNewLine;
+//    jsonstr := jsonstr + StringOfChar(' ', (indentlevel + 1)* fIndentStep) +
+//                '"user": ' +  '"' + escape( email) + '",' + fNewLine;
+//    jsonstr := jsonstr + StringOfChar(' ', (indentlevel + 1)* fIndentStep) +
+//                '"responses": [' +  fNewLine;
 
     // Iterates fields
     for i := 0 to fd.Count - 1 do begin
@@ -401,22 +416,35 @@ begin
     end;
     jsonstr := copy( jsonstr, 1, length(jsonstr) - length( fNewLine) - 1 );
 
-    jsonstr := jsonstr + StringOfChar(' ', (indentlevel + 1) * fIndentStep) + '}'+fNewLine;
-    jsonstr := jsonstr + StringOfChar(' ', indentlevel * fIndentStep) + '}';
+//    jsonstr := jsonstr + StringOfChar(' ', (indentlevel + 1) * fIndentStep) + ']'+fNewLine;
+    jsonstr := jsonstr + fNewLine + StringOfChar(' ', indentlevel * fIndentStep) + '}';
     recordToJson := jsonstr;
 
+//    GLog.Log(self,[lcDebug], 'recordToJson' + jsonstr);
+//    GLog.ForceLogWrite;
 end;
 
 function TncUploadThread.jsonHeader(var indentLevel:integer; email: string): string;
 begin
-         result := '[' + fNewLine;
-         indentlevel := indentlevel + 1;
+    result := '{' + fNewLine;
+    indentlevel := 1;
+    result := result + StringOfChar(' ', (indentlevel)* fIndentStep) +
+                '"_id": { "$oid":"' +  fServerOid + '"},' + fNewLine;
+    result := result + StringOfChar(' ', (indentlevel)* fIndentStep) +
+                '"version": ' +  inttostr( fRemoteUploadVersion ) + ',' + fNewLine;
+    result := result + StringOfChar(' ', (indentlevel)* fIndentStep) +
+                '"user": ' +  '"' + escape( email) + '",' + fNewLine;
+    result := result + StringOfChar(' ', (indentlevel)* fIndentStep) +
+                '"responses": [' +  fNewLine;
+    indentlevel := 2;
 end;
 
 function TncUploadThread.jsonFooter(var indentLevel:integer; jsonString: string): string;
 begin
          indentlevel := indentlevel - 1;
-         result := jsonString + StringOfChar(' ', indentlevel * fIndentStep)  + ']'+ fNewLine;
+         result := jsonString + fNewLine + StringOfChar(' ', indentlevel * fIndentStep)  + ']'+ fNewLine;
+         result := result + '}';
+
 end;
 
 function sortFunc(List: TStringList; Index1, Index2: Integer): Integer;
@@ -432,7 +460,8 @@ function TncUploadThread.lastBlockRecord:boolean;
 var
      mr : integer;
 begin
-      if (fRemoteQueryStatus = kNothingToDo) or
+      if (fRemoteQueryStatus = kCheckAgain) or
+      //if (fRemoteQueryStatus = kNothingToDo) or
           (fKbmMemBlockRecordsTable.eof) then begin
           result := true;
           exit;
@@ -477,21 +506,21 @@ var
     getParams : TGetUploadParams;
 begin
 
-      if fFisrtRemoteParametersCall then
-          fFisrtRemoteParametersCall := false;
+//      if fFisrtRemoteParametersCall then
+//          fFisrtRemoteParametersCall := false;
 
       GLog.Log(self,[lcDebug],'init Params: '+fParams.asString);
       getParams := TGetUploadParams.Create;
       try
-          getParams.PaylodSecret := fPaylodSecret;
+          getParams.PaylodSecret := fPayloadSecret;
           if not getParams.Run(Self) then
               exit;
           fParams.assign(getParams.Params);
 
-          if (not fFisrtRemoteParametersCall) and
-             (fRemoteQueryId = kNothingToDo) then begin
-              fRemoteQueryId := kCheckAgain;
-          end;
+//          if (not fFisrtRemoteParametersCall) and
+//             (fRemoteQueryId = kNothingToDo) then begin
+//              fRemoteQueryId := kCheckAgain;
+//          end;
 
        finally
         getParams.Free;
@@ -507,6 +536,7 @@ begin
         fRecordsByRequest := fParams.RecordsByRequest;
         fRemoteUploadVersion := fParams.Version;
         fServerQuery := stringReplace(fParams.Query,'\"','"',[rfReplaceAll]);
+        fServerOid :=  fParams.Oid;
         fFirstID := 0;
         fLastID := 0;
 end;
@@ -544,8 +574,7 @@ begin
                 loadAllRecordsTempTableToMemTable;
 
 
-            if (fParams.Active) and
-               (fRemoteQueryId > 0) then
+            if fRemoteQueryId > 0 then
                 doBlockUpload;
 
             if not fPostFatalError then
@@ -600,7 +629,7 @@ begin
         lastRecord := 0;
 
         try
-            fnxQuery.SQL.Text := 'Select "ID", "uploadVer", "lastRecord", "totalRecords" from "' + kRemoteQuery_tablename +
+            fnxQuery.SQL.Text := 'Select "ID", "ServerOid", "uploadVer", "lastRecord", "totalRecords" from "' + kRemoteQuery_tablename +
                                  '" order by "uploadVer" asc';
             //fnxQuery.ParamByName('ServerQuery').AsString := fServerQuery;
             //fnxQuery.ParamByName('uploadVer').AsInteger := fRemoteUploadVersion;
@@ -608,12 +637,14 @@ begin
             try
                 while not fnxQuery.Eof do begin
                     fRemoteQueryId := fnxQuery.FieldByName('ID').AsInteger;
+                    fServerOid := fnxQuery.FieldByName('ServerOid').AsString;
                     lastRecord := fnxQuery.FieldByName('lastRecord').AsInteger;
                     totalRecords := fnxQuery.FieldByName('totalRecords').AsInteger;
                     lastUploadVer := fnxQuery.FieldByName('uploadVer').AsInteger;
 
                     GLog.Log(self,[lcDebug],'RemoteQuery? fRemoteQueryId: ' + intToStr(fRemoteQueryId) +
                                             ' lastRecord: ' + intToStr(lastRecord) +
+                                            ' ServerOid: ' + fServerOid +
                                             ' totalRecords: ' + intToStr(totalRecords) +
                                             ' lastUploadVer: ' + intToStr(lastUploadVer) );
 
@@ -627,8 +658,9 @@ begin
                         break;
                     end else
                     if lastRecord = totalRecords then begin
-                        fRemoteQueryId := kNothingToDo;
-                        GLog.Log(self,[lcDebug],'RemoteQuery: lastRecord = totalRecords => kNothingToDo.');
+                        //fRemoteQueryId := kNothingToDo;
+                        fRemoteQueryId := kCheckAgain;
+                        GLog.Log(self,[lcDebug],'RemoteQuery: lastRecord = totalRecords => kCheckAgain.');
                     end else
                     if lastRecord > totalRecords then begin
                         fRemoteQueryStatus :=   kRemoteQueryStatusUnconsistent;
@@ -973,7 +1005,7 @@ begin
                 PostId := PostId + 1;
                 fPostFatalError := false;
 
-                fAtlasPost.PaylodSecret := fPaylodSecret;
+                fAtlasPost.PaylodSecret := fPayloadSecret;
                 fAtlasPost.JsonString := fJsonStr;
                 fAtlasPost.Run(PostId);
 
@@ -1065,9 +1097,10 @@ begin
 
       result := 0;
       fnxQuery.SQL.Text :=  'insert into "' + kRemoteQuery_tablename + '"'+
-          ' (datahora, ServerQuery) VALUES (:datahora, :ServerQuery)';
+          ' (datahora, ServerQuery, ServerOid) VALUES (:datahora, :ServerQuery, :ServerOid)';
       fnxQuery.ParamByName('datahora').AsDateTime := now;
       fnxQuery.ParamByName('ServerQuery').AsString := fServerQuery;
+      fnxQuery.ParamByName('ServerOid').AsString := fServerOid;
 
       //GLog.Log(self,[lcDebug], 'newRemoteQuery -> ' + fnxQuery.SQL.Text );
 

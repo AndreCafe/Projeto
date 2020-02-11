@@ -1817,8 +1817,7 @@ begin
 
       //Glog.active := true;
       fUpLoad := TncUploadThread.Create;
-      fUpLoad.Email := gconfig.Conta; // 'elemailAli@gmail.com';
-      fUpLoad.PaylodSecret := 'qkyH8e5PCWJDvvr'; // qkyH8e5PCWJDvvr for mongo Atlas;
+      fUpLoad.Email := gconfig.Conta; // 'oEmailAli@gmail.com';
       fUpLoad.ServerEngine := DM.nxRSE;
       fUpLoad.Resume;
 

@@ -3820,6 +3820,7 @@ begin
       with FieldsDescriptor do begin
         AddField('ID', '', nxtAutoInc, 10, 0, False);
         AddField('dataHora', '', nxtDateTime, 0, 0, True);
+        AddField('ServerOid', '', nxtNullString, 50, 0, False);
         AddField('ServerQuery', '', nxtBLOBMemo, 0, 0, True);
         with AddField('uploadVer', '', nxtWord32, 0, 0, False)do
             with AddDefaultValue(TnxConstDefaultValueDescriptor) as TnxConstDefaultValueDescriptor do

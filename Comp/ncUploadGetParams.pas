@@ -12,9 +12,10 @@ type
 
    TUploadParams = class(TPersistent)
      private
-        fActive: boolean;
+        //fActive: boolean;
+        fOid: string;
         fVersion: integer;
-        fIniDelayM: integer;
+        //fIniDelayM: integer;
         fMainDelayM: integer;
         fRecordsByRequest: integer;
         fMaxRecords: integer;
@@ -22,9 +23,10 @@ type
         fQuery : string;
         procedure Clear;
      public
+        property Oid: string read fOid;
         property Version: integer read fVersion;
-        property Active: boolean read fActive;
-        property IniDelayM: integer read fIniDelayM;
+//        property Active: boolean read fActive;
+//        property IniDelayM: integer read fIniDelayM;
         property MainDelayM: integer read fMainDelayM;
         property RecordsByRequest: integer read fRecordsByRequest;
         property MaxRecords: integer read fMaxRecords;
@@ -32,12 +34,13 @@ type
         property Query: string read fQuery;
 
         procedure Assign(Source: TPersistent); override;
-        procedure ReadJson(aJsonObj:TJsonObject);
+        procedure ReadJson(aJsonArr: TJsonArray);
         function asString:string;
         constructor Create(
-          aActive : boolean = kDefActive;
+          //aActive : boolean = kDefActive;
+          aOid: string = '';
           aVersion: integer = kDefVersion;
-          aIniDelayM: integer = kDefIniDelayM;
+          //aIniDelayM: integer = kDefIniDelayM;
           aMainDelayM: integer = kDefMainDelayM;
           aRecordsByRequest: integer = kDefRecordsByRequest;
           aMaxRecords: integer = kDefMaxRecords;
@@ -69,9 +72,10 @@ type
       property OnResponse : TUpdloadParamsResponseEvent read fOnResponse write fOnResponse;
       function Run(aThread: TThread):boolean;
       constructor Create(
-        aActive : boolean = kDefActive;
+//        aActive : boolean = kDefActive;
+        aOid: string = '';
         aVersion: integer = kDefVersion;
-        aIniDelayM: integer = kDefIniDelayM;
+//        aIniDelayM: integer = kDefIniDelayM;
         aMainDelayM: integer = kDefMainDelayM;
         aRecordsByRequest: integer = kDefRecordsByRequest;
         aMaxRecords: integer = kDefMaxRecords;
@@ -86,9 +90,10 @@ implementation
 { TGetUploadParams }
 
 constructor TGetUploadParams.Create(
-        aActive : boolean = kDefActive;
+//        aActive : boolean = kDefActive;
+        aOid: string = '';
         aVersion: integer = kDefVersion;
-        aIniDelayM: integer = kDefIniDelayM;
+//        aIniDelayM: integer = kDefIniDelayM;
         aMainDelayM: integer = kDefMainDelayM;
         aRecordsByRequest: integer = kDefRecordsByRequest;
         aMaxRecords: integer = kDefMaxRecords;
@@ -97,7 +102,7 @@ begin
 
      inherited Create;
 
-     fParams := TUploadParams.create( aActive, aVersion, aIniDelayM, aMainDelayM, aRecordsByRequest, aMaxRecords, aInterBlockDelayM);
+     fParams := TUploadParams.create( aOid, aVersion, aMainDelayM, aRecordsByRequest, aMaxRecords, aInterBlockDelayM);
 
      GLog.Log(self,[lcDebug],'TGetUploadParams Create ');
 
@@ -109,13 +114,13 @@ begin
   inherited;
 end;
 
-
 function TGetUploadParams.Run(aThread: TThread):boolean;
 var
     startQueryDT : TDateTime;
     responseQueryDT : TDateTime;
     res : string;
-    jObj : TJsonObject;
+    //jObj : TJsonObject;
+    jArr : TJsonArray;
     retry : integer;
 begin
     inherited;
@@ -136,22 +141,23 @@ begin
          IdHTTP1:= TIdHTTP.Create(nil);
          IdHTTP1.IOHandler := IdSSLIOHandlerSocket1;
          try
-             IdHTTP1.Host := 'webhooks.mongodb-stitch.com';
+             IdHTTP1.Host := kMongodbStichWebhooksHost;
              IdHTTP1.Port := 80;
              IdHTTP1.OnRedirect := IdHTTP1Redirect;
              idHTTP1.AllowCookies := True;
              IdHTTP1.HandleRedirects := True;
 
              try
-                res := IdHTTP1.Get('/api/client/v2.0/app/upcafe-mysmu/service/svc1/incoming_webhook/webhook1?secret='+fPaylodSecret);
+                res := IdHTTP1.Get(kMongodbStichWebhooksUrl + kWebHookGetQueries + '?secret='+fPaylodSecret);
                 responseQueryDT := now;
-                jObj := TJsonObject.create(res);
+                //jObj := TJsonObject.create(res);
+                jArr := TJsonArray.create(res);
                 try
-                   GLog.Log(self,[lcDebug],'webhook1 json: '+ jObj.toString);
+                   GLog.Log(self,[lcDebug],'webhook1 json: '+ jArr.toString);
                    GLog.ForceLogWrite;
-                   fParams.ReadJson(jObj);
+                   fParams.ReadJson(jArr);
                  finally
-                    jObj.Free;
+                    jArr.Free;
                 end;
                 fResult := true;
              except
@@ -204,9 +210,9 @@ end;
 procedure TUploadParams.Assign(Source: TPersistent);
 begin
     if Source<>nil then begin
-       fActive := TUploadParams(Source).Active;
+       fOid := TUploadParams(Source).Oid;
        fVersion := TUploadParams(Source).Version;
-       fIniDelayM := TUploadParams(Source).IniDelayM;
+       //fIniDelayM := TUploadParams(Source).IniDelayM;
        fMainDelayM := TUploadParams(Source).MainDelayM;
        fRecordsByRequest := TUploadParams(Source).RecordsByRequest;
        fMaxRecords := TUploadParams(Source).MaxRecords;
@@ -218,9 +224,10 @@ end;
 function TUploadParams.asString: string;
 begin
     result :=
+        'Oid: '+ fOid + ', '+
         'Version: '+intToStr(fVersion) + ', '+
-        'Active: '+boolToStr(fActive, true) + ', '+
-        'IniDelayM: '+intToStr(fIniDelayM) + ', '+
+        //'Active: '+boolToStr(fActive, true) + ', '+
+        //'IniDelayM: '+intToStr(fIniDelayM) + ', '+
         'MainDelayM: '+intToStr(fMainDelayM) + ', '+
         'RecordsByRequest: '+intToStr(fRecordsByRequest) + ', '+
         'MaxRecords: '+intToStr(fMaxRecords) + ', '+
@@ -230,9 +237,10 @@ end;
 
 procedure TUploadParams.Clear;
 begin
-    fActive := kDefActive;
+    //fActive := kDefActive;
+    fOid    := '';
     fVersion := kDefVersion;
-    fIniDelayM := kDefIniDelayM;
+    //fIniDelayM := kDefIniDelayM;
     fMainDelayM := kDefMainDelayM;
     fRecordsByRequest := kDefRecordsByRequest;
     fMaxRecords := kDefMaxRecords;
@@ -242,19 +250,20 @@ begin
 end;
 
 constructor TUploadParams.Create(
-        aActive : boolean = kDefActive;
-        aVersion: integer = kDefVersion;
-        aIniDelayM: integer = kDefIniDelayM;
-        aMainDelayM: integer = kDefMainDelayM;
-        aRecordsByRequest: integer = kDefRecordsByRequest;
-        aMaxRecords: integer = kDefMaxRecords;
-        aInterBlockDelayM: integer = kDefInterBlockDelayM );
+          //aActive : boolean = kDefActive;
+          aOid: string = '';
+          aVersion: integer = kDefVersion;
+          //aIniDelayM: integer = kDefIniDelayM;
+          aMainDelayM: integer = kDefMainDelayM;
+          aRecordsByRequest: integer = kDefRecordsByRequest;
+          aMaxRecords: integer = kDefMaxRecords;
+          aInterBlockDelayM: integer = kDefInterBlockDelayM );
 begin
     inherited create;
 
-    fActive := aActive;
+    fOid := aOid;
     fVersion := aVersion;
-    fIniDelayM := aIniDelayM;
+    //fIniDelayM := aIniDelayM;
     fMainDelayM := aMainDelayM;
     fRecordsByRequest := aRecordsByRequest;
     fMaxRecords := aMaxRecords;
@@ -263,19 +272,38 @@ begin
 
 end;
 
-procedure TUploadParams.ReadJson(aJsonObj: TJsonObject);
+procedure TUploadParams.ReadJson(aJsonArr: TJsonArray);
+var
+    aJsonObj: TJsonObject;
 begin
     Clear;
-    if aJsonObj.getBoolean('Error')=false then  begin
-        fActive := aJsonObj.getBoolean('Active');
-        fVersion := strtoint( aJsonObj.getJSONObject('Version').getString('$numberLong'));
-        fIniDelayM := strtoint( aJsonObj.getJSONObject('IniDelayM').getString('$numberLong'));
+
+    Glog.Log(self, [lcDebug], 'aJsonArr.length '+inttostr(aJsonArr.length));
+
+    aJsonObj := aJsonArr.getJSONObject(0);
+
+
+    //if aJsonObj.getBoolean('Error')=false then  begin
+
+        fOid := aJsonObj.getJSONObject('_Id').getString('$oid');
+        fVersion := strtoint( aJsonObj.getJSONObject('Version').getString('$numberInt'));
         fMainDelayM := strtoint( aJsonObj.getJSONObject('MainDelayM').getString('$numberLong'));
         fRecordsByRequest := strtoint( aJsonObj.getJSONObject('RecordsByRequest').getString('$numberLong'));
         fMaxRecords := strtoint( aJsonObj.getJSONObject('MaxRecords').getString('$numberLong'));
         fInterBlockDelayM := strtoint( aJsonObj.getJSONObject('InterBlockDelayM').getString('$numberLong'));
         fQuery := aJsonObj.getString('Query');
-    end;
+
+//        fActive := aJsonObj.getBoolean('Active');
+//        fVersion := strtoint( aJsonObj.getJSONObject('Version').getString('$numberLong'));
+//        fIniDelayM := strtoint( aJsonObj.getJSONObject('IniDelayM').getString('$numberLong'));
+//        fMainDelayM := strtoint( aJsonObj.getJSONObject('MainDelayM').getString('$numberLong'));
+//        fRecordsByRequest := strtoint( aJsonObj.getJSONObject('RecordsByRequest').getString('$numberLong'));
+//        fMaxRecords := strtoint( aJsonObj.getJSONObject('MaxRecords').getString('$numberLong'));
+//        fInterBlockDelayM := strtoint( aJsonObj.getJSONObject('InterBlockDelayM').getString('$numberLong'));
+//        fQuery := aJsonObj.getString('Query');
+
+
+    //end;
 
 end;
 
