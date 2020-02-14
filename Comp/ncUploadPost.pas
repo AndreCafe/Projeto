@@ -87,6 +87,7 @@ var
     startQueryDT : TDateTime;
     responseQueryDT : TDateTime;
     upStream: TStringStream;
+    sl : TStringList;
 begin
      inherited;
 
@@ -110,10 +111,10 @@ begin
              fJsonResponseString:='';
              upStream.Seek(0,0);
              try
-                 GLog.Log(self,[lcDebug],'trh ' + inttostr(Fid) +  ' POST /api/...webhook0');
+                 GLog.Log(self,[lcDebug],'trh ' + inttostr(Fid) +  ' POST /api/.../'+kWebhookPostResults);
                  //raise EIdHTTPProtocolException.CreateError(401, 'Pau', 'Pau' );
 
-                 fJsonResponseString := fIdHTTP1.Post(kMongodbStichWebhooksUrl+kWebhookPostResults, upStream);
+                 fJsonResponseString := fIdHTTP1.Post( kMongodbStichWebhooksUrl + kWebhookPostResults, upStream);
                  fResponseCode := 200;
                  responseQueryDT := now;
              except
@@ -122,7 +123,23 @@ begin
                     fResponseCode := fIdHTTP1.ResponseCode;
                     if fJsonResponseString='' then
                         fJsonResponseString := 'HTTP Error ' + inttostr(fIdHTTP1.ResponseCode) + ' :' + e.Message;
-                    GLog.Log(self,[lcExcept],'a trh ' + inttostr(Fid) +  ' Error:' + e.Message );
+                    GLog.Log(self,[lcExcept],'a trh ' + inttostr(Fid) +  ' Error(' + e.ClassName + '): '+ e.Message );
+                    GLog.Log(self,[lcExcept],'a trh ' + inttostr(Fid) +  ': ' +  fJsonResponseString);
+
+                    if e is EIdHTTPProtocolException then begin
+                          sl := TStringList.create;
+                          try
+                            sl.Text :=  'POST https://' + kMongodbStichWebhooksHost + kMongodbStichWebhooksUrl + kWebhookPostResults;
+                            sl.Add(fIdHTTP1.Request.CustomHeaders.Text);
+                            sl.Add('');
+                            upStream.Seek(0,0);
+                            sl.Add(upStream.DataString);
+                            sl.SaveToFile('c:\pp.txt');
+                          finally
+                            sl.free;
+                          end;
+
+                    end;
                 end;
              end;
 
