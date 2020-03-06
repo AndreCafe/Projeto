@@ -13,7 +13,7 @@
 
 [Setup]
 AppName=NexCafé
-AppVerName=NexCafé X210
+AppVerName=NexCafé X211
 AppPublisherURL=http://www.nexcafe.com.br
 AppSupportURL=http://www.nexcafe.com.br
 AppUpdatesURL=http://www.nexcafe.com.br
