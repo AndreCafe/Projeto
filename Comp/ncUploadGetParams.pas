@@ -12,6 +12,7 @@ type
 
    TUploadParams = class(TPersistent)
      private
+
         fOid: string;
         fVersion: integer;
         fMainDelayS: integer;

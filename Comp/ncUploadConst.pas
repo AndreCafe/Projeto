@@ -8,10 +8,10 @@ uses
 const
      MethodString: array[TIdHTTPMethod] of String = ('HEAD', 'GET', 'POST', 'OPTIONS', 'TRACE', 'PUT', 'DELETE', 'CONNECT'); {do not localize}
 
-     //kIndentStep =  0;    // tab value for uggly json
-     kIndentStep =  4;    // tab value for pretty json
-     //kNewLine = '';       // newline valur for uggly json
-     kNewLine = #13#10;       // newline valur for pretty json
+     kIndentStep =  0;    // tab value for uggly json
+     //kIndentStep =  4;    // tab value for pretty json
+     kNewLine = '';       // newline value for uggly json
+     //kNewLine = #13#10;       // newline value for pretty json
 
 
      //kDefActive = false;

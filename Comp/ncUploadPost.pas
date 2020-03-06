@@ -89,6 +89,7 @@ var
     upStream: TStringStream;
     sl : TStringList;
 begin
+
      inherited;
 
      fId := aPostId;

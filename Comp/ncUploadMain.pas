@@ -24,6 +24,7 @@ type
     fnxDatabase1: TnxDatabase;
     fKbmMemBlockRecordsTable: TkbmMemTable;
 
+
     //fFisrtRemoteParametersCall : boolean;
     fStartDT : TDatetime;
     fEmail: string;

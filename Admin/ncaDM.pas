@@ -899,7 +899,6 @@ type
     tbConfigUrls: TnxMemoField;
     tbConfigRecVer: TIntegerField;
     tbProRecVer: TIntegerField;
-    tbProuploadVer: TWordField;
     procedure DataModuleCreate(Sender: TObject);
     procedure FFTblMgrPause;
     procedure SoUmProgCustom(Sender: TObject);

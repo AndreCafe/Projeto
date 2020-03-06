@@ -21,6 +21,7 @@ object Dados: TDados
     Top = 72
   end
   object tbCli: TnxTable
+    ActiveDesigntime = True
     Database = db
     Timeout = 10000
     FilterOptions = [foCaseInsensitive]
@@ -376,9 +377,6 @@ object Dados: TDados
     end
     object tbProRecVer: TIntegerField
       FieldName = 'RecVer'
-    end
-    object tbProuploadVer: TWordField
-      FieldName = 'uploadVer'
     end
   end
   object tbTran: TnxTable
