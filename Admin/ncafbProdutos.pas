@@ -125,7 +125,6 @@ type
     TabComissaoPerc: TFloatField;
     TabComissaoLucro: TBooleanField;
     TabRecVer: TIntegerField;
-    TabuploadVer: TWordField;
     procedure cmReprocessarClick(Sender: TObject);
     procedure cmNovoClick(Sender: TObject);
     procedure cmEditarClick(Sender: TObject);

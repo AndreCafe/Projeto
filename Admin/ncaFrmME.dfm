@@ -436,9 +436,6 @@ object FrmME: TFrmME
     object tProRecVer: TIntegerField
       FieldName = 'RecVer'
     end
-    object tProuploadVer: TWordField
-      FieldName = 'uploadVer'
-    end
   end
   object DataSource1: TDataSource
     DataSet = tPro

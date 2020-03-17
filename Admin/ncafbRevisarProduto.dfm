@@ -236,9 +236,6 @@ inherited fbRevisarProduto: TfbRevisarProduto
     object TabRecVer: TIntegerField
       FieldName = 'RecVer'
     end
-    object TabuploadVer: TWordField
-      FieldName = 'uploadVer'
-    end
   end
   object DataSource1: TDataSource
     DataSet = Tab

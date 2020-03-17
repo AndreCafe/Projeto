@@ -321,6 +321,8 @@ object FrmVenda: TFrmVenda
             object tsBuscarCod: TcxTabSheet
               Caption = 'tsBuscarCod'
               ImageIndex = 0
+              ExplicitWidth = 0
+              ExplicitHeight = 0
               object edCod: TcxTextEdit
                 AlignWithMargins = True
                 Left = 6
@@ -1175,9 +1177,6 @@ object FrmVenda: TFrmVenda
     end
     object tProRecVer: TIntegerField
       FieldName = 'RecVer'
-    end
-    object tProuploadVer: TWordField
-      FieldName = 'uploadVer'
     end
   end
   object DataSource1: TDataSource

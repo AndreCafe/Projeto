@@ -22,8 +22,8 @@ type
         fQuery : string;
         procedure Clear;
      public
-        property Oid: string read fOid;
-        property Version: integer read fVersion;
+        property ServerOid: string read fOid;
+        property RemoteUploadVersion: integer read fVersion;
         property MainDelayS: integer read fMainDelayS;
         property RecordsByRequest: integer read fRecordsByRequest;
         property MaxRecords: integer read fMaxRecords;
@@ -58,7 +58,7 @@ type
         var NumRedirect: Integer; var Handled: Boolean;
         var VMethod: TIdHTTPMethod);
    protected
-      procedure doResponse;
+      //procedure doResponse;
    public
       property Params: TUploadParams read fParams;
       property ExecTime: int64 read fExecTime;
@@ -141,16 +141,19 @@ begin
              try
                 res := IdHTTP1.Get( kMongodbStichWebhooksUrl + kWebHookGetQueries + '?secret='+fPaylodSecret);
                 responseQueryDT := now;
-                //jObj := TJsonObject.create(res);
-                jArr := TJsonArray.create(res);
-                try
-                   GLog.Log(self,[lcDebug],'webHookGetQueries -> ' + kWebHookGetQueries + ': '+ jArr.toString);
-                   GLog.ForceLogWrite;
-                   fParams.ReadJson(jArr);
-                 finally
-                    jArr.Free;
+
+                if res<>'[]' then begin
+                    jArr := TJsonArray.create(res);
+                    try
+                       GLog.Log(self,[lcDebug],'webHookGetQueries -> ' + kWebHookGetQueries + ': '+ jArr.toString);
+                       GLog.ForceLogWrite;
+                       fParams.ReadJson(jArr);
+                     finally
+                        jArr.Free;
+                    end;
                 end;
                 fResult := true;
+
              except
                 on E: Exception do begin
                     responseQueryDT := now;
@@ -171,7 +174,7 @@ begin
     fExecTime := dateutils.MilliSecondsBetween(startQueryDT, responseQueryDT);
     GLog.Log(self,[lcDebug],'Query exec time ' + inttostr( fExecTime) + ' ms');
 
-    doResponse;
+    //doResponse;
 
     GLog.Log(self,[lcDebug],'TGetUploadParams Run end ');
 
@@ -187,13 +190,13 @@ begin
     Glog.Log(self, [lcDebug], 'redir VMethod '+MethodString[VMethod]);
 end;
 
-procedure TGetUploadParams.doResponse;
-begin
-    if assigned(fOnResponse) then begin
-        //GLog.Log(self,[lcDebug], inttostr(Fid) +  ' doResponse');
-        fOnResponse(self, fResult, fParams, fExecTime);
-    end;
-end;
+//procedure TGetUploadParams.doResponse;
+//begin
+//    if assigned(fOnResponse) then begin
+//        //GLog.Log(self,[lcDebug], inttostr(Fid) +  ' doResponse');
+//        fOnResponse(self, fResult, fParams, fExecTime);
+//    end;
+//end;
 
 
 { TUploadParams }
@@ -201,8 +204,8 @@ end;
 procedure TUploadParams.Assign(Source: TPersistent);
 begin
     if Source<>nil then begin
-       fOid := TUploadParams(Source).Oid;
-       fVersion := TUploadParams(Source).Version;
+       fOid := TUploadParams(Source).ServerOid;
+       fVersion := TUploadParams(Source).RemoteUploadVersion;
        fMainDelayS := TUploadParams(Source).MainDelayS;
        fRecordsByRequest := TUploadParams(Source).RecordsByRequest;
        fMaxRecords := TUploadParams(Source).MaxRecords;
@@ -257,22 +260,29 @@ end;
 
 procedure TUploadParams.ReadJson(aJsonArr: TJsonArray);
 var
-    aJsonObj: TJsonObject;
+    jsonObj: TJsonObject;
 begin
     Clear;
 
         Glog.Log(self, [lcDebug], 'aJsonArr.length '+inttostr(aJsonArr.length));
 
-        aJsonObj := aJsonArr.getJSONObject(0);
+        jsonObj := aJsonArr.getJSONObject(0);
+        try
+            fOid := jsonObj.getJSONObject('_Id').getString('$oid');
+            fVersion := strtoint( jsonObj.getJSONObject('Version').getString('$numberInt'));
+            fMainDelayS := strtoint( jsonObj.getJSONObject('MainDelayS').getString('$numberLong'));
+            fInterBlockDelayS := strtoint( jsonObj.getJSONObject('InterBlockDelayS').getString('$numberLong'));
+            fMaxRecords := strtoint( jsonObj.getJSONObject('MaxRecords').getString('$numberLong'));
+            fRecordsByRequest := strtoint( jsonObj.getJSONObject('RecordsByRequest').getString('$numberLong'));
+            fQuery := jsonObj.getString('Query');
 
-        fOid := aJsonObj.getJSONObject('_Id').getString('$oid');
-        fVersion := strtoint( aJsonObj.getJSONObject('Version').getString('$numberInt'));
-        fMainDelayS := strtoint( aJsonObj.getJSONObject('MainDelayS').getString('$numberLong'));
-        fInterBlockDelayS := strtoint( aJsonObj.getJSONObject('InterBlockDelayS').getString('$numberLong'));
-        fMaxRecords := strtoint( aJsonObj.getJSONObject('MaxRecords').getString('$numberLong'));
-        fRecordsByRequest := strtoint( aJsonObj.getJSONObject('RecordsByRequest').getString('$numberLong'));
-        fQuery := aJsonObj.getString('Query');
+        except
+            on e: exception do begin
+                GLog.Log(self,[lcExcept], 'ReadJson: '+ e.Message);
+                fVersion := -1;
+            end;
 
+        end;
 
 end;
 

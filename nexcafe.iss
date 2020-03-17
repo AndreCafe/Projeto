@@ -21,7 +21,8 @@ DefaultDirName=C:\nexcafe
 DefaultGroupName=NexCafé
 OutputDir=c:\instaladores
 DirExistsWarning=No
-OutputBaseFilename=setup_nexcafe_
+OutputBaseFilename=setup_nexcafe_X211
+VersionInfoProductTextVersion=5.0.0.211
 
 [Types]
 Name: "Servidor"; Description: "Servidor / Admin"
