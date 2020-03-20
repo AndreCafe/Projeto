@@ -9,7 +9,7 @@ uses
   IdTCPClient, IdHTTP, IdIOHandler, IdIOHandlerSocket, IdSSLOpenSSL,
   nxsdDataDictionary, nxsdTypes, IdCookieManager, IdCookie,
   ncUploadPost, dateutils, kbmMemTable, nxdbBase, ncUploadGetParams,
-  nxllException, ncClassesBase, ncTableDefs;
+  nxllException, ncClassesBase, ncTableDefs, nxsqlBase;
 
 type
 
@@ -59,36 +59,36 @@ type
     FTerminated: Boolean;
     fNxSE: TnxBaseServerEngine;
 
-    function escape(s: widestring): widestring;
-    //function unescape(s: widestring): widestring;
-    function jsonFooter(var indentLevel: integer; jsonString: string): string;
-    function jsonHeader(var indentLevel: integer; email: string): string;
-    function recordToJson(aKbmMemTable: TkbmMemTable; indentlevel: integer; email:string): string;
+    function  escape(s: widestring): widestring;
+    function  jsonFooter(var indentLevel: integer; jsonString: string): string;
+    function  jsonHeader(var indentLevel: integer; email: string): string;
+    function  recordToJson(aKbmMemTable: TkbmMemTable; indentlevel: integer; email:string): string;
     procedure postOnResponse(Sender: TObject; aId, aResponseCode: integer; aJsonQueryString, aJsonResponseString: string; aExecTime: int64);
-    function lastBlockRecord: boolean;
+    function  lastBlockRecord: boolean;
     procedure SetServerEngine(se: TnxBaseServerEngine);
     procedure doBlockUpload;
     procedure openDB;
     procedure closeDB;
-    function loadRemoteQueryResultToMemTable: boolean;
+    function  loadRemoteQueryResultToMemTable: boolean;
     function  createAndPopulateRemoteQueryResult: boolean;
     procedure createRemoteQueryResult(var aDict: TnxDataDictionary);
     procedure populateRemoteQueryResult;
     procedure createNxDbOjects;
     procedure freeNxDbOjects;
-    function newRemoteQuery: integer;
+    function  newRemoteQuery: integer;
     procedure updateRemoteQuery;
     procedure updateRemoteQueryTotalRecords;
     procedure updateRemoteQueryPost(aRemoteQueryId, aFirstRecord, aLastRecord: integer; aRecords, aJsonResponseString: string; aExecTime: dword; aUpload_err: boolean; aUploadErrorString:string );
     procedure checkRemoteQuery;
-    procedure getRemoteParameters;
+    function  getRemoteParameters: boolean;
     procedure setPrivateVariables;
-    function IsNewServerOid: boolean;
-    function existsRemoteControlQueryResult: boolean;
-    function getRemoteControlQueryResultDict: TnxDataDictionary;
+    function  IsNewServerOid: boolean;
+    function  existsRemoteControlQueryResult: boolean;
+    function  getRemoteControlQueryResultDict: TnxDataDictionary;
     procedure setRemoteQueryStatus( aRemoteQueryStatus: integer);
-    function remoteQueryStatusToString: string;
+    function  remoteQueryStatusToString: string;
     procedure deleteRemoteControlQueryResult;
+    function getRemoteControlQueryResultLastID: integer;
 //    procedure doResumoUpload;
 
     { Private declarations }
@@ -165,9 +165,13 @@ procedure TncUploadThread.freeNxDbOjects;
 begin
     GLog.Log(self,[lcDebug],'freeNxDbOjects start');
     fnxServerQuery.free;
+    GLog.Log(self,[lcDebug],'freeNxDbOjects 1');
     fnxQuery.free;
+    GLog.Log(self,[lcDebug],'freeNxDbOjects 2');
     fnxSession1.free;
+    GLog.Log(self,[lcDebug],'freeNxDbOjects 3');
     fnxDatabase1.free;
+    GLog.Log(self,[lcDebug],'freeNxDbOjects 4');
     fnxAllRecordsTempTable.free;
     GLog.Log(self,[lcDebug],'freeNxDbOjects end');
 end;
@@ -455,7 +459,7 @@ begin
     fnxDatabase1.Close;
 end;
 
-procedure TncUploadThread.getRemoteParameters;
+function TncUploadThread.getRemoteParameters: boolean;
 var
     getParams : TGetUploadParams;
 begin
@@ -464,12 +468,11 @@ begin
       getParams := TGetUploadParams.Create;
       try
           getParams.PaylodSecret := fPayloadSecret;
-          if not getParams.Run(Self) then
-              exit;
-          fParams.assign(getParams.Params);
-
-       finally
-        getParams.Free;
+          result := getParams.Run(Self);
+          if result then
+              fParams.assign(getParams.Params);
+      finally
+          getParams.Free;
       end;
       GLog.Log(self,[lcDebug],'getRemoteParameters: '+fParams.asString);
 
@@ -481,7 +484,7 @@ begin
         fInterBlockDelay := fParams.InterBlockDelayS;
         fRecordsByRequest := fParams.RecordsByRequest;
         fRemoteUploadVersion := fParams.RemoteUploadVersion;
-        fServerQuery := stringReplace(fParams.Query,'\"','"',[rfReplaceAll]);
+        fServerQuery := fParams.ServerQuery;
         fServerOid :=  fParams.ServerOid;
         fServerOidToProcess := fServerOid;
         fFirstID := 0;
@@ -530,7 +533,9 @@ begin
            exit;
 
         openDB;
-        getRemoteParameters;
+        while not getRemoteParameters do
+            if not(delay(self, fParams.MainDelayS , 0.57, 'getRemoteParameters delay')) then
+                exit;
         setPrivateVariables;
 
         while (not Terminated) do begin
@@ -541,7 +546,7 @@ begin
                     doBlockUpload;
 
                     if not fPostFatalError then
-                         if not(delay(self, fParams.MainDelayS , 0.3, 'main delay')) then
+                         if not(delay(self, fParams.MainDelayS , 0.4, 'main delay')) then
                              exit;
 
                     if (fRemoteQueryId>kNoID) and (fLastRecordIDProcessed = fAllRecordsServerQueryRecordCount) then  begin
@@ -552,7 +557,6 @@ begin
 
                         if existsRemoteControlQueryResult then
                             deleteRemoteControlQueryResult;
-                            fnxDatabase1.DeleteTable(kRemoteQueryResult_tablename + intToStr(fRemoteQueryId),'');
 
                     end;
                 end else
@@ -560,10 +564,12 @@ begin
                     exit;
 
             end else
-            if not(delay(self, fParams.MainDelayS , 0.3, 'nothing to do delay')) then
+            if not(delay(self, fParams.MainDelayS , 0.7, 'nothing to do delay')) then
                 exit;
 
-            getRemoteParameters;
+            while not getRemoteParameters do
+                if not(delay(self, fParams.MainDelayS , 0.57, 'getRemoteParameters delay')) then
+                    exit;
             setPrivateVariables;
         end;
 
@@ -571,7 +577,6 @@ begin
     finally
 
         closeDB;
-        freeNxDbOjects;
 
         GLog.Log(self,[lcDebug],'UpLoad Thread end');
     end;
@@ -650,12 +655,15 @@ begin
                         GLog.Log(self,[lcDebug],'RemoteQuery: achou um sem terminar.');
                         setRemoteQueryStatus(kRemoteQueryStatusUnfinished);
                         fLastRecordIDProcessed := lastRecord;
+                        fRecCount := lastRecord + 1;
                         break;
                     end;
                     fnxQuery.Next;
                 end;
             finally
+
                 fnxQuery.Close;
+                
                 if fRemoteQueryStatus = kRemoteQueryStatusUnfinished then begin
                     fRemoteQueryId := _RemoteQueryId;
                     fServerOid := _ServerOid;
@@ -667,7 +675,7 @@ begin
 
         except
             on e:exception do begin
-                GLog.Log(self,[lcExcept], fnxQuery.SQL.Text + ' => '+e.Message);
+                GLog.Log(self,[lcExcept], 'checkRemoteQuery => '+e.Message);
             end;
         end;
 
@@ -678,21 +686,30 @@ end;
 function  TncUploadThread.createAndPopulateRemoteQueryResult: boolean;
 var
     dict : TnxDataDictionary;
-    hasRecords : boolean;
+    queryHasRecords : boolean;
 begin
     GLog.Log(self,[lcDebug],'createAndPopulateRemoteQueryResult start');
     result := false;
 
     if fRemoteQueryId > kNoID then begin
         fnxServerQuery.SQL.Text := '#T 0 ' + #13#10 + fServerQuery;
-        fnxServerQuery.Open;
         try
-            hasRecords := fnxServerQuery.RecordCount > 0;
-        finally
-            fnxServerQuery.Close;
+            fnxServerQuery.Open;
+            try
+                queryHasRecords := fnxServerQuery.RecordCount > 0;
+            finally
+                fnxServerQuery.Close;
+            end;
+        except
+            on e:exception do begin
+                 if e is EnxDatabaseError then
+                    GLog.Log(self,[lcExcept],'createAndPopulateRemoteQueryResult SQL ERROR preparing SERVER QUERY: >'+fServerQuery+'<');
+                    GLog.Log(self,[lcExcept],'createAndPopulateRemoteQueryResult SQL ERROR preparing SERVER QUERY: '+e.Message);
+                 exit;
+            end;
         end;
 
-        if hasRecords then begin
+        if queryHasRecords then begin
             dict := getRemoteControlQueryResultDict;
             if dict<>nil then
             try
@@ -704,7 +721,7 @@ begin
             result := true;
         end;
 
-        GLog.Log(self,[lcDebug],'createAndPopulateRemoteQueryResult ends with hasrecords: '+ boolToStr(hasRecords, true));
+        GLog.Log(self,[lcDebug],'createAndPopulateRemoteQueryResult ends with hasrecords: '+ boolToStr(queryHasRecords, true));
     end else
         GLog.Log(self,[lcDebug],'CAN''T createAndPopulateRemoteQueryResult fRemoteQueryId=kNoID');
 
@@ -723,6 +740,25 @@ begin
         GLog.Log(self,[lcDebug],'deleteRemoteControlQueryResult for ID: '+ inttostr(fRemoteQueryId));
     end else
         GLog.Log(self,[lcDebug],'CAN''T deleteRemoteControlQueryResult fRemoteQueryId=kNoID');
+end;
+
+function TncUploadThread.getRemoteControlQueryResultLastID: integer;
+begin
+    result := 0;
+    if existsRemoteControlQueryResult then begin
+
+          fnxQuery.SQL.Text :=  'select max("queryItemID") from "' + kRemoteQueryResult_tablename + intToStr(fRemoteQueryId) + '"';
+          try
+              fnxQuery.Open;
+              result := fnxQuery.Fields[0].AsInteger;
+              fnxQuery.Close;
+          except
+              on e:exception do
+                GLog.Log(self,[lcExcept], 'getRemoteControlQueryResultLastID => '+e.Message);
+          end;
+
+    end;
+    GLog.Log(self,[lcDebug],'getRemoteControlQueryResultLastID for ID: '+ inttostr(fRemoteQueryId) + ' => ' + intToStr(result));
 end;
 
 function TncUploadThread.getRemoteControlQueryResultDict: TnxDataDictionary;
@@ -762,7 +798,7 @@ begin
     end;
 
     if fnxDatabase1.TableExists( kRemoteQueryResult_tablename + intToStr(fRemoteQueryId) ,'')  then begin
-        GLog.Log(self,[lcDebug],kRemoteQueryResult_tablename + intToStr(fRemoteQueryId) + ' Already D');
+        GLog.Log(self,[lcDebug],kRemoteQueryResult_tablename + intToStr(fRemoteQueryId) + ' Already Exists');
         exit;
     end;
 
@@ -835,22 +871,26 @@ begin
         exit;
     end;
 
+    lastRecord := getRemoteControlQueryResultLastID;
     fnxAllRecordsTempTable.TableName := kRemoteQueryResult_tablename + intToStr(fRemoteQueryId);
     fnxAllRecordsTempTable.IndexName := 'IqueryItemID';
-    fnxAllRecordsTempTable.Filter := 'uploadVer<'+inttostr(fRemoteUploadVersion)+' and queryItemID>'+inttostr(fLastRecordIDProcessed);
-    fnxAllRecordsTempTable.FilterType := ftSqlWhere;
+//    fnxAllRecordsTempTable.Filter := 'queryItemID>'+inttostr(lastRecord);
+//    fnxAllRecordsTempTable.FilterType := ftSqlWhere;
+//    fnxAllRecordsTempTable.Filtered := true;
     fnxAllRecordsTempTable.Filtered := false;
-
-    lastRecord := 0;
     fnxAllRecordsTempTable.Open;
+    fnxAllRecordsTempTable.Last;
+
+    fnxServerQuery.SQL.Text := '#T 0 ' + #13#10 + fServerQuery;
     fnxServerQuery.Open;
     try
         recordCount := 0;
+
         while not fnxServerQuery.Eof do begin
 
             sleep(5);
             if recordCount < lastRecord then begin
-                if recordCount mod 1000 = 0 then begin
+                if recordCount mod 500 = 0 then begin
                     GLog.Log(self,[lcDebug],'Skipped '+inttostr(recordCount));
                     GLog.ForceLogWrite;
                 end;
@@ -860,7 +900,7 @@ begin
                 continue;
             end;
 
-            fnxAllRecordsTempTable.Insert;
+            fnxAllRecordsTempTable.Append;
             for i:=0 to fnxServerQuery.FieldCount-1 do begin
 
                 if fnxServerQuery.FieldList[i].isNull then continue;
@@ -874,7 +914,7 @@ begin
             inc(recordCount);
             fnxServerQuery.Next;
 
-            if recordCount mod 1000 = 0 then begin
+            if recordCount mod 500 = 0 then begin
                 GLog.Log(self,[lcDebug],'Copiados '+inttostr(recordCount));
                 GLog.ForceLogWrite;
             end;
@@ -915,10 +955,9 @@ begin
         fnxAllRecordsTempTable.IndexName := 'IqueryItemID';
         fnxAllRecordsTempTable.Filter := 'uploadVer<'+inttostr(fRemoteUploadVersion)+' and queryItemID>'+inttostr(fLastRecordIDProcessed);
         fnxAllRecordsTempTable.FilterType := ftSqlWhere;
+        fnxAllRecordsTempTable.Filtered := true;
         fnxAllRecordsTempTable.Open;
         try
-
-            fnxAllRecordsTempTable.Filtered := true;
             fnxAllRecordsTempTable.First;
 
             fKbmMemBlockRecordsTable.EmptyTable;
@@ -1041,6 +1080,9 @@ end;
 //begin
 //
 //        GLog.Log(self,[lcDebug],'doResumoUpload start');
+//
+//  SELECT datahora, firstRecord, lastRecord, ms, matchedCount, modifiedCount, upsertedId, upload_error, upload_errormsg
+//  FROM "_RemoteQueryPost"
 //
 //        try
 //            fnxAllRecordsTempTable.TableName := kRemoteQueryPost_tablename;
@@ -1172,6 +1214,20 @@ begin
           GLog.Log(self,[lcDebug],'CAN''T newRemoteQuery NO fServerQuery');
           exit;
       end;
+
+
+        fnxServerQuery.SQL.Text := '#T 0 ' + #13#10 + fServerQuery;
+        try
+            fnxServerQuery.Prepare;
+        except
+            on e:exception do begin
+                 if e is EnxDatabaseError then
+                    GLog.Log(self,[lcExcept],'CAN''T newRemoteQuery SQL ERROR preparing SERVER QUERY: >'+fServerQuery+'<');
+                 exit;
+            end;
+        end;
+
+
 
       fnxQuery.SQL.Text :=  'insert into "' + kRemoteQuery_tablename + '"'+
           ' (datahora, ServerQuery, ServerOid) VALUES (:datahora, :ServerQuery, :ServerOid)';

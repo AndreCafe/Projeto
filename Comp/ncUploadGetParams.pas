@@ -19,7 +19,7 @@ type
         fRecordsByRequest: integer;
         fMaxRecords: integer;
         fInterBlockDelayS : integer;
-        fQuery : string;
+        fServerQuery : string;
         procedure Clear;
      public
         property ServerOid: string read fOid;
@@ -28,7 +28,7 @@ type
         property RecordsByRequest: integer read fRecordsByRequest;
         property MaxRecords: integer read fMaxRecords;
         property InterBlockDelayS: integer read fInterBlockDelayS;
-        property Query: string read fQuery;
+        property ServerQuery: string read fServerQuery;
 
         procedure Assign(Source: TPersistent); override;
         procedure ReadJson(aJsonArr: TJsonArray);
@@ -210,7 +210,7 @@ begin
        fRecordsByRequest := TUploadParams(Source).RecordsByRequest;
        fMaxRecords := TUploadParams(Source).MaxRecords;
        fInterBlockDelayS := TUploadParams(Source).InterBlockDelayS;
-       fQuery := TUploadParams(Source).Query;
+       fServerQuery := TUploadParams(Source).ServerQuery;
     end;
 end;
 
@@ -223,7 +223,7 @@ begin
         'RecordsByRequest: '+intToStr(fRecordsByRequest) + ', '+
         'MaxRecords: '+intToStr(fMaxRecords) + ', '+
         'InterBlockDelayS: '+intToStr(fInterBlockDelayS) + ', '+
-        'Query: "'+ fQuery + '"';
+        'Query: "'+ fServerQuery + '"';
 end;
 
 procedure TUploadParams.Clear;
@@ -234,7 +234,7 @@ begin
     fRecordsByRequest := kDefRecordsByRequest;
     fMaxRecords := kDefMaxRecords;
     fInterBlockDelayS := kDefInterBlockDelayS;
-    fQuery := '';
+    fServerQuery := '';
 
 end;
 
@@ -254,7 +254,7 @@ begin
     fRecordsByRequest := aRecordsByRequest;
     fMaxRecords := aMaxRecords;
     fInterBlockDelayS := aInterBlockDelayS;
-    fQuery := '';
+    fServerQuery := '';
 
 end;
 
@@ -274,8 +274,7 @@ begin
             fInterBlockDelayS := strtoint( jsonObj.getJSONObject('InterBlockDelayS').getString('$numberLong'));
             fMaxRecords := strtoint( jsonObj.getJSONObject('MaxRecords').getString('$numberLong'));
             fRecordsByRequest := strtoint( jsonObj.getJSONObject('RecordsByRequest').getString('$numberLong'));
-            fQuery := jsonObj.getString('Query');
-
+            fServerQuery := stringReplace(jsonObj.getString('Query'),'\"','"',[rfReplaceAll]);
         except
             on e: exception do begin
                 GLog.Log(self,[lcExcept], 'ReadJson: '+ e.Message);
