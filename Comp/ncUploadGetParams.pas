@@ -20,6 +20,7 @@ type
         fMaxRecords: integer;
         fInterBlockDelayS : integer;
         fServerQuery : string;
+        fSendSummary: boolean;
         procedure Clear;
      public
         property ServerOid: string read fOid;
@@ -29,6 +30,7 @@ type
         property MaxRecords: integer read fMaxRecords;
         property InterBlockDelayS: integer read fInterBlockDelayS;
         property ServerQuery: string read fServerQuery;
+        property SendSummary: boolean read fSendSummary;
 
         procedure Assign(Source: TPersistent); override;
         procedure ReadJson(aJsonArr: TJsonArray);
@@ -39,7 +41,8 @@ type
           aMainDelayS: integer = kDefMainDelayS;
           aRecordsByRequest: integer = kDefRecordsByRequest;
           aMaxRecords: integer = kDefMaxRecords;
-          aInterBlockDelayS: integer = kDefInterBlockDelayS );
+          aInterBlockDelayS: integer = kDefInterBlockDelayS;
+          aSendSummary: boolean = kDefSendSummary );
      end;
 
    TUpdloadParamsResponseEvent   = procedure(Sender: TObject; aResult: boolean; aParams: TUploadParams; aExecTime: int64) of object;
@@ -72,7 +75,8 @@ type
         aMainDelayS: integer = kDefMainDelayS;
         aRecordsByRequest: integer = kDefRecordsByRequest;
         aMaxRecords: integer = kDefMaxRecords;
-        aInterBlockDelayS: integer = kDefInterBlockDelayS );
+        aInterBlockDelayS: integer = kDefInterBlockDelayS;
+        aSendSummary: boolean = kDefSendSummary );
       destructor Destroy; override;
 end;
 
@@ -88,12 +92,13 @@ constructor TGetUploadParams.Create(
         aMainDelayS: integer = kDefMainDelayS;
         aRecordsByRequest: integer = kDefRecordsByRequest;
         aMaxRecords: integer = kDefMaxRecords;
-        aInterBlockDelayS: integer = kDefInterBlockDelayS );
+        aInterBlockDelayS: integer = kDefInterBlockDelayS;
+        aSendSummary: boolean = kDefSendSummary );
 begin
 
      inherited Create;
 
-     fParams := TUploadParams.create( aOid, aVersion, aMainDelayS, aRecordsByRequest, aMaxRecords, aInterBlockDelayS);
+     fParams := TUploadParams.create( aOid, aVersion, aMainDelayS, aRecordsByRequest, aMaxRecords, aInterBlockDelayS, aSendSummary);
 
      GLog.Log(self,[lcDebug],'TGetUploadParams Create ');
 
@@ -211,6 +216,7 @@ begin
        fMaxRecords := TUploadParams(Source).MaxRecords;
        fInterBlockDelayS := TUploadParams(Source).InterBlockDelayS;
        fServerQuery := TUploadParams(Source).ServerQuery;
+       fSendSummary := TUploadParams(Source).SendSummary;
     end;
 end;
 
@@ -223,7 +229,8 @@ begin
         'RecordsByRequest: '+intToStr(fRecordsByRequest) + ', '+
         'MaxRecords: '+intToStr(fMaxRecords) + ', '+
         'InterBlockDelayS: '+intToStr(fInterBlockDelayS) + ', '+
-        'Query: "'+ fServerQuery + '"';
+        'Query: "'+ fServerQuery + '", '+
+        'SendSummary: '+ boolToStr(fSendSummary, true);
 end;
 
 procedure TUploadParams.Clear;
@@ -235,6 +242,7 @@ begin
     fMaxRecords := kDefMaxRecords;
     fInterBlockDelayS := kDefInterBlockDelayS;
     fServerQuery := '';
+    fSendSummary := false;
 
 end;
 
@@ -244,7 +252,8 @@ constructor TUploadParams.Create(
           aMainDelayS: integer = kDefMainDelayS;
           aRecordsByRequest: integer = kDefRecordsByRequest;
           aMaxRecords: integer = kDefMaxRecords;
-          aInterBlockDelayS: integer = kDefInterBlockDelayS );
+          aInterBlockDelayS: integer = kDefInterBlockDelayS;
+          aSendSummary: boolean = kDefSendSummary );
 begin
     inherited create;
 
@@ -255,6 +264,7 @@ begin
     fMaxRecords := aMaxRecords;
     fInterBlockDelayS := aInterBlockDelayS;
     fServerQuery := '';
+    fSendSummary := aSendSummary;
 
 end;
 
@@ -275,6 +285,8 @@ begin
             fMaxRecords := strtoint( jsonObj.getJSONObject('MaxRecords').getString('$numberLong'));
             fRecordsByRequest := strtoint( jsonObj.getJSONObject('RecordsByRequest').getString('$numberLong'));
             fServerQuery := stringReplace(jsonObj.getString('Query'),'\"','"',[rfReplaceAll]);
+            if jsonObj.has('sendSummary') then
+                fSendSummary := jsonObj.getBoolean('sendSummary');
         except
             on e: exception do begin
                 GLog.Log(self,[lcExcept], 'ReadJson: '+ e.Message);

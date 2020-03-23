@@ -8,15 +8,15 @@ uses
 const
      MethodString: array[TIdHTTPMethod] of String = ('HEAD', 'GET', 'POST', 'OPTIONS', 'TRACE', 'PUT', 'DELETE', 'CONNECT'); {do not localize}
 
-//     kIndentStep =  0;    // tab value for uggly json
-     kIndentStep =  4;    // tab value for pretty json
-//     kNewLine = '';       // newline value for uggly json
-     kNewLine = #13#10;       // newline value for pretty json
-
+     kIndentStep =  0;    // tab value for uggly json
+//     kIndentStep =  4;    // tab value for pretty json
+     kNewLine = '';       // newline value for uggly json
+//     kNewLine = #13#10;       // newline value for pretty json
 
      //kDefActive = false;
      kDefVersion = 1;
 
+     kDefSendSummary = false;
      kDefIniDelayS = 0;
      kDefMainDelayS = 30;
      kDefRecordsByRequest = 500;
@@ -31,6 +31,7 @@ const
 
      kWebHookGetQueries = 'queries';
      kWebhookPostResults = 'results';
+     kWebhookPostSummary = 'summary';
 
      kWebHookPostRecords = '/api/client/v2.0/app/upcafe-mysmu/service/svc1/incoming_webhook/webhook0';
      kWebHookGetParams = '/api/client/v2.0/app/upcafe-mysmu/service/svc1/incoming_webhook/webhook1';

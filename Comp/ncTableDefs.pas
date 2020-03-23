@@ -3831,6 +3831,7 @@ begin
         with AddField('totalRecords', '', nxtWord32, 0, 0, False) do
             with AddDefaultValue(TnxConstDefaultValueDescriptor) as TnxConstDefaultValueDescriptor do
                 AsVariant := 0;
+        AddField('send_summary', '', nxtBoolean, 0, 0, False);
         AddField('RecVer', '', nxtWord32, 0, 0, False);
       end;
       with EnsureIndicesDescriptor do begin
