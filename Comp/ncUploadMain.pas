@@ -63,7 +63,7 @@ type
     function  escape(s: widestring): widestring;
     function  jsonFooter(var indentLevel: integer; jsonString: string): string;
     function  jsonHeader(var indentLevel: integer; email: string): string;
-    function  recordToJson(aKbmMemTable: TkbmMemTable; indentlevel: integer; email,injectFirst:string): string;
+    function  recordToJson(aKbmMemTable: TkbmMemTable; indentlevel: integer; email,injectFkUser:string; excludedFields: TStrings): string;
     procedure postOnResultsResponse(Sender: TObject; aId, aResponseCode: integer; aJsonQueryString, aJsonResponseString: string; aExecTime: int64);
     procedure postOnSummaryResponse(Sender: TObject; aId, aResponseCode: integer; aJsonQueryString, aJsonResponseString: string; aExecTime: int64);
     function  lastBlockRecord: boolean;
@@ -273,7 +273,7 @@ end;
 
 // MongoDB Extended JSON (v2)
 //
-function TncUploadThread.recordToJson(aKbmMemTable: TkbmMemTable; indentlevel: integer; email, injectFirst:string):string;
+function TncUploadThread.recordToJson(aKbmMemTable: TkbmMemTable; indentlevel: integer; email, injectFkUser:string; excludedFields: TStrings):string;
 var
     jsonstr, jsonval, payload : string;
     fldDef : TFieldDef;
@@ -281,6 +281,8 @@ var
     fld : TField;
     i : integer;
     fs : TFormatSettings;
+    fldDefName, thisField, fkUserRec: string;
+//    sl: TStringList;
 begin
 
     fs.DecimalSeparator := '.';
@@ -288,18 +290,20 @@ begin
 
     fd := aKbmMemTable.FieldDefs;
 
-    jsonstr := StringOfChar(' ', indentlevel * fIndentStep) + '{' + fNewLine +injectFirst;
+    jsonstr := '';
 
     // Iterates fields
     for i := 0 to fd.Count - 1 do begin
 
         jsonval := '';
         fldDef := fd.Items[i];
+        thisField := '';
 
-        if  not(fldDef.Name='queryItemID') and
-            not(fldDef.Name='RecVer') and
-            not(fldDef.Name='uploadVer')
-        then begin
+        if excludedFields.IndexOf(fldDef.Name)=-1 then begin
+//        if  //not(fldDef.Name='queryItemID') and
+//            not(fldDef.Name='RecVer') and
+//            not(fldDef.Name='uploadVer')
+//        then begin
 
             fld := aKbmMemTable.FieldByName(fldDef.Name);
 
@@ -370,18 +374,39 @@ begin
 
             end else begin
 
-                           jsonval := 'null';
+                jsonval := 'null';
 
             end;
 
-            jsonstr := jsonstr + StringOfChar(' ', (indentlevel + 2)* fIndentStep) + '"' + fldDef.Name +'":'+jsonval;
-            jsonstr := jsonstr + ',' + fNewLine;
+            fldDefName := fldDef.Name;
+            if fldDef.Name='queryItemID' then
+                fldDefName := '_uplID';
 
+            thisField := StringOfChar(' ', (indentlevel + 2)* fIndentStep) +
+                            '"' + fldDefName +'":'+jsonval +
+                            ',' + fNewLine;
+
+            if fldDef.Name='queryItemID' then
+                fkUserRec := thisField
+            else
+               jsonStr := jsonStr + thisField;
         end;
+
     end;
+    // tira último newline
     jsonstr := copy( jsonstr, 1, length(jsonstr) - length( fNewLine) - 1 );
 
-    jsonstr := jsonstr + fNewLine + StringOfChar(' ', indentlevel * fIndentStep) + '}';
+    jsonstr := StringOfChar(' ', indentlevel * fIndentStep) + '{' + fNewLine +
+                fkUserRec + 
+                injectFkUser +
+                jsonstr +
+                StringOfChar(' ', indentlevel * fIndentStep) + '}';
+
+//    sl := TStringList.Create;
+//    sl.Text := fJsonStr;
+//    sl.SaveToFile('c:\pp.json');
+//    sl.free;
+
     result := jsonstr;
 
 end;
@@ -1011,13 +1036,16 @@ procedure TncUploadThread.doBlockUpload;
 var
     RecordsInRequest, PostId : integer;
     //sl : TStringList;
-
+    excludedFields : TStringList;
 begin
         GLog.Log(self,[lcDebug],'doBlockUpload start');
         fRecCount := 0;
         fIndentlevel := 0;
         RecordsInRequest := 0;
         PostId := 0;
+        excludedFields := TStringList.create;
+        excludedFields.Add('RecVer');
+        excludedFields.Add('uploadVer');
 
         try
 
@@ -1033,7 +1061,7 @@ begin
                     if lastBlockRecord then break;
 
                     fJsonStr := fJsonStr +
-                        recordToJson(fKbmMemBlockRecordsTable, fIndentlevel, fEmail, injectFkUser) +
+                        recordToJson(fKbmMemBlockRecordsTable, fIndentlevel, fEmail, injectFkUser, excludedFields) +
                         ',' + fNewLine;
 
                     fQueryItemIDsList.Add( fKbmMemBlockRecordsTable.FieldByName( 'queryItemID' ).AsString);
@@ -1100,37 +1128,52 @@ begin
                  GLog.Log(self,[lcExcept], e.Message);
             end;
         end;
-
+        excludedFields.Free;
 
         GLog.Log(self,[lcDebug],'doBlockUpload end');
 
 end;
 
 procedure TncUploadThread.doResumoUpload;
-//var
-     //sl: TStringList;
+var
+//     sl: TStringList;
+     excludedFields: TStringList;
 begin
 
         GLog.Log(self,[lcDebug],'doResumoUpload start');
+        excludedFields := TStringList.create;
+        excludedFields.Add('RecVer');
+        excludedFields.Add('uploadVer');
+        excludedFields.Add('ID');
         try
-            fnxAllRecordsTempTable.TableName := kRemoteQueryPost_tablename;
-            fnxAllRecordsTempTable.Filter := 'fk_RemoteQuery=' + intToStr(fRemoteQueryId);
-            fnxAllRecordsTempTable.IndexName := 'IRemoteQuery';
-            fnxAllRecordsTempTable.FilterType := ftSqlWhere;
-            fnxAllRecordsTempTable.Open;
+
+            fnxQuery.SQL.Text :=  'select '+
+                                    ' "ID", "dataHora", "firstRecord", "lastRecord", "Records", "matchedCount", "modifiedCount", "upsertedId", "ms", "upload_error", "upload_errormsg"'+
+                                    ' from "' + kRemoteQueryPost_tablename + '"' +
+                                    ' where "fk_remoteQuery"=:fk_remoteQuery'+
+                                    ' order by "ID"';
             try
-                fnxAllRecordsTempTable.Filtered := true;
-                fnxAllRecordsTempTable.First;
+                fnxQuery.ParamByName('fk_remoteQuery').AsInteger := fRemoteQueryId;
+                fnxQuery.Open;
 
                 fKbmMemResultTable.EmptyTable;
-                fKbmMemResultTable.CreateTableAs(fnxAllRecordsTempTable,[mtcpoStructure,mtcpoProperties]);
+                fKbmMemResultTable.CreateTableAs(fnxQuery,[mtcpoStructure,mtcpoProperties]);
+                fKbmMemResultTable.AutoIncMinValue := 1;
+
+                with fKbmMemResultTable.FieldDefs.AddFieldDef do begin
+                  Name      := 'queryItemID';
+                  DataType  := ftAutoInc;
+                  Size      := 0;
+                  Precision := 0;
+                end;
+
                 fKbmMemResultTable.Open;
-                fKbmMemResultTable.LoadFromDataSet(fnxAllRecordsTempTable,[]);
+                fKbmMemResultTable.LoadFromDataSet(fnxQuery,[]);
                 fKbmMemResultTable.First;
                 GLog.Log(self,[lcDebug],'fKbmMemResultTable recordCount '+inttostr(fKbmMemResultTable.recordCount));
 
             finally
-                fnxAllRecordsTempTable.Close;
+                fnxQuery.Close;
             end;
 
         except
@@ -1139,7 +1182,6 @@ begin
                GLog.Log(self,[lcExcept],'open table exception message: '+e.Message);
            end;
         end;
-
 
 //        sl := TStringList.create();
         fIndentlevel := 0;
@@ -1150,7 +1192,7 @@ begin
             while not fKbmMemResultTable.eof do begin
 
                     fJsonStr := fJsonStr +
-                        recordToJson(fKbmMemResultTable, fIndentlevel, fEmail, injectFkUser) +
+                        recordToJson(fKbmMemResultTable, fIndentlevel, fEmail, injectFkUser, excludedFields) +
                         ',' + fNewLine;
 
                     fKbmMemResultTable.Next;
@@ -1182,8 +1224,9 @@ begin
                  GLog.Log(self,[lcExcept], e.Message);
             end;
         end;
-//        sl.free;
-
+        //sl.free;
+        excludedFields.free;
+        
         GLog.Log(self,[lcDebug],'doResumoUpload end');
 
 end;
