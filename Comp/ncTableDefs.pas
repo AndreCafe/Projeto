@@ -3837,6 +3837,10 @@ begin
       with EnsureIndicesDescriptor do begin
         with AddIndex('IID', 0, idAll), KeyDescriptor as TnxCompKeyDescriptor do
           Add(GetFieldFromName('ID'));
+        with AddIndex('IUploadVer', 0, idAll), KeyDescriptor as TnxCompKeyDescriptor do
+          Add(GetFieldFromName('uploadVer'));
+        with AddIndex('IServerOid', 0, idAll), KeyDescriptor as TnxCompKeyDescriptor do
+          Add(GetFieldFromName('ServerOid'));
         with AddIndex('IRecVer', 0, idAll), KeyDescriptor as TnxCompKeyDescriptor do
           Add(GetFieldFromName('RecVer'));
       end;

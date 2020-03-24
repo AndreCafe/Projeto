@@ -628,7 +628,7 @@ begin
         _SendSummary := false;
         try
             fnxQuery.SQL.Text := 'Select "ID", "ServerOid", "uploadVer", "lastRecord", "totalRecords", "ServerQuery", "send_summary" from "' + kRemoteQuery_tablename +
-                                 '" order by "uploadVer" asc';
+                                 '" order by "uploadVer" desc';
             _RemoteQueryId := kNoId;
             fnxQuery.Open;
             try
@@ -1400,27 +1400,27 @@ begin
       end;
 
       GLog.Log(self,[lcDebug], 'updateRemoteQueryPost');
-      fnxQuery.SQL.Text :=  'insert into "' + kRemoteQueryPost_tablename + '"'+
-        ' (dataHora, fk_RemoteQuery, firstRecord, lastRecord, Records, matchedCount, modifiedCount, upsertedId, ms, upload_error, upload_errormsg) VALUES '+
-        ' (:datahora, :aRemoteQueryId, :aFirstRecord, :aLastRecord, :aRecords, :matchedCount, :modifiedCount, :upsertedId, :aExecTime, :aUpload_err, :aUploadErrorString )';
-
-      fnxQuery.ParamByName('datahora').AsDateTime := now;
-      fnxQuery.ParamByName('aRemoteQueryId').AsInteger := aRemoteQueryId;
-      fnxQuery.ParamByName('aFirstRecord').AsInteger := aFirstRecord;
-      fnxQuery.ParamByName('aLastRecord').AsInteger := aLastRecord;
-      fnxQuery.ParamByName('aRecords').AsString := aRecords;
-
-      fnxQuery.ParamByName('matchedCount').AsInteger := matchedCount;
-      fnxQuery.ParamByName('modifiedCount').AsInteger := modifiedCount;
-      fnxQuery.ParamByName('upsertedId').AsString := upsertedId;
-
-      fnxQuery.ParamByName('aUpload_err').AsBoolean := aUpload_err;
-      fnxQuery.ParamByName('aExecTime').AsInteger := aExecTime;
-      fnxQuery.ParamByName('aUploadErrorString').AsString := aUploadErrorString;
-
-      GLog.Log(self,[lcDebug], 'updateRemoteQueryPost -> ' + fnxQuery.SQL.Text );
-
       try
+          fnxQuery.SQL.Text :=  'insert into "' + kRemoteQueryPost_tablename + '"'+
+            ' (dataHora, fk_RemoteQuery, firstRecord, lastRecord, Records, matchedCount, modifiedCount, upsertedId, ms, upload_error, upload_errormsg) VALUES '+
+            ' (:datahora, :aRemoteQueryId, :aFirstRecord, :aLastRecord, :aRecords, :matchedCount, :modifiedCount, :upsertedId, :aExecTime, :aUpload_err, :aUploadErrorString )';
+
+          fnxQuery.ParamByName('datahora').AsDateTime := now;
+          fnxQuery.ParamByName('aRemoteQueryId').AsInteger := aRemoteQueryId;
+          fnxQuery.ParamByName('aFirstRecord').AsInteger := aFirstRecord;
+          fnxQuery.ParamByName('aLastRecord').AsInteger := aLastRecord;
+          fnxQuery.ParamByName('aRecords').AsString := aRecords;
+
+          fnxQuery.ParamByName('matchedCount').AsInteger := matchedCount;
+          fnxQuery.ParamByName('modifiedCount').AsInteger := modifiedCount;
+          fnxQuery.ParamByName('upsertedId').AsString := upsertedId;
+
+          fnxQuery.ParamByName('aUpload_err').AsBoolean := aUpload_err;
+          fnxQuery.ParamByName('aExecTime').AsInteger := aExecTime;
+          fnxQuery.ParamByName('aUploadErrorString').AsString := aUploadErrorString;
+
+          GLog.Log(self,[lcDebug], 'updateRemoteQueryPost -> ' + fnxQuery.SQL.Text );
+
           fnxQuery.ExecSql;
       except
           on e:Exception do
