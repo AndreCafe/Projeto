@@ -92,6 +92,7 @@ type
     procedure deleteRemoteControlQueryResult;
     function getRemoteControlQueryResultLastID: integer;
     procedure doResumoUpload;
+    function injectFkUser: string;
 
     { Private declarations }
   protected
@@ -997,13 +998,21 @@ begin
     GLog.Log(self,[lcDebug],'loadRemoteQueryResultToMemTable end with hasTable: '+boolToStr(hasTable,true));
 end;
 
+function TncUploadThread.injectFkUser: string;
+begin
+  result :=
+     StringOfChar(' ', (findentlevel + 2)* fIndentStep) +
+        '"_user":"'+ fEmail +'",' +
+        fNewLine;
+end;
+
+
 procedure TncUploadThread.doBlockUpload;
 var
     RecordsInRequest, PostId : integer;
-    injectThis : string;
     //sl : TStringList;
-begin
 
+begin
         GLog.Log(self,[lcDebug],'doBlockUpload start');
         fRecCount := 0;
         fIndentlevel := 0;
@@ -1021,18 +1030,12 @@ begin
 
                 while RecordsInRequest < fRecordsByRequest do begin
 
-
-                    if fRecCount=0 then begin
-                        injectThis := StringOfChar(' ', (findentlevel + 2)* fIndentStep);
-                        injectThis := injectThis + '"_user":"'+ fEmail +'",' + fNewLine;
-                    end else
-                        injectThis := '';
-
-
                     if lastBlockRecord then break;
 
-                    fJsonStr := fJsonStr + recordToJson(fKbmMemBlockRecordsTable, fIndentlevel, fEmail, injectThis);
-                    fJsonStr := fJsonStr + ',' + fNewLine;
+                    fJsonStr := fJsonStr +
+                        recordToJson(fKbmMemBlockRecordsTable, fIndentlevel, fEmail, injectFkUser) +
+                        ',' + fNewLine;
+
                     fQueryItemIDsList.Add( fKbmMemBlockRecordsTable.FieldByName( 'queryItemID' ).AsString);
 
                     fKbmMemBlockRecordsTable.Next;
@@ -1104,9 +1107,8 @@ begin
 end;
 
 procedure TncUploadThread.doResumoUpload;
-var
+//var
      //sl: TStringList;
-     injectThis : string;
 begin
 
         GLog.Log(self,[lcDebug],'doResumoUpload start');
@@ -1145,13 +1147,12 @@ begin
 
             fJsonStr := jsonHeader(fIndentlevel, fEmail);
 
-            injectThis := StringOfChar(' ', (findentlevel + 2)* fIndentStep);
-            injectThis := injectThis + '"_user":"'+ fEmail +'",' + fNewLine;
-
             while not fKbmMemResultTable.eof do begin
-                    fJsonStr := fJsonStr + recordToJson(fKbmMemResultTable, fIndentlevel, fEmail, injectThis);
-                    fJsonStr := fJsonStr + ',' + fNewLine;
-                    injectThis := '';
+
+                    fJsonStr := fJsonStr +
+                        recordToJson(fKbmMemResultTable, fIndentlevel, fEmail, injectFkUser) +
+                        ',' + fNewLine;
+
                     fKbmMemResultTable.Next;
                     sleep(5);
             end;
