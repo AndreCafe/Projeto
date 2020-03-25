@@ -497,6 +497,7 @@ begin
       GLog.Log(self,[lcDebug],'init Params: '+fParams.asString);
       getParams := TGetUploadParams.Create;
       try
+          getParams.Email := fEmail;
           getParams.PaylodSecret := fPayloadSecret;
           result := getParams.Run(Self);
           if result then
@@ -641,6 +642,10 @@ begin
         // se deu error em getparams, exit;
         if fRemoteUploadVersion = -1 then begin
             GLog.Log(self,[lcDebug],'fRemoteUploadVersion = -1');
+            exit;
+        end;
+        if fRemoteUploadVersion = -2 then begin
+            GLog.Log(self,[lcDebug],'skip this, not for me');
             exit;
         end;
 

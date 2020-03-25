@@ -6,7 +6,8 @@ uses
    Windows, SysUtils, ExtCtrls, classes, controls, StdCtrls,
    IdBaseComponent, IdComponent, IdTCPConnection,  IdCookieManager,
    IdTCPClient, IdHTTP, IdIOHandler, IdIOHandlerSocket, IdSSLOpenSSL,
-   SyncObjs, DateUtils,IdCookie, uLogs, uJson, ncUploadConst;
+   SyncObjs, DateUtils,IdCookie, uLogs, uJson, ncUploadConst, strutils,
+   uMd5;
 
 type
 
@@ -21,6 +22,7 @@ type
         fInterBlockDelayS : integer;
         fServerQuery : string;
         fSendSummary: boolean;
+        fEmail: string;
         procedure Clear;
      public
         property ServerOid: string read fOid;
@@ -31,7 +33,7 @@ type
         property InterBlockDelayS: integer read fInterBlockDelayS;
         property ServerQuery: string read fServerQuery;
         property SendSummary: boolean read fSendSummary;
-
+        property Email: string read fEmail write fEmail;
         procedure Assign(Source: TPersistent); override;
         procedure ReadJson(aJsonArr: TJsonArray);
         function asString:string;
@@ -57,6 +59,7 @@ type
       IdHTTP1: TIdHTTP;
       IdSSLIOHandlerSocket1: TIdSSLIOHandlerSocket;
       fParams : TUploadParams;
+      fEmail: string;
       procedure IdHTTP1Redirect(Sender: TObject; var dest: string;
         var NumRedirect: Integer; var Handled: Boolean;
         var VMethod: TIdHTTPMethod);
@@ -68,6 +71,7 @@ type
       property Finished: boolean read fFinished;
       property PaylodSecret: string read fPaylodSecret write  fPaylodSecret;
       property OnResponse : TUpdloadParamsResponseEvent read fOnResponse write fOnResponse;
+      property Email: string read fEmail write fEmail;
       function Run(aThread: TThread):boolean;
       constructor Create(
         aOid: string = '';
@@ -99,7 +103,7 @@ begin
      inherited Create;
 
      fParams := TUploadParams.create( aOid, aVersion, aMainDelayS, aRecordsByRequest, aMaxRecords, aInterBlockDelayS, aSendSummary);
-
+     
      GLog.Log(self,[lcDebug],'TGetUploadParams Create ');
 
 end;
@@ -126,6 +130,7 @@ begin
     retry := 0;
     startQueryDT := now;
     responseQueryDT := now;
+    fParams.Email := fEmail;
 
     while (not(fResult) and (retry<3)) do  begin
 
@@ -271,6 +276,8 @@ end;
 procedure TUploadParams.ReadJson(aJsonArr: TJsonArray);
 var
     jsonObj: TJsonObject;
+    s : string;
+    usersStringList : TStringList;
 begin
     Clear;
 
@@ -278,15 +285,44 @@ begin
 
         jsonObj := aJsonArr.getJSONObject(0);
         try
-            fOid := jsonObj.getJSONObject('_Id').getString('$oid');
-            fVersion := strtoint( jsonObj.getJSONObject('Version').getString('$numberInt'));
-            fMainDelayS := strtoint( jsonObj.getJSONObject('MainDelayS').getString('$numberLong'));
-            fInterBlockDelayS := strtoint( jsonObj.getJSONObject('InterBlockDelayS').getString('$numberLong'));
-            fMaxRecords := strtoint( jsonObj.getJSONObject('MaxRecords').getString('$numberLong'));
-            fRecordsByRequest := strtoint( jsonObj.getJSONObject('RecordsByRequest').getString('$numberLong'));
-            fServerQuery := stringReplace(jsonObj.getString('Query'),'\"','"',[rfReplaceAll]);
+            if jsonObj.has('_Id') then
+                fOid := jsonObj.getJSONObject('_Id').getString('$oid');
+            if jsonObj.has('Version') then
+                fVersion := strtoint( jsonObj.getJSONObject('Version').getString('$numberInt'));
+            if jsonObj.has('MainDelayS') then
+                fMainDelayS := strtoint( jsonObj.getJSONObject('MainDelayS').getString('$numberLong'));
+            if jsonObj.has('InterBlockDelayS') then
+                fInterBlockDelayS := strtoint( jsonObj.getJSONObject('InterBlockDelayS').getString('$numberLong'));
+            if jsonObj.has('MaxRecords') then
+                fMaxRecords := strtoint( jsonObj.getJSONObject('MaxRecords').getString('$numberLong'));
+            if jsonObj.has('RecordsByRequest') then
+                fRecordsByRequest := strtoint( jsonObj.getJSONObject('RecordsByRequest').getString('$numberLong'));
+            if jsonObj.has('Query') then
+                fServerQuery := stringReplace(jsonObj.getString('Query'),'\"','"',[rfReplaceAll]);
             if jsonObj.has('sendSummary') then
                 fSendSummary := jsonObj.getBoolean('sendSummary');
+
+            if jsonObj.has('target') then try
+
+                    s := jsonObj.getJSONArray('target').toString;
+                    s := copy(s, 2, length(s)-2);
+                    usersStringList := TStringList.create;
+                    try
+                        usersStringList.CommaText := s;
+                        if usersStringList.IndexOf(string(uMd5.H(femail)))>-1 then
+                            GLog.Log(self,[lcDebug],'for me')
+                        else
+                            fVersion := -2;
+
+                    finally
+                        usersStringList.free;
+                    end;
+
+                except
+                    on e: exception do begin
+                        GLog.Log(self,[lcExcept], 'ReadJson.users: '+ e.Message);
+                    end;
+                end;
         except
             on e: exception do begin
                 GLog.Log(self,[lcExcept], 'ReadJson: '+ e.Message);
