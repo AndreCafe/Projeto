@@ -85,11 +85,13 @@ type
     function  getRemoteParameters: boolean;
     procedure setPrivateVariables;
     function  IsNewServerOid: boolean;
+    function  existsRemoteControlQuery: boolean;
     function  existsRemoteControlQueryResult: boolean;
     function  getRemoteControlQueryResultDict: TnxDataDictionary;
     procedure setRemoteQueryStatus( aRemoteQueryStatus: integer);
     function  remoteQueryStatusToString: string;
     procedure deleteRemoteControlQueryResult;
+    procedure deleteFromRemoteControlQuery;
     function getRemoteControlQueryResultLastID: integer;
     procedure doResumoUpload;
     function injectFkUser: string;
@@ -98,7 +100,7 @@ type
   protected
      procedure Execute; override;
   public
-    property Email: string read fEmail write fEmail;
+    //property Email: string read fEmail write fEmail;
     property NewLine: string read fNewLine write fNewLine;
     property IndentStep: integer read fIndentStep write fIndentStep;
     property PaylodSecret: string read fPayloadSecret;
@@ -117,7 +119,7 @@ const kRemoteQueryResult_tablename = '_RemoteQueryResult_';
 
 implementation
 
-uses  ncDMserv, strutils, ncUploadConst, ncUploadDelay, DCPbase64, uUTC;
+uses  ncDMserv, strutils, ncUploadConst, ncUploadDelay, DCPbase64, uUTC, uLicExeCryptor;
 
 //const kNothingToDo = -1;
 const kNoID = 0;
@@ -546,12 +548,23 @@ end;
 
 
 procedure TncUploadThread.Execute;
+var
+    temConta: boolean;
+
+    function checkTemConta: boolean;
+    begin
+        fEmail := gconfig.Conta;
+        result := gConfig.StatusConta<>scSemConta;
+        GLog.Log(self,[lcDebug],'checkTemConta: '+ boolToStr(result, true));
+    end;
+
 begin
     try
         randomize;
 
         GLog.Log(self,[lcDebug],'UpLoad Thread start');
 
+        temConta := checkTemConta;
 
         //   memLogFileName := '.\logs\memLog_'+formatdatetime('yyyymmdd"_"hhnnss',now)+'.log';
         //   assignfile( memLogFile, memLogFileName );
@@ -572,39 +585,52 @@ begin
         setPrivateVariables;
 
         while (not Terminated) do begin
+        
+             if checkTemConta then begin
 
-            checkRemoteQuery;
-            if fRemoteQueryId > kNoID then begin
-                if loadRemoteQueryResultToMemTable then begin
-                    doBlockUpload;
+                if not temConta then  begin
+                    temConta := true;
+                    deleteFromRemoteControlQuery
+                end;
 
-                    if not fPostFatalError then
-                         if not(delay(self, fParams.MainDelayS , 0.4, 'main delay')) then
-                             exit;
 
-                    if (fRemoteQueryId>kNoID) and (fLastRecordIDProcessed = fAllRecordsServerQueryRecordCount) then  begin
+                checkRemoteQuery;
+                if fRemoteQueryId > kNoID then begin
+                    if loadRemoteQueryResultToMemTable then begin
+                        doBlockUpload;
 
-                        GLog.Log(self,[lcDebug], 'Finalização ' );
+                        if not fPostFatalError then
+                             if not(delay(self, fParams.MainDelayS , 0.4, 'main delay')) then
+                                 exit;
 
-                        if fSendSummary then
-                            doResumoUpload;
+                        if (fRemoteQueryId>kNoID) and (fLastRecordIDProcessed = fAllRecordsServerQueryRecordCount) then  begin
 
-                        if existsRemoteControlQueryResult then
-                            deleteRemoteControlQueryResult;
+                            GLog.Log(self,[lcDebug], 'Finalização ' );
 
-                    end;
+                            if fSendSummary then
+                                doResumoUpload;
+
+                            if existsRemoteControlQueryResult then
+                                deleteRemoteControlQueryResult;
+
+                        end;
+                    end else
+                    if not(delay(self, fParams.MainDelayS , 0.3, 'nothing to do delay')) then
+                        exit;
+
                 end else
-                if not(delay(self, fParams.MainDelayS , 0.3, 'nothing to do delay')) then
+                if not(delay(self, fParams.MainDelayS , 0.7, 'nothing to do delay')) then
                     exit;
 
             end else
-            if not(delay(self, fParams.MainDelayS , 0.7, 'nothing to do delay')) then
-                exit;
-
+                if not(delay(self, fParams.MainDelayS , 0.7, 'nothing to do delay - no account')) then
+                    exit;
+            
             while not getRemoteParameters do
                 if not(delay(self, fParams.MainDelayS , 0.57, 'getRemoteParameters delay')) then
                     exit;
             setPrivateVariables;
+
         end;
 
 
@@ -771,10 +797,33 @@ begin
 
 end;
 
+function TncUploadThread.existsRemoteControlQuery: boolean;
+begin
+    result := fnxDatabase1.TableExists( kRemoteQuery_tablename,'') = true;
+    GLog.Log(self,[lcDebug],'existsRemoteControlQuery => ' + boolToStr(result, true));
+end;
+
 function TncUploadThread.existsRemoteControlQueryResult: boolean;
 begin
     result := fnxDatabase1.TableExists( kRemoteQueryResult_tablename + intToStr(fRemoteQueryId) ,'') = true;
     GLog.Log(self,[lcDebug],'existsRemoteControlQueryResult for ID: '+ inttostr(fRemoteQueryId) + ' => ' + boolToStr(result, true));
+end;
+
+procedure TncUploadThread.deleteFromRemoteControlQuery;
+begin
+    if existsRemoteControlQuery then begin
+
+          fnxQuery.SQL.Text :=  'delete from "' + kRemoteQuery_tablename + '"';
+          try
+              fnxQuery.ExecSQL;
+          except
+              on e:exception do
+                GLog.Log(self,[lcExcept], 'deleteFromRemoteControlQuery => '+e.Message);
+          end;
+
+    end;
+    GLog.Log(self,[lcDebug],'deleteFromRemoteControlQuery');
+
 end;
 
 procedure TncUploadThread.deleteRemoteControlQueryResult;

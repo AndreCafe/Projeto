@@ -43,26 +43,6 @@
       
       
       
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
       <Excluded_Packages Name="C:\Users\Public\Documents\RAD Studio\5.0\Bpl\kbmMemDesD2007Std.bpl">File C:\Users\Public\Documents\RAD Studio\5.0\Bpl\kbmMemDesD2007Std.bpl not found</Excluded_Packages>
       <Excluded_Packages Name="C:\Users\Public\Documents\RAD Studio\5.0\Bpl\kbmMWDesD2007.bpl">kbmMW ProPlus Edition - n-tier development - D2007/Win32 - Designtime - www.Components4Developers.com</Excluded_Packages>
       <Excluded_Packages Name="C:\Users\Public\Documents\RAD Studio\5.0\Bpl\MWChatD2007.bpl">File C:\Users\Public\Documents\RAD Studio\5.0\Bpl\MWChatD2007.bpl not found</Excluded_Packages>
@@ -87,7 +67,6 @@
     <DCCReference Include="..\..\GS\uRSAss.pas" />
     <DCCReference Include="..\..\kapi\ncKiteApi.pas" />
     <DCCReference Include="..\..\kapi\ncKiteApi_SyncNexWeb.pas" />
-    <DCCReference Include="..\..\nextarprodserver\uNxCompression.pas" />
     <DCCReference Include="..\..\nxUrl\nexUrls.pas" />
     <DCCReference Include="..\..\Utils\uLogs.pas" />
     <DCCReference Include="..\..\Utils\uNexusDBUtils.pas" />
@@ -158,10 +137,6 @@
     <DCCReference Include="..\Comp\ncLancExtra.pas" />
     <DCCReference Include="..\Comp\ncListaEspera.pas" />
     <DCCReference Include="..\comp\ncListaID.pas" />
-    <DCCReference Include="..\Comp\ncMateReadThread.pas" />
-    <DCCReference Include="..\Comp\ncMateServerThread.pas" />
-    <DCCReference Include="..\Comp\ncMateTls.pas" />
-    <DCCReference Include="..\Comp\ncMateWriteThread.pas" />
     <DCCReference Include="..\Comp\ncMovEst.pas" />
     <DCCReference Include="..\Comp\ncMsgCli.pas" />
     <DCCReference Include="..\Comp\ncMsgCom.pas" />

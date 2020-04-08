@@ -77,7 +77,6 @@ uses
   ncPrinterInfo8 in '..\Comp\ncPrinterInfo8.pas',
   ncsCallbackEvents in 'ncsCallbackEvents.pas',
   ncEnvioCaixa in '..\Comp\ncEnvioCaixa.pas',
-  uNxCompression in '..\..\nextarprodserver\uNxCompression.pas',
   uNexusDBUtils in '..\..\Utils\uNexusDBUtils.pas',
   ncEspecie in '..\Comp\ncEspecie.pas',
   uLogs in '..\..\Utils\uLogs.pas',
@@ -106,10 +105,6 @@ uses
   ncUploadPost in '..\Comp\ncUploadPost.pas',
   uHMAC_sha256 in '..\Comp\uHMAC_sha256.pas',
   ncDMmate in '..\Comp\ncDMmate.pas' {dmMate: TDataModule},
-  ncMateReadThread in '..\Comp\ncMateReadThread.pas',
-  ncMateServerThread in '..\Comp\ncMateServerThread.pas',
-  ncMateTls in '..\Comp\ncMateTls.pas',
-  ncMateWriteThread in '..\Comp\ncMateWriteThread.pas',
   uUTC in '..\Utils\uUTC.pas';
 
 {$R *.res}

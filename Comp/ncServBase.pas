@@ -1817,7 +1817,7 @@ begin
 
       //Glog.active := true;
       fUpLoad := TncUploadThread.Create;
-      fUpLoad.Email := gconfig.Conta; // 'oEmailAli@gmail.com';
+      //fUpLoad.Email := gconfig.Conta; // 'oEmailAli@gmail.com';
       fUpLoad.ServerEngine := DM.nxRSE;
       fUpLoad.Resume;
 

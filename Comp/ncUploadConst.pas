@@ -17,7 +17,7 @@ const
      kDefVersion = 1;
 
      kDefSendSummary = false;
-     kDefIniDelayS = 0;
+     kDefIniDelayS = 60;
      kDefMainDelayS = 30;
      kDefRecordsByRequest = 500;
      kDefMaxRecords = 2500;
