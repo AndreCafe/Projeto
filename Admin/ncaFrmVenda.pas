@@ -132,7 +132,6 @@ type
     tProComissaoPerc: TFloatField;
     tProComissaoLucro: TBooleanField;
     tProRecVer: TIntegerField;
-    tProuploadVer: TWordField;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure cmCancelarClick(Sender: TObject);
     procedure cmGravarClick(Sender: TObject);

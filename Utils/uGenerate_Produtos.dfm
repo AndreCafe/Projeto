@@ -58,7 +58,6 @@ object Form16: TForm16
     Top = 24
   end
   object nxDB: TnxDatabase
-    ActiveDesigntime = True
     Session = nxSession1
     AliasPath = 'c:\nexcafe\dados'
     Left = 64
@@ -319,9 +318,6 @@ object Form16: TForm16
     end
     object tProdRecVer: TIntegerField
       FieldName = 'RecVer'
-    end
-    object tProduploadVer: TWordField
-      FieldName = 'uploadVer'
     end
   end
   object tFor: TnxTable

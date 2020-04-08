@@ -109,7 +109,8 @@ uses
   ncMateReadThread in '..\Comp\ncMateReadThread.pas',
   ncMateServerThread in '..\Comp\ncMateServerThread.pas',
   ncMateTls in '..\Comp\ncMateTls.pas',
-  ncMateWriteThread in '..\Comp\ncMateWriteThread.pas';
+  ncMateWriteThread in '..\Comp\ncMateWriteThread.pas',
+  uUTC in '..\Utils\uUTC.pas';
 
 {$R *.res}
 {$R uacserv.res}

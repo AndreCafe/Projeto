@@ -19,6 +19,7 @@ uses
       fResponseCode: integer;
       fId : integer;
       fRecords : string;
+      fWebhook : string;
       fPaylodSecret: string;
       fJsonQueryString : string;
       fJsonResponseString : string;
@@ -37,6 +38,7 @@ uses
       property ID: integer read fID;
       property JsonString: string read fJsonQueryString write  fJsonQueryString;
       property PaylodSecret: string read fPaylodSecret write  fPaylodSecret;
+      property Webhook: string read fWebhook write  fWebhook;
       property Records: string read fRecords write fRecords;
       property ResponseCode: integer read fResponseCode;
       property OnResponse : TResponseEvent read fOnResponse write fOnResponse;
@@ -112,10 +114,10 @@ begin
              fJsonResponseString:='';
              upStream.Seek(0,0);
              try
-                 GLog.Log(self,[lcDebug],'trh ' + inttostr(Fid) +  ' POST /api/.../'+kWebhookPostResults);
+                 GLog.Log(self,[lcDebug],'trh ' + inttostr(Fid) +  ' POST /api/.../'+fWebhook);
                  //raise EIdHTTPProtocolException.CreateError(401, 'Pau', 'Pau' );
 
-                 fJsonResponseString := fIdHTTP1.Post( kMongodbStichWebhooksUrl + kWebhookPostResults, upStream);
+                 fJsonResponseString := fIdHTTP1.Post( kMongodbStichWebhooksUrl + fWebhook, upStream);
                  fResponseCode := 200;
                  responseQueryDT := now;
              except
@@ -130,7 +132,7 @@ begin
                     if e is EIdHTTPProtocolException then begin
                           sl := TStringList.create;
                           try
-                            sl.Text :=  'POST https://' + kMongodbStichWebhooksHost + kMongodbStichWebhooksUrl + kWebhookPostResults;
+                            sl.Text :=  'POST https://' + kMongodbStichWebhooksHost + kMongodbStichWebhooksUrl + fWebhook;
                             sl.Add(fIdHTTP1.Request.CustomHeaders.Text);
                             sl.Add('');
                             upStream.Seek(0,0);
@@ -139,8 +141,7 @@ begin
                           finally
                             sl.free;
                           end;
-
-                    end;
+                     end;
                 end;
              end;
 

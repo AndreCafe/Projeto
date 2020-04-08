@@ -1,8 +1,0 @@
-C:\Projetos\NexCafe\InstantDemo\novoteste.swf
-Build successfully completed
-Created at: Sat Dec 29 09:59:01 2007
-Flash player required: v6.0 or above
-Size: 271 KB
-Total frames in main movie: 560
-Playback frame rate: 20
-Approximate playback time: 28 seconds

@@ -92,7 +92,6 @@ type
     tProdCadastroRapido: TBooleanField;
     tProdIncluidoEm: TDateTimeField;
     tProdRecVer: TIntegerField;
-    tProduploadVer: TWordField;
     tForID: TAutoIncField;
     tForNome: TStringField;
     tForEndereco: TStringField;

@@ -3831,11 +3831,16 @@ begin
         with AddField('totalRecords', '', nxtWord32, 0, 0, False) do
             with AddDefaultValue(TnxConstDefaultValueDescriptor) as TnxConstDefaultValueDescriptor do
                 AsVariant := 0;
+        AddField('send_summary', '', nxtBoolean, 0, 0, False);
         AddField('RecVer', '', nxtWord32, 0, 0, False);
       end;
       with EnsureIndicesDescriptor do begin
         with AddIndex('IID', 0, idAll), KeyDescriptor as TnxCompKeyDescriptor do
           Add(GetFieldFromName('ID'));
+        with AddIndex('IUploadVer', 0, idAll), KeyDescriptor as TnxCompKeyDescriptor do
+          Add(GetFieldFromName('uploadVer'));
+        with AddIndex('IServerOid', 0, idAll), KeyDescriptor as TnxCompKeyDescriptor do
+          Add(GetFieldFromName('ServerOid'));
         with AddIndex('IRecVer', 0, idAll), KeyDescriptor as TnxCompKeyDescriptor do
           Add(GetFieldFromName('RecVer'));
       end;
@@ -3871,13 +3876,17 @@ begin
         AddField('firstRecord', '', nxtWord32, 0, 0, True);
         AddField('lastRecord', '', nxtWord32, 0, 0, True);
         AddField('Records', '', nxtBLOBMemo, 0, 0, false);
-        AddField('InsertedIds', '', nxtBLOBMemo, 0, 0, False);
+
+        AddField('matchedCount', '', nxtWord32, 0, 0, False);
+        AddField('modifiedCount', '', nxtWord32, 0, 0, False);
+        AddField('upsertedId', '', nxtNullString, 50, 0, False);
+
+
         with AddField('ms', '', nxtWord32, 0, 0, False) do
             with AddDefaultValue(TnxConstDefaultValueDescriptor) as TnxConstDefaultValueDescriptor do
                 AsVariant := 0;
         AddField('upload_error', '', nxtBoolean, 0, 0, False);
         AddField('upload_errormsg', '', nxtBLOBMemo, 0, 0, False);
-        AddField('upload_jsonsource', '', nxtBLOBMemo, 0, 0, False);
 
         AddField('RecVer', '', nxtWord32, 0, 0, False);
       end;
@@ -3898,7 +3907,7 @@ begin
             FieldNumber := GetFieldFromName('fk_RemoteQuery');
           AddAction(TnxTargetRequiredActionDescriptor);
         end;
-      
+
       CheckValid(False);
     end;
   except

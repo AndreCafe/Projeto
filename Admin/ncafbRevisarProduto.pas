@@ -64,7 +64,6 @@ type
     TabComissaoPerc: TFloatField;
     TabComissaoLucro: TBooleanField;
     TabRecVer: TIntegerField;
-    TabuploadVer: TWordField;
     procedure cmEditarClick(Sender: TObject);
   private
     fDockingControl: TdxCustomDockControl;

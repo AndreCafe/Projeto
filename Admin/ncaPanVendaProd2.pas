@@ -87,7 +87,6 @@ type
     tProComissaoPerc: TFloatField;
     tProComissaoLucro: TBooleanField;
     tProRecVer: TIntegerField;
-    tProuploadVer: TWordField;
     procedure FormCreate(Sender: TObject);
     procedure btnLancarClick(Sender: TObject);
     procedure edQtdKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);

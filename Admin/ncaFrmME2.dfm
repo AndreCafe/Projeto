@@ -161,7 +161,6 @@ object FrmME2: TFrmME2
       StyleHot.TextStyle = [fsUnderline]
       Properties.Alignment.Vert = taVCenter
       OnClick = cmCancelarClick
-      ExplicitLeft = 303
       AnchorY = 17
     end
     object cbRecibo: TcxCheckBox
@@ -187,7 +186,6 @@ object FrmME2: TFrmME2
       StyleHot.LookAndFeel.NativeStyle = False
       TabOrder = 1
       Visible = False
-      ExplicitLeft = 380
       Height = 28
       Width = 109
     end
@@ -227,8 +225,6 @@ object FrmME2: TFrmME2
       Bevel.StandardStyle = lsNone
       ParentColor = True
       TabOrder = 3
-      ExplicitLeft = 492
-      ExplicitWidth = 274
     end
     object panFidelidade: TLMDSimplePanel
       Left = 0
@@ -252,7 +248,7 @@ object FrmME2: TFrmME2
           000000180806000000E0773DF8000000017352474200AECE1CE9000000046741
           4D410000B18F0BFC6105000000206348524D00007A26000080840000FA000000
           80E8000075300000EA6000003A98000017709CBA513C00000009704859730000
-          0B0B00000B0B016D0484B70000051B49444154484B9D95094C53771CC77FA058
+          0B0A00000B0A01BF4366530000051B49444154484B9D95094C53771CC77FA058
           A0A00539442B0E218A88085E9BF71DA751666088593530179CF19AC363286233
           8832AAE3184E17756AE281CE21631310C5231B4C9902411164285A82A5780085
           42A1A5FDEEF71A976C662BDD5EF249F3FA7EEFFBBBFFCF86DEB88E1F7FF09EA6
@@ -599,9 +595,6 @@ object FrmME2: TFrmME2
     end
     object tProRecVer: TIntegerField
       FieldName = 'RecVer'
-    end
-    object tProuploadVer: TWordField
-      FieldName = 'uploadVer'
     end
   end
   object DataSource1: TDataSource
