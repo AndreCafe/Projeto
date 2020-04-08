@@ -1,8 +1,0 @@
-C:\Projetos\NexCafe\demos\bjoo.swf
-Build 10 successfully completed
-Created at: Thu Jun 24 02:18:38 2010
-Flash player required: v6.0 or above
-Size: 129 KB
-Total frames in main movie: 580
-Playback frame rate: 20
-Approximate playback time: 29 seconds

@@ -28,6 +28,7 @@
     <DCC_ObjOutput>C:\ProjetoDCU\D2007</DCC_ObjOutput>
     <DCC_HppOutput>C:\ProjetoDCU\D2007</DCC_HppOutput>
     <DCC_Define>DEBUG</DCC_Define>
+    <DCC_RemoteDebug>True</DCC_RemoteDebug>
   </PropertyGroup>
   <ProjectExtensions>
     <Borland.Personality>Delphi.Personality</Borland.Personality>

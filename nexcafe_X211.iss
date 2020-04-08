@@ -21,7 +21,7 @@ DefaultDirName=C:\nexcafe
 DefaultGroupName=NexCafé
 OutputDir=c:\instaladores
 DirExistsWarning=No
-OutputBaseFilename=setup_nexcafe_X211a
+OutputBaseFilename=setup_nexcafe_X211b
 VersionInfoProductTextVersion=5.0.0.211
 
 [Types]
@@ -66,7 +66,7 @@ Filename: {app}\nexguard.exe; Parameters: REMOVEALL
 [Registry]
 Root: HKCU; Subkey: "Software\NexCafe"; Flags: uninsdeletekey; ValueType: dword; ValueName: "Installed"; ValueData: "20101";
 Root: HKCU; Subkey: "Software\NexCafe"; Flags: uninsdeletekey; ValueType: string; ValueName: "Version"; ValueData: "X211";
-Root: HKCU; Subkey: "Software\NexCafe"; Flags: uninsdeletekey; ValueType: string; ValueName: "Installer"; ValueData: "a";
+Root: HKCU; Subkey: "Software\NexCafe"; Flags: uninsdeletekey; ValueType: string; ValueName: "Installer"; ValueData: "b";
 
 [UninstallDelete]
 Type: files; Name: {app}\Nexcafe.url
