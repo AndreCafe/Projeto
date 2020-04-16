@@ -1410,7 +1410,6 @@ begin
 end;
 
 procedure TFrmPri.AjustaVersao;
-var S: String;
 
 procedure UpdDataLic(D: TDateTime);
 begin
@@ -1484,7 +1483,7 @@ begin
 end;
 
 procedure TFrmPri.AEShortCut(var Msg: TWMKey; var Handled: Boolean);
-var CodCli: Integer;
+//var CodCli: Integer;
 begin
   with Dados do
   if Msg.CharCode=119 then
@@ -1498,10 +1497,11 @@ begin
       Raise ENexCafe.Create(SncaFrmPri_ClienteNãoEncontrado);
   end};
 end;
-  
+
 procedure TFrmPri.AtualizaBar;      // dario 09/2009
 begin
-  if gConfig.VerBloqueioSites then
+  //if gConfig.VerBloqueioSites then     // dario 04 2020 -
+  if uppercase(slConfig.Values['VerBloqueioSites']) = 'S' then // dario 02 2020 +
      cmFiltroWeb.Visible := ivAlways else
      cmFiltroWeb.Visible := ivNever;
 end;

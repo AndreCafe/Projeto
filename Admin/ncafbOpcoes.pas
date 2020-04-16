@@ -618,7 +618,6 @@ type
     MTNaoTransferirMaq: TBooleanField;
     nbgMeiosPagamento: TdxNavBarGroup;
     nbgMeiosPagamentoControl: TdxNavBarGroupControl;
-    cxDBCheckBox19: TcxDBCheckBox;
     MTVerBloqueioSites: TBooleanField;
     procedure vgMCFundoDesktopEditPropertiesButtonClick(Sender: TObject;
       AButtonIndex: Integer);
@@ -717,7 +716,7 @@ uses
 
 procedure TfbOpcoes.FrmBasePaiCreate(Sender: TObject);
 var
-    i, idx : integer;
+    i : integer;
 begin
   inherited;
   FConfigRec := TFrmConfigRec.Create(Self);
@@ -885,7 +884,7 @@ begin
   
   S := '';
   if rb_poslogin_centro.checked then
-    MTPosLogin.value := poslogin_centro 
+    MTPosLogin.value := poslogin_centro
   else
   if rb_poslogin_topo.checked then
     MTPosLogin.value := poslogin_topo 
