@@ -9,7 +9,12 @@ uses
   cxLookAndFeels, cxLookAndFeelPainters, cxPC, Registry, LMDCustomComponent,
   LMDBaseController, LMDCustomContainer, LMDGenericList, cxPCdxBarPopupMenu,
   dxBarBuiltInMenu;
-  
+
+const
+    nc_version = 'X212';
+    nc_installer = 'a';
+    setup_nexcafe_file_name = 'setup_nexcafe_' + nc_version + nc_installer;
+
 type
   TFrmPri = class(TForm)
     Paginas: TcxPageControl;
@@ -212,7 +217,7 @@ begin
       if cbServAdmin.ItemIndex=0 then
         S := '/type=Servidor' else
         S := '/type=Admin';
-      sExe := IncludeTrailingBackslash(GetTempDirectory)+'setup_nexcafe_.exe';
+      sExe := IncludeTrailingBackslash(GetTempDirectory)+ setup_nexcafe_file_name +'.exe';
       genList.Items[0].SaveToFile(sExe);
       btnCancelar.Enabled := False;
       if rbServ.Checked then begin
@@ -222,6 +227,10 @@ begin
 
         if FechouAdmin or FechouServ then
           cbExec1.Visible := False;  
+      end;
+      if not FileExists(sExe) then begin
+        ShowMessage(sExe+' não foi encontrado.');
+        Halt(1);
       end;
       if WinExecAndWait32(sExe + ' /dir="'+edPasta.Text+'" /silent '+S, SW_SHOWNORMAL, True)<>0 then
         Close;

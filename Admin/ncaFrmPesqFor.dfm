@@ -65,6 +65,7 @@ object FrmPesqFor: TFrmPesqFor
       TabOrder = 2
       OnEnter = edBuscaEnter
       OnKeyDown = edBuscaKeyDown
+      ExplicitHeight = 21
       Width = 680
     end
     object btnCancel: TcxButton
@@ -721,6 +722,8 @@ object FrmPesqFor: TFrmPesqFor
       object tsSemFoto: TcxTabSheet
         Caption = 'tsSemFoto'
         ImageIndex = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
         object imgSemFoto: TMyImage
           Left = 0
           Top = 0
@@ -740,6 +743,8 @@ object FrmPesqFor: TFrmPesqFor
       object tsComFoto: TcxTabSheet
         Caption = 'tsComFoto'
         ImageIndex = 1
+        ExplicitWidth = 0
+        ExplicitHeight = 0
         object edFoto: TcxDBImage
           Left = 0
           Top = 0
@@ -748,12 +753,12 @@ object FrmPesqFor: TFrmPesqFor
           DataBinding.DataField = 'Foto'
           DataBinding.DataSource = dsCli
           ParentColor = True
+          Properties.FitMode = ifmProportionalStretch
           Properties.GraphicClassName = 'TdxSmartImage'
           Properties.GraphicTransparency = gtTransparent
           Properties.ImmediatePost = True
           Properties.ReadOnly = True
           Properties.ShowFocusRect = False
-          Properties.Stretch = True
           Style.BorderStyle = ebsNone
           Style.HotTrack = False
           Style.TransparentBorder = False

@@ -261,7 +261,7 @@ object FrmPri: TFrmPri
                 Left = 0
                 Top = 0
                 Width = 210
-                Height = 287
+                Height = 275
                 AllowFloating = False
                 AutoHide = False
                 Caption = 'CHAT'
@@ -273,13 +273,13 @@ object FrmPri: TFrmPri
                 OnDock = dpCHATDock
                 DockingType = 2
                 OriginalWidth = 214
-                OriginalHeight = 287
+                OriginalHeight = 275
               end
               object dpImp: TdxDockPanel
                 Left = 0
-                Top = 287
+                Top = 275
                 Width = 210
-                Height = 356
+                Height = 344
                 Font.Charset = DEFAULT_CHARSET
                 Font.Color = clBlack
                 Font.Height = -12
@@ -297,7 +297,7 @@ object FrmPri: TFrmPri
                 OnDock = dpCHATDock
                 DockingType = 2
                 OriginalWidth = 214
-                OriginalHeight = 356
+                OriginalHeight = 344
               end
             end
           end
@@ -473,7 +473,6 @@ object FrmPri: TFrmPri
       Properties.Alignment.Vert = taVCenter
       Transparent = True
       OnClick = lbContaClick
-      ExplicitLeft = 188
       AnchorY = 12
     end
     object lbVersao: TcxLabel
@@ -483,7 +482,6 @@ object FrmPri: TFrmPri
       Caption = 'XXX'
       Style.TextStyle = [fsBold]
       Properties.Alignment.Vert = taVCenter
-      ExplicitLeft = 160
       AnchorY = 12
     end
     object lbPromptVersao: TcxLabel
@@ -492,7 +490,6 @@ object FrmPri: TFrmPri
       Align = alRight
       Caption = 'Vers'#227'o: '
       Properties.Alignment.Vert = taVCenter
-      ExplicitLeft = 132
       AnchorY = 12
     end
     object lbPlano: TcxLabel
@@ -510,7 +507,6 @@ object FrmPri: TFrmPri
       StyleHot.TextStyle = [fsBold, fsUnderline]
       Properties.Alignment.Vert = taVCenter
       OnClick = lbPromptPlanoClick
-      ExplicitLeft = -159
       AnchorY = 12
     end
     object lbPromptPlano: TcxLabel
@@ -527,7 +523,6 @@ object FrmPri: TFrmPri
       StyleHot.TextStyle = [fsUnderline]
       Properties.Alignment.Vert = taVCenter
       OnClick = lbPromptPlanoClick
-      ExplicitLeft = -187
       AnchorY = 12
     end
     object lbVenc: TcxLabel
@@ -551,7 +546,6 @@ object FrmPri: TFrmPri
       StyleHot.TextStyle = [fsBold, fsUnderline]
       Properties.Alignment.Vert = taVCenter
       OnClick = lbPromptPlanoClick
-      ExplicitLeft = 83
       AnchorY = 12
     end
     object lbPromptVenc: TcxLabel
@@ -569,7 +563,6 @@ object FrmPri: TFrmPri
       StyleHot.TextStyle = []
       Properties.Alignment.Vert = taVCenter
       OnClick = lbPromptPlanoClick
-      ExplicitLeft = 21
       AnchorY = 12
     end
   end

@@ -1,11 +1,6 @@
 program setup_nexcafe_w8;
 
 uses
-  madExcept,
-  madLinkDisAsm,
-  madListHardware,
-  madListProcesses,
-  madListModules,
   Forms,
   unxInst_w8_Pri in 'unxInst_w8_Pri.pas' {FrmPri},
   unxInst_Folder in 'unxInst_Folder.pas' {FrmFolder},

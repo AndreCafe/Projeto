@@ -355,7 +355,7 @@ type
     procedure CalcTotais;
 
     procedure RefreshBotoes;
-  
+
     procedure FiltraDados; override;
     class function Descricao: String; override;
     procedure AtualizaDireitos; override;
@@ -471,7 +471,7 @@ begin
   case FTipoBusca of
     busNome : begin
       cmSubBusca.Caption := SBuscaPorNome;
-      Tab.IndexName := 'IFornecedorNome'; // do not localize
+      Tab.IndexName := 'INome'; // do not localize
       TVNome.Index := 0;
       TVUsername.Index := 1;
       TVCodigo.Index := 2;
@@ -480,7 +480,7 @@ begin
 
     busUsername : begin
       cmSubBusca.Caption := SBuscaPorUsername;
-      Tab.IndexName := 'IFornecedorUsername'; // do not localize
+      Tab.IndexName := 'IUsername'; // do not localize
       TVUsername.Index := 0;
       TVNome.Index := 1;
       TVCodigo.Index := 2;
@@ -489,7 +489,9 @@ begin
 
     busCodigo : begin
       cmSubBusca.Caption := SBuscaPorCódigo;
-      Tab.IndexName := 'IFornecedorID'; // do not localize
+      // dario 08/05/2020
+      // Tab.IndexName := 'IFornecedorID'; // do not localize
+      Tab.IndexName := 'IID'; // do not localize
       TVCodigo.Index := 0;
       TVNome.Index := 1;
       TVUsername.Index := 2;
@@ -586,15 +588,16 @@ begin
   RefreshBotoes;  
     
   TV.DataController.Summary.Recalculate;
-  
+
   if edBusca.Enabled then
   if TextoBusca>'' then begin
     if (FTipoBusca=busCodigo) then
-      Tab.SetRange([False, StrToIntDef(TextoBusca, 0)], [False, StrToIntDef(TextoBusca, 0)]) else
-      Tab.SetRange([False, TextoBusca], [False, TextoBusca+'zzzzzzzzzzzzzzzzzzzzzzzzzzz']); // do not localize
+      Tab.SetRange([StrToIntDef(TextoBusca, 0)], [999999999], [skoPartialMatch])
+    else
+      Tab.SetRange([TextoBusca], ['zzzzzzzzzzzzzzzzzzzzzzzzzzz'], [skoPartialMatch]); // do not localize
   end else
-    Tab.SetRange([False], [False]);
-      
+      Tab.SetRange([], []);
+
   if Tab.RecordCount = 1  then
     SQuant := S1Cliente else  
     SQuant := IntToStr(Tab.RecordCount) + SClientes;
@@ -771,10 +774,11 @@ begin
   inherited;
   if TextoBusca>'' then begin
     if (FTipoBusca=busCodigo) then
-      Tab.SetRange([False, StrToIntDef(TextoBusca, 0)], [False, StrToIntDef(TextoBusca, 0)]) else
-      Tab.SetRange([False, TextoBusca], [False, TextoBusca+'zzzzzzzzzzzzzzzzzzzzzzzzzzz']); // do not localize
+      Tab.SetRange([StrToIntDef(TextoBusca, 0)], [999999999],  [skoPartialMatch])
+    else
+      Tab.SetRange([TextoBusca], ['zzzzzzzzzzzzzzzzzzzzzzzzzzz'], [skoPartialMatch]); // do not localize
   end else begin
-    Tab.SetRange([False], [False]);
+    Tab.SetRange([], []);
   end;
 end;
 
@@ -819,13 +823,18 @@ begin
   STotCred := '';
   SQuant := '';
   FTipoFiltro := fltNenhum;
-  FTipoBusca := Dados.tbConfigCampoLocalizaCli.Value;
-  case FTipoBusca of
-    busNome : cmPorNome.Down := True;
-    busUsername : cmPorUsername.Down := True;
-  else
-    cmPorCodigo.Down := True;  
-  end;
+  
+  // dario 08/05/2020
+  // ---> movido para AtualizaDireitos
+  //  FTipoBusca := Dados.tbConfigCampoLocalizaCli.Value;
+  //  FTipoBusca := gConfig.CampoLocalizaCli;
+  //  case FTipoBusca of
+  //    busNome : cmPorNome.Down := True;
+  //    busUsername : cmPorUsername.Down := True;
+  //  else
+  //    cmPorCodigo.Down := True;  
+  //  end;
+  
   FPass := TncPassaportes.Create;
 end;
 
@@ -1087,7 +1096,7 @@ procedure TfbClientes.cmNovoClick(Sender: TObject);
 var SIndex: String;
 begin
   edBusca.EditValue := '';
-  Tab.SetRange([False], [False]);
+  Tab.SetRange([], []);
 
   TFrmCadCli.Create(Self).Novo(Tab, nil);
   SIndex := Dados.tbCli.IndexName;
@@ -1389,6 +1398,19 @@ begin
     cmFidelidade.Hint := SÉNecessárioAtivarOSistemaDeFidel;
 //  btnRecriaDebitos.Visible := SameText(ParamStr(1), 'imp');
   RefreshBotoes;
+
+  // dario 08/05/2020
+  FTipoBusca := gConfig.CampoLocalizaCli;
+  edBusca.Clear;
+  case FTipoBusca of
+    busNome : cmPorNome.Down := True;
+    busUsername : cmPorUsername.Down := True;
+  else
+    cmPorCodigo.Down := True;
+  end;
+  FiltraDados;
+
+
 end;
 
 type

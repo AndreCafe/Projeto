@@ -3,7 +3,7 @@ object FrmIniciarSessao: TFrmIniciarSessao
   Top = 0
   BorderWidth = 3
   Caption = 'Iniciar Acesso'
-  ClientHeight = 515
+  ClientHeight = 494
   ClientWidth = 566
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -85,7 +85,7 @@ object FrmIniciarSessao: TFrmIniciarSessao
     Left = 0
     Top = 172
     Width = 566
-    Height = 343
+    Height = 322
     Margins.Left = 0
     Margins.Top = 5
     Margins.Right = 0
@@ -93,6 +93,7 @@ object FrmIniciarSessao: TFrmIniciarSessao
     Align = alClient
     Bevel.Mode = bmCustom
     TabOrder = 4
+    ExplicitHeight = 343
     object cbRecibo: TcxCheckBox
       Left = 3
       Top = 18
@@ -286,8 +287,8 @@ object FrmIniciarSessao: TFrmIniciarSessao
     AllowReset = False
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
-    Font.Height = -12
-    Font.Name = 'Segoe UI'
+    Font.Height = -11
+    Font.Name = 'Tahoma'
     Font.Style = []
     CanCustomize = False
     Categories.Strings = (

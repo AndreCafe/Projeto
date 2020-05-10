@@ -3,8 +3,8 @@ object FrmNexLogin: TFrmNexLogin
   Top = 156
   BorderStyle = bsDialog
   Caption = 'NexAdmin'
-  ClientHeight = 320
-  ClientWidth = 473
+  ClientHeight = 302
+  ClientWidth = 447
   Color = clBtnFace
   Font.Charset = ANSI_CHARSET
   Font.Color = clWindowText
@@ -857,13 +857,13 @@ object FrmNexLogin: TFrmNexLogin
   OnKeyPress = FormKeyPress
   OnShow = FormShow
   PixelsPerInch = 96
-  TextHeight = 18
+  TextHeight = 17
   object panPri: TLMDSimplePanel
     AlignWithMargins = True
     Left = 15
     Top = 15
-    Width = 443
-    Height = 300
+    Width = 417
+    Height = 282
     Margins.Left = 15
     Margins.Top = 15
     Margins.Right = 15
@@ -876,8 +876,8 @@ object FrmNexLogin: TFrmNexLogin
       AlignWithMargins = True
       Left = 0
       Top = 0
-      Width = 443
-      Height = 37
+      Width = 417
+      Height = 35
       Margins.Left = 0
       Margins.Top = 0
       Margins.Right = 0
@@ -894,7 +894,7 @@ object FrmNexLogin: TFrmNexLogin
         16777215)
       Font.Charset = ANSI_CHARSET
       Font.Color = 8404992
-      Font.Height = -15
+      Font.Height = -13
       Font.Name = 'Tahoma'
       Font.Style = [fsBold]
       ParentColor = True
@@ -902,8 +902,8 @@ object FrmNexLogin: TFrmNexLogin
       TabOrder = 0
       object LMDSimplePanel11: TLMDSimplePanel
         Left = 0
-        Top = 37
-        Width = 443
+        Top = 35
+        Width = 417
         Height = 0
         Align = alBottom
         Bevel.Mode = bmCustom
@@ -913,16 +913,16 @@ object FrmNexLogin: TFrmNexLogin
       object pgImg: TcxPageControl
         Left = 0
         Top = 0
-        Width = 443
-        Height = 37
+        Width = 417
+        Height = 35
         Align = alClient
         TabOrder = 2
         Properties.ActivePage = tsImgNexCafe
         Properties.CustomButtons.Buttons = <>
         Properties.HideTabs = True
         LookAndFeel.NativeStyle = False
-        ClientRectBottom = 37
-        ClientRectRight = 443
+        ClientRectBottom = 35
+        ClientRectRight = 417
         ClientRectTop = 0
         object tsImgNexCafe: TcxTabSheet
           Caption = 'tsImgNexCafe'
@@ -930,8 +930,8 @@ object FrmNexLogin: TFrmNexLogin
           object imgNexCafe: TImage
             Left = 0
             Top = 0
-            Width = 443
-            Height = 37
+            Width = 417
+            Height = 35
             Margins.Left = 5
             Margins.Top = 0
             Margins.Right = 0
@@ -1105,20 +1105,18 @@ object FrmNexLogin: TFrmNexLogin
               3FE564AFCD9E3DA75861AE42051470EDBD6EF417A2FF03C7623424E36106D100
               00000049454E44AE426082}
             Transparent = True
-            ExplicitWidth = 188
-            ExplicitHeight = 35
+            ExplicitWidth = 168
+            ExplicitHeight = 31
           end
         end
         object tsImgNex: TcxTabSheet
           Caption = 'tsImgNex'
           ImageIndex = 1
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object imgNex: TImage
             Left = 0
             Top = 0
-            Width = 81
-            Height = 33
+            Width = 417
+            Height = 35
             Margins.Left = 5
             Margins.Top = 0
             Margins.Right = 0
@@ -1208,8 +1206,8 @@ object FrmNexLogin: TFrmNexLogin
               E2101BFFC7A775A856C8F78998AC3D30E75B7CD0375024969546FC53C9F23FCC
               073BFACBAD86700000000049454E44AE426082}
             Transparent = True
-            ExplicitWidth = 86
-            ExplicitHeight = 35
+            ExplicitWidth = 77
+            ExplicitHeight = 31
           end
         end
       end
@@ -1236,18 +1234,18 @@ object FrmNexLogin: TFrmNexLogin
         Properties.Alignment.Horz = taRightJustify
         Properties.Alignment.Vert = taVCenter
         Transparent = True
-        Height = 37
-        Width = 193
-        AnchorX = 443
-        AnchorY = 19
+        Height = 35
+        Width = 167
+        AnchorX = 417
+        AnchorY = 18
       end
     end
     object panServ: TLMDSimplePanel
       AlignWithMargins = True
       Left = 0
-      Top = 52
-      Width = 443
-      Height = 42
+      Top = 50
+      Width = 417
+      Height = 40
       Margins.Left = 0
       Margins.Top = 0
       Margins.Right = 0
@@ -1260,10 +1258,10 @@ object FrmNexLogin: TFrmNexLogin
       Color = clWindow
       TabOrder = 1
       object btnConfig: TcxButton
-        Left = 404
+        Left = 380
         Top = 2
-        Width = 37
-        Height = 38
+        Width = 35
+        Height = 36
         Cursor = crHandPoint
         Align = alRight
         Caption = 'Conectado ao servidor 192.168.0.1'
@@ -1339,8 +1337,8 @@ object FrmNexLogin: TFrmNexLogin
       object pgConn: TcxPageControl
         Left = 2
         Top = 2
-        Width = 402
-        Height = 38
+        Width = 378
+        Height = 36
         Align = alClient
         ParentBackground = False
         TabOrder = 1
@@ -1348,8 +1346,8 @@ object FrmNexLogin: TFrmNexLogin
         Properties.CustomButtons.Buttons = <>
         Properties.HideTabs = True
         LookAndFeel.NativeStyle = False
-        ClientRectBottom = 38
-        ClientRectRight = 402
+        ClientRectBottom = 36
+        ClientRectRight = 378
         ClientRectTop = 0
         object tsConectando: TcxTabSheet
           Caption = 'Conectando'
@@ -1358,7 +1356,7 @@ object FrmNexLogin: TFrmNexLogin
           ParentColor = False
           object cxLabel1: TcxLabel
             AlignWithMargins = True
-            Left = 84
+            Left = 79
             Top = 6
             Margins.Left = 5
             Margins.Top = 0
@@ -1368,20 +1366,20 @@ object FrmNexLogin: TFrmNexLogin
             ParentFont = False
             Style.Font.Charset = DEFAULT_CHARSET
             Style.Font.Color = clGray
-            Style.Font.Height = -17
+            Style.Font.Height = -16
             Style.Font.Name = 'Tahoma'
             Style.Font.Style = []
             Style.TextColor = clBlack
             Style.IsFontAssigned = True
             Properties.Alignment.Horz = taLeftJustify
             Properties.Alignment.Vert = taVCenter
-            AnchorY = 19
+            AnchorY = 18
           end
           object img: TImageEnMView
             Left = 7
             Top = 8
-            Width = 68
-            Height = 24
+            Width = 64
+            Height = 22
             Background = clWhite
             ParentCtl3D = False
             BorderStyle = bsNone
@@ -1403,7 +1401,7 @@ object FrmNexLogin: TFrmNexLogin
           ImageIndex = 1
           object lbServer: TcxLabel
             AlignWithMargins = True
-            Left = 80
+            Left = 79
             Top = 0
             Margins.Left = 5
             Margins.Top = 0
@@ -1413,15 +1411,14 @@ object FrmNexLogin: TFrmNexLogin
             ParentFont = False
             Style.Font.Charset = DEFAULT_CHARSET
             Style.Font.Color = 5066061
-            Style.Font.Height = -17
+            Style.Font.Height = -16
             Style.Font.Name = 'Tahoma'
             Style.Font.Style = [fsBold]
             Style.TextColor = 5066061
             Style.IsFontAssigned = True
             Properties.Alignment.Horz = taLeftJustify
             Properties.Alignment.Vert = taVCenter
-            ExplicitLeft = 131
-            AnchorY = 19
+            AnchorY = 18
           end
           object cxLabel2: TcxLabel
             AlignWithMargins = True
@@ -1436,31 +1433,31 @@ object FrmNexLogin: TFrmNexLogin
             ParentFont = False
             Style.Font.Charset = DEFAULT_CHARSET
             Style.Font.Color = 5066061
-            Style.Font.Height = -17
+            Style.Font.Height = -16
             Style.Font.Name = 'Tahoma'
             Style.Font.Style = []
             Style.TextColor = 5066061
             Style.IsFontAssigned = True
             Properties.Alignment.Horz = taLeftJustify
             Properties.Alignment.Vert = taVCenter
-            AnchorY = 19
+            AnchorY = 18
           end
         end
       end
     end
     object Paginas: TcxPageControl
       Left = 0
-      Top = 109
-      Width = 443
-      Height = 191
+      Top = 105
+      Width = 417
+      Height = 177
       Align = alClient
       TabOrder = 2
       Properties.ActivePage = tsOk
       Properties.CustomButtons.Buttons = <>
       Properties.HideTabs = True
       LookAndFeel.NativeStyle = False
-      ClientRectBottom = 191
-      ClientRectRight = 443
+      ClientRectBottom = 177
+      ClientRectRight = 417
       ClientRectTop = 0
       object tsOk: TcxTabSheet
         Caption = 'tsOk'
@@ -1469,8 +1466,8 @@ object FrmNexLogin: TFrmNexLogin
           AlignWithMargins = True
           Left = 0
           Top = 0
-          Width = 443
-          Height = 42
+          Width = 417
+          Height = 40
           Margins.Left = 0
           Margins.Top = 0
           Margins.Right = 0
@@ -1481,7 +1478,7 @@ object FrmNexLogin: TFrmNexLogin
           Bevel.Mode = bmStandard
           TabOrder = 0
           object edUsuario: TcxComboBox
-            Left = 76
+            Left = 74
             Top = 1
             Cursor = crHandPoint
             Align = alClient
@@ -1500,7 +1497,7 @@ object FrmNexLogin: TFrmNexLogin
             Style.BorderStyle = ebsNone
             Style.Font.Charset = DEFAULT_CHARSET
             Style.Font.Color = clWindowText
-            Style.Font.Height = -20
+            Style.Font.Height = -19
             Style.Font.Name = 'Tahoma'
             Style.Font.Style = [fsBold]
             Style.HotTrack = False
@@ -1516,7 +1513,7 @@ object FrmNexLogin: TFrmNexLogin
             StyleHot.LookAndFeel.NativeStyle = False
             TabOrder = 1
             OnEnter = edUsuarioEnter
-            Width = 366
+            Width = 342
           end
           object lbUsuario: TcxLabel
             AlignWithMargins = True
@@ -1530,7 +1527,7 @@ object FrmNexLogin: TFrmNexLogin
             ParentFont = False
             Style.Font.Charset = ANSI_CHARSET
             Style.Font.Color = clWindowText
-            Style.Font.Height = -17
+            Style.Font.Height = -16
             Style.Font.Name = 'Tahoma'
             Style.Font.Style = []
             Style.TextColor = 5460819
@@ -1538,15 +1535,15 @@ object FrmNexLogin: TFrmNexLogin
             Properties.Alignment.Vert = taVCenter
             Transparent = True
             OnClick = lbUsuarioClick
-            AnchorY = 21
+            AnchorY = 20
           end
         end
         object panSenha: TLMDSimplePanel
           AlignWithMargins = True
           Left = 0
-          Top = 57
-          Width = 443
-          Height = 43
+          Top = 55
+          Width = 417
+          Height = 40
           Margins.Left = 0
           Margins.Top = 0
           Margins.Right = 0
@@ -1557,7 +1554,7 @@ object FrmNexLogin: TFrmNexLogin
           Bevel.Mode = bmStandard
           TabOrder = 1
           object edSenha: TcxTextEdit
-            Left = 65
+            Left = 63
             Top = 1
             Cursor = crHandPoint
             Align = alClient
@@ -1570,7 +1567,7 @@ object FrmNexLogin: TFrmNexLogin
             Style.Color = clWhite
             Style.Font.Charset = DEFAULT_CHARSET
             Style.Font.Color = clWindowText
-            Style.Font.Height = -20
+            Style.Font.Height = -19
             Style.Font.Name = 'Tahoma'
             Style.Font.Style = [fsBold]
             Style.HotTrack = False
@@ -1587,7 +1584,7 @@ object FrmNexLogin: TFrmNexLogin
             StyleHot.LookAndFeel.Kind = lfFlat
             StyleHot.LookAndFeel.NativeStyle = False
             TabOrder = 0
-            Width = 377
+            Width = 353
           end
           object lbSenha: TcxLabel
             AlignWithMargins = True
@@ -1601,7 +1598,7 @@ object FrmNexLogin: TFrmNexLogin
             ParentFont = False
             Style.Font.Charset = ANSI_CHARSET
             Style.Font.Color = clWindowText
-            Style.Font.Height = -17
+            Style.Font.Height = -16
             Style.Font.Name = 'Tahoma'
             Style.Font.Style = []
             Style.TextColor = 5460819
@@ -1609,15 +1606,15 @@ object FrmNexLogin: TFrmNexLogin
             Properties.Alignment.Vert = taVCenter
             Transparent = True
             OnClick = lbSenhaClick
-            AnchorY = 22
+            AnchorY = 20
           end
         end
         object LMDSimplePanel2: TLMDSimplePanel
           AlignWithMargins = True
           Left = 0
-          Top = 130
-          Width = 443
-          Height = 35
+          Top = 125
+          Width = 417
+          Height = 33
           Margins.Left = 0
           Margins.Top = 15
           Margins.Right = 0
@@ -1629,8 +1626,8 @@ object FrmNexLogin: TFrmNexLogin
             AlignWithMargins = True
             Left = 0
             Top = 0
-            Width = 108
-            Height = 35
+            Width = 102
+            Height = 33
             Cursor = crHandPoint
             Margins.Left = 0
             Margins.Top = 0
@@ -1641,7 +1638,7 @@ object FrmNexLogin: TFrmNexLogin
             Enabled = False
             Font.Charset = ANSI_CHARSET
             Font.Color = clWindowText
-            Font.Height = -17
+            Font.Height = -16
             Font.Name = 'Tahoma'
             Font.Style = [fsBold]
             ParentFont = False
@@ -1653,7 +1650,7 @@ object FrmNexLogin: TFrmNexLogin
           end
           object lbEsqueceu: TcxLabel
             AlignWithMargins = True
-            Left = 282
+            Left = 275
             Top = 0
             Cursor = crHandPoint
             Margins.Left = 30
@@ -1666,7 +1663,7 @@ object FrmNexLogin: TFrmNexLogin
             ParentFont = False
             Style.Font.Charset = DEFAULT_CHARSET
             Style.Font.Color = clWindowText
-            Style.Font.Height = -15
+            Style.Font.Height = -13
             Style.Font.Name = 'Tahoma'
             Style.Font.Style = []
             Style.HotTrack = True
@@ -1680,7 +1677,7 @@ object FrmNexLogin: TFrmNexLogin
             StyleHot.TextStyle = [fsBold, fsUnderline]
             Properties.Alignment.Vert = taVCenter
             OnClick = lbEsqueceuClick
-            AnchorY = 18
+            AnchorY = 17
           end
         end
       end
@@ -1690,8 +1687,8 @@ object FrmNexLogin: TFrmNexLogin
         object LMDSimplePanel1: TLMDSimplePanel
           Left = 0
           Top = 0
-          Width = 443
-          Height = 128
+          Width = 417
+          Height = 121
           Align = alTop
           Bevel.Mode = bmCustom
           TabOrder = 0
@@ -1727,28 +1724,28 @@ object FrmNexLogin: TFrmNexLogin
               4E44AE426082}
           end
           object cxLabel3: TcxLabel
-            Left = 43
+            Left = 41
             Top = 6
             Caption = 'Vers'#227'o diferente de servidor.'
             Style.TextStyle = [fsBold]
           end
           object cxLabel4: TcxLabel
-            Left = 43
-            Top = 36
+            Left = 41
+            Top = 34
             AutoSize = False
             Caption = #201' necess'#225'rio que o NexAdmin e NexServ estejam na mesma vers'#227'o.'
             Style.TextStyle = []
             Properties.WordWrap = True
-            Height = 67
-            Width = 390
+            Height = 63
+            Width = 368
           end
         end
         object btnFechar: TcxButton
           AlignWithMargins = True
           Left = 0
-          Top = 131
-          Width = 108
-          Height = 35
+          Top = 124
+          Width = 102
+          Height = 33
           Cursor = crHandPoint
           Margins.Left = 0
           Margins.Top = 0
@@ -1757,7 +1754,7 @@ object FrmNexLogin: TFrmNexLogin
           Default = True
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
-          Font.Height = -17
+          Font.Height = -16
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
           ParentFont = False

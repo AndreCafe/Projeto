@@ -684,6 +684,7 @@ type
     procedure AjustaVisTipoCli;
     procedure AjustaVisDadosMin;
     procedure AjustaVisPM;
+
   public
     class function Descricao: String; override;
   

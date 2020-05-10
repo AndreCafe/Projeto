@@ -3,7 +3,7 @@ object FrmTempoIniciar: TFrmTempoIniciar
   Top = 0
   BorderWidth = 3
   Caption = 'Tempo iniciar sess'#227'o'
-  ClientHeight = 439
+  ClientHeight = 449
   ClientWidth = 621
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -141,23 +141,25 @@ object FrmTempoIniciar: TFrmTempoIniciar
     Left = 0
     Top = 90
     Width = 621
-    Height = 349
+    Height = 359
     Align = alClient
     Bevel.Mode = bmCustom
     TabOrder = 8
+    ExplicitHeight = 349
     object panTT: TLMDSimplePanel
       Left = 0
       Top = 0
       Width = 200
-      Height = 268
+      Height = 278
       Align = alLeft
       Bevel.Mode = bmCustom
       TabOrder = 0
+      ExplicitHeight = 268
       object Grid: TcxGrid
         Left = 0
         Top = 0
         Width = 195
-        Height = 268
+        Height = 278
         Align = alClient
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
@@ -168,6 +170,7 @@ object FrmTempoIniciar: TFrmTempoIniciar
         TabOrder = 0
         LookAndFeel.Kind = lfFlat
         LookAndFeel.NativeStyle = False
+        ExplicitHeight = 268
         object TV: TcxGridDBTableView
           Navigator.Buttons.CustomButtons = <>
           OnCanFocusRecord = TVCanFocusRecord
@@ -217,26 +220,28 @@ object FrmTempoIniciar: TFrmTempoIniciar
         Left = 195
         Top = 0
         Width = 5
-        Height = 268
+        Height = 278
         Align = alRight
         Bevel.Mode = bmCustom
         TabOrder = 1
+        ExplicitHeight = 268
       end
     end
     object panDetalhes: TLMDSimplePanel
       Left = 200
       Top = 0
       Width = 421
-      Height = 268
+      Height = 278
       Align = alClient
       Bevel.Mode = bmEdge
       Bevel.StandardStyle = lsNone
       TabOrder = 1
+      ExplicitHeight = 268
       object LMDSimplePanel4: TLMDSimplePanel
         Left = 2
         Top = 2
         Width = 417
-        Height = 194
+        Height = 159
         Align = alTop
         Bevel.BorderInnerWidth = 1
         Bevel.LightColor = clGray
@@ -244,11 +249,10 @@ object FrmTempoIniciar: TFrmTempoIniciar
         Bevel.StandardStyle = lsNone
         TabOrder = 0
         object panAtalhoTempo: TLMDSimplePanel
-          Left = 1
-          Top = 156
+          Left = 6
+          Top = 64
           Width = 415
           Height = 37
-          Align = alBottom
           Bevel.BorderSides = []
           Bevel.BorderInnerWidth = 1
           Bevel.Mode = bmEdge
@@ -423,6 +427,7 @@ object FrmTempoIniciar: TFrmTempoIniciar
             Properties.Alignment.Vert = taVCenter
             OnClick = lbT1Click
             OnMouseUp = lbT1MouseUp
+            ExplicitLeft = 6
             Height = 35
             Width = 46
             AnchorX = 24
@@ -654,7 +659,7 @@ object FrmTempoIniciar: TFrmTempoIniciar
     object panTot: TLMDSimplePanel
       AlignWithMargins = True
       Left = 0
-      Top = 274
+      Top = 284
       Width = 621
       Height = 75
       Margins.Left = 0
@@ -667,6 +672,7 @@ object FrmTempoIniciar: TFrmTempoIniciar
       Bevel.Mode = bmStandard
       Bevel.StandardStyle = lsNone
       TabOrder = 2
+      ExplicitTop = 274
     end
   end
   object tcxlist: TcxStyleRepository

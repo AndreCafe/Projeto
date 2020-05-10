@@ -19,7 +19,7 @@ uses Windows, SysUtils, Classes, Graphics, Forms, Controls, StdCtrls,
   cxMaskEdit, cxDropDownEdit, cxRadioGroup, lmdcont, LMDControl,
   LMDPNGImage, cxLookAndFeels, dxBar, cxStyles, cxClasses, dxBarExtItems,
   cxImage, cxPCdxBarPopupMenu, cxPC, ieview, iemview, LMDBaseController,
-  LMDCustomContainer, LMDGenericList;
+  LMDCustomContainer, LMDGenericList, dxBarBuiltInMenu;
 
 
 type

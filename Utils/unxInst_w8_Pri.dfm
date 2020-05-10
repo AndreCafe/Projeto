@@ -26,7 +26,7 @@ object FrmPri: TFrmPri
     ParentBackground = False
     ParentColor = False
     TabOrder = 0
-    Properties.ActivePage = cxTabSheet1
+    Properties.ActivePage = cxTabSheet2
     Properties.CustomButtons.Buttons = <>
     Properties.HideTabs = True
     LookAndFeel.NativeStyle = False
@@ -807,7 +807,7 @@ object FrmPri: TFrmPri
           Width = 277
           Height = 38
           Caption = 
-            'Bem-vindo ao Assistente de Instala'#231#227'o do NexCaf'#233' X210 para Windo' +
+            'Bem-vindo ao Assistente de Instala'#231#227'o do NexCaf'#233' X212 para Windo' +
             'ws 8'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
@@ -1148,7 +1148,7 @@ object FrmPri: TFrmPri
           0D544C4D44504E474F626A65637489504E470D0A1A0A0000000D494844520000
           00300000003008060000005702F9870000002B744558744372656174696F6E20
           54696D6500446F203231204E6F7620323030322031313A34353A3435202B3031
-          3030B2AB05980000000774494D4507D605170E05050A1E980400000009704859
+          3030B2AB05980000000774494D45D60705170E0505DEC85F7F00000009704859
           7300000B1100000B11017F645F910000000467414D410000B18F0BFC61050000
           0C1D4944415478DAD5590974145516BDD5DDE9842C84614962E0E02081101611
           8F4A581C889948D886651CF0B02888822209111CC5E0C099C1D1A3022A100447
@@ -2256,7 +2256,7 @@ object FrmPri: TFrmPri
   end
   object genList: TLMDGenericList
     DefaultCompressed = True
-    Left = 88
-    Top = 176
+    Left = 24
+    Top = 264
   end
 end
