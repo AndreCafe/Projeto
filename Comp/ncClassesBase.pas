@@ -22,9 +22,6 @@ uses
   madKernel,
   Variants,
   ncErros,
-  {$IFDEF MATE}
-  ncDMmate,
-  {$ENDIF}
   uNexTransResourceStrings_PT;
 
 const
@@ -397,7 +394,7 @@ type
     icutmcmd   : String;
     icutmcsr   : String;
   end;
-  
+
   TSessionSocket = record
     ssSession : Integer;
     ssSocket  : Integer;
@@ -446,7 +443,7 @@ type
 
 
   TncServidorBase = class;
-  
+
   TncClasse       = class;
   TncMaquina      = class;
   TncCliente      = class;
@@ -455,7 +452,7 @@ type
   TncTarifa       = class;
 
   TncTarifas      = class;
-  
+
   TTipoNotificacao = (tnCriacao, tnAlteracao, tnDestruicao);
 
   TProcNotificacao = procedure (Obj: TncClasse; TipoNot: TTipoNotificacao) of object;
@@ -2141,7 +2138,7 @@ type
   private
     FUltimoHandle : Integer;
     FOnEnviaEvento : TncEnviaEvento;
-    
+
     function NumClientesLocais: Integer;
   protected
     FClientes: TThreadList;
@@ -2149,22 +2146,18 @@ type
 
     procedure AoRemoverCliente(Cliente: TncCliente); virtual;
     function ObtemCliente(aHandle: Integer): TncCliente;
-    
+
     procedure EnviaEvento(Mensagem: Integer; Dados: Pointer);
-    
+
     procedure AddCliente(Obj: TncCliente);
     procedure RemoveCliente(Obj: TncCliente); 
     function ProximoHandle: Integer;
     procedure SetAtivo(Valor: Boolean); virtual;
     procedure DesativaClientes;
     procedure ChecaErro(Erro: Integer);
-    
+
   public
 
-   {$IFDEF MATE}
-    Mate : TdmMate;
-    {$ENDIF}
-  
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
 
@@ -2180,7 +2173,7 @@ type
     function ObtemClientePorSocket(Socket: Integer): TncCliente;
     function ObtemClientePorSessionID(aSessionID: Integer): TncCliente;
     function ObtemHandleClientePorMaq(aMaq: Word): Integer;
-    function ObtemPastaServ(var NomePastaServ: String): Integer; virtual; 
+    function ObtemPastaServ(var NomePastaServ: String): Integer; virtual;
     function ArqFundoEnviado(NomeArq: String): Integer; virtual; abstract;
     function ObtemSenhaCli(Codigo: Integer; var Senha: String): Integer; virtual; abstract;
     function SalvaSenhaCli(Codigo: Integer; Senha: String): Integer; virtual; abstract;
@@ -2219,11 +2212,11 @@ type
     function ObtemStreamListaObj(Cliente: Integer; TipoClasse: Integer; S: TStream): Integer; virtual; abstract;
     function ApagaObj(Cliente: Integer; TipoClasse: Integer; Chave: String): Integer; virtual; abstract;
     function Login(aUsername, 
-                   aSenha: String; 
+                   aSenha: String;
                    aMaq: Word;
                    aFuncAtual: Boolean;
                    aRemoto: Boolean; 
-                   aWndHandle: HWND; 
+                   aWndHandle: HWND;
                    aProxyHandle: Integer; 
                    aSocket: Integer;
                    aSessionID: Integer;
@@ -2234,8 +2227,8 @@ type
     function LoginMaq(aSessao: TObject): Integer; virtual; abstract;
     function AlteraSessao(aSessao: TObject): Integer; virtual; abstract;
     function CancelaTran(aID: Integer; aFunc: String): integer; virtual; abstract;
-    function ObtemProcessos(aMaq: Word; aIDCliente, aIDReq: Integer): integer; virtual; 
-    function FinalizaProcesso(aMaq: Word; aProcessID: Integer): Integer; virtual; 
+    function ObtemProcessos(aMaq: Word; aIDCliente, aIDReq: Integer): integer; virtual;
+    function FinalizaProcesso(aMaq: Word; aProcessID: Integer): Integer; virtual;
     function SalvaProcessos(aIDCliente, aRequest: Integer; aSL: TStrings): Integer; virtual; abstract;
     function ForceRefreshSessao(aSessao: Integer): Integer; virtual; abstract;
     function SalvaLic(aLic: String): Integer; virtual; abstract;
@@ -2249,16 +2242,16 @@ type
     function MonitorOnOff(aMaq: Word; aOn: Boolean): Integer; virtual; abstract;
 
     function DesktopSincronizado(aSessao: Integer): Integer; virtual; abstract;
-    
+
     function SalvaClientPages(aPrinter: String; aJobID: Cardinal; aMaquina, aPaginas: Word): integer; virtual; abstract;
-    
+
     function JobControl(aPrinterIndex: Integer; aJobID: Cardinal; aControl: Byte): integer; virtual; abstract;
 
     function PrintDocControl(aInfo: TStrings): integer; virtual; abstract;
 
-    function AdicionaPassaporte(aMaq: Word; aSenha: String): Integer; virtual; abstract;   
+    function AdicionaPassaporte(aMaq: Word; aSenha: String): Integer; virtual; abstract;
     function RegistraPaginasImpressas(aJobID: Cardinal; aMaq: Word; aPaginas: Integer; aImp, aDoc: String): Integer; virtual; abstract;
-    
+
     function PararTempoMaq(aMaq: Word; aParar: Boolean): Integer; virtual; abstract;
     function TransferirMaq(aOrigem, aDestino: Word): Integer; virtual; abstract;
     function ModoManutencao(aMaq: Word; aUsername, aSenha: String; aEntrar: Boolean): Integer; virtual; abstract;
@@ -2266,21 +2259,21 @@ type
     function SuporteRem(aMaq, aTec: Word): Integer; virtual; abstract;
 
     function SalvaApp(aApp: String): Integer; virtual; abstract;
-    
+
     function LogoutMaq(aMaq: Word): Integer; virtual; abstract;
     function PreLogoutMaq(aMaq: Word): Integer; virtual; abstract;
     function CancLogoutMaq(aMaq: Word): Integer; virtual; abstract;
 
     function BaixaNovaVersao(Programa, Versao, ArqDestino: String): Integer; virtual;
     function ObtemVersaoGuard(var Versao: Integer): Integer; virtual; abstract;
-    
+
     function CapturaTelaMaq(aMaq: Word): integer; virtual; abstract;
     function SalvaTelaMaq(aSessionID: Integer; aMaq: Word; S: TMemoryStream): integer; virtual; abstract;
     function RefreshPrecos: integer; virtual; abstract;
     function ShutdownMaq(aMaq, aOper: Word): integer; virtual; abstract;
 
     function EnviarMsg(const aDe, aPara: Integer; const aTexto: String): Integer; virtual; abstract;
-                   
+
     procedure Logout(Cliente: Integer); virtual;
     procedure LogoutSocket(Socket: Integer); virtual;
     procedure LogoutSession(aSessionID: Integer); virtual;
@@ -2291,10 +2284,10 @@ type
   published
     property OnEnviaEvento: TncEnviaEvento
       read FOnEnviaEvento write FOnEnviaEvento;
-      
-    property Ativo: Boolean                              
-      read FAtivo write SetAtivo;  
-  end; 
+
+    property Ativo: Boolean
+      read FAtivo write SetAtivo;
+  end;
 
   TThreadRename = class ( TThread )
   private
@@ -3313,11 +3306,6 @@ constructor TncServidorBase.Create(AOwner: TComponent);
 begin
   inherited;
 
-  {$IFDEF MATE}
-  Mate := TdmMate.Create(nil);
-  {$ENDIF}
-
-
   FClientes := TThreadList.Create;
   FUltimoHandle := 0;
   FAtivo := False;
@@ -3326,11 +3314,6 @@ end;
 
 destructor TncServidorBase.Destroy;
 begin
-  {$IFDEF MATE}
-  Mate.free;
-  {$ENDIF}
-
-
   FreeAndNil(FClientes);
   inherited;
 end;

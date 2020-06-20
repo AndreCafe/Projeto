@@ -226,13 +226,6 @@ begin
     DebugMsg('TncnxServerPlugin.OnEnviaEvento - 3');
     gCallbackMgr.AddEvent(TncCallbackEvent.CreateMsgCom(aMsg, aDados, SS));
     DebugMsg('TncnxServerPlugin.OnEnviaEvento - 4');
-
-    {$IFDEF MATE}
-    if FNexServ.Mate.MateTLS.Ativo then begin
-        DebugMsg('TncnxServerPlugin.OnEnviaEvento - dmMate.Ativo');
-    end;
-    {$ENDIF}
-
   finally
     FreeDados(aMsg, aDados);
   end;

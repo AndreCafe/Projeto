@@ -231,9 +231,9 @@ type
     TabCaixaPag: TIntegerField;
     TabPagFunc: TStringField;
     TabPagPend: TBooleanField;
-    TabTipoPag: TWordField;
+    TabTipoPago: TWordField;
     TabRecVer: TIntegerField;
-    TVTipoPag: TcxGridDBColumn;
+    TVTipoPago: TcxGridDBColumn;
     TabEsp: TnxTable;
     procedure FrmBasePaiCreate(Sender: TObject);
     procedure cmFiltroTipoClick(Sender: TObject);
@@ -558,7 +558,7 @@ begin
   gEspecies.LeDataset(TabEsp);
 
   for i := 0 to gEspecies.Count - 1 do begin
-         with TcxImageComboBoxProperties(TVTipoPag.Properties).Items.Add do begin
+         with TcxImageComboBoxProperties(TVTipoPago.Properties).Items.Add do begin
              Value := gEspecies[i].Img;
              ImageIndex := gEspecies[i].Img;
              Description := '  ' + gEspecies[i].Nome + '  ';

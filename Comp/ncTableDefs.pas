@@ -3472,7 +3472,6 @@ begin
         AddField('DataHora', '', nxtDateTime, 0, 0, False);
         AddField('Cliente', '', nxtWord32, 10, 0, False);
         AddField('Tipo', '', nxtByte, 3, 0, False);
-        AddField('TipoPag', '', nxtByte, 3, 0, False);      // dario 01/08/2019
         AddField('Func', '', nxtNullString, 20, 0, False);
         AddField('Total', '', nxtCurrency, 16, 0, False);
         AddField('Desconto', '', nxtCurrency, 16, 0, False);
@@ -3480,10 +3479,11 @@ begin
 
         with AddField('DescPorPerc', '', nxtBoolean, 0, 0, False) do
           with AddDefaultValue(TnxConstDefaultValueDescriptor) as TnxConstDefaultValueDescriptor do
-            AsVariant := False;        
-        
+            AsVariant := False;
+
         AddField('TotLiq', '', nxtCurrency, 16, 0, False);
         AddField('Pago', '', nxtCurrency, 16, 0, False);
+        AddField('TipoPago', '', nxtByte, 3, 0, False);      // dario 01/08/2019
         AddField('DebitoAnt', '', nxtCurrency, 16, 0, False);
         AddField('Debito', '', nxtCurrency, 16, 0, False);
         AddField('DebitoPago', '', nxtCurrency, 16, 0, False);

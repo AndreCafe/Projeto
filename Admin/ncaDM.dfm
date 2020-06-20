@@ -460,11 +460,11 @@ object Dados: TDados
     object tbTranplusTran: TBooleanField
       FieldName = 'plusTran'
     end
-    object tbTranDebitoAnt: TCurrencyField
-      FieldName = 'DebitoAnt'
-    end
     object tbTranDebitoPago: TCurrencyField
       FieldName = 'DebitoPago'
+    end
+    object tbTranDebitoAnt: TCurrencyField
+      FieldName = 'DebitoAnt'
     end
     object tbTranCreditoAnt: TCurrencyField
       FieldName = 'CreditoAnt'
@@ -496,8 +496,8 @@ object Dados: TDados
     object tbTranDescPorPerc: TBooleanField
       FieldName = 'DescPorPerc'
     end
-    object tbTranTipoPag: TWordField
-      FieldName = 'TipoPag'
+    object tbTranTipoPago: TWordField
+      FieldName = 'TipoPago'
     end
     object tbTranRecVer: TIntegerField
       FieldName = 'RecVer'

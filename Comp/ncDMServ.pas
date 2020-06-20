@@ -1182,7 +1182,7 @@ type
     tMovEstRecVer: TIntegerField;
     tITranRecVer: TIntegerField;
     tTranRecVer: TIntegerField;
-    tTranTipoPag: TWordField;
+    tTranTipoPago: TWordField;
     tConfigVerBloqueioSites: TBooleanField;
     tConfigRecVer: TIntegerField;
     procedure tMovEstCalcFields(DataSet: TDataSet);
@@ -5357,7 +5357,7 @@ begin
       tTranCanceladoEm.Value := ME.CanceladoEm;
       tTranFidResgate.Value := ME.FidResgate;
       tTranCaixa.Value := ME.Caixa;
-      tTranTipoPag.Value := ME.TipoPag;  // dario 06/09/2019
+      //tTranTipoPago.Value := ME.TipoPago;  // dario 06/09/2019
 
       tTranCaixaPag.Value := ME.CaixaPag;
       tTranCredito.Value := ME.PagEsp.Credito;

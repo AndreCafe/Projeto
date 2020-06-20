@@ -30,7 +30,8 @@ type
     trTotal         : Currency;
     trDesconto      : Currency;
     trPago          : Currency;
-  private  
+    trTipoPago      : Byte;
+  private
     procedure SetString(const Value: String);
     function GetString: String;
   public  
@@ -219,7 +220,8 @@ begin
     trDescr + sFldDelim(classid_TncTransacao) +
     FloatParaStr(trTotal) + sFldDelim(classid_TncTransacao) +
     FloatParaStr(trDesconto) + sFldDelim(classid_TncTransacao) +
-    FloatParaStr(trPago) + sFldDelim(classid_TncTransacao);
+    FloatParaStr(trPago) + sFldDelim(classid_TncTransacao) +
+    IntToStr(trTipoPago) + sFldDelim(classid_TncTransacao);
 end;
 
 function TncTransacao.Igual(Tran: TncTransacao): Boolean;
@@ -236,7 +238,8 @@ begin
   if trTotal <> Tran.trTotal then Exit;
   if trDesconto <> Tran.trDesconto then Exit;
   if trPago <> Tran.trPago then Exit;
-  
+  if trTipoPago <> Tran.trTipoPago then Exit;
+
   Result := True;
 end;
 
@@ -253,6 +256,7 @@ begin
   trTotal         := 0;
   trDesconto      := 0;
   trPago          := 0;
+  trTipoPago      := 0;
 end;
 
 procedure TncTransacao.LoadFromDataset(D: TDataset);
@@ -269,6 +273,7 @@ begin
   trTotal := D.FieldByName('Total').AsCurrency; // do not localize
   trDesconto := D.FieldByName('Desconto').AsCurrency; // do not localize
   trPago := D.FieldByName('Pago').AsCurrency; // do not localize
+  trTipoPago := D.FieldByName('TipoPago').AsInteger; // do not localize
 end;
 
 procedure TncTransacao.SaveToDataset(D: TDataset);
@@ -287,6 +292,7 @@ begin
   D.FieldByName('Total').AsCurrency := trTotal; // do not localize
   D.FieldByName('Desconto').AsCurrency := trDesconto; // do not localize
   D.FieldByName('Pago').AsCurrency := trPago; // do not localize
+  D.FieldByName('TipoPago').AsInteger := trTipoPago; // do not localize
 end;
 
 procedure TncTransacao.SetString(const Value: String);
@@ -310,6 +316,7 @@ begin
   trTotal         := StrParaFloat(_NextField);
   trDesconto      := StrParaFloat(_NextField);
   trPago          := StrParaFloat(_NextField);
+  trTipoPago      := StrToIntDef(_NextField, 0);
 end;
 
 end.

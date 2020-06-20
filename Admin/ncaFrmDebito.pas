@@ -158,7 +158,6 @@ begin
     Fdeb.Pago := FTot.Total else
     Fdeb.Pago := FTot.Pago;
 
-  FDeb.TipoPag := FTot.TipoPag;   // dario 08/2009
 
  end;
 
@@ -209,7 +208,7 @@ begin
     panTot.Enabled := False;
   end;
 
-  FTot.InitVal(FDeb.PagEsp, FDeb.Total, FDeb.Desconto, FDeb.Pago, 0, FDeb.TipoPag, FDeb.Obs, panTot);
+  FTot.InitVal(FDeb.PagEsp, FDeb.Total, FDeb.Desconto, FDeb.Pago, 0, 0, FDeb.Obs, panTot);
   FTot.PagandoDebito;
 
   with TV.DataController do

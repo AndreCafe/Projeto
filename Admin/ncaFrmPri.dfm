@@ -305,7 +305,7 @@ object FrmPri: TFrmPri
             Left = 0
             Top = 0
             Width = 200
-            Height = 140
+            Height = 0
             Visible = False
             AllowFloating = True
             AutoHide = True
@@ -325,7 +325,7 @@ object FrmPri: TFrmPri
           Left = 0
           Top = 0
           Width = 207
-          Height = 140
+          Height = 0
           Visible = False
           OnVisibleChanged = dpPrevisaoVisibleChanged
           OnVisibleChanging = dpPrevisaoVisibleChanging
@@ -389,8 +389,6 @@ object FrmPri: TFrmPri
       ImageIndex = 1
       ParentColor = False
       ParentFont = False
-      ExplicitWidth = 0
-      ExplicitHeight = 0
     end
   end
   object panPlanos: TLMDSimplePanel

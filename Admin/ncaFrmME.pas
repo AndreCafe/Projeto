@@ -240,14 +240,13 @@ begin
   FME.Recibo   := cbRecibo.Checked;
   FME.NomeCliente := FCli.Nome;
   FME.Cliente := FCli.ID;
-  FME.TipoPag := FTot.TipoPag;   // dario 08/2009
 
   if FME.Itens.Count=0 then
     Raise ENexCafe.Create(SÉNecessárioHaverItensParaSalvar);
 
 
   if Ftot.SobrouTroco and (not FTot.PermiteTroco) then
-        Raise ENexCafe.Create(SNaoPermiteTroco + Ftot.TipoPagNome);
+        Raise ENexCafe.Create(SNaoPermiteTroco + Ftot.TipoPagoNome);
 
 
   if not FME.FidResgate then begin
@@ -293,7 +292,7 @@ begin
 
   // if Ftot.PermiteCred then
   // if Ftot.PermiteTroco then
-  // FME.TipoPag := FTot.TipoPag;
+  // FME.TipoPago := FTot.TipoPago;
   // SNaoPermiteCred = 'Crédito não permitido com ';
   // SNaoPermiteTroco = 'Troco não permitido com ';
 
@@ -392,7 +391,7 @@ begin
     tPro.Filter := '(plus<>true) and (fidpontos>0)'; // do not localize
   end else
   if aME.Tipo=trEstVenda then
-    FTot.InitVal(FME.PagEsp, 0, aME.Desconto, aME.Pago, 0, aME.TipoPag, aME.Obs, panTot)
+    FTot.InitVal(FME.PagEsp, 0, aME.Desconto, aME.Pago, 0, 0, aME.Obs, panTot)
   else begin
     FTot.InitCusto(0, aME.Obs, panTot);
     FTot.pgValPontos.Visible := (aME.Tipo=trEstCompra);
@@ -442,7 +441,7 @@ begin
       FTot.OpPagto := 1 else
       FTot.OpPagto := 0;
   end;
-  FTot.TipoPag := FME.TipoPag;
+  //FTot.TipoPago := FME.TipoPago;
 
   FTot.Atualiza;
   ShowModal;

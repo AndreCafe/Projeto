@@ -126,7 +126,7 @@ type
     FPontosDisp : Double;
     FRecAnt : Double;
     FOpPagto : Byte; // 0 = manter, 1= pg.total, 2= zerar
-    FTipoPag : Byte;
+    FTipoPago : Byte;
     { Private declarations }
 
     procedure OnTimerSelText(Sender: TObject);
@@ -142,14 +142,14 @@ type
     function GetRecebido: Double;
     procedure SetRecebido(const Value: Double);
     procedure SetTamanho(const Value: Byte);
-    procedure SetTipoPag(const Value: Byte);
+    procedure SetTipoPago(const Value: Byte);
     function GetDesconto: Double;
     procedure SetDesconto(const Value: Double);
     procedure SetObs(const Value: String);
     function GetObs: String;
     procedure OnEspecieChange;
   public
-    procedure InitVal(aPagEsp: TncPagEspecies; aSubTot, aDesconto, aPago, aRecebido : Double; aTipoPag: byte; aObs: String; aParent: TWinControl; aShowObs: Boolean = True);
+    procedure InitVal(aPagEsp: TncPagEspecies; aSubTot, aDesconto, aPago, aRecebido : Double; aTipoPago: byte; aObs: String; aParent: TWinControl; aShowObs: Boolean = True);
     procedure InitPontos(aNec, aDisp: Double; aObs: String; aParent: TWinControl; aShowObs: Boolean = True);
     procedure InitCusto(aCusto: Double; aObs: String; aParent: TWinControl; aShowObs: Boolean = True);
 
@@ -166,7 +166,7 @@ type
     function Total: Double;
     function PermiteCred: boolean;
     function PermiteTroco: boolean;
-    function TipoPagNome: string;
+    function TipoPagoNome: string;
 
     property Obs: String read GetObs write SetObs;
 
@@ -185,8 +185,8 @@ type
     property OpPagto: Byte
       read FOpPagto write FOpPagto;
 
-    property TipoPag: Byte
-      read FTipoPag write SetTipoPag;
+    property TipoPago: Byte
+      read FTipoPago write SetTipoPago;
 
     property PontosDisp: Double
       read FPontosDisp write SetPontosDisp;
@@ -275,7 +275,7 @@ begin
   cbEspecie.ItemIndex := 0;
   FAtualizando := True;
   try
-    FTipoPag := 0;
+    FTipoPago := 0;
     FOpPagto := kOpPagtoManter;
     edSubTotal.Value := 0;
     edCustoT.Value := 0;
@@ -389,7 +389,7 @@ begin
 
   cbEspecie.Properties.Items.Clear;
 
-  FTipoPag := 0;
+  FTipoPago := 0;
 
   Tab.Open;
   gEspecies.Limpa;
@@ -481,7 +481,7 @@ begin
   panTot.Parent.ClientHeight := 78;
 end;
 
-procedure TFrmTotal.InitVal(aPagEsp: TncPagEspecies; aSubTot, aDesconto, aPago, aRecebido: Double; aTipoPag: byte;
+procedure TFrmTotal.InitVal(aPagEsp: TncPagEspecies; aSubTot, aDesconto, aPago, aRecebido: Double; aTipoPago: byte;
   aObs: String; aParent: TWinControl; aShowObs: Boolean = True);
 begin
   pgValPontos.ActivePage := tsTotVal;
@@ -495,8 +495,8 @@ begin
     edDesconto.Value := aDesconto;
     edRec.Value := aRecebido;
     panRec.Visible := True;
-    fTipoPag := aTipoPag;
-    cbEspecie.ItemIndex := aTipoPag
+    fTipoPago := aTipoPago;
+    cbEspecie.ItemIndex := aTipoPago
   finally
     FAtualizando := False;
   end;
@@ -677,11 +677,11 @@ begin
   FTamanho := Value;
 end;
 
-procedure TFrmTotal.SetTipoPag(const Value: Byte);
+procedure TFrmTotal.SetTipoPago(const Value: Byte);
 begin
-    if value<>FTipoPag then begin
-        FTipoPag := value;
-        cbEspecie.ItemIndex := FTipoPag;
+    if value<>FTipoPago then begin
+        FTipoPago := value;
+        cbEspecie.ItemIndex := FTipoPago;
         OnEspecieChange;
     end;
 end;
@@ -763,17 +763,17 @@ end;
 
 function TFrmTotal.PermiteTroco:boolean;
 begin
-    result := gEspecies.Itens[FTipoPag].PermiteTroco = true;
+    result := gEspecies.Itens[FTipoPago].PermiteTroco = true;
 end;
 
 function TFrmTotal.PermiteCred:boolean;
 begin
-    result := gEspecies.Itens[FTipoPag].PermiteCred = true;
+    result := gEspecies.Itens[FTipoPago].PermiteCred = true;
 end;
 
-function TFrmTotal.TipoPagNome: string;
+function TFrmTotal.TipoPagoNome: string;
 begin
-    result := gEspecies.Itens[FTipoPag].Nome;
+    result := gEspecies.Itens[FTipoPago].Nome;
 end;
 
 procedure TFrmTotal.cbEspecieMouseUp(Sender: TObject; Button: TMouseButton;
@@ -792,7 +792,7 @@ end;
 procedure TFrmTotal.OnEspecieChange;
 begin
     lbEspecie.caption := trim(cbEspecie.Properties.Items[cbEspecie.ItemIndex].Description);
-    FTipoPag :=  cbEspecie.ItemIndex;
+    FTipoPago :=  cbEspecie.ItemIndex;
     //edRec.SetFocus;
 end;
 

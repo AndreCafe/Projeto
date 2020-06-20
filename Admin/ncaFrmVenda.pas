@@ -355,6 +355,7 @@ begin
   FME.Recibo   := cbRecibo.Checked;
   FME.NomeCliente := FCli.Nome;
   FME.Cliente := FCli.Codigo;
+  //FME.TipoPago := FTot.TipoPago;
 
   if FME.Itens.Count=0 then
     Raise ENexCafe.Create(SÉNecessárioHaverItensParaSalvar);
@@ -493,7 +494,7 @@ begin
     tPro.Filter := '(plus<>true) and (fidpontos>0)'; // do not localize
   end else
   if aME.Tipo=trEstVenda then
-    FTot.InitVal(aME.PagEsp, 0, aME.Desconto, aME.Pago, 0, aME.TipoPag, aME.Obs, panTot)
+    FTot.InitVal(aME.PagEsp, 0, aME.Desconto, aME.Pago, 0, 0, aME.Obs, panTot)
   else begin
     FTot.InitCusto(0, aME.Obs, panTot);
     FTot.pgValPontos.Visible := (aME.Tipo=trEstCompra);

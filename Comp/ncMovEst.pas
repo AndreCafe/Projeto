@@ -140,7 +140,6 @@ type
     FDescPerc    : Double;
     FDescPorPerc : Boolean;
     FPago        : Currency;
-    FTipoPag     : Byte;
     FObs         : String;
     FCancelado   : Boolean;
     FCanceladoPor: String;
@@ -223,9 +222,6 @@ type
       
     property Pago : Currency
       read FPago write FPago;
-
-    property TipoPag : Byte
-      read FTipoPag write FTipoPag;
 
     property Obs : String
       read FObs write FObs;
@@ -658,7 +654,9 @@ begin
       imDesconto := 0;
       imPago := 0;
     end;
-    trEstCompra : imPago := 0;
+    trEstCompra : begin
+      imPago := 0;
+    end;
   end;
 end;
 
@@ -858,7 +856,6 @@ begin
   FDescPerc    := 0;
   FDescPorPerc := False;
   FPago        := 0;
-  FTipoPag     := 0;    
   FObs         := '';
   FCancelado   := False;
   FCanceladoPor:= '';

@@ -245,7 +245,7 @@ begin
   FIME.imDesconto := FTot.Desconto;
   FIME.imFidPontos := FTot.PontosNec;
   FIME.imObs := FTot.Obs;
-  
+
   if not FidResgate then
     if (FIME.imPago - (FIME.imTotal - FIME.imDesconto)) > 0.001 then
       Raise ENexCafe.Create(SValorPagoNãoPodeSerMaiorQueOTota);
@@ -464,7 +464,7 @@ begin
   end;
   FIME := aIME;
   
-  MT.Insert;
+  MT.Insert;                                                                      
   MTQuant.Value := 1;
   MTFidResgate.Value := FidResgate;
   MTTipoTran.Value := aIME.imTipoTran;

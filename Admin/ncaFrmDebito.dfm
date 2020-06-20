@@ -45,6 +45,7 @@ object FrmDebito: TFrmDebito
       StyleFocused.LookAndFeel.NativeStyle = True
       StyleHot.LookAndFeel.NativeStyle = True
       Properties.Alignment.Vert = taVCenter
+      ExplicitLeft = 123
       AnchorY = 12
     end
     object cxLabel2: TcxLabel
@@ -94,6 +95,8 @@ object FrmDebito: TFrmDebito
     Align = alClient
     Bevel.Mode = bmCustom
     TabOrder = 2
+    ExplicitTop = 84
+    ExplicitHeight = 176
     object dxBarDockControl2: TdxBarDockControl
       Left = 0
       Top = 0
@@ -214,7 +217,7 @@ object FrmDebito: TFrmDebito
     StyleFocused.LookAndFeel.NativeStyle = True
     StyleHot.LookAndFeel.Kind = lfFlat
     StyleHot.LookAndFeel.NativeStyle = True
-    TabOrder = 6
+    TabOrder = 4
     Visible = False
     Height = 21
     Width = 86
@@ -565,6 +568,7 @@ object FrmDebito: TFrmDebito
               StyleDisabled.TextColor = clBlack
               StyleFocused.BorderStyle = ebsNone
               TabOrder = 0
+              ExplicitHeight = 21
               Width = 120
             end
             object lbTotCusto: TcxLabel
@@ -621,6 +625,7 @@ object FrmDebito: TFrmDebito
               StyleHot.TextStyle = [fsBold, fsUnderline]
               Properties.Alignment.Horz = taLeftJustify
               Properties.Alignment.Vert = taVCenter
+              ExplicitLeft = 2
               AnchorY = 13
             end
           end
@@ -647,7 +652,6 @@ object FrmDebito: TFrmDebito
         Style.IsFontAssigned = True
         Properties.Alignment.Horz = taCenter
         Properties.WordWrap = True
-        ExplicitHeight = 25
         Width = 523
         AnchorX = 262
       end

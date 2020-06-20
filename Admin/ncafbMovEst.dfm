@@ -98,7 +98,6 @@ inherited fbMovEst: TfbMovEst
         OptionsView.GroupByBox = False
         OptionsView.GroupFooters = gfVisibleWhenExpanded
         Preview.AutoHeight = False
-        Styles.Header = FrmPri.cxStyle11
         OnCustomDrawColumnHeader = TVCustomDrawColumnHeader
         object TVFidResgate: TcxGridDBColumn
           AlternateCaption = 'Resgate de pr'#234'mio fidelidade'
@@ -286,6 +285,7 @@ inherited fbMovEst: TfbMovEst
         StyleHot.TextColor = clBlue
         Properties.Alignment.Vert = taVCenter
         OnClick = cmImprimirClick
+        ExplicitLeft = 130
         AnchorY = 14
       end
       object lbEditarTran: TcxLabel

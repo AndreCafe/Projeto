@@ -386,9 +386,9 @@ inherited fbTran: TfbTran
                   Styles.OnGetContentStyle = TVDescrStylesGetContentStyle
                   Width = 83
                 end
-                object TVTipoPag: TcxGridDBColumn
+                object TVTipoPago: TcxGridDBColumn
                   Caption = 'Pagamento'
-                  DataBinding.FieldName = 'TipoPag'
+                  DataBinding.FieldName = 'TipoPago'
                   PropertiesClassName = 'TcxImageComboBoxProperties'
                   Properties.Images = dmImgEsp.imgs24
                   Properties.Items = <
@@ -865,7 +865,6 @@ inherited fbTran: TfbTran
       Caption = 'Cancelar Transa'#231#227'o'
       Category = 0
       Hint = 'Cancelar a transa'#231#227'o selecionada abaixo'
-      Style = FrmPri.cxStyle1
       Visible = ivAlways
       ImageIndex = 66
       PaintStyle = psCaptionGlyph
@@ -877,7 +876,6 @@ inherited fbTran: TfbTran
       Hint = 
         'Clique para ver ou alterar os detalhes da transa'#231#227'o selecionada ' +
         'abaixo.'
-      Style = FrmPri.cxStyle1
       Visible = ivAlways
       ImageIndex = 75
       PaintStyle = psCaptionGlyph
@@ -889,7 +887,6 @@ inherited fbTran: TfbTran
       Hint = 
         'Clique para imprimir o recibo de pagamento da transa'#231#227'o selecion' +
         'ada abaixo'
-      Style = FrmPri.cxStyle1
       Visible = ivAlways
       ImageIndex = 74
       PaintStyle = psCaptionGlyph
@@ -899,7 +896,6 @@ inherited fbTran: TfbTran
       Caption = 'Obs.'
       Category = 0
       Hint = 'Adicionar observa'#231#245'es na transa'#231#227'o selecionada abaixo'
-      Style = FrmPri.cxStyle1
       Visible = ivAlways
       ImageIndex = 76
       OnClick = cmObsClick
@@ -910,7 +906,6 @@ inherited fbTran: TfbTran
       Hint = 
         'Filtre o tipo de transa'#231#227'o que deseja. Ex. ver somente a lista d' +
         'e transa'#231#245'es de venda'
-      Style = FrmPri.cxStyle1
       Visible = ivAlways
       ImageIndex = 73
       PaintStyle = psCaptionGlyph
@@ -1057,7 +1052,6 @@ inherited fbTran: TfbTran
       end>
   end
   object Tab: TnxTable
-    ActiveDesigntime = True
     Database = Dados.db
     FilterOptions = [foCaseInsensitive]
     FlipOrder = True
@@ -1086,6 +1080,9 @@ inherited fbTran: TfbTran
     end
     object TabPago: TCurrencyField
       FieldName = 'Pago'
+    end
+    object TabTipoPago: TWordField
+      FieldName = 'TipoPago'
     end
     object TabObs: TMemoField
       FieldName = 'Obs'
@@ -1187,9 +1184,6 @@ inherited fbTran: TfbTran
     end
     object TabPagPend: TBooleanField
       FieldName = 'PagPend'
-    end
-    object TabTipoPag: TWordField
-      FieldName = 'TipoPag'
     end
     object TabRecVer: TIntegerField
       FieldName = 'RecVer'

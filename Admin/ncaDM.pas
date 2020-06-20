@@ -844,7 +844,6 @@ type
     tbMovEstPermSemEstoque: TBooleanField;
     tbMovEstRecVer: TIntegerField;
     tbProCodigo: TStringField;
-    tbTranDebitoAnt: TCurrencyField;
     tbTranDebitoPago: TCurrencyField;
     tbTranCreditoAnt: TCurrencyField;
     tbTranCredito: TCurrencyField;
@@ -890,7 +889,7 @@ type
     tbConfigSky_URL: TStringField;
     tbConfigToolbar_URL: TStringField;
     tbConfigNaoTransferirMaq: TBooleanField;
-    tbTranTipoPag: TWordField;
+    tbTranTipoPago: TWordField;
     tbTranRecVer: TIntegerField;
     tbMovEstComissao: TCurrencyField;
     tbMovEstComissaoPerc: TFloatField;
@@ -899,6 +898,7 @@ type
     tbConfigUrls: TnxMemoField;
     tbConfigRecVer: TIntegerField;
     tbProRecVer: TIntegerField;
+    tbTranDebitoAnt: TCurrencyField;
     procedure DataModuleCreate(Sender: TObject);
     procedure FFTblMgrPause;
     procedure SoUmProgCustom(Sender: TObject);

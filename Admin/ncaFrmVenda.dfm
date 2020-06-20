@@ -350,6 +350,8 @@ object FrmVenda: TFrmVenda
             object tsDescr: TcxTabSheet
               Caption = 'tsDescr'
               ImageIndex = 1
+              ExplicitWidth = 0
+              ExplicitHeight = 0
               object edDescr: TcxLookupComboBox
                 AlignWithMargins = True
                 Left = 6
@@ -737,6 +739,7 @@ object FrmVenda: TFrmVenda
       Bevel.Mode = bmCustom
       ParentColor = True
       TabOrder = 1
+      ExplicitTop = 307
       object bdcLista: TdxBarDockControl
         Left = 0
         Top = 0

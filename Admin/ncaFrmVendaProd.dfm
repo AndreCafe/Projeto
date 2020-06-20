@@ -593,16 +593,85 @@ object FrmVendaProd: TFrmVendaProd
         DataType = ftFloat
       end
       item
+        Name = 'ID'
+        DataType = ftInteger
+      end
+      item
+        Name = 'Tran'
+        DataType = ftInteger
+      end
+      item
+        Name = 'Item'
+        DataType = ftWord
+      end
+      item
+        Name = 'DataHora'
+        DataType = ftDateTime
+      end
+      item
+        Name = 'Sessao'
+        DataType = ftInteger
+      end
+      item
+        Name = 'TipoTran'
+        DataType = ftWord
+      end
+      item
+        Name = 'Categoria'
+        DataType = ftString
+        Size = 20
+      end
+      item
+        Name = 'Cliente'
+        DataType = ftInteger
+      end
+      item
+        Name = 'ITran'
+        DataType = ftInteger
+      end
+      item
+        Name = 'NaoControlaEstoque'
+        DataType = ftBoolean
+      end
+      item
+        Name = 'Cancelado'
+        DataType = ftBoolean
+      end
+      item
+        Name = 'EstoqueAnt'
+        DataType = ftFloat
+      end
+      item
+        Name = 'Caixa'
+        DataType = ftInteger
+      end
+      item
+        Name = 'Entrada'
+        DataType = ftBoolean
+      end
+      item
+        Name = 'FidPontosU'
+        DataType = ftInteger
+      end
+      item
+        Name = 'FidResgate'
+        DataType = ftBoolean
+      end
+      item
+        Name = 'Total'
+        DataType = ftCurrency
+      end
+      item
         Name = 'Desconto'
         DataType = ftCurrency
       end
       item
-        Name = 'PagTotal'
-        DataType = ftBoolean
-      end
-      item
         Name = 'Pago'
         DataType = ftCurrency
+      end
+      item
+        Name = 'PermSemEstoque'
+        DataType = ftBoolean
       end>
     IndexDefs = <>
     SortOptions = []
@@ -734,6 +803,9 @@ object FrmVendaProd: TFrmVendaProd
     end
     object MTPago: TCurrencyField
       FieldName = 'Pago'
+    end
+    object MTTipoPago: TWordField
+      FieldName = 'TipoPago'
     end
     object MTPermSemEstoque: TBooleanField
       FieldName = 'PermSemEstoque'

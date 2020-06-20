@@ -285,6 +285,8 @@ type
     tTranCredValor: TBooleanField;
     tTranPagPend: TBooleanField;
     dmExp: TfrxDotMatrixExport;
+    tTranTipoPago: TWordField;
+    tAuxTranTipoPago: TWordField;
     procedure DataModuleDestroy(Sender: TObject);
     procedure Timer1Timer(Sender: TObject);
     procedure tTranCalcFields(DataSet: TDataSet);

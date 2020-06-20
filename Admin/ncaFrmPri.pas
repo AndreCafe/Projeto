@@ -567,7 +567,7 @@ begin
 
   with TFrmNexLogin.Create(Self) do
     ShowModal;
-
+                                                                                                                         
   if not Dados.CM.Ativo then Exit;
 
 

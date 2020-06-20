@@ -5,7 +5,6 @@ object DM: TDM
   Height = 432
   Width = 480
   object nxSession: TnxSession
-    ActiveDesigntime = True
     UserName = 'admin'
     Password = 'delphi9856'
     ServerEngine = nxRSE
@@ -13,7 +12,6 @@ object DM: TDM
     Top = 16
   end
   object nxDB: TnxDatabase
-    ActiveDesigntime = True
     Session = nxSession
     AliasName = 'NexCafe'
     Left = 72
@@ -47,11 +45,11 @@ object DM: TDM
     object tTranDesconto: TCurrencyField
       FieldName = 'Desconto'
     end
-    object tTranTipoPag: TWordField
-      FieldName = 'TipoPag'
-    end
     object tTranPago: TCurrencyField
       FieldName = 'Pago'
+    end
+    object tTranTipoPago: TWordField
+      FieldName = 'TipoPago'
     end
     object tTranObs: TMemoField
       FieldName = 'Obs'
@@ -2794,14 +2792,12 @@ object DM: TDM
     end
   end
   object nxRSE: TnxRemoteServerEngine
-    ActiveDesigntime = True
     Transport = nxTCPIP
     Left = 120
     Top = 16
   end
   object nxTCPIP: TnxWinsockTransport
     DisplayCategory = 'Transports'
-    ActiveDesigntime = True
     ServerNameRuntime = '127.0.0.1'
     ServerNameDesigntime = '127.0.0.1'
     Port = 16200
