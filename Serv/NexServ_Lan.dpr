@@ -104,7 +104,6 @@ uses
   ncUploadDelay in '..\Comp\ncUploadDelay.pas',
   ncUploadPost in '..\Comp\ncUploadPost.pas',
   uHMAC_sha256 in '..\Comp\uHMAC_sha256.pas',
-  ncDMmate in '..\Comp\ncDMmate.pas' {dmMate: TDataModule},
   uUTC in '..\Utils\uUTC.pas';
 
 {$R *.res}
