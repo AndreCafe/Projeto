@@ -210,9 +210,9 @@ uses ncClassesBase, ncaDM, ncIDRecursos, ncaDMImgEsp, ncaDMImgsVarios;
 // START resource string wizard section
 resourcestring
   SDebitar = 'Debitar';
-  SDescontoNãoPodeSerMaiorQueSubTot = 'Desconto não pode ser maior que sub-total';
+  SDescontoNï¿½oPodeSerMaiorQueSubTot = 'Desconto nï¿½o pode ser maior que sub-total';
   SPagarNoFinalDoAcesso = 'Pagar no final do acesso';
-  SDebitoRestante = 'Débito a pagar';
+  SDebitoRestante = 'Dï¿½bito a pagar';
   STroco = '  Troco  ';
   SSelecionadoPagamento = 'Selec. p/Pagamento';
 
@@ -325,7 +325,7 @@ begin
   if (edDesconto.Focused) and (edDesconto.Value > edSubTotal.Value) then begin
     edDesconto.Value := edSubTotal.Value;
     MessageBeep(30);
-    ShowMessage(SDescontoNãoPodeSerMaiorQueSubTot);
+    ShowMessage(SDescontoNï¿½oPodeSerMaiorQueSubTot);
     CriaTimerSelect(edDesconto);
   end;
 
@@ -397,7 +397,7 @@ begin
 
   for i := 0 to gEspecies.Count - 1 do begin
          with cbEspecie.Properties.Items.Add do begin
-             Value := gEspecies[i].Img;
+             Value := gEspecies[i].ID;
              ImageIndex := gEspecies[i].Img;
              Description := '  ' + gEspecies[i].Nome + '  ';
          end;
@@ -490,18 +490,25 @@ begin
   try
     panObs.Visible := aShowObs;
     Obs := aObs;
-    if aRecebido<0.01 then aRecebido := aPago;
+    if aRecebido<0.01 then
+      aRecebido := aPago;
+
     edSubTotal.Value := aSubTot;
     edDesconto.Value := aDesconto;
-    edRec.Value := aRecebido;
-    panRec.Visible := True;
-    fTipoPago := aTipoPago;
-    cbEspecie.ItemIndex := aTipoPago
+    edRec.Value      := aRecebido;
+    panRec.Visible   := True;
+    FTipoPago        := aTipoPago;
+
+    if aTipoPago > 0 then
+      cbEspecie.EditValue := aTipoPago  // ? Seta o ID da espï¿½cie, nï¿½o o ï¿½ndice
+    else
+      cbEspecie.ItemIndex := 0;  // ? Se zero, seleciona o primeiro
   finally
     FAtualizando := False;
   end;
   if aParent<>nil then 
     panTot.Parent := aParent;
+
   panTot.Parent.ClientHeight := ValPanHeight;
   Atualiza;
 end;
@@ -681,7 +688,7 @@ procedure TFrmTotal.SetTipoPago(const Value: Byte);
 begin
     if value<>FTipoPago then begin
         FTipoPago := value;
-        cbEspecie.ItemIndex := FTipoPago;
+        cbEspecie.EditValue := Value;
         OnEspecieChange;
     end;
 end;
@@ -762,18 +769,27 @@ begin
 end;
 
 function TFrmTotal.PermiteTroco:boolean;
+var E: TncEspecie;
 begin
-    result := gEspecies.Itens[FTipoPago].PermiteTroco = true;
+    E := gEspecies.PorID[FTipoPago];
+    Result := (E <> nil) and (E.PermiteTroco = true);
 end;
 
 function TFrmTotal.PermiteCred:boolean;
+var E: TncEspecie;
 begin
-    result := gEspecies.Itens[FTipoPago].PermiteCred = true;
+    E := gEspecies.PorID[FTipoPago];
+    Result := (E <> nil) and (E.PermiteCred = true);
 end;
 
 function TFrmTotal.TipoPagoNome: string;
+var E: TncEspecie;
 begin
-    result := gEspecies.Itens[FTipoPago].Nome;
+    E := gEspecies.PorID[FTipoPago];
+    if E <> nil then
+      Result := E.Nome
+    else
+      Result := '';
 end;
 
 procedure TFrmTotal.cbEspecieMouseUp(Sender: TObject; Button: TMouseButton;
@@ -792,7 +808,7 @@ end;
 procedure TFrmTotal.OnEspecieChange;
 begin
     lbEspecie.caption := trim(cbEspecie.Properties.Items[cbEspecie.ItemIndex].Description);
-    FTipoPago :=  cbEspecie.ItemIndex;
+    FTipoPago := cbEspecie.EditValue;
     //edRec.SetFocus;
 end;
 

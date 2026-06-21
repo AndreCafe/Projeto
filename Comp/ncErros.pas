@@ -8,7 +8,7 @@ interface
 uses
   SysUtils,
   classes,
-  uNexTransResourceStrings_PT;
+  uNexTransResourceStrings_PT_;
 
 type
   ENexCafe = class(Exception);

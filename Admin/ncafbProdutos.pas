@@ -562,6 +562,10 @@ end;
 procedure TfbProdutos.cmEditarClick(Sender: TObject);
 begin
   inherited;
+  if not gconfig.IsPremium then
+    exit;
+  
+
   if Tab.IsEmpty then Exit;
 
   TFrmProduto.Create(Self).Editar(Tab);
@@ -654,7 +658,14 @@ begin
   AjustaFin;
   if not cmMostrarFin.Enabled then
     cmMostrarFin.Down := False;
-    
+
+  cmNovo.Enabled     := gConfig.IsPremium;
+  cmEditar.Enabled   := gConfig.IsPremium;
+  cmApagar.Enabled   := gConfig.IsPremium;
+  cmEntrada.Enabled  := gConfig.IsPremium;
+  cmSaida.Enabled    := gConfig.IsPremium;
+  cmImprimir.Enabled := gConfig.IsPremium;
+
   if Tab.Active then
     Tab.Refresh;
 

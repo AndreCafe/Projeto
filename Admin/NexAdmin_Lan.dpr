@@ -285,7 +285,9 @@ uses
   ncServAtualizaLic_Indy in '..\comp\ncServAtualizaLic_Indy.pas' {dmAtualizaLic: TDataModule},
   ncaFrmPagEspecie in 'ncaFrmPagEspecie.pas' {FrmPagEspecie},
   ncafbEspecie in 'ncafbEspecie.pas' {fbEspecie: TFrmBasePai},
-  ncaDMImgEsp in 'ncaDMImgEsp.pas' {dmImgEsp: TDataModule};
+  ncaDMImgEsp in 'ncaDMImgEsp.pas' {dmImgEsp: TDataModule},
+  uNexTransResourceStrings_PT in '..\FormMgr\translator\uNexTransResourceStrings_PT.pas',
+  ncaAutoUpdate in 'ncaAutoUpdate.pas';
 
 {$R *.res}
 {$R uac.res}

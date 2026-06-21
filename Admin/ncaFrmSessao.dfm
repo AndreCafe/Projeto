@@ -60,8 +60,6 @@ object FrmSessao: TFrmSessao
     ClientRectTop = 0
     object tsPagNormal: TcxTabSheet
       Caption = 'tsPagNormal'
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object panTot2: TLMDSimplePanel
         AlignWithMargins = True
         Left = 0
@@ -726,8 +724,6 @@ object FrmSessao: TFrmSessao
     end
     object tsPagManut: TcxTabSheet
       Caption = 'tsPagManut'
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object InspM: TcxDBVerticalGrid
         Left = 0
         Top = 0
@@ -962,7 +958,6 @@ object FrmSessao: TFrmSessao
         StyleFocused.BorderStyle = ebsSingle
         StyleFocused.Color = 11796479
         TabOrder = 0
-        ExplicitHeight = 21
         Width = 178
       end
       object lbGrupoTar: TcxLabel
@@ -1059,7 +1054,6 @@ object FrmSessao: TFrmSessao
         StyleFocused.BorderStyle = ebsSingle
         StyleFocused.Color = 11796479
         TabOrder = 1
-        ExplicitHeight = 21
         Width = 213
       end
     end
@@ -1523,7 +1517,66 @@ object FrmSessao: TFrmSessao
     DesignActivation = True
     AttachedAutoRefresh = True
     AttachMaxCount = 1
-    FieldDefs = <>
+    FieldDefs = <
+      item
+        Name = 'ID'
+        DataType = ftInteger
+      end
+      item
+        Name = 'DataHora'
+        DataType = ftDateTime
+      end
+      item
+        Name = 'Tipo'
+        DataType = ftInteger
+      end
+      item
+        Name = 'Descr'
+        DataType = ftString
+        Size = 200
+      end
+      item
+        Name = 'Total'
+        DataType = ftCurrency
+      end
+      item
+        Name = 'Pago'
+        DataType = ftCurrency
+      end
+      item
+        Name = 'ObjTran'
+        DataType = ftInteger
+      end
+      item
+        Name = 'ObjItem'
+        DataType = ftInteger
+      end
+      item
+        Name = 'Desconto'
+        DataType = ftCurrency
+      end
+      item
+        Name = 'Func'
+        DataType = ftString
+        Size = 30
+      end
+      item
+        Name = 'Cancelado'
+        DataType = ftBoolean
+      end
+      item
+        Name = 'CanceladoPor'
+        DataType = ftString
+        Size = 30
+      end
+      item
+        Name = 'CanceladoEm'
+        DataType = ftDateTime
+      end
+      item
+        Name = 'Obs'
+        DataType = ftMemo
+      end>
     IndexDefs = <>
     SortOptions = []
     PersistentBackup = False
@@ -1601,6 +1654,9 @@ object FrmSessao: TFrmSessao
     object mtTranObs: TMemoField
       FieldName = 'Obs'
       BlobType = ftMemo
+    end
+    object mtTranTipoPago: TWordField
+      FieldName = 'TipoPago'
     end
   end
   object dsTran: TDataSource

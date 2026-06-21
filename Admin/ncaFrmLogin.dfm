@@ -5,7 +5,7 @@ object FrmNexLogin: TFrmNexLogin
   Caption = 'NexAdmin'
   ClientHeight = 302
   ClientWidth = 447
-  Color = clBtnFace
+  Color = clWhite
   Font.Charset = ANSI_CHARSET
   Font.Color = clWindowText
   Font.Height = -15
@@ -1273,7 +1273,7 @@ object FrmNexLogin: TFrmNexLogin
         ParentFont = False
         TabOrder = 0
         OnClick = btnConfigClick
-        LookAndFeel.Kind = lfFlat
+        LookAndFeel.Kind = lfUltraFlat
         LookAndFeel.NativeStyle = False
         OptionsImage.Glyph.Data = {
           76060000424D7606000000000000360000002800000014000000140000000100
@@ -1452,7 +1452,7 @@ object FrmNexLogin: TFrmNexLogin
       Height = 177
       Align = alClient
       TabOrder = 2
-      Properties.ActivePage = tsOk
+      Properties.ActivePage = tsErro
       Properties.CustomButtons.Buttons = <>
       Properties.HideTabs = True
       LookAndFeel.NativeStyle = False
@@ -1508,7 +1508,7 @@ object FrmNexLogin: TFrmNexLogin
             Style.IsFontAssigned = True
             StyleDisabled.LookAndFeel.NativeStyle = False
             StyleFocused.BorderStyle = ebsNone
-            StyleFocused.Color = 7864319
+            StyleFocused.Color = clWhite
             StyleFocused.LookAndFeel.NativeStyle = False
             StyleHot.LookAndFeel.NativeStyle = False
             TabOrder = 1
@@ -1578,7 +1578,7 @@ object FrmNexLogin: TFrmNexLogin
             StyleDisabled.LookAndFeel.Kind = lfFlat
             StyleDisabled.LookAndFeel.NativeStyle = False
             StyleFocused.BorderStyle = ebsNone
-            StyleFocused.Color = 7864319
+            StyleFocused.Color = clWhite
             StyleFocused.LookAndFeel.Kind = lfFlat
             StyleFocused.LookAndFeel.NativeStyle = False
             StyleHot.LookAndFeel.Kind = lfFlat
@@ -1621,6 +1621,7 @@ object FrmNexLogin: TFrmNexLogin
           Margins.Bottom = 15
           Align = alTop
           Bevel.Mode = bmCustom
+          Color = clWhite
           TabOrder = 2
           object btnLogin: TcxButton
             AlignWithMargins = True
@@ -1691,6 +1692,7 @@ object FrmNexLogin: TFrmNexLogin
           Height = 121
           Align = alTop
           Bevel.Mode = bmCustom
+          Color = clWhite
           TabOrder = 0
           object Image1: TImage
             Left = 1
@@ -1738,6 +1740,29 @@ object FrmNexLogin: TFrmNexLogin
             Properties.WordWrap = True
             Height = 63
             Width = 368
+          end
+          object cmAtualizar: TcxButton
+            Left = 0
+            Top = 88
+            Width = 417
+            Height = 33
+            Cursor = crHandPoint
+            Align = alBottom
+            Caption = 'Verificar Atualiza'#231#227'o'
+            Font.Charset = ANSI_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -16
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            ParentFont = False
+            TabOrder = 2
+            OnClick = cmAtualizarClick
+            Colors.Default = clWhite
+            Colors.Hot = 16759931
+            Colors.HotText = clWhite
+            Colors.Pressed = 15371068
+            Colors.PressedText = clWhite
+            LookAndFeel.NativeStyle = False
           end
         end
         object btnFechar: TcxButton

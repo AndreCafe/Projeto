@@ -34,7 +34,238 @@
     <Borland.Personality>Delphi.Personality</Borland.Personality>
     <Borland.ProjectType>VCLApplication</Borland.ProjectType>
     <BorlandProject>
-<BorlandProject><Delphi.Personality><Parameters><Parameters Name="UseLauncher">False</Parameters><Parameters Name="LoadAllSymbols">True</Parameters><Parameters Name="LoadUnspecifiedSymbols">False</Parameters></Parameters><VersionInfo><VersionInfo Name="IncludeVerInfo">True</VersionInfo><VersionInfo Name="AutoIncBuild">False</VersionInfo><VersionInfo Name="MajorVer">5</VersionInfo><VersionInfo Name="MinorVer">0</VersionInfo><VersionInfo Name="Release">0</VersionInfo><VersionInfo Name="Build">212</VersionInfo><VersionInfo Name="Debug">False</VersionInfo><VersionInfo Name="PreRelease">False</VersionInfo><VersionInfo Name="Special">False</VersionInfo><VersionInfo Name="Private">False</VersionInfo><VersionInfo Name="DLL">False</VersionInfo><VersionInfo Name="Locale">1046</VersionInfo><VersionInfo Name="CodePage">1252</VersionInfo></VersionInfo><VersionInfoKeys><VersionInfoKeys Name="CompanyName">Nexcafé</VersionInfoKeys><VersionInfoKeys Name="FileDescription">Admnistrador NexCafé</VersionInfoKeys><VersionInfoKeys Name="FileVersion">5.0.0.212</VersionInfoKeys><VersionInfoKeys Name="InternalName">NexAdmin</VersionInfoKeys><VersionInfoKeys Name="LegalCopyright"></VersionInfoKeys><VersionInfoKeys Name="LegalTrademarks"></VersionInfoKeys><VersionInfoKeys Name="OriginalFilename">NexAdmin</VersionInfoKeys><VersionInfoKeys Name="ProductName">NexCafé</VersionInfoKeys><VersionInfoKeys Name="ProductVersion">5</VersionInfoKeys><VersionInfoKeys Name="Comments"></VersionInfoKeys></VersionInfoKeys><Source><Source Name="MainSource">NexAdmin_Lan.dpr</Source></Source><Excluded_Packages>
+<BorlandProject><Delphi.Personality><Parameters><Parameters Name="UseLauncher">False</Parameters><Parameters Name="LoadAllSymbols">True</Parameters><Parameters Name="LoadUnspecifiedSymbols">False</Parameters></Parameters><VersionInfo><VersionInfo Name="IncludeVerInfo">True</VersionInfo><VersionInfo Name="AutoIncBuild">False</VersionInfo><VersionInfo Name="MajorVer">5</VersionInfo><VersionInfo Name="MinorVer">0</VersionInfo><VersionInfo Name="Release">0</VersionInfo><VersionInfo Name="Build">215</VersionInfo><VersionInfo Name="Debug">False</VersionInfo><VersionInfo Name="PreRelease">False</VersionInfo><VersionInfo Name="Special">False</VersionInfo><VersionInfo Name="Private">False</VersionInfo><VersionInfo Name="DLL">False</VersionInfo><VersionInfo Name="Locale">1046</VersionInfo><VersionInfo Name="CodePage">1252</VersionInfo></VersionInfo><VersionInfoKeys><VersionInfoKeys Name="CompanyName">Nexcafé</VersionInfoKeys><VersionInfoKeys Name="FileDescription">Admnistrador NexCafé</VersionInfoKeys><VersionInfoKeys Name="FileVersion">5.0.0.215</VersionInfoKeys><VersionInfoKeys Name="InternalName">NexAdmin</VersionInfoKeys><VersionInfoKeys Name="LegalCopyright"></VersionInfoKeys><VersionInfoKeys Name="LegalTrademarks"></VersionInfoKeys><VersionInfoKeys Name="OriginalFilename">NexAdmin</VersionInfoKeys><VersionInfoKeys Name="ProductName">NexCafé</VersionInfoKeys><VersionInfoKeys Name="ProductVersion">5</VersionInfoKeys><VersionInfoKeys Name="Comments"></VersionInfoKeys></VersionInfoKeys><Source><Source Name="MainSource">NexAdmin_Lan.dpr</Source></Source><Excluded_Packages>
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
       <Excluded_Packages Name="C:\Users\Public\Documents\RAD Studio\5.0\Bpl\PngComponentsD11R.bpl">PNG Components runtime</Excluded_Packages>
       <Excluded_Packages Name="C:\Users\Public\Documents\RAD Studio\5.0\Bpl\dcldxSkinsdxBarsPaintersD11.bpl">ExpressSkins Library Uses Clause Auto Fill Helper for Bars Painters by Developer Express Inc.</Excluded_Packages>
       <Excluded_Packages Name="C:\Users\Public\Documents\RAD Studio\5.0\Bpl\dxSkinsdxDLPainterD11.bpl">ExpressSkins Library Painter for Docking Library by Developer Express Inc.</Excluded_Packages>
@@ -56,7 +287,7 @@
       <Excluded_Packages Name="C:\comp\madCollection\madExcept\BDS4\madExceptWizard_.bpl">madExceptWizard 3.0g  -  www.madshi.net</Excluded_Packages>
       <Excluded_Packages Name="$(BDS)\Bin\dclIndyCore100.bpl">Indy 10 Core Design Time</Excluded_Packages>
       <Excluded_Packages Name="$(BDS)\Bin\dclIndyProtocols100.bpl">Indy 10 Protocols Design Time</Excluded_Packages>
-    </Excluded_Packages></Delphi.Personality></BorlandProject></BorlandProject>
+    </Excluded_Packages></Delphi.Personality><ModelSupport>False</ModelSupport></BorlandProject></BorlandProject>
   </ProjectExtensions>
   <Import Project="$(MSBuildBinPath)\Borland.Delphi.Targets" />
   <PropertyGroup>
@@ -66,10 +297,18 @@
     <DelphiCompile Include="NexAdmin_Lan.dpr">
       <MainSource>MainSource</MainSource>
     </DelphiCompile>
+    <DCCReference Include="..nexcafe\FormMgr\translator\uNexTransResourceStrings_PT.pas" />
+    <DCCReference Include="..nexcaf\FormMgr\translator\uNexTransResourceStrings_PT.pas" />
+    <DCCReference Include="..nexca\FormMgr\translator\uNexTransResourceStrings_PT.pas" />
+    <DCCReference Include="..nexc\FormMgr\translator\uNexTransResourceStrings_PT.pas" />
+    <DCCReference Include="..nex\FormMgr\translator\uNexTransResourceStrings_PT.pas" />
+    <DCCReference Include="..ne\FormMgr\translator\uNexTransResourceStrings_PT.pas" />
+    <DCCReference Include="..n\FormMgr\translator\uNexTransResourceStrings_PT.pas" />
     <DCCReference Include="..\..\Email\uDMEmail.pas">
       <DesignClass>TDataModule</DesignClass>
       <Form>dmEmail</Form>
     </DCCReference>
+    <DCCReference Include="..\..\FormMgr\translator\uNexTransResourceStrings_PT.pas" />
     <DCCReference Include="..\..\FormMgr\ufmFormBase.pas">
       <Form>FrmBase</Form>
       <DesignClass>TFrmBasePai</DesignClass>
@@ -197,6 +436,8 @@
       <DesignClass>TDataModule</DesignClass>
     </DCCReference>
     <DCCReference Include="..\Comp\VCLFixPack.pas" />
+    <DCCReference Include="..\FormMgr\translator\uNexTransResourceStrings_PT.pas" />
+    <DCCReference Include="..\FormMgr\translator\uNexTransResourceStrings_PT_.pas" />
     <DCCReference Include="..\Guard\ncaFrmPTProgress.pas">
       <Form>FrmPTProgress</Form>
     </DCCReference>
@@ -229,6 +470,7 @@
       <Form>panAlertaClonarProduto</Form>
       <DesignClass>TFrame</DesignClass>
     </DCCReference>
+    <DCCReference Include="ncaAutoUpdate.pas" />
     <DCCReference Include="ncaBaseWebApi.pas" />
     <DCCReference Include="ncaBiometria.pas">
       <Form>FrmBio</Form>

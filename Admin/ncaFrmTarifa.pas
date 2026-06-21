@@ -573,6 +573,12 @@ end;
 procedure TFrmTarifa.cmSalvarClick(Sender: TObject);
 var I : Integer;
 begin
+  if not gConfig.IsPremium then begin
+    Beep;
+    ShowMessage('Recurso disponivel apenas no plano Premium. No plano gratuito voce pode visualizar, mas nao salvar.');
+    Exit;
+  end;
+
   if Trim(edNome.Text)='' then
     Raise ENexCafe.Create(SÉNecessárioInformarUmNomeParaIde);
 

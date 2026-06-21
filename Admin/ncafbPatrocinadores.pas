@@ -78,7 +78,7 @@ end;
 
 class function TfbPatrocinadores.Descricao: String;
 begin
-  Result := SncafbPatrocinadores_PatrocinadoresAcessoGrátis;
+  Result := SncafbPatrocinadores_PatrocinadoresAcessoGratis;
 end;
 
 class function TfbPatrocinadores.Modulo: Integer;

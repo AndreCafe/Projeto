@@ -3,19 +3,16 @@ unit ncCliAtualizaLic;
 interface
 
 uses
-  SysUtils, Classes, CSCBase, kbmMWCustomTransport, kbmMWClient,
-  kbmMWHTTPStdTransStream,
-  kbmMWTCPIPIndyClientTransport, Windows, Messages, ExtCtrls, uLicEXECryptor;
+  SysUtils, Classes, CSCBase,
+  Windows, Messages, ExtCtrls, uLicEXECryptor,
+  IdHTTP;
 
 type
 
   TdmAtualizaLic = class(TDataModule)
-    mwCli: TkbmMWSimpleClient;
-    mwTransp: TkbmMWTCPIPIndyClientTransport;
   private
     { Private declarations }
   public
-    function Conecta(RaiseEx: Boolean = False): Boolean;
     function ObtemNovaLic(RaiseEx: Boolean = False): String;
     { Public declarations }
   end;
@@ -27,11 +24,12 @@ type
 
 var
   dmAtualizaLic: TdmAtualizaLic;
-  clilic_versao   : String = 'x.x.x.x';
-  clilic_codequip : String = '';
-  clilic_qtdlic   : integer = 0;
-  clilic_codloja  : integer = 0;
-  clilic_notifyhandle : HWND = 0;
+  clilic_versao      : String  = 'x.x.x.x';
+  clilic_codequip    : String  = '';
+  clilic_vencimento  : String  = '';  // dd/mm/yyyy — preencher antes de chamar ObtemNovaLic
+  clilic_qtdlic      : Integer = 0;
+  clilic_codloja     : Integer = 0;
+  clilic_notifyhandle: HWND    = 0;
 
 implementation
 
@@ -40,65 +38,48 @@ uses
 
 {$R *.dfm}
 
-function TdmAtualizaLic.Conecta(RaiseEx: Boolean=False): Boolean;
-var 
-  ProxyIP : String;
-  ProxyPort: Integer;
-  I : Integer;
-  HostRegistro : Array of String;
-begin
-  Result := False;
-  I := -1;
-  SetLength(HostRegistro, 2);
-  HostRegistro[0] := 'registro.nextar.com.br';
-  HostRegistro[1] := 'joaoborges.dyndns.org';
-  
-  while (I <= High(HostRegistro)) and (not Result) do
-  try
-    Inc(I);
-    mwTransp.Active := False;
-    mwTransp.Host := HostRegistro[I];
-    if ObtemProxy(ProxyIP, ProxyPort) then begin
-      mwTransp.Port := ProxyPort;
-      mwTransp.Host := ProxyIP;
-      mwTransp.Params.Values['KBMMWHTTPPOSTURL'] := 'http://'+HostRegistro[I]+':3001';
-      mwTransp.StreamFormat := 'HTTP';
-    end else begin
-      mwTransp.Host := HostRegistro[I];
-      mwTransp.Port := 3000;
-      mwTransp.Params.Clear;
-      mwTransp.StreamFormat := 'STANDARD';
-    end;  
-    mwTransp.Active := True;
-    Result := True;
-  except
-    if RaiseEx then raise;
-  end;
-end;
-
 function TdmAtualizaLic.ObtemNovaLic(RaiseEx: Boolean = False): String;
-var 
-  V: Variant;
-  P: ncPString;
+const
+  HOSTS: array[0..1] of String = (
+    'licencas.nexcafe.com.br',
+    'joaoborges.dyndns.org'
+  );
+  PORTA = 2233;
+  TIPO  = 5;
+  VPLANO = 3;
+var
+  Http: TIdHTTP;
+  URL : String;
+  I   : Integer;
+  P   : ncPString;
 begin
+  Result := '';
+  Http := TIdHTTP.Create(nil);
   try
-    Result := '';
-    if not Conecta(raiseex) then Exit;
-    V := mwCli.Request('REGISTRO', '3.00', 'CHECACONTA', [clilic_CodLoja, clilic_versao, -1]);
-    if (V[0] = 'OK') then begin
-      Result := V[2];
-      New(P);
-      P^ := Result;
-      PostMessage(clilic_notifyhandle, cscm_RefreshLic, Integer(P), 0);
-    end else
-      if RaiseEx then Raise Exception.Create(V[0]);
-    mwTransp.Active := False;
-  except
-    on E: Exception do begin
-      if RaiseEx then
-        Raise ENexCafe(E.Message);
+    Http.ConnectTimeout := 10000;
+    Http.ReadTimeout    := 15000;
+    for I := Low(HOSTS) to High(HOSTS) do
+    try
+      URL := Format(
+        'http://%s:%d/?vencimento=%s&codequip=%s&tipo=%d&vplano=%d&loja=%d',
+        [HOSTS[I], PORTA,
+         clilic_vencimento, clilic_codequip,
+         TIPO, VPLANO,
+         clilic_codloja]);
+      Result := Http.Get(URL);
+      if Result <> '' then begin
+        New(P);
+        P^ := Result;
+        PostMessage(clilic_notifyhandle, cscm_RefreshLic, Integer(P), 0);
+        Break; // sucesso no primeiro host que responder
+      end;
+    except
+      if (I = High(HOSTS)) and RaiseEx then raise;
+      // senao tenta proximo host
     end;
-  end;    
+  finally
+    Http.Free;
+  end;
 end;
 
 { TThreadAtualizaLic }
@@ -126,3 +107,4 @@ begin
 end;
 
 end.
+

@@ -111,7 +111,7 @@ end;
 
 class function TfbExtratoFid.Descricao: String;
 begin
-  Result := SncafgExtratoFid_ExtratoDeMovimentaçaoDePontos;
+  Result := 'Extrato de movimentação de pontos';
 end;
 
 procedure TfbExtratoFid.FiltraDados;

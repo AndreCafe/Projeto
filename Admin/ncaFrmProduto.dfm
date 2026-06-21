@@ -208,6 +208,8 @@ object FrmProduto: TFrmProduto
               object tsFoto: TcxTabSheet
                 Caption = 'Foto'
                 ImageIndex = 1
+                ExplicitWidth = 0
+                ExplicitHeight = 0
                 object panFoto: TLMDSimplePanel
                   Left = 0
                   Top = 0
@@ -1207,10 +1209,12 @@ object FrmProduto: TFrmProduto
               ClientRectBottom = 281
               ClientRectLeft = 1
               ClientRectRight = 742
-              ClientRectTop = 24
+              ClientRectTop = 23
               object tsTran: TcxTabSheet
                 Caption = '&1. Fidelidade '
                 ImageIndex = 0
+                ExplicitTop = 24
+                ExplicitHeight = 257
                 object edFidPontos: TcxDBSpinEdit
                   Left = 13
                   Top = 128
@@ -1287,7 +1291,7 @@ object FrmProduto: TFrmProduto
                   end
                   object lbOpcoesFid: TcxLabel
                     AlignWithMargins = True
-                    Left = 469
+                    Left = 463
                     Top = 5
                     Cursor = crHandPoint
                     Align = alLeft
@@ -2185,8 +2189,8 @@ object FrmProduto: TFrmProduto
     AllowReset = False
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
-    Font.Height = -12
-    Font.Name = 'Segoe UI'
+    Font.Height = -11
+    Font.Name = 'Tahoma'
     Font.Style = []
     Categories.Strings = (
       'Default')
@@ -2331,7 +2335,6 @@ object FrmProduto: TFrmProduto
     Top = 273
   end
   object MT: TkbmMemTable
-    Active = True
     DesignActivation = True
     AttachedAutoRefresh = True
     AttachMaxCount = 1
@@ -2596,7 +2599,6 @@ object FrmProduto: TFrmProduto
   end
   object tCateg: TnxTable
     ActiveRuntime = True
-    ActiveDesigntime = True
     Database = Dados.db
     TableName = 'Categoria'
     IndexName = 'uq_Categoria'
@@ -2619,7 +2621,6 @@ object FrmProduto: TFrmProduto
   end
   object tUnid: TnxTable
     ActiveRuntime = True
-    ActiveDesigntime = True
     Database = Dados.db
     TableName = 'Unidade'
     IndexName = 'uq_Unidade'

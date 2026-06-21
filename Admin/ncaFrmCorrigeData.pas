@@ -10,7 +10,7 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, cxGraphics, cxControls, cxLookAndFeels, cxLookAndFeelPainters,
   cxContainer, cxEdit, dxBar, cxClasses, cxLabel, cxTextEdit, cxMaskEdit,
-  cxDropDownEdit, cxCalendar, ComCtrls, dxCore, cxDateUtils;
+  cxDropDownEdit, cxCalendar, ComCtrls, dxCore, cxDateUtils, ncClassesBase;
 
 type
   TFrmCorrigeData = class(TForm)
@@ -46,6 +46,11 @@ end;
 
 procedure TFrmCorrigeData.cmGravarClick(Sender: TObject);
 begin
+  if not gConfig.IsPremium then begin
+    Beep;
+    ShowMessage('Recurso disponivel apenas no plano Premium. No plano gratuito voce pode visualizar, mas nao salvar.');
+    Exit;
+  end;
   ModalResult := mrOk;
 end;
 

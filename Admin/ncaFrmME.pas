@@ -112,7 +112,7 @@ type
     FShowed   : Boolean;
     FTot      : TFrmTotal;
     FCli      : TFrmEditContato;
-    //FMostrarUnit : Boolean;  agora sempre mostrará o preço unitário
+    //FMostrarUnit : Boolean;  agora sempre mostrarï¿½ o preï¿½o unitï¿½rio
     FTamanho     : byte;
     FPanAddProd  : TFrmPanVendaProdBase;
     FPanItens    : TpanItensVendaBase;
@@ -166,22 +166,22 @@ uses
 
 // START resource string wizard section
 resourcestring
-  SOpçõesParaVendas = 'Opções para Vendas';
-  SÉNecessárioHaverItensParaSalvar = 'É necessário haver itens para salvar';
-  SDescontoNãoPodeSerMaiorQueOValor = 'Desconto não pode ser maior que o valor total';
-  SValorPagoNãoPodeSerMaiorQueOTota = 'Valor pago não pode ser maior que o total final';
-  SÉNecessárioInformarOCliente = 'É necessário informar o cliente';
-  SClienteNãoPossuiQuantidadeDePont = 'Cliente não possui quantidade de pontos suficiente';
-  SParaFicarEmDébitoéNecessárioSele = 'Para ficar em débito é necessário selecionar um cliente';
-  SOLimiteMáximoDeDébitoPermitidoPa = 'O limite máximo de débito permitido para esse cliente foi ultrapassado';
+  SOpï¿½ï¿½esParaVendas = 'Opï¿½ï¿½es para Vendas';
+  Sï¿½Necessï¿½rioHaverItensParaSalvar = 'ï¿½ necessï¿½rio haver itens para salvar';
+  SDescontoNï¿½oPodeSerMaiorQueOValor = 'Desconto nï¿½o pode ser maior que o valor total';
+  SValorPagoNï¿½oPodeSerMaiorQueOTota = 'Valor pago nï¿½o pode ser maior que o total final';
+  Sï¿½Necessï¿½rioInformarOCliente = 'ï¿½ necessï¿½rio informar o cliente';
+  SClienteNï¿½oPossuiQuantidadeDePont = 'Cliente nï¿½o possui quantidade de pontos suficiente';
+  SParaFicarEmDï¿½bitoï¿½Necessï¿½rioSele = 'Para ficar em dï¿½bito ï¿½ necessï¿½rio selecionar um cliente';
+  SOLimiteMï¿½ximoDeDï¿½bitoPermitidoPa = 'O limite mï¿½ximo de dï¿½bito permitido para esse cliente foi ultrapassado';
   SVenda = 'Venda';
   SResgateDeProdutoDoProgramaDePont = 'Resgate de produto do programa de pontos/fidelidade';
   SCompra = 'Compra';
-  SAjusteDeEstoqueSAÍDA = 'Correção de Estoque - SAÍDA';
-  SAjusteDeEstoqueENTRADA = 'Correção de Estoque - ENTRADA';
+  SAjusteDeEstoqueSAï¿½DA = 'Correï¿½ï¿½o de Estoque - SAï¿½DA';
+  SAjusteDeEstoqueENTRADA = 'Correï¿½ï¿½o de Estoque - ENTRADA';
 
-  SNaoPermiteCred = 'Crédito não permitido com ';
-  SNaoPermiteTroco = 'Troco não permitido com ';
+  SNaoPermiteCred = 'Crï¿½dito nï¿½o permitido com ';
+  SNaoPermiteTroco = 'Troco nï¿½o permitido com ';
 
 // END resource string wizard section
 
@@ -212,7 +212,7 @@ end;
 
 procedure TFrmME.cmConfigClick(Sender: TObject);
 begin
-  TFrmOpcoes.Create(Self).Editar(SOpçõesParaVendas, [{$ifdef Loja}TFrmConfigQuickCad,{$endif} TFrmConfigVendaProdSemSaldo]);
+  TFrmOpcoes.Create(Self).Editar(SOpï¿½ï¿½esParaVendas, [{$ifdef Loja}TFrmConfigQuickCad,{$endif} TFrmConfigVendaProdSemSaldo]);
 end;
 
 procedure TFrmME.cmGravarClick(Sender: TObject);
@@ -227,22 +227,26 @@ begin
   except
   end;
 
-  if FidResgate then begin
+  if FidResgate then
+  begin
     FME.Total := 0;
     FME.Desconto := 0;
     FME.Pago := 0;
-  end else begin
+  end
+  else
+  begin
     FME.Total    := FTot.SubTotal;
     FME.Desconto := FTot.Desconto;
     FME.Pago     := FTot.Pago;
   end;
+
   FME.Obs      := FTot.Obs;
   FME.Recibo   := cbRecibo.Checked;
   FME.NomeCliente := FCli.Nome;
   FME.Cliente := FCli.ID;
 
   if FME.Itens.Count=0 then
-    Raise ENexCafe.Create(SÉNecessárioHaverItensParaSalvar);
+    Raise ENexCafe.Create(Sï¿½Necessï¿½rioHaverItensParaSalvar);
 
 
   if Ftot.SobrouTroco and (not FTot.PermiteTroco) then
@@ -252,18 +256,18 @@ begin
   if not FME.FidResgate then begin
 
       if FME.Desconto-FME.Total > 0.001 then
-        Raise ENexCafe.Create(SDescontoNãoPodeSerMaiorQueOValor);
+        Raise ENexCafe.Create(SDescontoNï¿½oPodeSerMaiorQueOValor);
 
       if (FME.Pago - (FME.Total - FME.Desconto)) > 0.001 then
-            Raise ENexCafe.Create(SValorPagoNãoPodeSerMaiorQueOTota);
+            Raise ENexCafe.Create(SValorPagoNï¿½oPodeSerMaiorQueOTota);
 
   end else begin
 
       if FCli.ID=0 then
-        raise ENexCafe.Create(SÉNecessárioInformarOCliente);
+        raise ENexCafe.Create(Sï¿½Necessï¿½rioInformarOCliente);
 
       if FTot.PontosNec>FCli.FidPontos then
-        raise ENexCafe.Create(SClienteNãoPossuiQuantidadeDePont);
+        raise ENexCafe.Create(SClienteNï¿½oPossuiQuantidadeDePont);
 
   end;
 
@@ -276,13 +280,13 @@ begin
       if (FME.ValorDebitado>0.009) then begin
 
           if (FME.Cliente=0) then
-            Raise ENexCafe.Create(SParaFicarEmDébitoéNecessárioSele);
+            Raise ENexCafe.Create(SParaFicarEmDï¿½bitoï¿½Necessï¿½rioSele);
 
           if Debitar > 0.009 then begin
       
             tbCli.Locate('ID', FME.Cliente, []); // do not localize
             if LimiteDebito(tbCliLimiteDebito)<(Debitar+tbCliDebito.Value) then
-              Raise ENexCafe.Create(SOLimiteMáximoDeDébitoPermitidoPa);
+              Raise ENexCafe.Create(SOLimiteMï¿½ximoDeDï¿½bitoPermitidoPa);
 
           end;
 
@@ -293,11 +297,26 @@ begin
   // if Ftot.PermiteCred then
   // if Ftot.PermiteTroco then
   // FME.TipoPago := FTot.TipoPago;
-  // SNaoPermiteCred = 'Crédito não permitido com ';
-  // SNaoPermiteTroco = 'Troco não permitido com ';
+  // SNaoPermiteCred = 'Crï¿½dito nï¿½o permitido com ';
+  // SNaoPermiteTroco = 'Troco nï¿½o permitido com ';
 
   if (FME.Tipo=trEstVenda) and (not FidResgate) then
+  begin
     FME.SalvaDescPago;
+
+    if FME.PagEsp.Count = 0 then
+    begin
+      with FME.PagEsp.NewItem do
+      begin
+        peEspecie := FTot.TipoPago;
+        peValor := FME.Pago;
+        if FTot.Recebido > FME.Total - FME.Desconto then
+          peTroco := FTot.Recebido - (FME.Total - FME.Desconto)
+        else
+          peTroco := 0;
+      end;
+    end;
+  end;
 
   FME.SalvaTipoTran;
     
@@ -369,6 +388,7 @@ var
   Func : String;
   //TC : Byte;
   U : TncUsuario;
+  vTipoPago : Byte;
 begin
   FME := aME;
   FNovo := aNovo;
@@ -391,7 +411,13 @@ begin
     tPro.Filter := '(plus<>true) and (fidpontos>0)'; // do not localize
   end else
   if aME.Tipo=trEstVenda then
-    FTot.InitVal(FME.PagEsp, 0, aME.Desconto, aME.Pago, 0, 0, aME.Obs, panTot)
+  begin
+    if aME.PagEsp.Count > 0 then
+      vTipoPago := aME.PagEsp[0].peEspecie
+    else
+      vTipoPago := 0;
+    FTot.InitVal(FME.PagEsp, 0, aME.Desconto, aME.Pago, 0, vTipoPago, aME.Obs, panTot);
+  end
   else begin
     FTot.InitCusto(0, aME.Obs, panTot);
     FTot.pgValPontos.Visible := (aME.Tipo=trEstCompra);
@@ -625,7 +651,7 @@ begin
         Caption := SVenda else
         Caption := SResgateDeProdutoDoProgramaDePont;
     trEstCompra  : Caption := SCompra;
-    trEstSaida   : Caption := SAjusteDeEstoqueSAÍDA;
+    trEstSaida   : Caption := SAjusteDeEstoqueSAï¿½DA;
     trEstEntrada : Caption := SAjusteDeEstoqueENTRADA;
   end;
   panCli.Visible := FidResgate or (FME.Tipo in [trEstVenda, trEstCompra]);

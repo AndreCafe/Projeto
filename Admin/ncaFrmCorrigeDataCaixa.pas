@@ -68,6 +68,12 @@ end;
 
 procedure TFrmCorrigeDataCaixa.cmGravarClick(Sender: TObject);
 begin
+  if not gConfig.IsPremium then begin
+    Beep;
+    ShowMessage('Recurso disponivel apenas no plano Premium. No plano gratuito voce pode visualizar, mas nao salvar.');
+    Exit;
+  end;
+
   edAbert.PostEditValue;
   edFecha.PostEditValue;
   edSaldoF.PostEditValue;

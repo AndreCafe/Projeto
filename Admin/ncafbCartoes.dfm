@@ -114,7 +114,6 @@ inherited fbCartoes: TfbCartoes
             DataBinding.FieldName = 'Status'
             PropertiesClassName = 'TcxImageComboBoxProperties'
             Properties.Alignment.Horz = taCenter
-            Properties.Alignment.Vert = taVCenter
             Properties.Images = cxImageList1
             Properties.Items = <
               item
@@ -141,7 +140,6 @@ inherited fbCartoes: TfbCartoes
             DataBinding.FieldName = 'Senha'
             PropertiesClassName = 'TcxTextEditProperties'
             Properties.Alignment.Horz = taLeftJustify
-            Properties.Alignment.Vert = taVCenter
             Properties.MaxLength = 20
             Properties.ReadOnly = True
             Options.Editing = False
@@ -152,7 +150,6 @@ inherited fbCartoes: TfbCartoes
             Caption = 'T. Total'
             DataBinding.FieldName = 'MaxSegundos'
             PropertiesClassName = 'TcxTextEditProperties'
-            Properties.Alignment.Vert = taVCenter
             OnCustomDrawCell = TVTempoTotalCustomDrawCell
             OnGetDisplayText = TVTempoTotalGetDisplayText
             HeaderAlignmentHorz = taCenter
@@ -163,7 +160,6 @@ inherited fbCartoes: TfbCartoes
             Caption = 'T. Usado'
             DataBinding.FieldName = 'Segundos'
             PropertiesClassName = 'TcxTextEditProperties'
-            Properties.Alignment.Vert = taVCenter
             OnCustomDrawCell = TVTempoUsadoCustomDrawCell
             OnGetDisplayText = TVTempoUsadoGetDisplayText
             HeaderAlignmentHorz = taCenter
@@ -173,7 +169,6 @@ inherited fbCartoes: TfbCartoes
           object TVNome: TcxGridDBColumn
             DataBinding.FieldName = 'Nome'
             PropertiesClassName = 'TcxTextEditProperties'
-            Properties.Alignment.Vert = taVCenter
             Options.Editing = False
             Options.Focusing = False
           end

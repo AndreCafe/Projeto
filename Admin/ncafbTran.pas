@@ -1,4 +1,4 @@
-{$I NEX.INC}
+ï»¿{$I NEX.INC}
 
 unit ncafbTran;
 {
@@ -333,7 +333,7 @@ uses
 class function TfbTran.Descricao: String;
 begin
 
-  Result := SncafbTran_Transações;
+  Result := SncafbTran_Transacoes;
 end;
 
 procedure TfbTran.cmReciboClick(Sender: TObject);
@@ -416,7 +416,7 @@ begin
           cmSangria.Visible := ivNever;
           tAP.Active := False;
           AjustaVisAP;
-          TV.OptionsView.NoDataToDisplayInfoText := SncafbTran_NãoExistemTransaçõesParaEsseClie;
+          TV.OptionsView.NoDataToDisplayInfoText := SncafbTran_NaoExistemTransacoesParaEsseClie;
         end;
 
         ftran_Caixa : begin
@@ -445,7 +445,7 @@ begin
           end else
             tAP.Active := False;
           AjustaVisAP;
-          TV.OptionsView.NoDataToDisplayInfoText := SncafbTran_NãoFoiRealizadaNenhumaOperaçãoNe;
+          TV.OptionsView.NoDataToDisplayInfoText := SncafbTran_NaoFoiRealizadaNenhumaOperacaoNe;
         end
       else
         begin
@@ -461,7 +461,7 @@ begin
           Tab.IndexName := 'ICaixaID'; // do not localize
           if NumAberto>0 then begin
             Tab.SetRange([NumAberto], [NumAberto]);
-            TV.OptionsView.NoDataToDisplayInfoText := SncafbTran_AindaNãoFoiRealizadaNenhumaTrans;
+            TV.OptionsView.NoDataToDisplayInfoText := SncafbTran_AindaNaoFoiRealizadaNenhumaTrans;
             cmAbrir.Visible := ivNever;
             cmFechar.Visible := ivAlways;
             cmTotalizar.Enabled := True;
@@ -469,7 +469,7 @@ begin
             cmSangria.Enabled := Permitido(daCaiSangria);
           end else begin
             Tab.SetRange([-2], [-2]);
-            TV.OptionsView.NoDataToDisplayInfoText := SncafbTran_OCaixaEstáFechado;
+            TV.OptionsView.NoDataToDisplayInfoText := SncafbTran_OCaixaEstaFechado;
             cmAbrir.Visible := ivAlways;
             cmFechar.Visible := ivNever;
             cmTotalizar.Enabled := False;
@@ -541,7 +541,7 @@ begin
   AddCedula(SncafbTran_25Centavos, 0.25);
   AddCedula(SncafbTran_50Centavos, 0.50);
   AddCedula(SncafbTran_1Moeda, 1);
-  AddCedula(SncafbTran_1Cédula, 1);
+  AddCedula(SncafbTran_1Cedula, 1);
   AddCedula('2', 2);
   AddCedula('5', 5);
   AddCedula(SncafbTran_10, 10);
@@ -557,9 +557,11 @@ begin
   gEspecies.Limpa;
   gEspecies.LeDataset(TabEsp);
 
+  TcxImageComboBoxProperties(TVTipoPago.Properties).Items.Clear;
+  TcxImageComboBoxProperties(TVTipoPago.Properties).ShowDescriptions := True;
   for i := 0 to gEspecies.Count - 1 do begin
          with TcxImageComboBoxProperties(TVTipoPago.Properties).Items.Add do begin
-             Value := gEspecies[i].Img;
+             Value := gEspecies[i].ID;
              ImageIndex := gEspecies[i].Img;
              Description := '  ' + gEspecies[i].Nome + '  ';
          end;
@@ -682,8 +684,8 @@ begin
   if Tab.IsEmpty then Exit;
   if TabTipo.Value=trCorrDataCx then Exit;
   if TabplusID.Value>'' then 
-    raise exception.Create(SncafbTran_NãoéPermitidoCancelarUmaVendaPlu);
-  if SimNao(SncafbTran_DesejaRealmenteCancelarATransaçã) then
+    raise exception.Create(SncafbTran_NaoePermitidoCancelarUmaVendaPlu);
+  if SimNao(SncafbTran_DesejaRealmenteCancelarATransaca) then
   begin
     Dados.CM.CancelaTran(TabID.Value, Dados.CM.Username);
     Tab.Refresh;
@@ -695,7 +697,7 @@ end;
 procedure TfbTran.cmCfgClick(Sender: TObject);
 begin
   inherited;
-  TFrmOpcoes.Create(Self).Editar(SncafbTran_OpçõesDeCaixa, [TFrmConfigCaixaAbertura, TFrmConfigCaixaFechamento, TFrmConfigEmailCaixa]);
+  TFrmOpcoes.Create(Self).Editar(SncafbTran_OpcoesDeCaixa, [TFrmConfigCaixaAbertura, TFrmConfigCaixaFechamento, TFrmConfigEmailCaixa]);
 end;
 
 procedure TfbTran.cmCorrigeDataCaixaClick(Sender: TObject);
@@ -714,6 +716,9 @@ end;
 
 procedure TfbTran.cmEditarClick(Sender: TObject);
 begin
+  if not gconfig.ispremium then
+    exit;
+    
   Dados.EditarTran(TabID.Value);
   Tab.Refresh;
 end;
@@ -851,7 +856,7 @@ begin
   with Dados do
   try
     if not tbCaixa.Locate('ID', NumAberto, []) then // do not localize
-      Raise ENexCafe.Create(SncafbTran_CaixaAtualNãoEncontrado);
+      Raise ENexCafe.Create(SncafbTran_CaixaAtualNaoEncontrado);
     TFrmCaixa.Create(nil).Editar(tbCaixa);
   finally
     dmCaixa.Free;  
@@ -863,19 +868,27 @@ var I : Integer;
 begin
   inherited;
   TV.DataController.DataModeController.GridMode := not gConfig.AutoSortGridCaixa;
-  if Tab.Active then Tab.Refresh;
+
+  if Tab.Active then
+    Tab.Refresh;
+
   TV.OptionsCustomize.ColumnSorting := gConfig.AutoSortGridCaixa;
-  cmFechar.Enabled := Permitido(daCaiAbrirFechar);
-  cmTotalizar.Enabled := Permitido(daCaiVerAtual);
+  cmFechar.Enabled     := Permitido(daCaiAbrirFechar) AND gConfig.IsPremium;;
+  cmTotalizar.Enabled  := Permitido(daCaiVerAtual) AND gConfig.IsPremium;
   cmEmailCaixa.Enabled := Dados.CM.UA.Admin;
-  cmCfg.Enabled := Dados.CM.UA.Admin;
-  cmCancelar.Enabled := Permitido(daTraCancelar) and (not Tab.IsEmpty);
-  cmSuprimento.Enabled := Permitido(daCaiSuprimento);
-  if Dados.CM.UA.Admin then 
-    cmEmailCaixa.Visible := ivAlways else
+  cmCfg.Enabled        := Dados.CM.UA.Admin AND gConfig.IsPremium;
+  cmCancelar.Enabled   := Permitido(daTraCancelar) and (not Tab.IsEmpty) AND gConfig.IsPremium;
+  cmSuprimento.Enabled := Permitido(daCaiSuprimento) AND gConfig.IsPremium;
+  cmSangria.Enabled := Permitido(daCaiSangria) AND gConfig.IsPremium;
+  cmExportar.Enabled   := Permitido(daImpExp) AND gConfig.IsPremium;
+
+  if Dados.CM.UA.Admin then
+    cmEmailCaixa.Visible := ivAlways
+  else
     cmEmailCaixa.Visible := ivNever;
-  cmSangria.Enabled := Permitido(daCaiSangria);
-  cmVerAnt.Enabled := Permitido(daCaiVerAntes) or Permitido(daCaiVerAntesOutros);
+
+  cmEmailCaixa.Enabled := Dados.CM.UA.Admin AND gConfig.IsPremium;
+  cmVerAnt.Enabled     := Permitido(daCaiVerAntes) or Permitido(daCaiVerAntesOutros);
   pantsTran.Visible := Permitido(daVerTranCaixa) or (Operacao=ftran_cliente);
   nbiTran.Enabled := pantsTran.Visible;
 

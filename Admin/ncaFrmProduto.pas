@@ -502,6 +502,12 @@ var
   Cat: String;
   DS : TDataSource;
 begin
+  if not gConfig.IsPremium then begin
+    Beep;
+    ShowMessage('Recurso disponivel apenas no plano Premium. No plano gratuito voce pode visualizar, mas nao salvar.');
+    Exit;
+  end;
+
   edObs.SetFocus;
   edDescr.SetFocus;
   MTPreco.Value := FrmPrecoAuto.Preco;

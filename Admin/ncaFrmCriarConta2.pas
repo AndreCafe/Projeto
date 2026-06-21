@@ -25,6 +25,7 @@ type
     procedure showAtivar; override;
     procedure aposAtivar; override;
     procedure salvaLic(aConta, aChaves: String); override;
+    procedure salvaLicNovo(aConta, aChaves, aIDLoja: String); override;
   public
     { Public declarations }
   end;
@@ -50,6 +51,12 @@ procedure TFrmCriarConta2.salvaLic(aConta, aChaves: String);
 begin
   inherited;
   Dados.CM.SalvaLic(aConta, aChaves);
+end;
+
+procedure TFrmCriarConta2.salvaLicNovo(aConta, aChaves, aIDLoja: String);
+begin
+  inherited;
+  Dados.CM.SalvaLicComIDLoja(aConta, aChaves, aIDLoja);
 end;
 
 procedure TFrmCriarConta2.showAtivar;

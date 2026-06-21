@@ -253,6 +253,7 @@ object FrmTotal: TFrmTotal
                 TabOrder = 0
                 OnEnter = edRecEnter
                 OnExit = edRecExit
+                ExplicitHeight = 21
                 Width = 108
               end
               object lbRec: TcxLabel
@@ -393,6 +394,7 @@ object FrmTotal: TFrmTotal
             StyleHot.TextColor = clRed
             Properties.Alignment.Horz = taLeftJustify
             Properties.Alignment.Vert = taVCenter
+            ExplicitLeft = 270
             AnchorY = 32
           end
           object lbNomeDif: TcxLabel

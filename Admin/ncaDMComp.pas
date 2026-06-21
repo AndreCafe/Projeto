@@ -930,7 +930,7 @@ begin
   case tITranTipoItem.Value of
     itSessao    : begin
       if tITranTipoTran.Value = trFimSessao then
-        Value := SncaDMComp_FIMDESESSÃO else
+        Value := SncaDMComp_FIMDESESSAO else
         Value := 'SESSÃO'; // TODO : check string
     end;
     itMovEst    : Value := 'PRODUTO'; // TODO : check string
@@ -1017,8 +1017,8 @@ begin
     itImpressao : begin  
       if tAuxITran.FindKey([tITranTipoItem.Value, tITranItemID.Value]) and
          tAuxTran.FindKey([tAuxITranTran.Value]) then 
-        S := SncaDMComp_Impressão_2 + tAuxTranDescr.Value else
-        S := SncaDMComp_Impressão_2;
+        S := SncaDMComp_Impressao_2 + tAuxTranDescr.Value else
+        S := SncaDMComp_Impressao_2;
     end;
   end;
 

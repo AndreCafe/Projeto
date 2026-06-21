@@ -93,7 +93,6 @@ object FrmIniciarSessao: TFrmIniciarSessao
     Align = alClient
     Bevel.Mode = bmCustom
     TabOrder = 4
-    ExplicitHeight = 343
     object cbRecibo: TcxCheckBox
       Left = 3
       Top = 18

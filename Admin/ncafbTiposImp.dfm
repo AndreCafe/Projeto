@@ -265,6 +265,8 @@ inherited fbTiposImp: TfbTiposImp
                   Bevel.Mode = bmCustom
                   ParentColor = True
                   TabOrder = 0
+                  ExplicitTop = 5
+                  ExplicitHeight = 160
                   object lbInfoConfirmar: TcxLabel
                     AlignWithMargins = True
                     Left = 5
@@ -875,6 +877,8 @@ inherited fbTiposImp: TfbTiposImp
                   Bevel.Mode = bmCustom
                   ParentColor = True
                   TabOrder = 0
+                  ExplicitTop = 5
+                  ExplicitHeight = 114
                   object lbInfoRevisar: TcxLabel
                     AlignWithMargins = True
                     Left = 5
@@ -1158,6 +1162,8 @@ inherited fbTiposImp: TfbTiposImp
                   Bevel.Mode = bmCustom
                   ParentColor = True
                   TabOrder = 0
+                  ExplicitTop = 5
+                  ExplicitHeight = 95
                   object lbInfoImpNex: TcxLabel
                     AlignWithMargins = True
                     Left = 5
@@ -1241,6 +1247,7 @@ inherited fbTiposImp: TfbTiposImp
                       StyleHot.LookAndFeel.NativeStyle = True
                       TabOrder = 1
                       OnClick = cbControlarImpCliClick
+                      ExplicitHeight = 0
                       Width = 335
                     end
                   end
@@ -1414,6 +1421,8 @@ inherited fbTiposImp: TfbTiposImp
                   Bevel.Mode = bmEdge
                   Color = clWhite
                   TabOrder = 0
+                  ExplicitTop = 5
+                  ExplicitHeight = 121
                   object Grid: TcxGrid
                     Left = 0
                     Top = 20
@@ -1704,7 +1713,7 @@ inherited fbTiposImp: TfbTiposImp
               AlignWithMargins = True
               Left = 2
               Top = 2
-              Width = 52
+              Width = 48
               Height = 48
               Margins.Left = 0
               Margins.Top = 0
@@ -1836,6 +1845,7 @@ inherited fbTiposImp: TfbTiposImp
                 49399A4ED072850000000049454E44AE426082}
               Proportional = True
               Transparent = True
+              ExplicitWidth = 52
             end
           end
         end

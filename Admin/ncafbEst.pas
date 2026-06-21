@@ -26,7 +26,7 @@ uses
   dxPScxGridLnk, dxPScxGridLayoutViewLnk, dxPScxEditorProducers,
   dxPScxExtEditorProducers, cxPCdxBarPopupMenu, cxLookAndFeels,
   cxLookAndFeelPainters, cxCustomPivotGrid, cxDBPivotGrid, dxPScxPivotGridLnk,
-  dxPScxCommon, cxNavigator, cxCurrencyEdit, uParentedPanel;
+  dxPScxCommon, cxNavigator, cxCurrencyEdit, uParentedPanel, dxBarBuiltInMenu;
 
 type
   TfbEst = class(TFrmBase)
@@ -495,6 +495,7 @@ end;
 begin
   inherited;
   pgVendasComissao.Visible := gConfig.IsPremium;
+  cmGerar.Enabled := gConfig.IsPremium;
   Paginas.HideTabs := True;
   Paginas.ActivePageIndex := 0;
   cmVoltar.Visible := ivNever;

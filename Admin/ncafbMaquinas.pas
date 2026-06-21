@@ -905,6 +905,8 @@ var
 begin
   inherited;
   if CaixaFechado then Exit;
+  if not gConfig.IsPremium then Exit;
+  
   with Dados do begin
     S := CM.Sessoes.PorMaq[mtMaquinaNumero.Value];
     if (S<>nil) then begin

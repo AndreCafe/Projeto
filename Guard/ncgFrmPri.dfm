@@ -3251,8 +3251,8 @@ object FrmPri: TFrmPri
     Top = 160
   end
   object DispSw: TDisplaySwitcher
-    CurrentWidth = 1920
-    CurrentHeight = 1080
+    CurrentWidth = 1276
+    CurrentHeight = 926
     Left = 352
     Top = 216
   end

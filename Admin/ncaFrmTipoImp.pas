@@ -100,6 +100,12 @@ end;
 
 procedure TFrmTipoImp.cmGravarClick(Sender: TObject);
 begin
+  if not gConfig.IsPremium then begin
+    Beep;
+    ShowMessage('Recurso disponivel apenas no plano Premium. No plano gratuito voce pode visualizar, mas nao salvar.');
+    Exit;
+  end;
+  
   if Trim(edDescr.Text)='' then
     Raise ENexCafe.Create(SÉObrigatórioQueATarifaTenhaUmNom);
 

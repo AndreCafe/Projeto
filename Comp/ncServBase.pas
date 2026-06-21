@@ -307,8 +307,8 @@ var
 resourcestring
   rsPretoEBranco = 'Preto e Branco';
   rsDinheiro = 'Dinheiro';
-  rsCartaoCred = 'Cartão de Crédito';
-  rsCartaoDeb = 'Cartão de Débito';
+  rsCartaoCred = 'Cartï¿½o de Crï¿½dito';
+  rsCartaoDeb = 'Cartï¿½o de Dï¿½bito';
   rsCheque = 'Cheque';
   
   
@@ -333,7 +333,8 @@ uses
   ncSyncLic,
   synamisc,
   {ncsRecalcPass,} ncAppUrlLog, ncDMcommPlus, ncPRConsts,
-  nxsrServerEngine, nxptBasePooledTransport, nexUrls;
+  nxsrServerEngine, nxptBasePooledTransport, nexUrls,
+  ncLicenseLib_Import;
 
 
 { TncServidor }
@@ -991,7 +992,7 @@ function NomeDocInvalido(sNome: String): Boolean;
 begin
   sNome := Trim(sNome);
   Result := (sNome='') or
-            (Pos('Documento de nível', sNome)>0) or 
+            (Pos('Documento de nï¿½vel', sNome)>0) or 
             (Pos('Downlevel document', sNome)>0);
 end;
 
@@ -1575,12 +1576,12 @@ begin
       if tMaq.RecordCount=0 then begin
         tMaq.Insert;
         tMaqNumero.Value := 1;
-        tMaqNome.Value:= 'Máquina 1';
+        tMaqNome.Value:= 'Mï¿½quina 1';
         tMaq.Post;
 
         tMaq.Insert;
         tMaqNumero.Value := 2;
-        tMaqNome.Value := 'Máquina 2';
+        tMaqNome.Value := 'Mï¿½quina 2';
         tMaq.Post;
       end else begin
         tMaq.First;
@@ -1739,12 +1740,12 @@ begin
             DebugMsg('Monitor de impressoes criado');
           except
             on E: EOSError do
-              DebugMsg('Falha na criação do PrinterMonitor: '+E.Message);
+              DebugMsg('Falha na criaï¿½ï¿½o do PrinterMonitor: '+E.Message);
             on E: Exception do
-              DebugMsg('Falha na criação do PrinterMonitor: '+E.Message);
+              DebugMsg('Falha na criaï¿½ï¿½o do PrinterMonitor: '+E.Message);
           end;
         end else
-          DebugMsg('Monitor de impressoes não foi criado');
+          DebugMsg('Monitor de impressoes nï¿½o foi criado');
       except
         on E: Exception do begin
           DebugMsgEsp('TncSevidor.CriaServidorBD ERRO FMonitor.Create: '+E.Message, False, True);
@@ -2036,7 +2037,7 @@ begin
     if SameText(aInfo.Values['Control'], 'liberar') then begin
       S := PRFolder('s');
       if not FileExists(S+P.ArqStr+'.pdf') then begin
-        DebugMsg('TncServidor.PrintDocControl - Arquivo não encontrado: ' + S+P.ArqStr+'.pdf');
+        DebugMsg('TncServidor.PrintDocControl - Arquivo nï¿½o encontrado: ' + S+P.ArqStr+'.pdf');
         if FileExists(S+P.ArqStr+'.ini') then DeleteFile(PAnsiChar(S+P.ArqStr+'.ini'));
         P.Free;
         Exit;
@@ -2046,7 +2047,7 @@ begin
       T := gTiposImp.PorID[P.Tipo];
       if T=nil then begin
         Result := ncerrTipoImpNaoExiste;
-        DebugMsg('TncServidor.PrintDocControl - Tipo Não Encontrado: ');
+        DebugMsg('TncServidor.PrintDocControl - Tipo Nï¿½o Encontrado: ');
         Exit;
       end;
       I := TncImpressao.Create;
@@ -2533,26 +2534,81 @@ begin
 end;
 
 function TncServidor.SalvaLic(aLic: String): Integer;
-var 
+var
   sl : TStrings;
   s  : String;
+  aChaves: String;
+  IsNCLIC2: Boolean;
+  sLicPath: String;
+  slLic: TStringList;
+  LicLib: TncLicenseLibrary;
+  ValidationResult: TValidationResult;
+  aCE, aSN: String;
 begin
   Result := 0;
+  IsNCLIC2 := False;
+  aChaves := '';
   sl := TStringList.Create;
   try
     sl.Text := aLic;
-    if sl.IndexOfName('chaves')>=0 then begin
-      if (RegistroGlobal.StringChaves=sl.Values['chaves']) and 
-         ((sl.IndexOfName('conta')=0) or (RegistroGlobal.Conta=sl.Values['conta'])) then Exit;
-      RegistroGlobal.StringChaves := sl.Values['chaves'];
-      if sl.IndexOfName('conta')>=0 then
-        RegistroGlobal.Conta := sl.Values['conta'];   
+    if sl.IndexOfName('chaves')>=0 then begin // do not localize
+      aChaves := sl.Values['chaves']; // do not localize
+      IsNCLIC2 := Copy(aChaves, 1, 7) = 'NCLIC2-'; // do not localize
+      if (not IsNCLIC2) and (RegistroGlobal.StringChaves=aChaves) and
+         ((sl.IndexOfName('conta')=0) or (RegistroGlobal.Conta=sl.Values['conta'])) then Exit; // do not localize
+      if not IsNCLIC2 then
+        RegistroGlobal.StringChaves := aChaves;
+      if sl.IndexOfName('conta')>=0 then // do not localize
+        RegistroGlobal.Conta := sl.Values['conta']; // do not localize
+      // Atualiza IDLoja se enviado (clientes novos via create-account)
+      if (sl.IndexOfName('idloja') >= 0) and // do not localize
+         (StrToIntDef(sl.Values['idloja'], 0) > 0) then begin // do not localize
+        RegistroGlobal.SetIDLoja(sl.Values['idloja']); // do not localize
+        RegistroGlobal.SetIDLojaKey(getIDLojaKey(sl.Values['idloja'], RegistroGlobal.Conta)); // do not localize
+        DebugMsg('SalvaLic - IDLoja atualizado: ' + sl.Values['idloja']); // do not localize
+      end;
     end else begin
       if RegistroGlobal.StringChaves=aLic then Exit;
       if not RegistroGlobal.ChavesOk(aLic) then Exit;
       RegistroGlobal.StringChaves := aLic;
     end;
     RegistroGlobal.SalvaArqPadrao;
+    // Gravar chave NCLIC2 diretamente no arquivo (SetStringChaves rejeita chaves != 24 chars)
+    if IsNCLIC2 then begin
+      // Validar antes de salvar: rejeita chave gerada para outro codequip
+      try
+        LicLib := TncLicenseLibrary.Create;
+        try
+          if LicLib.IsLoaded then begin
+            RegistroGlobal.CodEquipSerial(aCE, aSN);
+            // NCLIC2 usa IDLoja (ex: 890447), nao CodLoja (legado, geralmente 0)
+            ValidationResult := LicLib.ValidateLicense(aChaves, IntToStr(RegistroGlobal.IDLoja), aCE);
+            if not ValidationResult.Valid then begin
+              DebugMsg('SalvaLic - NCLIC2 rejeitada (nao e para este equipamento): ' + ValidationResult.ErrorMsg); // do not localize
+              Exit;
+            end;
+          end;
+        finally
+          LicLib.Free;
+        end;
+      except
+      end;
+      try
+        sLicPath := ExtractFilePath(ParamStr(0)) + 'LicArq.txt'; // do not localize
+        if not FileExists(sLicPath) then
+          sLicPath := ExtractFilePath(ParamStr(0)) + 'Lic.txt'; // do not localize
+        slLic := TStringList.Create;
+        try
+          if FileExists(sLicPath) then
+            slLic.LoadFromFile(sLicPath);
+          slLic.Values['Chaves'] := aChaves; // do not localize
+          slLic.SaveToFile(sLicPath);
+        finally
+          slLic.Free;
+        end;
+      except
+      end;
+    end;
     PostMessage(handleFrmPri, wm_user+1, 0, 0);
   except
     sl.free;
@@ -3217,7 +3273,7 @@ begin
   if gConfig.PMPausaAutomatica and (not aForce) and (FMonitor<>nil) and gNaoPausar.Pausar(J.Computer) then Exit;
 
   if (Sessao<>nil) and gConfig.NaoCobrarImpFunc and (Sessao.TipoCli=tcManutencao) then begin
-    DebugMsg('TncServidor.RegistraPaginasImpressas - Cobrança de impressões de funcionários DESATIVADA');
+    DebugMsg('TncServidor.RegistraPaginasImpressas - Cobranï¿½a de impressï¿½es de funcionï¿½rios DESATIVADA');
     Exit;
   end;
   
@@ -3436,7 +3492,7 @@ begin
         Inc(NM);
         tMaq.Insert;
         tMaqNumero.Value := NM;
-        tMaqNome.Value := 'Máquina' + IntToStr(NM);
+        tMaqNome.Value := 'Mï¿½quina' + IntToStr(NM);
         tMaq.Post;
         M := CriaMaquina(True);
         M.LeDataset(tMaq);
@@ -3596,7 +3652,7 @@ begin
              
     if (gConfig.NomeArqDesktop>'') and (not FileExists(gConfig.NomeArqDesktop)) then
     begin
-      DebugMsg('TncServidor.Login - gConfig.NomeArqDesktop: ' + gConfig.NomeArqDesktop + ' não existe.');
+      DebugMsg('TncServidor.Login - gConfig.NomeArqDesktop: ' + gConfig.NomeArqDesktop + ' nï¿½o existe.');
       gConfig.TipoFDesktop := '';
     end;
 
@@ -3604,7 +3660,7 @@ begin
 
     if (gConfig.NomeArqLogin>'') and (not FileExists(gConfig.NomeArqLogin)) then
     begin
-      DebugMsg('TncServidor.Login - gConfig.NomeArqLogin: ' + gConfig.NomeArqLogin + ' não existe.');
+      DebugMsg('TncServidor.Login - gConfig.NomeArqLogin: ' + gConfig.NomeArqLogin + ' nï¿½o existe.');
       gConfig.TipoFLogin := '';
     end;
 
@@ -3622,7 +3678,7 @@ begin
         if not tMaq.Locate('Numero', aMaq, []) then begin
           tMaq.Insert;
           tMaqNumero.Value := aMaq;
-          tMaqNome.Value := 'Máquina' + IntToStr(aMaq);
+          tMaqNome.Value := 'Mï¿½quina' + IntToStr(aMaq);
         end else
           tMaq.Edit;
 
@@ -4393,7 +4449,7 @@ begin
 
       if Maq = nil then begin
         Result := ncerrItemInexistente;
-        DebugMsg('TncServidor.LoginMaq - Máquina nao existe');
+        DebugMsg('TncServidor.LoginMaq - Mï¿½quina nao existe');
         Exit;
       end;
       if Maq.Direito=dmNenhum then begin

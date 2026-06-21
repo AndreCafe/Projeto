@@ -2,8 +2,8 @@ object FrmTarifa: TFrmTarifa
   Left = 0
   Top = 0
   Caption = 'Tarifa'
-  ClientHeight = 620
-  ClientWidth = 1105
+  ClientHeight = 668
+  ClientWidth = 1190
   Color = clBtnFace
   Font.Charset = ANSI_CHARSET
   Font.Color = clWindowText
@@ -19,25 +19,25 @@ object FrmTarifa: TFrmTarifa
   OnKeyUp = FormKeyUp
   OnShow = FormShow
   PixelsPerInch = 96
-  TextHeight = 13
+  TextHeight = 14
   object panTop: TLMDSimplePanel
     Left = 0
-    Top = 78
-    Width = 1105
-    Height = 159
+    Top = 81
+    Width = 1190
+    Height = 171
     Align = alTop
     Bevel.BorderSides = [fsBottom]
     Bevel.Mode = bmEdge
     TabOrder = 0
     object lbMinutos: TcxLabel
-      Left = 402
-      Top = 47
+      Left = 433
+      Top = 51
       Caption = 'minutos.'
       Enabled = False
     end
     object edTempoI: TcxSpinEdit
-      Left = 345
-      Top = 47
+      Left = 372
+      Top = 51
       Enabled = False
       ParentFont = False
       Properties.AssignedValues.MinValue = True
@@ -47,7 +47,7 @@ object FrmTarifa: TFrmTarifa
       Style.BorderStyle = ebsFlat
       Style.Font.Charset = DEFAULT_CHARSET
       Style.Font.Color = clWindowText
-      Style.Font.Height = -11
+      Style.Font.Height = -12
       Style.Font.Name = 'Tahoma'
       Style.Font.Style = [fsBold]
       Style.TextColor = clBlack
@@ -55,17 +55,17 @@ object FrmTarifa: TFrmTarifa
       StyleFocused.Color = 12582911
       TabOrder = 3
       OnEnter = edTempoIEnter
-      Width = 51
+      Width = 54
     end
     object lbTempoI: TcxLabel
-      Left = 241
-      Top = 48
+      Left = 260
+      Top = 52
       Caption = 'pelo tempo de'
       Enabled = False
     end
     object edValorI: TcxCurrencyEdit
-      Left = 134
-      Top = 47
+      Left = 144
+      Top = 51
       EditValue = 0c
       Enabled = False
       Properties.OnChange = edValorIPropertiesChange
@@ -75,18 +75,18 @@ object FrmTarifa: TFrmTarifa
       StyleFocused.Color = 12582911
       TabOrder = 2
       OnEnter = edValorIEnter
-      Width = 94
+      Width = 102
     end
     object edValor1h: TcxCurrencyEdit
-      Left = 135
-      Top = 14
+      Left = 145
+      Top = 15
       EditValue = 0c
       ParentFont = False
       Properties.OnChange = edValorIPropertiesChange
       Style.BorderStyle = ebsFlat
       Style.Font.Charset = ANSI_CHARSET
       Style.Font.Color = clWindowText
-      Style.Font.Height = -11
+      Style.Font.Height = -12
       Style.Font.Name = 'Segoe UI'
       Style.Font.Style = [fsBold]
       Style.StyleController = SC
@@ -96,39 +96,39 @@ object FrmTarifa: TFrmTarifa
       StyleFocused.Color = 12582911
       TabOrder = 1
       OnEnter = edValor1hEnter
-      Width = 94
+      Width = 102
     end
     object cxLabel1: TcxLabel
-      Left = 12
-      Top = 14
+      Left = 13
+      Top = 15
       Caption = 'Valor p/ 1h de acesso:'
       Style.TextStyle = []
     end
     object lbValorI: TcxLabel
-      Left = 12
-      Top = 47
+      Left = 13
+      Top = 51
       Caption = 'Valor m'#237'nimo inicial:'
       Enabled = False
     end
     object cbSemValorMin: TcxCheckBox
-      Left = 472
-      Top = 47
+      Left = 508
+      Top = 51
       Caption = 'N'#227'o tem valor m'#237'nimo'
       State = cbsChecked
       Style.BorderStyle = ebsFlat
       TabOrder = 4
       OnClick = cbSemValorMinClick
-      Width = 136
+      Width = 147
     end
     object lbDiv: TcxLabel
-      Left = 12
-      Top = 81
+      Left = 13
+      Top = 87
       Caption = 'Tarifar a cada:'
       Enabled = False
     end
     object btnDiv: TcxButtonEdit
-      Left = 133
-      Top = 81
+      Left = 143
+      Top = 87
       Enabled = False
       ParentFont = False
       PopupMenu = pmDiv
@@ -144,17 +144,17 @@ object FrmTarifa: TFrmTarifa
       TabOrder = 5
       Text = '15 min'
       OnClick = btnDivClick
-      Width = 96
+      Width = 104
     end
     object lbArr: TcxLabel
-      Left = 241
-      Top = 81
+      Left = 260
+      Top = 87
       Caption = 'Arredondar em'
       Enabled = False
     end
     object edArr: TcxButtonEdit
-      Left = 345
-      Top = 80
+      Left = 372
+      Top = 86
       Enabled = False
       ParentFont = False
       Properties.Buttons = <
@@ -166,13 +166,13 @@ object FrmTarifa: TFrmTarifa
       TabOrder = 6
       Text = '5 centavos'
       OnClick = edArrClick
-      Width = 263
+      Width = 283
     end
     object btnAplicar: TcxButton
-      Left = 16
-      Top = 116
-      Width = 75
-      Height = 25
+      Left = 17
+      Top = 125
+      Width = 81
+      Height = 27
       Caption = 'Aplicar'
       TabOrder = 12
       OnClick = btnAplicarClick
@@ -183,7 +183,7 @@ object FrmTarifa: TFrmTarifa
   object dxBarDockControl1: TdxBarDockControl
     Left = 0
     Top = 0
-    Width = 1105
+    Width = 1190
     Height = 36
     Align = dalTop
     BarManager = BarMgr
@@ -193,33 +193,33 @@ object FrmTarifa: TFrmTarifa
   object panNome: TLMDSimplePanel
     Left = 0
     Top = 36
-    Width = 1105
-    Height = 42
+    Width = 1190
+    Height = 45
     Align = alTop
     Bevel.BorderSides = [fsBottom]
     Bevel.Mode = bmEdge
     TabOrder = 3
     object cxLabel7: TcxLabel
-      Left = 10
-      Top = 11
+      Left = 11
+      Top = 12
       Caption = 'Nome'
       ParentFont = False
       Style.Font.Charset = ANSI_CHARSET
       Style.Font.Color = clWindowText
-      Style.Font.Height = -11
+      Style.Font.Height = -12
       Style.Font.Name = 'Segoe UI'
       Style.Font.Style = []
       Style.TextStyle = []
       Style.IsFontAssigned = True
     end
     object edNome: TcxTextEdit
-      Left = 50
-      Top = 10
+      Left = 54
+      Top = 11
       ParentFont = False
       Style.BorderStyle = ebsFlat
       Style.Font.Charset = ANSI_CHARSET
       Style.Font.Color = clWindowText
-      Style.Font.Height = -11
+      Style.Font.Height = -12
       Style.Font.Name = 'Segoe UI'
       Style.Font.Style = [fsBold]
       Style.StyleController = SC
@@ -227,24 +227,24 @@ object FrmTarifa: TFrmTarifa
       Style.IsFontAssigned = True
       StyleFocused.Color = 12582911
       TabOrder = 1
-      Width = 178
+      Width = 192
     end
     object cxLabel8: TcxLabel
-      Left = 237
-      Top = 12
+      Left = 255
+      Top = 13
       Caption = 'Cor'
       ParentFont = False
       Style.Font.Charset = ANSI_CHARSET
       Style.Font.Color = clWindowText
-      Style.Font.Height = -11
+      Style.Font.Height = -12
       Style.Font.Name = 'Segoe UI'
       Style.Font.Style = []
       Style.TextStyle = []
       Style.IsFontAssigned = True
     end
     object edCor: TcxColorComboBox
-      Left = 345
-      Top = 11
+      Left = 372
+      Top = 12
       ParentFont = False
       Properties.AllowSelectColor = True
       Properties.ColorBoxFrameColor = clWhite
@@ -257,12 +257,12 @@ object FrmTarifa: TFrmTarifa
       Style.BorderStyle = ebsFlat
       Style.StyleController = SC
       TabOrder = 3
-      Width = 117
+      Width = 126
     end
   end
   object lbErroM: TcxLabel
     Left = 0
-    Top = 237
+    Top = 252
     Align = alTop
     AutoSize = False
     Caption = 
@@ -277,33 +277,33 @@ object FrmTarifa: TFrmTarifa
     Properties.Alignment.Vert = taVCenter
     Properties.WordWrap = True
     Visible = False
-    Height = 28
-    Width = 1105
-    AnchorY = 251
+    Height = 30
+    Width = 1190
+    AnchorY = 267
   end
   object panTarifas: TLMDSimplePanel
     Left = 0
-    Top = 265
-    Width = 1105
-    Height = 355
+    Top = 282
+    Width = 1190
+    Height = 386
     Align = alClient
     Bevel.Mode = bmCustom
     TabOrder = 4
     Visible = False
     object panHoras: TLMDSimplePanel
-      Left = 827
+      Left = 891
       Top = 0
-      Width = 283
-      Height = 355
+      Width = 304
+      Height = 386
       Align = alLeft
       Bevel.Mode = bmCustom
       TabOrder = 0
       Visible = False
       object gridH: TcxGrid
         Left = 0
-        Top = 65
-        Width = 283
-        Height = 290
+        Top = 70
+        Width = 304
+        Height = 316
         Margins.Left = 10
         Margins.Top = 0
         Margins.Right = 10
@@ -311,7 +311,7 @@ object FrmTarifa: TFrmTarifa
         Align = alClient
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
-        Font.Height = -11
+        Font.Height = -12
         Font.Name = 'Segoe UI'
         Font.Style = []
         ParentFont = False
@@ -386,8 +386,8 @@ object FrmTarifa: TFrmTarifa
       object LMDSimplePanel5: TLMDSimplePanel
         Left = 0
         Top = 0
-        Width = 283
-        Height = 35
+        Width = 304
+        Height = 38
         Align = alTop
         Bevel.BorderSides = [fsBottom]
         Bevel.Mode = bmStandard
@@ -395,9 +395,9 @@ object FrmTarifa: TFrmTarifa
         TabOrder = 1
         object cxButton1: TcxButton
           Left = 6
-          Top = 8
-          Width = 57
-          Height = 20
+          Top = 9
+          Width = 62
+          Height = 21
           Caption = '&Ok'
           TabOrder = 0
           OnClick = cxButton1Click
@@ -405,7 +405,7 @@ object FrmTarifa: TFrmTarifa
       end
       object lbErroH: TcxLabel
         Left = 0
-        Top = 35
+        Top = 38
         Align = alTop
         Caption = 
           'Aten'#231#227'o: O valor a ser cobrado n'#227'o pode ser menor que o valor do' +
@@ -419,17 +419,17 @@ object FrmTarifa: TFrmTarifa
         Properties.Alignment.Vert = taVCenter
         Properties.WordWrap = True
         Visible = False
-        Width = 283
-        AnchorX = 142
-        AnchorY = 50
+        Width = 304
+        AnchorX = 152
+        AnchorY = 54
       end
     end
     object LMDSimplePanel4: TLMDSimplePanel
       AlignWithMargins = True
       Left = 0
       Top = 12
-      Width = 827
-      Height = 331
+      Width = 891
+      Height = 362
       Margins.Left = 0
       Margins.Top = 12
       Margins.Right = 0
@@ -439,10 +439,10 @@ object FrmTarifa: TFrmTarifa
       TabOrder = 1
       object Grid: TcxGrid
         AlignWithMargins = True
-        Left = 133
+        Left = 129
         Top = 0
-        Width = 197
-        Height = 331
+        Width = 212
+        Height = 362
         Margins.Left = 25
         Margins.Top = 0
         Margins.Right = 10
@@ -450,7 +450,7 @@ object FrmTarifa: TFrmTarifa
         Align = alLeft
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
-        Font.Height = -11
+        Font.Height = -12
         Font.Name = 'Segoe UI'
         Font.Style = []
         ParentFont = False
@@ -542,16 +542,16 @@ object FrmTarifa: TFrmTarifa
         Caption = 'Quadro de Tarifas'
       end
       object cxGroupBox1: TcxGroupBox
-        Left = 345
+        Left = 372
         Top = -2
         Caption = '&Op'#231#245'es'
         Style.BorderStyle = ebs3D
         TabOrder = 2
-        Height = 123
-        Width = 464
+        Height = 132
+        Width = 499
         object edTarExtra: TcxPopupEdit
-          Left = 190
-          Top = 28
+          Left = 205
+          Top = 30
           ParentFont = False
           Properties.PopupControl = panHorasExtras
           Properties.ReadOnly = True
@@ -560,17 +560,17 @@ object FrmTarifa: TFrmTarifa
           StyleFocused.Color = 12582911
           TabOrder = 0
           Text = 'Aplicar a tarifa da 1a. hora nas demais horas'
-          Width = 261
+          Width = 281
         end
         object lbHoras: TcxLabel
-          Left = 114
-          Top = 29
+          Left = 123
+          Top = 31
           Caption = 'hora de uso:'
           Style.TextColor = clBlack
         end
         object edNumH: TcxSpinEdit
-          Left = 70
-          Top = 27
+          Left = 75
+          Top = 29
           ParentFont = False
           Properties.ImmediatePost = True
           Properties.MaxValue = 24.000000000000000000
@@ -581,17 +581,17 @@ object FrmTarifa: TFrmTarifa
           StyleFocused.Color = 12582911
           TabOrder = 2
           Value = 1
-          Width = 42
+          Width = 46
         end
         object cxLabel2: TcxLabel
-          Left = 14
-          Top = 28
+          Left = 15
+          Top = 30
           Caption = 'Acima de'
           Style.TextColor = clBlack
         end
         object edMaisHoras: TcxPopupEdit
-          Left = 16
-          Top = 84
+          Left = 17
+          Top = 90
           Enabled = False
           ParentFont = False
           Properties.AutoSelect = False
@@ -604,11 +604,11 @@ object FrmTarifa: TFrmTarifa
           Text = 'Clique aqui para editar '
           OnClick = edMaisHorasEnter
           OnEnter = edMaisHorasEnter
-          Width = 435
+          Width = 469
         end
         object lbAjuste: TcxLabel
-          Left = 13
-          Top = 64
+          Left = 14
+          Top = 69
           Caption = 'Ajuste o valor a ser cobrado por mais que 1h de uso'
           Enabled = False
         end
@@ -616,23 +616,23 @@ object FrmTarifa: TFrmTarifa
     end
   end
   object panHorasExtras: TLMDSimplePanel
-    Left = 665
-    Top = 84
-    Width = 297
-    Height = 126
+    Left = 716
+    Top = 90
+    Width = 320
+    Height = 136
     Bevel.Mode = bmCustom
     TabOrder = 9
     Visible = False
     object rbRepetirUltima: TcxRadioButton
-      Left = 15
-      Top = 14
-      Width = 252
-      Height = 17
+      Left = 16
+      Top = 15
+      Width = 272
+      Height = 18
       Caption = 'Aplicar a tarifa da 2a. hora nas demais horas'
       Checked = True
       Font.Charset = ANSI_CHARSET
       Font.Color = clBlack
-      Font.Height = -11
+      Font.Height = -12
       Font.Name = 'Segoe UI'
       Font.Style = []
       ParentFont = False
@@ -643,14 +643,14 @@ object FrmTarifa: TFrmTarifa
     end
     object rbRepetirTodas: TcxRadioButton
       Tag = 1
-      Left = 15
-      Top = 37
-      Width = 244
-      Height = 17
+      Left = 16
+      Top = 40
+      Width = 263
+      Height = 18
       Caption = 'Repetir todas tarifas desde o inicio'
       Font.Charset = ANSI_CHARSET
       Font.Color = clBlack
-      Font.Height = -11
+      Font.Height = -12
       Font.Name = 'Segoe UI'
       Font.Style = []
       ParentFont = False
@@ -660,14 +660,14 @@ object FrmTarifa: TFrmTarifa
     end
     object rbRepetirDesde: TcxRadioButton
       Tag = 2
-      Left = 15
-      Top = 60
-      Width = 153
-      Height = 17
+      Left = 16
+      Top = 65
+      Width = 165
+      Height = 18
       Caption = 'Repetir tarifas a partir da '
       Font.Charset = ANSI_CHARSET
       Font.Color = clBlack
-      Font.Height = -11
+      Font.Height = -12
       Font.Name = 'Segoe UI'
       Font.Style = []
       ParentFont = False
@@ -676,8 +676,8 @@ object FrmTarifa: TFrmTarifa
       LookAndFeel.Kind = lfStandard
     end
     object edRepetirHora: TcxSpinEdit
-      Left = 165
-      Top = 58
+      Left = 178
+      Top = 62
       Enabled = False
       Properties.ImmediatePost = True
       Properties.MaxValue = 24.000000000000000000
@@ -687,29 +687,29 @@ object FrmTarifa: TFrmTarifa
       StyleFocused.TextStyle = [fsBold]
       TabOrder = 3
       Value = 2
-      Width = 43
+      Width = 46
     end
     object cxLabel14: TcxLabel
-      Left = 210
-      Top = 60
+      Left = 226
+      Top = 65
       Caption = 'a. hora'
       Style.TextColor = clBlack
     end
     object btnOkTarExtra: TcxButton
-      Left = 20
-      Top = 88
-      Width = 61
-      Height = 21
+      Left = 22
+      Top = 95
+      Width = 65
+      Height = 22
       Cursor = crHandPoint
       Caption = '&Ok'
       TabOrder = 5
       OnClick = btnOkTarExtraClick
     end
     object btnCancelarTarExtra: TcxButton
-      Left = 93
-      Top = 88
-      Width = 61
-      Height = 21
+      Left = 100
+      Top = 95
+      Width = 66
+      Height = 22
       Cursor = crHandPoint
       Caption = '&Cancelar'
       TabOrder = 6
@@ -719,7 +719,7 @@ object FrmTarifa: TFrmTarifa
   object BarMgr: TdxBarManager
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clBlack
-    Font.Height = -12
+    Font.Height = -11
     Font.Name = 'Segoe UI'
     Font.Style = []
     Categories.Strings = (

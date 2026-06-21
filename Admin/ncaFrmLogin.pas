@@ -19,7 +19,7 @@ uses Windows, SysUtils, Classes, Graphics, Forms, Controls, StdCtrls,
   cxMaskEdit, cxDropDownEdit, cxRadioGroup, lmdcont, LMDControl,
   LMDPNGImage, cxLookAndFeels, dxBar, cxStyles, cxClasses, dxBarExtItems,
   cxImage, cxPCdxBarPopupMenu, cxPC, ieview, iemview, LMDBaseController,
-  LMDCustomContainer, LMDGenericList, dxBarBuiltInMenu;
+  LMDCustomContainer, LMDGenericList, dxBarBuiltInMenu, ncaAutoUpdate;
 
 
 type
@@ -82,6 +82,7 @@ type
     Image1: TImage;
     cxLabel4: TcxLabel;
     btnFechar: TcxButton;
+    cmAtualizar: TcxButton;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure FormKeyPress(Sender: TObject; var Key: Char);
@@ -97,6 +98,7 @@ type
     procedure FormDestroy(Sender: TObject);
     procedure lbEsqueceuClick(Sender: TObject);
     procedure btnFecharClick(Sender: TObject);
+    procedure cmAtualizarClick(Sender: TObject);
   private
     FLocalizando: Boolean;
     FContaLoja : String;
@@ -223,6 +225,11 @@ end;
 procedure TFrmNexLogin.btnLoginClick(Sender: TObject);
 begin
   DoLogin(False);
+end;
+
+procedure TFrmNexLogin.cmAtualizarClick(Sender: TObject);
+begin
+  DoAutoUpdate(StrToIntDef(slConfig.Values['IDLoja'], 0), SelfShortVer); // do not localize
 end;
 
 procedure TFrmNexLogin.btnConfigClick(Sender: TObject);

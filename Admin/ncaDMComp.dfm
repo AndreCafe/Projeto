@@ -2722,7 +2722,7 @@ object dmComp: TdmComp
         end
         object DMPMemo8: TfrxDMPMemoView
           Align = baRight
-          Left = 240.000000000000000000
+          Left = 230.400000000000000000
           Width = 134.400000000000000000
           Height = 17.000000000000000000
           DataSet = dbTran
@@ -2737,7 +2737,7 @@ object dmComp: TdmComp
         end
         object DMPMemo9: TfrxDMPMemoView
           Align = baRight
-          Left = 240.000000000000000000
+          Left = 230.400000000000000000
           Top = 34.000000000000000000
           Width = 134.400000000000000000
           Height = 17.000000000000000000
@@ -2755,7 +2755,7 @@ object dmComp: TdmComp
         end
         object DMPMemo10: TfrxDMPMemoView
           Align = baRight
-          Left = 240.000000000000000000
+          Left = 230.400000000000000000
           Top = 51.000000000000000000
           Width = 134.400000000000000000
           Height = 17.000000000000000000
@@ -2774,7 +2774,7 @@ object dmComp: TdmComp
         end
         object DMPMemo26: TfrxDMPMemoView
           Align = baRight
-          Left = 240.000000000000000000
+          Left = 230.400000000000000000
           Top = 68.000000000000000000
           Width = 134.400000000000000000
           Height = 17.000000000000000000
@@ -2790,7 +2790,7 @@ object dmComp: TdmComp
         end
         object DMPMemo27: TfrxDMPMemoView
           Align = baRight
-          Left = 240.000000000000000000
+          Left = 230.400000000000000000
           Top = 85.000000000000000000
           Width = 134.400000000000000000
           Height = 17.000000000000000000
@@ -2826,7 +2826,7 @@ object dmComp: TdmComp
         end
         object DMPMemo15: TfrxDMPMemoView
           Align = baRight
-          Left = 240.000000000000000000
+          Left = 230.400000000000000000
           Top = 17.000000000000000000
           Width = 134.400000000000000000
           Height = 17.000000000000000000

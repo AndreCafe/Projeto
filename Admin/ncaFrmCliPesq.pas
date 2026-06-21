@@ -295,7 +295,7 @@ begin
   inherited;
   if NumAberto<1 then begin
     Beep;
-    ShowMessage(SncaFrmCliPesq_CaixaEstáFechado);
+    ShowMessage('Caixa fechado');
     Exit;
   end;
   
@@ -323,7 +323,7 @@ end;
 procedure TFrmCliPesq.cmApagarClick(Sender: TObject);
 begin
   inherited;
-  if SimNao(SncaFrmCliPesq_ConfirmaAExclusãoDe+TabNome.Value+' ?') then Tab.Delete;
+  if SimNao('Confirma a exclusão de '+TabNome.Value+' ?') then Tab.Delete;
 end;
 
 procedure TFrmCliPesq.cmDebTempoClick(Sender: TObject);

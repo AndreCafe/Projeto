@@ -163,7 +163,7 @@ procedure TfbTiposPass.cmApagarClick(Sender: TObject);
 begin
   inherited;
   if not Tab.IsEmpty then
-  if SimNaoH(SncafbTipoPass_DesejaRealmenteApagarEsseCrédito, Handle) then
+  if SimNaoH(SncafbTipoPass_DesejaRealmenteApagarEsseCredito, Handle) then
     Tab.Delete;
 end;
 

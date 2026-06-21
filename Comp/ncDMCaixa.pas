@@ -9,7 +9,7 @@ uses
   SysUtils, Classes, DB, nxdb, kbmMemTable, nxllTransport,
   nxptBasePooledTransport, nxtwWinsockTransport, nxsdServerEngine,
   nxreRemoteServerEngine, nxllComponent, frxClass, frxDBSet, frxExportPDF,
-  uLogs, uNexTransResourceStrings_PT;
+  uLogs, uNexTransResourceStrings_PT_;
 
 type
 
@@ -1301,7 +1301,7 @@ begin
         if tPacote.FindKey([qFatPreIDPacPass.Value]) then
           S := tPacoteDescr.Value else
           S := SncDMCaixa_PacoteNãoExisteMais;
-      tctCartaoTempo : 
+      tctCartaoTempo :
         if tTipoPass.FindKey([qFatPreIDPacPass.Value]) then
           S := SncDMCaixa_CartãoDeTempo+tTipoPassNome.Value else
           S := SncDMCaixa_CartãoDeTempoNãoExisteMais;

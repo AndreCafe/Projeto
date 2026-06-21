@@ -103,8 +103,8 @@ uses
   ncUploadConst in '..\Comp\ncUploadConst.pas',
   ncUploadDelay in '..\Comp\ncUploadDelay.pas',
   ncUploadPost in '..\Comp\ncUploadPost.pas',
-  uHMAC_sha256 in '..\Comp\uHMAC_sha256.pas',
-  uUTC in '..\Utils\uUTC.pas';
+  uUTC in '..\Utils\uUTC.pas',
+  uHMAC_sha256 in '..\Comp\uHMAC_sha256.pas';
 
 {$R *.res}
 {$R uacserv.res}

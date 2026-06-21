@@ -25,7 +25,6 @@ object FrmSuporte: TFrmSuporte
     Align = alClient
     Bevel.Mode = bmCustom
     TabOrder = 0
-    ExplicitHeight = 105
     object Image1: TImage
       Left = 0
       Top = 0
@@ -73,10 +72,6 @@ object FrmSuporte: TFrmSuporte
       Align = alClient
       Bevel.Mode = bmCustom
       TabOrder = 0
-      ExplicitLeft = 128
-      ExplicitTop = 64
-      ExplicitWidth = 100
-      ExplicitHeight = 40
       object cxLabel1: TcxLabel
         AlignWithMargins = True
         Left = 0
@@ -87,9 +82,8 @@ object FrmSuporte: TFrmSuporte
         Margins.Bottom = 0
         Align = alClient
         Caption = 
-          'Use essa op'#231#227'o para solicitar ajuda ao suporte t'#233'cnico da Nextar' +
-          '. Voc'#234' poder'#225' conversar conosco por CHAT e o t'#233'cnico poder'#225' ter ' +
-          'acesso ao seu computador caso seja necess'#225'rio.'#13#10#13#10
+          'Use essa op'#231#227'o para abrir uma conversa via WhatsApp com'#13#10'o atend' +
+          'imento do NexCaf'#233'.'#13#10#13#10
         ParentFont = False
         Style.Font.Charset = DEFAULT_CHARSET
         Style.Font.Color = clWindowText
@@ -102,17 +96,13 @@ object FrmSuporte: TFrmSuporte
         StyleFocused.LookAndFeel.NativeStyle = True
         StyleHot.LookAndFeel.NativeStyle = True
         Properties.WordWrap = True
-        ExplicitLeft = 128
-        ExplicitTop = 0
-        ExplicitWidth = 309
-        ExplicitHeight = 129
         Width = 299
       end
       object cxLabel2: TcxLabel
         Left = 0
         Top = 0
         Align = alTop
-        Caption = 'Chamar assist'#234'ncia remota da Nextar?'
+        Caption = 'Chamar o suporte NexCaf'#233
         ParentFont = False
         Style.Font.Charset = DEFAULT_CHARSET
         Style.Font.Color = clWindowText
@@ -120,38 +110,14 @@ object FrmSuporte: TFrmSuporte
         Style.Font.Name = 'Tahoma'
         Style.Font.Style = [fsBold]
         Style.IsFontAssigned = True
-        ExplicitWidth = 354
-      end
-      object btnCancelar: TcxButton
-        Left = 176
-        Top = 115
-        Width = 89
-        Height = 33
-        Cursor = crHandPoint
-        Cancel = True
-        Caption = '&Cancelar'
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -13
-        Font.Name = 'Tahoma'
-        Font.Style = []
-        ModalResult = 2
-        ParentFont = False
-        TabOrder = 2
-        OnClick = btnCancelarClick
-        LookAndFeel.Kind = lfFlat
-        LookAndFeel.NativeStyle = False
-        SpeedButtonOptions.CanBeFocused = False
-        SpeedButtonOptions.AllowAllUp = True
-        SpeedButtonOptions.Flat = True
       end
       object btnOk: TcxButton
-        Left = 0
-        Top = 115
+        Left = 40
+        Top = 86
         Width = 153
         Height = 33
         Cursor = crHandPoint
-        Caption = 'Chamar Suporte'
+        Caption = 'Abrir conversa'
         Default = True
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlue
@@ -159,7 +125,7 @@ object FrmSuporte: TFrmSuporte
         Font.Name = 'Tahoma'
         Font.Style = [fsBold]
         ParentFont = False
-        TabOrder = 3
+        TabOrder = 2
         OnClick = btnOkClick
         LookAndFeel.Kind = lfFlat
         LookAndFeel.NativeStyle = False

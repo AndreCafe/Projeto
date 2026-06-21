@@ -905,9 +905,6 @@ inherited fbTarifas2: TfbTarifas2
               Enabled = False
               ImageIndex = 4
               ParentColor = False
-              ExplicitTop = 0
-              ExplicitWidth = 0
-              ExplicitHeight = 0
             end
             object tsGrupo: TcxTabSheet
               Caption = 'Grupos de Tarifas'
@@ -915,9 +912,6 @@ inherited fbTarifas2: TfbTarifas2
               Enabled = False
               ImageIndex = 2
               ParentColor = False
-              ExplicitTop = 0
-              ExplicitWidth = 0
-              ExplicitHeight = 0
             end
           end
         end

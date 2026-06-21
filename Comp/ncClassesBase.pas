@@ -687,7 +687,7 @@ type
     FCorFMaqManut          : Integer;
     FCorPrevisao           : Integer;
     FCorFPrevisao          : Integer;
-    
+
     FTolerancia            : TDateTime;
     FRegImp98              : Boolean;
 
@@ -722,6 +722,7 @@ type
     FVerSenhaCli           : Boolean;
     FConta                 : String;
     FCodEquip              : String;
+    FIDLoja                : Integer;
     FQtdLic                : Integer;
     FStatusConta           : TStatusConta;
     FVerPri                : Word;
@@ -735,7 +736,7 @@ type
     FAssinaturaVenceEm     : TDateTime;
     FAlertaAssinatura      : Boolean;
     FJaFoiPremium          : Boolean;
-    
+
     FEmailMetodo           : Byte;
     FEmailServ             : String;
     FEmailUsername         : String;
@@ -743,7 +744,7 @@ type
     FEmailDestino          : String;
     FEmailIdent            : String;
     FEmailConteudo         : String;
-    
+
     FEmailEnviarCaixa      : Boolean;
     FBloqDownload          : Boolean;
     FBloqDownloadExe       : Boolean;
@@ -760,7 +761,7 @@ type
 
     FFiltrarDesktop        : Boolean;
     FFiltrarMenuIniciar    : Boolean;
-    
+
     FCredPadraoTipo        : Byte;
     FCredPadraoCod         : Integer;
 
@@ -819,7 +820,7 @@ type
     FModoCredGuard          : Byte;
     FMsgFimCred             : String;
     FSemLogin               : Boolean;
-    
+
     FFidAtivo               : Boolean;
     FFidSessaoValor         : Currency;
     FFidSessaoPontos        : Integer;
@@ -837,11 +838,11 @@ type
     FFidMsg                 : Boolean;
     FFidMsgTitulo           : String;
     FFidMsgTexto            : String;
-    
+
     FCliCadNaoEncerra       : Boolean;
     FImpedirPosPago         : Boolean;
     FAutoLigarMaqCli        : Boolean;
-    
+
     FAutoObsAoCancelar      : Boolean;
 
     FPastaDownload          : String;
@@ -854,14 +855,14 @@ type
     FPMAdminControlaImp     : Boolean;
     FPMMostrarPaginasCli    : Boolean;
     FPMMostrarValorCli      : Boolean;
-    FPMCalcValorCli         : Byte; // 0=intervalo, 1=mínimo, 2=máximo 
+    FPMCalcValorCli         : Byte; // 0=intervalo, 1=mínimo, 2=máximo
     FPMPromptValorCli       : String;
     FPMObsValorCli          : String;
     FPMValorMin             : Currency;
     FPMValorMax             : Currency;
     FPMPausarServ           : Boolean;
     FPMNaoPausar            : String;
-    
+
     FPMCotas                : Boolean;
     FPMCotasMaxPagDia       : Integer;
     FPMCotasMaxPagMes       : Integer;
@@ -1074,7 +1075,7 @@ type
 
     property CodBarBalInicioCod: Byte
       read FCodBarBalInicioCod write FCodBarBalInicioCod;
-        
+
     property CodBarBalTamCod: Byte
       read FCodBarBalTamCod write FCodBarBalTamCod;
 
@@ -1194,7 +1195,7 @@ type
 
     property CorFDesktop: Integer
       read FCorFDesktop write FCorFDesktop;   
-      
+
     property CorAguardaPagto: Integer
       read FCorAguardaPagto write FCorAguardaPagto;
       
@@ -1316,10 +1317,13 @@ type
       read FAlertaAssinatura write FAlertaAssinatura;  
 
     property JaFoiPremium: Boolean
-      read FJaFoiPremium write FJaFoiPremium;  
+      read FJaFoiPremium write FJaFoiPremium;
 
     property CodEquip: String
-      read FCodEquip write FCodEquip;  
+      read FCodEquip write FCodEquip;
+
+    property IDLoja: Integer
+      read FIDLoja write FIDLoja;
 
     property QtdLic: Integer
       read FQtdLic write FQtdLic; 
@@ -1344,7 +1348,7 @@ type
       
     property EmailDestino: String
       read FEmailDestino write FEmailDestino;
-      
+
     property EmailEnviarCaixa: Boolean
       read FEmailEnviarCaixa write FEmailEnviarCaixa;
 
@@ -1374,7 +1378,7 @@ type
 
     property BloqCtrlAltDel: Boolean
       read FBloqCtrlAltDel write FBloqCtrlAltDel;
-      
+
     property BloqExecutar: Boolean
       read FBloqExecutar write FBloqExecutar;
       
@@ -1404,7 +1408,7 @@ type
       
     property TempoB2: Word
       read FTempoB2 write FTempoB2;    
-      
+
     property TempoB3: Word
       read FTempoB3 write FTempoB3;    
       
@@ -1434,7 +1438,7 @@ type
       
     property PgTempo: Boolean
       read FPgTempo write FPgTempo;
-      
+
     property PgImp: Boolean
       read FPgImp write FPgImp;
      
@@ -1554,7 +1558,7 @@ type
       
     property FidSessaoValor: Currency
       read FFidSessaoValor write FFidSessaoValor;
-      
+
     property FidSessaoPontos: Integer
       read FFidSessaoPontos write FFidSessaoPontos;
       
@@ -1794,7 +1798,7 @@ type
 
     property ComandaOff: Boolean
       read FComandaOff write FComandaOff;
-      
+
     property MesasOff: Boolean
       read FMesasOff write FMesasOff;
       
@@ -1914,7 +1918,7 @@ type
       read FUserObj write FUserObj;
 
     property AppLog: Integer
-      read FAppLog write FAppLog;  
+      read FAppLog write FAppLog;
 
   published
     property Numero: Word
@@ -3838,7 +3842,7 @@ end;
 
 constructor EErroNexCafe.Create(CE: Integer);
 begin
-  inherited Create(SncClassesBase_ErroNexCafé+IntToStr(CE)+'): '+StringErro(CE));
+  inherited Create('SncClassesBase_ErroNexCafé'+IntToStr(CE)+'): '+StringErro(CE));
   CodigoErro := CE;
 end;
 
@@ -3998,7 +4002,7 @@ begin
   FRecCortaFolha         := False;
   FRecRodape             := '';
   FRecNomeLoja           := SncClassesBase_NOMEDALOJA;
-  
+
   FMostraProgAtual     := True;
   FManterSaldoCaixa    := False;
   FMostraObs           := False;
@@ -4009,7 +4013,7 @@ begin
   FControlaImp         := ciDesativado;
   FCampoLocalizaCli    := 0;
   FMostrarApenasPIN    := False;
-  FTextoPIN            := SncClassesBase_NomeDeUsuário;
+  FTextoPIN            := SncClassesBase_NomeDeUsuario;
   FNumFDesktop         := 0;
   FNumFLogin           := 0;
   FTipoFDesktop        := '';
@@ -4021,6 +4025,7 @@ begin
   FLimitePadraoDebito  := 0;
   FConta               := '';
   FCodEquip            := '';
+  FIDLoja              := 0;
   FQtdLic              := 0;
   FStatusConta         := scSemConta;
   
@@ -4125,7 +4130,7 @@ begin
   FSemLogin := False;
 
   FMsgFimCred             :=
-    SncClassesBase_VocêPossuiCréditosQueNãoPodemSer;
+    SncClassesBase_VocePossuiCreditosQueNaoPodemSer;
 
   FAutoObsAoCancelar      := False;
     
@@ -4162,7 +4167,7 @@ begin
   FPMMostrarPaginasCli    := True;
   FPMMostrarValorCli      := True;
   FPMCalcValorCli         := pm_cvc_intervalo;
-  FPMPromptValorCli       := SncClassesBase_CustoDaImpressão;
+  FPMPromptValorCli       := SncClassesBase_CustoDaImpressao;
   FPMObsValorCli          := SncClassesBase_OCustoPodeVariarDependendoDoTipo;
   FPMValorMin             := 0;
   FPMValorMax             := 0;
@@ -4980,7 +4985,7 @@ end;
 procedure TncConfig.SetTextoPIN(const Value: String);
 begin
   if Trim(Value)='' then
-    FTextoPIN := SncClassesBase_NomeDeUsuário else
+    FTextoPIN := SncClassesBase_NomeDeUsuario else
     FTextoPIN := Value;  
 end;
 

@@ -3,6 +3,7 @@ inherited fbPatrocinadores: TfbPatrocinadores
   ClientWidth = 611
   OldCreateOrder = True
   ExplicitWidth = 619
+  ExplicitHeight = 240
   PixelsPerInch = 96
   TextHeight = 13
   inherited panPri: TParentedPanel

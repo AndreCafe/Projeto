@@ -402,7 +402,7 @@ begin
     if (Value>0) and (FPesq.TabID.Value <> Value) then begin
       FPesq.Tab.CancelRange;
       if not FPesq.Tab.Locate('ID', Value, []) then  // do not localize
-        Raise Exception.Create(SncaFrmCli_Cliente+IntToStr(Value)+SncaFrmCli_NãoEncontradoNoBancoDeDados);
+        Raise Exception.Create(SncaFrmCli_Cliente+IntToStr(Value)+'Cliente Nãoo Encontrado');
     end;
       
     FCliCad := Value;
@@ -557,7 +557,7 @@ begin
       lbNome.Caption := FPesq.TabNome.Value else
       lbNome.Caption := FPesq.TabUsername.Value;
     if FPesq.TabDebito.Value>0 then begin
-      lbDebito.Caption := SncaFrmCli_Débito + FloatToStrF(FPesq.TabDebito.Value, ffCurrency, 10, 2);
+      lbDebito.Caption := 'Débito é ' + FloatToStrF(FPesq.TabDebito.Value, ffCurrency, 10, 2);
       lbDebito.Visible := True;
     end else
       lbDebito.Visible := False;
@@ -595,7 +595,7 @@ begin
           end;
           2 : begin
             FPesq.rgCod.Checked := True;
-            lbBuscar.Caption := SncaFrmCli_Código;
+            lbBuscar.Caption := 'Código';
             cmCod.Down := True;
           end;
         end;

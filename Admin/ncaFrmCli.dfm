@@ -1520,7 +1520,6 @@ object FrmCli: TFrmCli
                 BeepOnEnter = False
                 ParentFont = False
                 PopupMenu = pmCli
-                Properties.Alignment.Vert = taVCenter
                 Properties.Buttons = <
                   item
                     Default = True
@@ -1695,7 +1694,6 @@ object FrmCli: TFrmCli
             AutoSize = False
             ParentFont = False
             Properties.Alignment.Horz = taLeftJustify
-            Properties.Alignment.Vert = taVCenter
             Style.BorderColor = clGray
             Style.BorderStyle = ebsSingle
             Style.Font.Charset = ANSI_CHARSET
@@ -1758,7 +1756,6 @@ object FrmCli: TFrmCli
             Enabled = False
             ParentFont = False
             Properties.Alignment.Horz = taLeftJustify
-            Properties.Alignment.Vert = taVCenter
             Style.BorderColor = clGray
             Style.BorderStyle = ebsSingle
             Style.Font.Charset = ANSI_CHARSET

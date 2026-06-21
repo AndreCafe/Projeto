@@ -23,7 +23,8 @@ uses
   cxLookAndFeelPainters, cxPCdxBarPopupMenu, PngImage, cxDBEdit,
   cxCheckBox, cxPC, LMDPNGImage, dxNavBarCollns, dxNavBarBase, dxNavBar, Menus,
   StdCtrls, cxButtons, LMDCustomScrollBox, LMDScrollBox, cxGroupBox, cxNavigator,
-  dxPScxPivotGridLnk, uNexTransResourceStrings_PT, uParentedPanel;
+  dxPScxPivotGridLnk, uNexTransResourceStrings_PT, uParentedPanel,
+  dxBarBuiltInMenu;
 
 type
   TncImpDados = class
@@ -158,7 +159,7 @@ uses
 
 class function TfbTiposImp.Descricao: String;
 begin
-  Result := SncafbTiposImp_TarifasDeImpressão;
+  Result := SncafbTiposImp_TarifasDeImpressao;
 end;
 
 procedure TfbTiposImp.FiltraDados;
@@ -248,12 +249,12 @@ begin
   if not gConfig.RevisarPDFDisponivel then begin
     lbAlertaRevisar.Visible := True;
     if gConfig.StatusConta=scAnt then
-      lbAlertaRevisar.Caption := SncafbTiposImp_CompreUmaAtualizaçãoDoNexCaféPar else
+      lbAlertaRevisar.Caption := SncafbTiposImp_CompreUmaAtualizacaoDoNexCafePar else
       lbAlertaRevisar.Caption := SncafbTiposImp_RecursoExclusivoParaAssinantesNe;
   end else
   if not cbImpNex.Checked then begin
     lbAlertaRevisar.Visible := True;
-    lbAlertaRevisar.Caption := SncafbTiposImp_AtiveAImpressoraNexCaféParaUsarE;
+    lbAlertaRevisar.Caption := SncafbTiposImp_AtiveAImpressoraNexCafeParaUsarE;
   end else
     lbAlertaRevisar.Visible := False;
 
@@ -283,8 +284,8 @@ begin
   for I := 0 to gTiposImp.Count-1 do with gTiposImp.Itens[I] do
   if (PrinterDevMode='') or (Impressora='') then begin
     if (Impressora='') then
-      ShowMessage(SncafbTiposImp_ÉNecessárioEscolherUmaImpressora) else
-      ShowMessage(SncafbTiposImp_ÉNecessárioConfigurarAsPreferênc);
+      ShowMessage(SncafbTiposImp_ENecessarioEscolherUmaImpressora) else
+      ShowMessage(SncafbTiposImp_ENecessarioConfigurarAsPreferenc);
     Dados.mtTipoImp.Locate('ID', ID, []); // do not localize
     cmEditarClick(nil);
     Exit;
@@ -397,7 +398,7 @@ begin
   inherited;
   
   if gTiposImp.Count>10 then
-    Raise ENexCafe.Create(SncafbTiposImp_ONexCaféNãoAceitaMaisQue10TiposD);
+    Raise ENexCafe.Create(SncafbTiposImp_ONexCafeNaoAceitaMaisQue10TiposD);
 
   T := TncTipoImp.Create;  
   try

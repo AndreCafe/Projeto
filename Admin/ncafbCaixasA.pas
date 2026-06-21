@@ -19,7 +19,7 @@ uses
   LMDSimplePanel, cxLookAndFeels, cxLookAndFeelPainters, dxPSPDFExportCore,
   dxPSPDFExport, cxDrawTextUtils, dxPSPrVwStd, dxPSPrVwAdv, dxPSPrVwRibbon,
   dxPScxPageControlProducer, dxPScxEditorProducers, dxPScxExtEditorProducers,
-  dxPScxGridLnk, dxPScxGridLayoutViewLnk, cxNavigator, uNexTransResourceStrings_PT,
+  dxPScxGridLnk, dxPScxGridLayoutViewLnk, cxNavigator, uNexTransResourceStrings_PT_,
   dxPScxPivotGridLnk, uParentedPanel;
 
 type
@@ -139,7 +139,7 @@ begin
   Dados.tbCriarParametros.Value := TabID.AsString;
   Dados.tbCriar.Post;
 
-  ShowMessage(SncafbCaixasA_OEMailSeráEnviadoEmAté5Minutos);
+  ShowMessage(SncafbCaixasA_OEMailSeraEnviadoEmAte5Minutos);
 end;
 
 procedure TfbCaixasA.FiltraDados;
@@ -147,7 +147,7 @@ begin
   if not Tab.Active then begin
     DataI := 1;
     DataF := EncodeDate(3000, 1, 1);
-    cmPeriodo.Caption := SncafbCaixasA_PeríodoTudo;
+    cmPeriodo.Caption := SncafbCaixasA_PeriodoTudo;
     Tab.Active := True;
     Tab.First;
   end;  

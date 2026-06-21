@@ -875,21 +875,19 @@ begin
 {$else}
   cmFidelidade.Enabled := (not Tab.IsEmpty) and
                           gConfig.FidAtivo and 
-                          Permitido(daAtenderClientes);
-{$endif}  
-  cmZerarTudo.Enabled := (not Tab.IsEmpty) and gConfig.PodeFidelidade and Dados.CM.UA.Admin;
+                          Permitido(daAtenderClientes) and gConfig.IsPremium;;
+{$endif}
+  cmZerarTudo.Enabled   := (not Tab.IsEmpty) and gConfig.PodeFidelidade and Dados.CM.UA.Admin;
   cmCorrigirFid.Enabled := (not Tab.IsEmpty) and gConfig.PodeFidelidade and Permitido(daCorrigirFidelidade);
   cmResgProduto.Enabled := gConfig.PodeFidelidade and Permitido(daAtenderClientes) and (not Tab.IsEmpty);
+  cmNovo.Enabled        := Permitido(daCliCadastrar) and gConfig.IsPremium;
+  cmApagar.Enabled      := Permitido(daCliApagar) and gConfig.IsPremium;
 
-                          
-  cmNovo.Enabled := Permitido(daCliCadastrar);
-  cmApagar.Enabled := Permitido(daCliApagar);
-  
-  cmEditar.Enabled := (not Tab.IsEmpty);
+  cmEditar.Enabled := (not Tab.IsEmpty) and gConfig.IsPremium;
   cmApagar.Enabled := cmEditar.Enabled and Permitido(daCliApagar);
-  cmSenha.Enabled := cmEditar.Enabled;
-  cmSubTempo.Enabled := cmEditar.Enabled and Permitido(daAtenderClientes);
-  cmPagarDebito.Enabled := cmEditar.Enabled and (TabDebito.Value>0) and Permitido(daAtenderClientes);
+  cmSenha.Enabled  := cmEditar.Enabled and gConfig.IsPremium;
+  cmSubTempo.Enabled := cmEditar.Enabled and Permitido(daAtenderClientes) and gConfig.IsPremium;
+  cmPagarDebito.Enabled := cmEditar.Enabled and (TabDebito.Value>0) and Permitido(daAtenderClientes) and gConfig.IsPremium;;
 end;
 
 procedure TfbClientes.TabFilterRecord(DataSet: TDataSet; var Accept: Boolean);
@@ -1112,6 +1110,9 @@ procedure TfbClientes.cmEditarClick(Sender: TObject);
 var SIndex : String;
 begin
   inherited;
+  if not gconfig.isPremium then
+    exit;
+  
   if Tab.IsEmpty then Exit;
   
   TFrmCadCli.Create(Self).Editar(Tab, nil);
@@ -1382,19 +1383,21 @@ end;
 procedure TfbClientes.AtualizaDireitos;
 begin
   inherited;
-  cmDebTempo.Enabled := Permitido(daCliDebitarTempo);
-  cmZerarTempo.Enabled := Permitido(daZerarTempoAcumulado);
+  cmDebTempo.Enabled    := Permitido(daCliDebitarTempo);
+  cmZerarTempo.Enabled  := Permitido(daZerarTempoAcumulado);
   cmApagarSenha.Enabled := Permitido(daApagarSenhaCliente);
-  
-  cmZerarTudo.Enabled := Dados.CM.UA.Admin;
+
+  cmZerarTudo.Enabled   := Dados.CM.UA.Admin;
   {$IFDEF LAN}
   TVSenha.Visible := Dados.CM.Config.VerSenhaCli;
   TVSenha.VisibleForCustomization := Dados.CM.Config.VerSenhaCli;
   {$ENDIF}
-  if Tab.Active then Tab.Refresh;
+  if Tab.Active then
+    Tab.Refresh;
 
   if gConfig.FidAtivo then
-    cmFidelidade.Hint := SFidelidade else
+    cmFidelidade.Hint := SFidelidade
+  else
     cmFidelidade.Hint := SÉNecessárioAtivarOSistemaDeFidel;
 //  btnRecriaDebitos.Visible := SameText(ParamStr(1), 'imp');
   RefreshBotoes;
@@ -1403,14 +1406,12 @@ begin
   FTipoBusca := gConfig.CampoLocalizaCli;
   edBusca.Clear;
   case FTipoBusca of
-    busNome : cmPorNome.Down := True;
+    busNome     : cmPorNome.Down := True;
     busUsername : cmPorUsername.Down := True;
   else
     cmPorCodigo.Down := True;
   end;
   FiltraDados;
-
-
 end;
 
 type

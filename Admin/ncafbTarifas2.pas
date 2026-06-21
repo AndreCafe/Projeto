@@ -130,18 +130,21 @@ begin
       gbOpcoes.Visible := True;
     end;
   
-    cbGrupo.Checked := gConfig.VariosTiposAcesso;
+    cbGrupo.Checked   := gConfig.VariosTiposAcesso;
     cbHorario.Checked := gConfig.TarifaPorHorario;
-    tsGrupo.Enabled := cbGrupo.Checked;
+    tsGrupo.Enabled   := cbGrupo.Checked;
     tsHorario.Enabled := cbHorario.Checked;
+
     if not Paginas.ActivePage.Enabled then
       Paginas.ActivePageIndex := 0;
+
     fbCartoes.AtualizaDireitos;
     fbTarBas.AtualizaDireitos;
     fbTA.AtualizaDireitos;
     fbDH.AtualizaDireitos;
     Self.fbPass.AtualizaDireitos;
     fbgPacotes.AtualizaDireitos;
+    nbTar.Enabled := gConfig.IsPremium;
   finally
     FLoading := False;
   end;

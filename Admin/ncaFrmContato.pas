@@ -19,7 +19,6 @@ type
     cxLabel7: TcxLabel;
     Image3: TImage;
     cxLabel11: TcxLabel;
-    cxLabel15: TcxLabel;
     Image4: TImage;
     cxButton1: TcxButton;
     cxLabel3: TcxLabel;
@@ -29,7 +28,6 @@ type
     cxLabel6: TcxLabel;
     cxLabel2: TcxLabel;
     cxLabel5: TcxLabel;
-    cxLabel8: TcxLabel;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure cxButton1Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -83,11 +81,7 @@ end;
 
 procedure TFrmContato.lbSiteClick(Sender: TObject);
 begin
-{$ifdef Loja}
-  ShellStart('http://www.programanex.com.br');
-{$else}
-  ShellStart('http://www.nexcafe.com.br');
-{$endif}
+  Dados.ChamaSuporte;
 end;
 
 procedure TFrmContato.cxButton1Click(Sender: TObject);

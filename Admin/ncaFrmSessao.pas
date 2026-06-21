@@ -128,6 +128,7 @@ type
     btnImp: TcxButton;
     btnCancelar: TcxButton;
     btnEditar: TcxButton;
+    mtTranTipoPago: TWordField;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure cmGravarClick(Sender: TObject);

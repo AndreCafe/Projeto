@@ -174,7 +174,7 @@ begin
   inherited;
   V := ARecord.Values[TVCor.Index];
   if (V<>null) and (V=gConfig.TarifaPadrao) then
-    AText := SncafbTarBasica_TarifaPadrão;
+    AText := SncafbTarBasica_TarifaPadrao;
 end;
 
 procedure TfbTarBasica.cmApagarClick(Sender: TObject);
@@ -183,11 +183,11 @@ begin
   inherited;
   if Tab.IsEmpty then Exit;
   if Tab.RecordCount=1 then begin
-    ShowMessage(SncafbTarBasica_NãoéPossívelApagarTodasTarifas);
+    ShowMessage(SncafbTarBasica_NaoePossivelApagarTodasTarifas);
     Exit;
   end;
   if TabCor.Value=gConfig.TarifaPadrao then begin
-    ShowMessage(SncafbTarBasica_EssaéATarifaPadrãoNãoéPermitidoA);
+    ShowMessage(SncafbTarBasica_EssaEATarifaPadrAoNAoEPermitidoA);
     Exit;
   end;
   T := gTarifas.PorCor[TabCor.Value];
@@ -233,7 +233,7 @@ end;
 
 class function TfbTarBasica.Descricao: String;
 begin
-  Result := SncafbTarBasica_TarifaçãoBásica;
+  Result := SncafbTarBasica_TarifaCAoBAsica;
 end;
 
 procedure TfbTarBasica.AtualizaDireitos;

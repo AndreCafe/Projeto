@@ -147,7 +147,7 @@ begin
     if not Tab.Active then Tab.Open;
 
     case cmMostrar.ItemIndex of
-      0 : cmSubMostrar.Caption := SncafbCartoes_MostrarNãoExpirados;
+      0 : cmSubMostrar.Caption := SncafbCartoes_MostrarNaoExpirados;
       1 : cmSubMostrar.Caption := SncafbCartoes_MostrarExpirados;
       2 : cmSubMostrar.Caption := SncafbCartoes_MostrarTodos;
     end;
@@ -271,7 +271,7 @@ begin
   inherited;
   V := ARecord.Values[TVTempoUsado.Index];
   if (V=null) or (V=0) then 
-    AText := SncafbCartoes_NãoFoiUtilizado else
+    AText := SncafbCartoes_NaoFoiUtilizado else
     AText := MinutosToHoraStr(V/60) + SncafbCartoes_Utilizados;
 end;
 
@@ -299,10 +299,10 @@ begin
   
   
   if TabExpirou.Value then begin
-    ShowMessage(SncafbCartoes_NãoéPossívelCancelarUmCartãoExpi);
+    ShowMessage(SncafbCartoes_NaoePossivelCancelarUmCartaoExpi);
     Exit;
   end else
-  if not NaoSim(SncafbCartoes_DesejaRealmenteCancelarEsseCartã) then begin
+  if not NaoSim(SncafbCartoes_DesejaRealmenteCancelarEsseCarta) then begin
     Tab.Edit;
     TabExpirou.Value := True;
     Tab.Post;
@@ -314,7 +314,7 @@ end;
 
 class function TfbCartoes.Descricao: String;
 begin
-  Result := SncafbCartoes_CartõesDeTempo;
+  Result := SncafbCartoes_CartoesDeTempo;
 end;
 
 procedure TfbCartoes.cmImprimeCartaoClick(Sender: TObject);

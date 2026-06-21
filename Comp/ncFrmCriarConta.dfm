@@ -35,7 +35,7 @@ object FrmCriarConta: TFrmCriarConta
       Height = 283
       Align = alClient
       TabOrder = 0
-      Properties.ActivePage = tsCriarInformar
+      Properties.ActivePage = tsTransferirReg
       Properties.CustomButtons.Buttons = <>
       Properties.HideTabs = True
       Properties.Style = 6
@@ -1110,7 +1110,7 @@ object FrmCriarConta: TFrmCriarConta
               StyleHot.TextColor = clBlue
               StyleHot.TextStyle = [fsBold, fsUnderline]
               OnClick = lbCorrigirClick
-              ExplicitLeft = 124
+              ExplicitLeft = 131
               Height = 25
               Width = 99
             end

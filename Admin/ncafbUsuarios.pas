@@ -71,7 +71,7 @@ uses
 
 class function TfbUsuarios.Descricao: String;
 begin
-  Result := SncafbUsuarios_Usuários;
+  Result := SncafbUsuarios_Usuarios;
 end;
 
 procedure TfbUsuarios.FiltraDados;
@@ -105,10 +105,13 @@ procedure TfbUsuarios.AtualizaDireitos;
 begin
   inherited;
   dxBarDockControl1.SunkenBorder := False;
+  cmNovo.Enabled   := gConfig.IsPremium;
+  cmEditar.Enabled := gConfig.IsPremium;
+  cmApagar.Enabled := gConfig.IsPremium;
 end;
 
 procedure TfbUsuarios.cmApagarClick(Sender: TObject);
-var 
+var
   U : TncUsuario;
   I, C: Integer;
 begin
@@ -118,9 +121,9 @@ begin
       if CM.Usuarios[I].Admin then Inc(C);
 
     if mtUsuarioAdmin.Value and (C<2) then
-      Raise ENexCafe.Create(SncafbUsuarios_NãoéPossívelApagarOúnicoUsuárioA);
+      Raise ENexCafe.Create(SncafbUsuarios_NaoePossivelApagarOunicoUsuarioA);
         
-    if SimNaoH(SncafbUsuarios_ConfirmaAExclusãoDe+mtUsuarioNome.Value+'?', Handle) then begin
+    if SimNaoH(SncafbUsuarios_ConfirmaAExclusaoDe+mtUsuarioNome.Value+'?', Handle) then begin
       U := CM.Usuarios.PorUsername[mtUsuarioUsername.Value];
       if U <> nil then CM.ApagaObj(U);
     end;  
@@ -134,7 +137,7 @@ end;
 
 procedure TfbUsuarios.cmEditarClick(Sender: TObject);
 begin
-  if Dados.mtUsuario.RecordCount > 0 then
+  if (Dados.mtUsuario.RecordCount > 0) and gConfig.IsPremium then
     TFrmUsuario.Create(Self).Editar;
 end;
 

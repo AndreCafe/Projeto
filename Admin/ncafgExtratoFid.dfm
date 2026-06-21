@@ -102,11 +102,9 @@ inherited fbExtratoFid: TfbExtratoFid
           DataBinding.FieldName = 'FidPontosFat'
           PropertiesClassName = 'TcxMaskEditProperties'
           Properties.Alignment.Horz = taRightJustify
-          Properties.Alignment.Vert = taVCenter
           OnCustomDrawCell = TVPontosCustomDrawCell
           OnGetDisplayText = TVPontosGetDisplayText
           HeaderAlignmentHorz = taCenter
-          HeaderAlignmentVert = vaCenter
           Styles.Content = FrmPri.cxStyle30
           Width = 85
         end
@@ -115,17 +113,14 @@ inherited fbExtratoFid: TfbExtratoFid
           DataBinding.FieldName = 'Tran'
           PropertiesClassName = 'TcxSpinEditProperties'
           Properties.Alignment.Horz = taCenter
-          Properties.Alignment.Vert = taVCenter
           Properties.ImmediatePost = True
           HeaderAlignmentHorz = taCenter
-          HeaderAlignmentVert = vaCenter
           Width = 68
         end
         object TVCanc: TcxGridDBColumn
           DataBinding.FieldName = 'Cancelado'
           RepositoryItem = Dados.erSimNao
           HeaderAlignmentHorz = taCenter
-          HeaderAlignmentVert = vaCenter
           Width = 68
         end
         object TVTipoTran: TcxGridDBColumn
@@ -140,10 +135,8 @@ inherited fbExtratoFid: TfbExtratoFid
           DataBinding.FieldName = 'Caixa'
           PropertiesClassName = 'TcxSpinEditProperties'
           Properties.Alignment.Horz = taCenter
-          Properties.Alignment.Vert = taVCenter
           Properties.ImmediatePost = True
           HeaderAlignmentHorz = taCenter
-          HeaderAlignmentVert = vaCenter
           Width = 51
         end
         object TVTipoItem: TcxGridDBColumn
@@ -158,9 +151,7 @@ inherited fbExtratoFid: TfbExtratoFid
           DataBinding.FieldName = 'Pago'
           PropertiesClassName = 'TcxCurrencyEditProperties'
           Properties.Alignment.Horz = taRightJustify
-          Properties.Alignment.Vert = taVCenter
           HeaderAlignmentHorz = taCenter
-          HeaderAlignmentVert = vaCenter
           Width = 66
         end
         object TVNomeFunc: TcxGridDBColumn

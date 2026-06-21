@@ -5,7 +5,7 @@ object FrmCopia: TFrmCopia
   Caption = 'C'#243'pia de dados'
   ClientHeight = 414
   ClientWidth = 460
-  Color = clBtnFace
+  Color = clWhite
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -11
@@ -37,14 +37,17 @@ object FrmCopia: TFrmCopia
       Width = 455
       Height = 414
       Align = alClient
+      Color = clWhite
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
       Font.Height = -11
       Font.Name = 'Tahoma'
       Font.Style = []
+      ParentBackground = False
+      ParentColor = False
       ParentFont = False
       TabOrder = 0
-      Properties.ActivePage = cxTabSheet3
+      Properties.ActivePage = cxTabSheet4
       Properties.CustomButtons.Buttons = <>
       LookAndFeel.Kind = lfUltraFlat
       LookAndFeel.NativeStyle = False
@@ -61,15 +64,16 @@ object FrmCopia: TFrmCopia
           Height = 390
           Align = alClient
           Bevel.Mode = bmCustom
+          Color = clWhite
           TabOrder = 0
           object cxLabel1: TcxLabel
-            Left = 10
-            Top = 45
+            Left = 18
+            Top = 63
             Caption = 'Pasta destino:'
           end
           object edBackupDir: TLMDBrowseEdit
-            Left = 10
-            Top = 63
+            Left = 18
+            Top = 81
             Width = 351
             Height = 19
             Bevel.StyleInner = bvNormal
@@ -109,8 +113,9 @@ object FrmCopia: TFrmCopia
             StartWithLast = True
           end
           object PB: TcxProgressBar
-            Left = 10
-            Top = 95
+            Left = 18
+            Top = 113
+            AutoSize = False
             Style.BorderStyle = ebsFlat
             Style.LookAndFeel.Kind = lfFlat
             Style.LookAndFeel.NativeStyle = True
@@ -122,11 +127,12 @@ object FrmCopia: TFrmCopia
             StyleHot.LookAndFeel.NativeStyle = True
             TabOrder = 2
             Visible = False
+            Height = 30
             Width = 351
           end
           object lbProgresso: TcxLabel
-            Left = 8
-            Top = 116
+            Left = 16
+            Top = 143
             AutoSize = False
             Caption = 'Progresso do Backup'
             Visible = False
@@ -134,14 +140,29 @@ object FrmCopia: TFrmCopia
             Width = 255
           end
           object btnBackup: TcxButton
-            Left = 10
-            Top = 1
+            Left = 18
+            Top = 19
             Width = 121
             Height = 35
+            BiDiMode = bdLeftToRight
             Caption = 'Realizar C'#243'pia'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = []
+            ParentBiDiMode = False
+            ParentFont = False
+            ParentShowHint = False
+            ShowHint = False
             TabOrder = 4
             OnClick = btnBackupClick
-            LookAndFeel.Kind = lfFlat
+            Colors.Default = clWhite
+            Colors.Hot = 16759931
+            Colors.HotText = clWhite
+            Colors.Pressed = 15426341
+            Colors.PressedText = clWhite
+            LookAndFeel.Kind = lfUltraFlat
             LookAndFeel.NativeStyle = False
             OptionsImage.Glyph.Data = {
               36090000424D3609000000000000360000002800000018000000180000000100
@@ -231,10 +252,12 @@ object FrmCopia: TFrmCopia
           Height = 390
           Align = alClient
           Bevel.Mode = bmCustom
+          Color = clWhite
           TabOrder = 0
           object pbR: TcxProgressBar
-            Left = 10
-            Top = 48
+            Left = 16
+            Top = 65
+            AutoSize = False
             Style.BorderStyle = ebsFlat
             Style.LookAndFeel.Kind = lfFlat
             Style.LookAndFeel.NativeStyle = True
@@ -246,11 +269,12 @@ object FrmCopia: TFrmCopia
             StyleHot.LookAndFeel.NativeStyle = True
             TabOrder = 0
             Visible = False
+            Height = 30
             Width = 367
           end
           object lbRest: TcxLabel
-            Left = 10
-            Top = 69
+            Left = 16
+            Top = 96
             AutoSize = False
             Caption = 'Progresso da Restaura'#231#227'o'
             Visible = False
@@ -258,14 +282,19 @@ object FrmCopia: TFrmCopia
             Width = 255
           end
           object btnRestaurar: TcxButton
-            Left = 10
-            Top = 1
+            Left = 16
+            Top = 18
             Width = 183
             Height = 35
             Caption = 'Restaurar C'#243'pia de Dados'
             TabOrder = 2
             OnClick = btnRestaurarClick
-            LookAndFeel.Kind = lfFlat
+            Colors.Default = clWhite
+            Colors.Hot = 16759931
+            Colors.HotText = clWhite
+            Colors.Pressed = 15426341
+            Colors.PressedText = clWhite
+            LookAndFeel.Kind = lfUltraFlat
             LookAndFeel.NativeStyle = False
             OptionsImage.Glyph.Data = {
               36090000424D3609000000000000360000002800000018000000180000000100
@@ -348,16 +377,13 @@ object FrmCopia: TFrmCopia
       object cxTabSheet4: TcxTabSheet
         Caption = 'cxTabSheet4'
         ImageIndex = 1
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
         object PagCorrigir: TcxPageControl
           AlignWithMargins = True
-          Left = 10
-          Top = 45
-          Width = 445
-          Height = 345
-          Margins.Left = 10
+          Left = 15
+          Top = 63
+          Width = 440
+          Height = 327
+          Margins.Left = 15
           Margins.Top = 10
           Margins.Right = 0
           Margins.Bottom = 0
@@ -366,19 +392,25 @@ object FrmCopia: TFrmCopia
           Properties.ActivePage = cxTabSheet1
           Properties.CustomButtons.Buttons = <>
           LookAndFeel.NativeStyle = False
-          ExplicitLeft = 1
-          ExplicitTop = 64
-          ExplicitWidth = 453
-          ExplicitHeight = 325
-          ClientRectBottom = 345
-          ClientRectRight = 445
+          ExplicitLeft = 10
+          ExplicitTop = 45
+          ExplicitWidth = 445
+          ExplicitHeight = 345
+          ClientRectBottom = 327
+          ClientRectRight = 440
           ClientRectTop = 24
           object cxTabSheet1: TcxTabSheet
+            Margins.Left = 10
+            Margins.Top = 5
             Caption = 'cxTabSheet1'
             ImageIndex = 0
+            ExplicitWidth = 445
+            ExplicitHeight = 321
             object cxLabel2: TcxLabel
               Left = 0
               Top = 0
+              Margins.Left = 10
+              Margins.Top = 5
               Align = alClient
               Caption = 
                 'Essa opera'#231#227'o somente deve ser executada quando o NexCaf'#233' estive' +
@@ -386,23 +418,30 @@ object FrmCopia: TFrmCopia
                 'gamento inadequado do Windows/Computador, Queda de energia, Trav' +
                 'amentos, Problemas com disco r'#237'gido, ou V'#237'rus.'
               Properties.WordWrap = True
-              Width = 445
+              ExplicitWidth = 445
+              ExplicitHeight = 321
+              Width = 440
             end
           end
           object cxTabSheet2: TcxTabSheet
             Caption = 'cxTabSheet2'
             ImageIndex = 1
+            ExplicitWidth = 445
+            ExplicitHeight = 321
             object pbC: TcxProgressBar
               Left = 0
               Top = 0
               Align = alTop
+              AutoSize = False
               Style.BorderStyle = ebsFlat
               Style.LookAndFeel.NativeStyle = True
               StyleDisabled.LookAndFeel.NativeStyle = True
               StyleFocused.LookAndFeel.NativeStyle = True
               StyleHot.LookAndFeel.NativeStyle = True
               TabOrder = 0
-              Width = 445
+              ExplicitWidth = 445
+              Height = 30
+              Width = 440
             end
             object lbCorr: TcxLabel
               Left = 0
@@ -416,19 +455,21 @@ object FrmCopia: TFrmCopia
         end
         object LMDSimplePanel2: TLMDSimplePanel
           AlignWithMargins = True
-          Left = 10
-          Top = 0
-          Width = 445
+          Left = 15
+          Top = 18
+          Width = 440
           Height = 35
-          Margins.Left = 10
-          Margins.Top = 0
+          Margins.Left = 15
+          Margins.Top = 18
           Margins.Right = 0
           Margins.Bottom = 0
           Align = alTop
           Bevel.Mode = bmCustom
+          Color = clWhite
           TabOrder = 1
-          ExplicitLeft = 0
-          ExplicitWidth = 455
+          ExplicitLeft = 10
+          ExplicitTop = 0
+          ExplicitWidth = 445
           object btnCorrigir: TcxButton
             Left = 0
             Top = 0
@@ -444,7 +485,12 @@ object FrmCopia: TFrmCopia
             ParentFont = False
             TabOrder = 0
             OnClick = btnCorrigirClick
-            LookAndFeel.Kind = lfFlat
+            Colors.Default = clWhite
+            Colors.Hot = 16759931
+            Colors.HotText = clWhite
+            Colors.Pressed = 15426341
+            Colors.PressedText = clWhite
+            LookAndFeel.Kind = lfUltraFlat
             LookAndFeel.NativeStyle = False
             OptionsImage.Glyph.Data = {
               36090000424D3609000000000000360000002800000018000000180000000100
@@ -521,6 +567,7 @@ object FrmCopia: TFrmCopia
               0000000000000000000000000000000000000000000000000000000000000000
               0000000000000000000000000000000000000000000000000000000000000000
               0000000000000000000000000000000000000000000000000000}
+            ExplicitTop = 1
           end
         end
       end

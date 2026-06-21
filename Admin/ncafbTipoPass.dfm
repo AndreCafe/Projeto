@@ -79,7 +79,6 @@ inherited fbTiposPass: TfbTiposPass
         object TVRelogio: TcxGridDBColumn
           PropertiesClassName = 'TcxImageComboBoxProperties'
           Properties.Alignment.Horz = taCenter
-          Properties.Alignment.Vert = taVCenter
           Properties.Images = cxImageList1
           Properties.Items = <
             item
@@ -90,7 +89,6 @@ inherited fbTiposPass: TfbTiposPass
         object TVTempoStr: TcxGridDBColumn
           DataBinding.FieldName = 'MaxSegundos'
           PropertiesClassName = 'TcxTextEditProperties'
-          Properties.Alignment.Vert = taVCenter
           OnCustomDrawCell = TVValor1CustomDrawCell
           OnGetDisplayText = TVTempoStrGetDisplayText
           Width = 50
@@ -99,7 +97,6 @@ inherited fbTiposPass: TfbTiposPass
           DataBinding.FieldName = 'Valor'
           PropertiesClassName = 'TcxCurrencyEditProperties'
           Properties.Alignment.Horz = taLeftJustify
-          Properties.Alignment.Vert = taVCenter
           Properties.AssignedValues.MaxValue = True
           Properties.AssignedValues.MinValue = True
           Properties.DisplayFormat = 'R$ ,0.00;-R$ ,0.00'
@@ -114,7 +111,6 @@ inherited fbTiposPass: TfbTiposPass
           DataBinding.FieldName = 'Nome'
           PropertiesClassName = 'TcxMaskEditProperties'
           Properties.Alignment.Horz = taLeftJustify
-          Properties.Alignment.Vert = taVCenter
           Properties.MaxLength = 50
           Properties.ReadOnly = False
           MinWidth = 0
@@ -125,7 +121,6 @@ inherited fbTiposPass: TfbTiposPass
           Caption = 'Pr'#234'mio ?'
           DataBinding.FieldName = 'Fidelidade'
           PropertiesClassName = 'TcxImageComboBoxProperties'
-          Properties.Alignment.Vert = taVCenter
           Properties.Images = cxImageList1
           Properties.Items = <
             item
@@ -134,7 +129,6 @@ inherited fbTiposPass: TfbTiposPass
             end>
           Properties.ShowDescriptions = False
           HeaderAlignmentHorz = taCenter
-          HeaderAlignmentVert = vaCenter
           HeaderGlyph.Data = {
             36040000424D3604000000000000360000002800000010000000100000000100
             2000000000000004000000000000000000000000000000000000000000000000

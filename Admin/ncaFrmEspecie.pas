@@ -7,7 +7,7 @@ uses
   Dialogs, cxGraphics, cxControls, cxLookAndFeels, cxLookAndFeelPainters,
   cxContainer, cxEdit, cxCheckBox, cxTextEdit, cxDropDownEdit, cxMaskEdit,
   cxImageComboBox, cxLabel, dxBar, cxClasses, ncEspecie, nxdb, DB, kbmMemTable,
-  cxDBEdit;
+  cxDBEdit, ncClassesBase;
 
 type
   TFrmEspecie = class(TForm)
@@ -73,7 +73,11 @@ end;
 
 procedure TFrmEspecie.cmGravarClick(Sender: TObject);
 begin
-
+  if not gConfig.IsPremium then begin
+    Beep;
+    ShowMessage('Recurso disponivel apenas no plano Premium. No plano gratuito voce pode visualizar, mas nao salvar.');
+    Exit;
+  end;
   //  Validar!!!! rsNomeEmBranco;
 
   Tab.Post;

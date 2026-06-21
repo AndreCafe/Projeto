@@ -28,8 +28,6 @@ object FrmCorrigeDataCaixa: TFrmCorrigeDataCaixa
     BevelOuter = bvNone
     BorderWidth = 5
     TabOrder = 4
-    ExplicitTop = 32
-    ExplicitHeight = 393
     object edFecha: TcxDateEdit
       Left = 84
       Top = 42
@@ -76,7 +74,6 @@ object FrmCorrigeDataCaixa: TFrmCorrigeDataCaixa
       Top = 150
       AutoSize = False
       ParentFont = False
-      Properties.Alignment.Vert = taVCenter
       Style.BorderStyle = ebsFlat
       Style.Font.Charset = ANSI_CHARSET
       Style.Font.Color = clWindowText
@@ -126,7 +123,6 @@ object FrmCorrigeDataCaixa: TFrmCorrigeDataCaixa
       Top = 102
       AutoSize = False
       ParentFont = False
-      Properties.Alignment.Vert = taVCenter
       Style.BorderStyle = ebsFlat
       Style.Font.Charset = ANSI_CHARSET
       Style.Font.Color = clWindowText

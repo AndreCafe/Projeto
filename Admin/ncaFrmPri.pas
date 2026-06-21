@@ -48,7 +48,8 @@ uses
   LMDSimplePanel, ncafbMaquinas, dxLayoutLookAndFeels, rtcInfo, rtcConn,
   rtcDataCli, rtcHttpCli, EmbeddedWB, cxPCdxBarPopupMenu, dxScreenTip,
   dxCustomHint, Menus, ncPRTransfer, ncThreadedDownload, LMDBaseController,
-  LMDCustomContainer, LMDGenericList, dxBarBuiltInMenu, dxGDIPlusClasses;
+  LMDCustomContainer, LMDGenericList, dxBarBuiltInMenu, dxGDIPlusClasses,
+  ncaAutoUpdate;
 
 const
   wm_atualizaadesoes = wm_user + 200;
@@ -210,6 +211,7 @@ type
     cmNovoReg: TdxBarButton;
     cmOutroReg: TdxBarButton;
     cmAtualizaLic: TdxBarButton;
+    cmAtualizarVersao: TdxBarButton;
     procedure Timer1Timer(Sender: TObject);
     procedure cmSairClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -271,6 +273,7 @@ type
     procedure cmOutroRegClick(Sender: TObject);
     procedure cmAtualizaLicClick(Sender: TObject);
     procedure FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure cmAtualizarVersaoClick(Sender: TObject);
   private
     { Private declarations }
     {$IFNDEF LOJA}
@@ -521,7 +524,7 @@ begin
     TFrmCriarConta2.Create(nil).ShowModal
   else
   if not gConfig.IsPremium then
-    ShowMessage(SncaFrmPri_VocêDeveSerUmAssinanteDoNexParaU) else
+    ShowMessage(SncaFrmPri_VoceDeveSerUmAssinanteDoNexParaU) else
     Result := True;
 end;
 
@@ -550,14 +553,14 @@ end;
 
 function SimNaoH(S: String; H : HWND): Boolean;
 begin
-  Result := (MessageBox(H, PChar(S), PChar(SncaFrmPri_Atenção),
+  Result := (MessageBox(H, PChar(S), PChar(SncaFrmPri_Atencao),
              MB_YESNO + MB_ICONQUESTION + MB_APPLMODAL) = IDYES)
 end;  
 
 procedure ShowMsg(S: String; aBeep: Boolean = False);
 begin
   if aBeep then Beep;
-  MessageBox(Application.ActiveFormHandle, PChar(S), PChar(SncaFrmPri_Atenção),
+  MessageBox(Application.ActiveFormHandle, PChar(S), PChar(SncaFrmPri_Atencao),
              MB_OK + MB_ICONINFORMATION + MB_APPLMODAL);
 end;
 
@@ -567,7 +570,7 @@ begin
 
   with TFrmNexLogin.Create(Self) do
     ShowModal;
-                                                                                                                         
+
   if not Dados.CM.Ativo then Exit;
 
 
@@ -579,13 +582,13 @@ begin
 
   TimerAvisoAss.Enabled := True;
 
-  Caption := SncaFrmPri_NexNexAdminUsuário + Dados.CM.Username + SncaFrmPri_Pasta + ExtractFileDir(ParamStr(0));
+  Caption := SncaFrmPri_NexNexAdminUsuario + Dados.CM.Username + SncaFrmPri_Pasta + ExtractFileDir(ParamStr(0));
 
 //  PostMessage(Handle, WM_SYSCOMMAND, SC_MAXIMIZE, 0);
 
   Dados.AbreDB;
   
-  cmTrocarUsuario.Caption := SncaFrmPri_TrocarDeUsuário;
+  cmTrocarUsuario.Caption := SncaFrmPri_TrocarDeUsuario;
   cmSubExibir.Enabled := True;
   dsPri.Visible := True;
   cmImprimir.Enabled := True;
@@ -788,12 +791,12 @@ begin
   if Dados.CM.Ativo then
     if not TFrmSuporte.Create(nil).ObterSuporte(Maq, Dados.CM.Ativo, Dados.CM.Maquinas) then  Exit;
     
-  if Maq=0 then begin
+  if Maq=0 then
+  begin
     with Dados.CM.UA do
     S := Username + ': ' + Nome;
-
-    ChamaSuporte(S, VersaoStr);
-  end else
+  end
+  else
     Dados.CM.SuporteRem(Maq, 0);    
 end;
 //
@@ -1456,6 +1459,15 @@ begin
   end;
     
   lbConta.Caption := gConfig.Conta;
+
+  cmAtualizarVersao.Enabled :=
+    SameText(Dados.nxTCPIP.ServerName, '127.0.0.1') or
+    SameText(Dados.nxTCPIP.ServerName, 'localhost'); // do not localize
+
+  if gConfig.IDLoja > 0 then begin
+    slConfig.Values['IDLoja'] := IntToStr(gConfig.IDLoja); // do not localize
+    SaveConfig;
+  end;
 end;
 
 procedure TFrmPri.AjustaVisSenha;
@@ -1475,7 +1487,7 @@ begin
     Dados.ServRem.Ativo := False;
     Dados.nxTCPIP.Active := False;
     Close;   
-    ShowMessage(SncaFrmPri_AConexãoComOServidorNexFoiPerdid);
+    ShowMessage(SncaFrmPri_AConexaoComOServidorNexFoiPerdid);
   end else
   if (E is EErroNexCafe) and (EErroNexcafe(E).CodigoErro=ncerrMaqNaoLic) and (cmAbrirServ.Visible=ivAlways) and (gConfig.QtdLic=1) then
     cmAbrirServClick(nil) else
@@ -1537,8 +1549,8 @@ begin
   Refresh_dpImp;
   
   if Dados.CM.Config.EscondeTextoBotoes then
-    cmMostrarTextoBotoes.Caption := SncaFrmPri_MostrarTextoDosBotões else
-    cmMostrarTextoBotoes.Caption := SncaFrmPri_OcultarTextoDosBotões;
+    cmMostrarTextoBotoes.Caption := SncaFrmPri_MostrarTextoDosBotoes else
+    cmMostrarTextoBotoes.Caption := SncaFrmPri_OcultarTextoDosBotoes;
 
   AjustaSBCaptions;
 
@@ -1604,7 +1616,7 @@ procedure TFrmPri.cmVerCodClick(Sender: TObject);
 var S: String;
 begin
   S := IntToStr(Versoes.Versao);
-  S := nomeprog + SncaFrmPri_Versão_1 + S[1] + '.' + S[2] + '.' + S[3] + Copy(SelfVersion, 6, 20);
+  S := nomeprog + SncaFrmPri_Versao_1 + S[1] + '.' + S[2] + '.' + S[3] + Copy(SelfVersion, 6, 20);
   ShowMessage('          '+s+'          ');
 end;
 
@@ -1720,6 +1732,11 @@ begin
     if S>'' then 
       Dados.CM.SalvaApp(S);
   end;
+end;
+
+procedure TFrmPri.cmAtualizarVersaoClick(Sender: TObject);
+begin
+  DoAutoUpdate(gConfig.IDLoja, SelfShortVer);
 end;
 
 procedure TFrmPri.paActivate(Sender: TdxCustomDockControl; Active: Boolean);
@@ -1944,9 +1961,9 @@ procedure TFrmPri.cmMostrarTextoBotoesClick(Sender: TObject);
 begin
   MostrarTextoBotoes := not MostrarTextoBotoes;
   if MostrarTextoBotoes then
-    cmMostrarTextoBotoes.Caption := SncaFrmPri_OcultarTextosDosBotões
-  else  
-    cmMostrarTextoBotoes.Caption := SncaFrmPri_MostrarTextosDosBotões ;
+    cmMostrarTextoBotoes.Caption := SncaFrmPri_OcultarTextosDosBotoes
+  else
+    cmMostrarTextoBotoes.Caption := SncaFrmPri_MostrarTextosDosBotoes ;
   with Dados, CM do begin
     tbConfig.Edit;
     tbConfigEscondeTextoBotoes.Value := not MostrarTextoBotoes;
@@ -2073,68 +2090,68 @@ initialization
   cxSetResourceString(@cxSGridNone, SncaFrmPri_Nenhum);
   cxSetResourceString(@cxSGridSortColumnAsc, SncaFrmPri_OrdenarCrescente);
   cxSetResourceString(@cxSGridSortColumnDesc, SncaFrmPri_OrdenarDecrescente);
-  cxSetResourceString(@cxSGridClearSorting, SncaFrmPri_NãoOrdenar);
+  cxSetResourceString(@cxSGridClearSorting, SncaFrmPri_NaoOrdenar);
   cxSetResourceString(@cxSGridGroupByThisField, SncaFrmPri_AgruparPorEstaColuna);
   cxSetResourceString(@cxSGridRemoveThisGroupItem, SncaFrmPri_RemoverDoAgrupamento);
   cxSetResourceString(@cxSGridGroupByBox, SncaFrmPri_Agrupamento) ;
   cxSetResourceString(@cxSGridAlignmentSubMenu, SncaFrmPri_Alinhamento);
-  cxSetResourceString(@cxSGridAlignLeft, SncaFrmPri_àEsquerda);
-  cxSetResourceString(@cxSGridAlignRight, SncaFrmPri_àDireita);
+  cxSetResourceString(@cxSGridAlignLeft, SncaFrmPri_aEsquerda);
+  cxSetResourceString(@cxSGridAlignRight, SncaFrmPri_aDireita);
   cxSetResourceString(@cxSGridAlignCenter, SncaFrmPri_AoCentro);
   cxSetResourceString(@cxSGridRemoveColumn, SncaFrmPri_RemoverEstaColuna);
   cxSetResourceString(@cxSGridFieldChooser, SncaFrmPri_SelecionarColunas);
   cxSetResourceString(@cxSGridBestFit, SncaFrmPri_TamanhoIdeal);
   cxSetResourceString(@cxSGridBestFitAllColumns, SncaFrmPri_TamanhoIdealTodasColunas);
-  cxSetResourceString(@cxSGridShowFooter, SncaFrmPri_Rodapé);
-  cxSetResourceString(@cxSGridShowGroupFooter, SncaFrmPri_RodapéEmAgrupamento);
+  cxSetResourceString(@cxSGridShowFooter, SncaFrmPri_Rodape);
+  cxSetResourceString(@cxSGridShowGroupFooter, SncaFrmPri_RodapeEmAgrupamento);
   cxSetResourceString(@cxSGridSumMenuItem, SncaFrmPri_Somar);
   cxSetResourceString(@cxSGridMinMenuItem, SncaFrmPri_Min);
   cxSetResourceString(@cxSGridMaxMenuItem, SncaFrmPri_Max);
   cxSetResourceString(@cxSGridCountMenuItem, SncaFrmPri_Contar);
-  cxSetResourceString(@cxSGridAvgMenuItem, SncaFrmPri_Média);
+  cxSetResourceString(@cxSGridAvgMenuItem, SncaFrmPri_Media);
   cxSetResourceString(@cxSGridNoneMenuItem, SncaFrmPri_Nenhum);
   cxSetResourceString(@scxGridNoDataInfoText, SncaFrmPri_EmptyString);
-  
 
-  cxSetResourceString(@scxGridRecursiveLevels, SncaFrmPri_VocêNãoPodeCriarNiveisRecursivos);
+
+  cxSetResourceString(@scxGridRecursiveLevels, SncaFrmPri_VoceNaoPodeCriarNiveisRecursivos);
 
   cxSetResourceString(@scxGridDeletingFocusedConfirmationText, SncaFrmPri_ApagarRegistro);
   cxSetResourceString(@scxGridDeletingSelectedConfirmationText, SncaFrmPri_ApagarTodosRegistrosSelecionados);
 
   cxSetResourceString(@scxGridNewItemRowInfoText, SncaFrmPri_CliqueAquiParaAdicionarUmNovoReg);
 
-  cxSetResourceString(@scxGridFilterIsEmpty, SncaFrmPri_FiltroEstáVazio);
+  cxSetResourceString(@scxGridFilterIsEmpty, SncaFrmPri_FiltroEstaVazio);
 
-  cxSetResourceString(@scxGridCustomizationFormCaption, SncaFrmPri_Customização);
+  cxSetResourceString(@scxGridCustomizationFormCaption, SncaFrmPri_Customizacao);
   cxSetResourceString(@scxGridCustomizationFormColumnsPageCaption, SncaFrmPri_Colunas);
-  cxSetResourceString(@scxGridGroupByBoxCaption, SncaFrmPri_ArrasteAquiOCabeçalhoDeUmaColuna);
+  cxSetResourceString(@scxGridGroupByBoxCaption, SncaFrmPri_ArrasteAquiOCabecalhoDeUmaColuna);
   cxSetResourceString(@scxGridFilterCustomizeButtonCaption, SncaFrmPri_Customizar);
 
   cxSetResourceString(@scxGridCustomizationFormBandsPageCaption, SncaFrmPri_Bandas);
 
-  cxSetResourceString(@scxGridConverterNotExistGrid, SncaFrmPri_CxGridNãoExistet);
-  cxSetResourceString(@scxGridConverterNotExistComponent, SncaFrmPri_ComponenteNãoExiste);
-  cxSetResourceString(@scxImportErrorCaption, SncaFrmPri_ErroDeImportação);
+  cxSetResourceString(@scxGridConverterNotExistGrid, SncaFrmPri_CxGridNaoExistet);
+  cxSetResourceString(@scxGridConverterNotExistComponent, SncaFrmPri_ComponenteNaoExiste);
+  cxSetResourceString(@scxImportErrorCaption, SncaFrmPri_ErroDeImportacao);
 
-  cxSetResourceString(@scxNotExistGridView, SncaFrmPri_GridViewNãoExiste);
-  cxSetResourceString(@scxNotExistGridLevel, SncaFrmPri_GridLevelAtivoNãoExiste);
-  cxSetResourceString(@scxCantCreateExportOutputFile, SncaFrmPri_FalhaNaCriaçãoDoArquivoDeExporta);
-  
+  cxSetResourceString(@scxNotExistGridView, SncaFrmPri_GridViewNaoExiste);
+  cxSetResourceString(@scxNotExistGridLevel, SncaFrmPri_GridLevelAtivoNaoExiste);
+  cxSetResourceString(@scxCantCreateExportOutputFile, SncaFrmPri_FalhaNaCriacaoDoArquivoDeExporta);
+
   cxSetResourceString(@cxSFilterRootButtonCaption, SncaFrmPri_Filtro);
-  cxSetResourceString(@cxSFilterAddCondition, SncaFrmPri_NovaCondição);
+  cxSetResourceString(@cxSFilterAddCondition, SncaFrmPri_NovaCondicao);
   cxSetResourceString(@cxSFilterAddGroup, SncaFrmPri_NovoGrupo);
   cxSetResourceString(@cxSFilterRemoveRow , SncaFrmPri_RemoverLinha);
   cxSetResourceString(@cxSFilterClearAll, SncaFrmPri_LimparTudo);
-  cxSetResourceString(@cxSFilterFooterAddCondition, SncaFrmPri_PressioneOBotãoParaAdicionarUmaN);
-  cxSetResourceString(@cxSFilterGroupCaption, SncaFrmPri_SeAplicaAsSeguintesCondições);
+  cxSetResourceString(@cxSFilterFooterAddCondition, SncaFrmPri_PressioneOBotaoParaAdicionarUmaN);
+  cxSetResourceString(@cxSFilterGroupCaption, SncaFrmPri_SeAplicaAsSeguintesCondicoes);
   cxSetResourceString(@cxSFilterRootGroupCaption , SncaFrmPri_Raiz);
   cxSetResourceString(@cxSFilterControlNullString , SncaFrmPri_Vazio);
-  cxSetResourceString(@cxSFilterErrorBuilding, SncaFrmPri_NãoéPossívelMontarOFiltroNessaOr);
+  cxSetResourceString(@cxSFilterErrorBuilding, SncaFrmPri_NaoePossivelMontarOFiltroNessaOr);
   cxSetResourceString(@cxSFilterDialogCaption, SncaFrmPri_FiltroCustomizado);
-  cxSetResourceString(@cxSFilterDialogInvalidValue, SncaFrmPri_ValorInválido);
+  cxSetResourceString(@cxSFilterDialogInvalidValue, SncaFrmPri_ValorInvalido);
   cxSetResourceString(@cxSFilterDialogUse, SncaFrmPri_Usar);
   cxSetResourceString(@cxSFilterDialogSingleCharacter, SncaFrmPri_ParaRepresentarQualquerCaracter);
-  cxSetResourceString(@cxSFilterDialogCharactersSeries, SncaFrmPri_ParaRepresentarQualquerSérieDeCa);
+  cxSetResourceString(@cxSFilterDialogCharactersSeries, SncaFrmPri_ParaRepresentarQualquerSerieDeCa);
   cxSetResourceString(@cxSFilterDialogOperationAnd, SncaFrmPri_AndUpperCase);
   cxSetResourceString(@cxSFilterDialogOperationOr, SncaFrmPri_OU);
   cxSetResourceString(@cxSFilterDialogRows, SncaFrmPri_MostrarRegistrosOnde);
@@ -2157,41 +2174,41 @@ initialization
   cxSetResourceString(@cxSFilterOperatorGreater, SncaFrmPri_SejaMaiorQue);
   cxSetResourceString(@cxSFilterOperatorGreaterEqual, SncaFrmPri_SejaMaiorQueOuIgualA);
   cxSetResourceString(@cxSFilterOperatorLike, SncaFrmPri_Contenha);
-  cxSetResourceString(@cxSFilterOperatorNotLike, SncaFrmPri_NãoContenha);
+  cxSetResourceString(@cxSFilterOperatorNotLike, SncaFrmPri_NaoContenha);
   cxSetResourceString(@cxSFilterOperatorBetween, SncaFrmPri_TenhaValorEntre);
-  cxSetResourceString(@cxSFilterOperatorNotBetween, SncaFrmPri_NãoTenhaValorEntre);
+  cxSetResourceString(@cxSFilterOperatorNotBetween, SncaFrmPri_NaoTenhaValorEntre);
   cxSetResourceString(@cxSFilterOperatorInList, SncaFrmPri_DentroDe);
   cxSetResourceString(@cxSFilterOperatorNotInList, SncaFrmPri_ForaDe);
   cxSetResourceString(@cxSFilterOperatorYesterday, SncaFrmPri_SejaOntem);
   cxSetResourceString(@cxSFilterOperatorToday, SncaFrmPri_SejaHoje);
-  cxSetResourceString(@cxSFilterOperatorTomorrow, SncaFrmPri_SejaAmanhã);
+  cxSetResourceString(@cxSFilterOperatorTomorrow, SncaFrmPri_SejaAmanha);
   cxSetResourceString(@cxSFilterOperatorLastWeek, SncaFrmPri_SejaSemanaPassada);
-  cxSetResourceString(@cxSFilterOperatorLastMonth, SncaFrmPri_SejaMêsPassado);
+  cxSetResourceString(@cxSFilterOperatorLastMonth, SncaFrmPri_SejaMesPassado);
   cxSetResourceString(@cxSFilterOperatorLastYear, SncaFrmPri_SejaAnoPassado);
   cxSetResourceString(@cxSFilterOperatorThisWeek, SncaFrmPri_SejaEstaSemana);
-  cxSetResourceString(@cxSFilterOperatorThisMonth, SncaFrmPri_SejaEsteMês);
+  cxSetResourceString(@cxSFilterOperatorThisMonth, SncaFrmPri_SejaEsteMes);
   cxSetResourceString(@cxSFilterOperatorThisYear, SncaFrmPri_SejaEsteAno);
-  cxSetResourceString(@cxSFilterOperatorNextWeek, SncaFrmPri_SejaAPróximaSemana);
-  cxSetResourceString(@cxSFilterOperatorNextMonth, SncaFrmPri_SejaOPróximoMês);
-  cxSetResourceString(@cxSFilterOperatorNextYear, SncaFrmPri_SejaOPróximoAno);
+  cxSetResourceString(@cxSFilterOperatorNextWeek, SncaFrmPri_SejaAProximaSemana);
+  cxSetResourceString(@cxSFilterOperatorNextMonth, SncaFrmPri_SejaOProximoMes);
+  cxSetResourceString(@cxSFilterOperatorNextYear, SncaFrmPri_SejaOProximoAno);
   cxSetResourceString(@cxSFilterAndCaption, SncaFrmPri_AndLowerCase);
   cxSetResourceString(@cxSFilterOrCaption, SncaFrmPri_Ou_1);
-  cxSetResourceString(@cxSFilterNotCaption, SncaFrmPri_Não);
+  cxSetResourceString(@cxSFilterNotCaption, SncaFrmPri_Nao);
   cxSetResourceString(@cxSFilterBlankCaption, SncaFrmPri_Branco);
   cxSetResourceString(@cxSFilterOperatorIsNull, SncaFrmPri_EstejaEmBranco);
   cxSetResourceString(@cxSFilterOperatorIsNotNull, SncaFrmPri_NaoEstejaEmBranco);
   cxSetResourceString(@cxSFilterOperatorBeginsWith, SncaFrmPri_ComeceCom);
-  cxSetResourceString(@cxSFilterOperatorDoesNotBeginWith, SncaFrmPri_NãoComeceCom);
+  cxSetResourceString(@cxSFilterOperatorDoesNotBeginWith, SncaFrmPri_NaoComeceCom);
   cxSetResourceString(@cxSFilterOperatorEndsWith, SncaFrmPri_TermineCom);
-  cxSetResourceString(@cxSFilterOperatorDoesNotEndWith, SncaFrmPri_NãoTermineCom);
+  cxSetResourceString(@cxSFilterOperatorDoesNotEndWith, SncaFrmPri_NaoTermineCom);
   cxSetResourceString(@cxSFilterOperatorContains, SncaFrmPri_Contenha);
   cxSetResourceString(@cxSFilterOperatorDoesNotContain, SncaFrmPri_NaoContenha);
   cxSetResourceString(@cxSFilterBoxAllCaption , SncaFrmPri_Todos_1);
   cxSetResourceString(@cxSFilterBoxCustomCaption , SncaFrmPri_Customizado);
   cxSetResourceString(@cxSFilterBoxBlanksCaption , SncaFrmPri_Brancos);
-  cxSetResourceString(@cxSFilterBoxNonBlanksCaption , SncaFrmPri_NãoBrancos);
+  cxSetResourceString(@cxSFilterBoxNonBlanksCaption , SncaFrmPri_NaoBrancos);
 
-{  cxSetResourceString(@cxSMenuItemCaptionCut, 
+{  cxSetResourceString(@cxSMenuItemCaptionCut,
       Items[1].Caption := cxGetResourceString(@cxSMenuItemCaptionCopy);
       Items[2].Caption := cxGetResourceString(@cxSMenuItemCaptionPaste);
       Items[3].Caption := cxGetResourceString(@cxSMenuItemCaptionDelete);

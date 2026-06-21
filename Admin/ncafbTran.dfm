@@ -391,16 +391,7 @@ inherited fbTran: TfbTran
                   DataBinding.FieldName = 'TipoPago'
                   PropertiesClassName = 'TcxImageComboBoxProperties'
                   Properties.Images = dmImgEsp.imgs24
-                  Properties.Items = <
-                    item
-                      ImageIndex = 0
-                      Value = 0
-                    end
-                    item
-                      ImageIndex = 1
-                      Value = 1
-                    end>
-                  Properties.ShowDescriptions = False
+                  Properties.Items = <>
                   FooterAlignmentHorz = taCenter
                   HeaderAlignmentHorz = taCenter
                 end
@@ -479,6 +470,9 @@ inherited fbTran: TfbTran
         object tsCedula: TcxTabSheet
           Caption = 'Contador de C'#233'dulas'
           ImageIndex = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object gridCedula: TcxGrid
             Left = 0
             Top = 0

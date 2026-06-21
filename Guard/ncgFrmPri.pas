@@ -116,7 +116,6 @@ type
       var VPostStream: TStream);
     procedure CMAoAtualizarMaquina(Sender: TObject);
     procedure TimerSiteTimer(Sender: TObject);
-    procedure CMAoSuporteRem(Sender: TObject; Maq, Tec: Word);
     procedure CMAoChecaLic(Sender: TObject);
     procedure CMAoAtualizarTarifa(Sender: TObject);
     procedure cmEncerrarClick(Sender: TObject);
@@ -4731,7 +4730,6 @@ begin
   CM.AoObtemProcessos := CMAoObtemProcessos;
   CM.AoPedirTela := CMAoPedirTela;
   CM.AoReceberChat := CMAoReceberChat;
-  CM.AoSuporteRem := CMAoSuporteRem;
   CM.Shutdown := CMShutdown;
 end;
 
@@ -5242,12 +5240,6 @@ begin
   else
     Result := 'Erro St='+IntToStr(FStatus);
   end;    
-end;
-
-procedure TFrmPri.CMAoSuporteRem(Sender: TObject; Maq, Tec: Word);
-begin
-  if Maq = CM.Maquina then
-    ChamaSuporte('Máq.'+IntToStr(CM.Maquina), FrmLogin.VersaoStr, True);
 end;
 
 procedure LeGuardIS;

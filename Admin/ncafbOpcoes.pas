@@ -860,7 +860,7 @@ begin
   AjustaVisPM;
   
   if Trim(MTTextoPIN.Value)='' then
-    MTTextoPIN.Value := SncafbOpcoes_NomeDeUsuário;
+    MTTextoPIN.Value := SncafbOpcoes_NomeDeUsuario;
   S := MTEsconderDrives.Value;
   for C := 'A' to 'Z' do
     clbDrives.Items.Items[Ord(C) - Ord('A')].Checked := (Pos(C, S)>0);
@@ -1115,7 +1115,7 @@ end;
 
 class function TfbOpcoes.Descricao: String;
 begin
-  Result := SncafbOpcoes_Opções;
+  Result := SncafbOpcoes_Opcoes;
 end;
 
 procedure TfbOpcoes.DSDataChange(Sender: TObject; Field: TField);

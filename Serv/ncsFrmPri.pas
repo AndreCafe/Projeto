@@ -1,4 +1,4 @@
-unit ncsFrmPri;
+﻿unit ncsFrmPri;
 
 interface   
 
@@ -61,10 +61,6 @@ type
     SysInfo: TLMDSysInfo;
     panBD: TLMDSimplePanel;
     LMDSimplePanel9: TLMDSimplePanel;
-    Image3: TImage;
-    cxLabel11: TcxLabel;
-    cxLabel15: TcxLabel;
-    cxLabel12: TcxLabel;
     LMDDockSpeedButton1: TLMDDockSpeedButton;
     cxLabel3: TcxLabel;
     edPasta: TcxTextEdit;
@@ -203,10 +199,11 @@ uses
   ncsFrmLogin,
   ncVersoes,
   ncServAtualizaLic_Indy,
-  ncFrmSuporteRem, ncIPAddr, ncSyncLic, ncDebug,
+  ncIPAddr, ncSyncLic, ncDebug,
   ncVersionInfo, ncShellStart, ncFrmProgress,
   ncPrintMon, ncMsgCom, ncJob,
-  ncFirewall;
+  ncFirewall,
+  ncLicenseLib_Import;  // NCLIC2: Sistema de licenciamento moderno
 
 const
   SegMS = 1000;
@@ -618,7 +615,7 @@ begin
   try
     try
       AtualizaDadosComp;
-      addApplicationToFirewall('NexCaf� Servidor', ParamStr(0));
+      addApplicationToFirewall('NexCaf� Servidor', ParamStr(0));
       allowexceptionsonfirewall;
     except 
     end;
@@ -696,8 +693,14 @@ begin
 end;
 
 procedure TfrmPri.btnAssistenciaRemotaClick(Sender: TObject);
+var
+  link, mensagem: String;
 begin
-  ChamaSuporte('NexServ', VersaoStr);
+  link     := 'https://api.whatsapp.com/send?phone=554896077121';
+  mensagem := 'Ol� meu email de registro �:';
+
+  ShellExecute(0, 'open', PChar(link + '&text=' + StringReplace(mensagem + gConfig.Conta, ' ', '%20', [rfReplaceAll])), nil, nil, SW_SHOWNORMAL);
+
 end;
 
 procedure TfrmPri.TimerTickTimer(Sender: TObject);
@@ -733,11 +736,11 @@ begin
         IntToStr(M) + 'm, ' +
         IntToStr(S) + 's';
         
-//  lbTempo.Caption := 'Tempo Execu��o: ' + St;
+//  lbTempo.Caption := 'Tempo Execu��o: ' + St;
 end;
 
 procedure TfrmPri.DadosLicenca;
-var 
+var
   I, Q, T : Integer;
   Ant : Byte;
   TC : TTipoChave;
@@ -746,6 +749,10 @@ var
   S : String;
   Chaves : TArrayChaveLiberacao;
   SC : TStatusConta;
+  LicLib: TncLicenseLibrary;
+  ValidationResult: TValidationResult;
+  aChavesRaw, sLicPath: String;
+  slLic: TStringList;
 begin
 {$I crypt_start.inc}
   T := 0;
@@ -754,13 +761,69 @@ begin
   SC := RegistroGlobal.Status;
   aVenc := 0;
 
-//  lbBoletosPend.Visible := (RegistroGlobal.BoletosPendentes>0);
-
   Chaves := RegistroGlobal.CloneChaves;
   try
-    if Trim(RegistroGlobal.Conta)='' then 
-      SC := scSemConta else
-      SC := Chaves.Status(RegistroGlobal.CodLoja, aCE, aSN, aVenc);
+    if Trim(RegistroGlobal.Conta)='' then
+      SC := scSemConta
+    else begin
+      // Bloco NCLIC2: protegido com try/except para garantir que crypt_end.inc
+      // sempre execute independente de qualquer falha (ex: DLL ausente no Win11)
+      try
+        LicLib := TncLicenseLibrary.Create;
+        try
+          // NCLIC2: SetStringChaves descarta chaves != 24 chars; RegistroGlobal.StringChaves
+          // fica vazio. Ler chave diretamente do arquivo de licença quando necessário.
+          aChavesRaw := RegistroGlobal.StringChaves;
+          if LicLib.IsLoaded then begin
+            sLicPath := ExtractFilePath(ParamStr(0)) + 'LicArq.txt'; // do not localize
+            if not FileExists(sLicPath) then
+              sLicPath := ExtractFilePath(ParamStr(0)) + 'Lic.txt'; // do not localize
+            if FileExists(sLicPath) then begin
+              slLic := TStringList.Create;
+              try
+                slLic.LoadFromFile(sLicPath);
+                // NCLIC2 tem prioridade sobre chave legada em StringChaves:
+                // lic_server é a única fonte de licença; chave legada é só indicador de autorização
+                if slLic.Values['Chaves'] = 'BLOQUEADO' then // do not localize  (bloqueio tem prioridade)
+                  aChavesRaw := 'BLOQUEADO' // do not localize
+                else if Copy(slLic.Values['Chaves'], 1, 6) = 'NCLIC2' then // do not localize
+                  aChavesRaw := slLic.Values['Chaves'] // do not localize
+                else if aChavesRaw = '' then
+                  aChavesRaw := slLic.Values['Chaves']; // do not localize
+              finally
+                slLic.Free;
+              end;
+            end;
+          end;
+          DebugMsg('DadosLicenca - IsLoaded:'+BoolToStr(LicLib.IsLoaded,True)+' IsNewFormat:'+BoolToStr(LicLib.IsNewFormat(aChavesRaw),True)+' CodLoja:'+IntToStr(RegistroGlobal.CodLoja)+' IDLoja:'+IntToStr(RegistroGlobal.IDLoja)+' CE:'+aCE+' Chave:'+Copy(aChavesRaw,1,30)); // do not localize
+          if aChavesRaw = 'BLOQUEADO' then // do not localize
+            SC := scBloqueada
+          else if aChavesRaw = 'NCLIC2:PENDING' then // do not localize  (conta criada aguardando confirmacao)
+            SC := scAtivar
+          else if LicLib.IsLoaded and LicLib.IsNewFormat(aChavesRaw) then begin
+            ValidationResult := LicLib.ValidateLicense(
+              aChavesRaw, IntToStr(RegistroGlobal.IDLoja), aCE); // NCLIC2 usa IDLoja (890446), nao CodLoja (legado)
+            DebugMsg('DadosLicenca - Valid:'+BoolToStr(ValidationResult.Valid,True)+' Err:'+ValidationResult.ErrorMsg+' LicType:'+IntToStr(Ord(ValidationResult.LicType))+' CodEquip:'+ValidationResult.CodEquip+' CodLoja:'+ValidationResult.CodLoja); // do not localize
+            if ValidationResult.Valid then
+            begin
+              if (ValidationResult.LicType = ltFree) or (ValidationResult.LicType = ltTrial) then SC := scFree
+              else if ValidationResult.LicType = ltPremium then begin
+                if ValidationResult.Expiry > Now then SC := scPremium
+                else SC := scPremiumVenc;
+              end else SC := scBloqueada;
+              T := ValidationResult.Machines;
+              aVenc := ValidationResult.Expiry;
+            end else SC := scOutroHD; // chave não válida para este equipamento → mesmo comportamento da licença legada
+          end else
+            SC := Chaves.Status(RegistroGlobal.CodLoja, aCE, aSN, aVenc);
+        finally
+          LicLib.Free;
+        end;
+      except
+        // DLL ausente ou erro inesperado: usa sistema legado (sem crashar)
+        SC := Chaves.Status(RegistroGlobal.CodLoja, aCE, aSN, aVenc);
+      end;
+    end;
       
     with RegistroGlobal do
     case SC of
@@ -874,12 +937,13 @@ begin
   end;
   Versoes.AjustaVersaoAtual(Direito);
   VerPri := Versoes.Versao;
-  if (gConfig.VerPri<>Versoes.Versao) or 
+  if (gConfig.VerPri<>Versoes.Versao) or
      (gConfig.Conta<>RegistroGlobal.Conta) or
      (gConfig.StatusConta<>SC) or
      (gConfig.FreePremium<>(SC in [scFree, scPremium, scPremiumVenc])) or
      (gConfig.JaFoiPremium<>RegistroGlobal.JaFoiPremium) or
-     (gConfig.AssinaturaVenceEm<>aVenc) 
+     (gConfig.IDLoja<>Integer(RegistroGlobal.IDLoja)) or
+     (gConfig.AssinaturaVenceEm<>aVenc)
   then begin
     gConfig.AtualizaCache;
     gConfig.VerPri := Versoes.Versao;
@@ -887,6 +951,7 @@ begin
     gConfig.AssinaturaVenceEm := aVenc;
     gConfig.FreePremium := (SC in [scFree, scPremium, scPremiumVenc]);
     gConfig.Conta := RegistroGlobal.Conta;
+    gConfig.IDLoja := Integer(RegistroGlobal.IDLoja); // sincroniza IDLoja para o Admin (magic-link)
     gConfig.StatusConta := SC;
     gConfig.Notificar(tnAlteracao);
   end;
@@ -921,7 +986,7 @@ procedure TfrmPri.SetVerPri(const Value: Word);
 begin
   if Value=FVerPri then Exit;
   FVerPri := Value;
-  lbVersao.Caption := 'Vers�o ' + VersaoStr;
+  lbVersao.Caption := 'Vers' + #227 + 'o ' + VersaoStr;
 end;
 
 procedure TfrmPri.AbreMostra(aOp: Integer);

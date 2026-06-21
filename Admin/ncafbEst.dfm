@@ -1148,7 +1148,6 @@ inherited fbEst: TfbEst
       object cxTabSheet2: TcxTabSheet
         Caption = 'Tempo Usado'
         ImageIndex = 5
-        ExplicitHeight = 445
         object GridTUsado: TcxGrid
           Left = 0
           Top = 34
@@ -1360,7 +1359,6 @@ inherited fbEst: TfbEst
         Margins.Bottom = 0
         Caption = 'Aguarde'
         ImageIndex = 1
-        ExplicitHeight = 345
         object cxLabel4: TcxLabel
           Left = 0
           Top = 0

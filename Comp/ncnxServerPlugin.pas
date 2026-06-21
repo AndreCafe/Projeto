@@ -1,4 +1,4 @@
-unit ncnxServerPlugin;
+ï»¿unit ncnxServerPlugin;
 
 interface
 
@@ -1107,7 +1107,11 @@ begin
         try
           SL.LoadFromStream(TheStream);
           DebugMsg('TncnxCmdHandler.nmSalvaApp - ' + sl.Text);
-          PostAppUpdate(sl);
+          // 'REFRESH' (botao Atualizar dados do plano) = so dispara refresh, sem PostAppUpdate
+          // (PostAppUpdate com payload nao-config limparia o gConfig)
+          if (Trim(sl.Text) <> '') and (Trim(sl.Text) <> 'REFRESH') then
+            PostAppUpdate(sl);
+          ForceChecaConta; // dispara ChecaConta -> consulta /lic no servidor novo
           Erro := 0;
           DebugMsg('TncnxCmdHandler.nmSalvaApp - Res: ' + IntToStr(Erro));
         finally
@@ -1358,6 +1362,7 @@ begin
           SL.LoadFromStream(TheStream);
           DebugMsg('TncnxCmdHandler.nmSalvaLic - Lic: '+SL.Text);
           Erro := Serv.SalvaLic(SL.Text);
+          ForceChecaConta; // Dispara ChecaConta imediatamente apos Admin salvar licenca
         finally
           SL.Free;
         end;
@@ -1704,7 +1709,7 @@ procedure TncnxCmdHandler.nmKeepAlive(var aMsg: TnxDataMessage);
 var Erro : Integer;
 begin
   if {getPluginEngine.SessaoTerminou(aMsg.dmSessionID)} not gCallbackMgr.SessionExists(aMsg.dmSessionID) then
-    Erro := 1 else {qualquer resultado diferente de zero força a cliente a desconectar}
+    Erro := 1 else {qualquer resultado diferente de zero forï¿½a a cliente a desconectar}
     Erro := 0;
     
   TnxBaseTransport.Reply(aMsg.dmMsg, Erro, nil, 0);

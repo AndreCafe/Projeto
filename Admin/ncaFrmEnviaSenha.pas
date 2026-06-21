@@ -7,7 +7,7 @@ uses
   Dialogs, cxPCdxBarPopupMenu, cxGraphics, cxControls, cxLookAndFeels,
   cxLookAndFeelPainters, cxPC, cxContainer, cxEdit, Menus, StdCtrls, cxButtons,
   LMDPNGImage, ExtCtrls, ieview, iemview, cxLabel, LMDCustomComponent,
-  LMDBaseController, LMDCustomContainer, LMDGenericList;
+  LMDBaseController, LMDCustomContainer, LMDGenericList, dxBarBuiltInMenu;
 
 type
   TThSendEmail = class (TThread)

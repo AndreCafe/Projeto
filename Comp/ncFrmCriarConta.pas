@@ -1,4 +1,4 @@
-unit ncFrmCriarConta;
+ï»¿unit ncFrmCriarConta;
 {
     ResourceString: Dario 12/03/13
 }
@@ -136,6 +136,8 @@ type
     procedure TransferirRegistro;
   protected
     procedure CreateParams(var Params: TCreateParams); override;
+    procedure CriarContaNovo;
+    procedure salvaLicNovo(aConta, aChaves, aIDLoja: String); virtual;
 
     procedure showAtivar; virtual;
     procedure aposAtivar; virtual;
@@ -154,33 +156,84 @@ implementation
 
 uses ncClassesBase, ncaFrmObrigado, uLicEXECryptor,
   ncaFrmConfirmarReg, uNR_chaveseg, ncaFrmCorrigeEmail, ncDMServ, ncDebug,
-  ncKiteApi, ncGuidUtils, ncaDM, nexUrls;
+  ncKiteApi, ncGuidUtils, ncaDM, nexUrls,
+  uHMAC_sha256, ComObj;
 
+const
+  cNexcafeAppKey = 'df0c41f50a7c5b7c2cfe5626fcc9ff7014fbc75d7324561547666c104f4652a3'; // do not localize
+  cNexcafeRegUrl = 'https://nexcafe.api.br/api/v1/register'; // do not localize
+  cNexcafeLicUrl = 'https://nexcafe.api.br/api/v1/lic'; // do not localize
+  cNexcafeCreateAccountUrl  = 'https://nexcafe.api.br/api/v1/create-account'; // do not localize
+  cNexcafeConfirmAccountUrl = 'https://nexcafe.api.br/api/v1/confirm-account'; // do not localize
+  cNexcafeResendConfirmUrl  = 'https://nexcafe.api.br/api/v1/resend-confirmation'; // do not localize
+  cNexcafeForgotPasswordUrl = 'https://nexcafe.api.br/api/v1/forgot-password'; // do not localize
+  cNclic2PendingKey         = 'NCLIC2:PENDING'; // do not localize
 // START resource string wizard section
 resourcestring
-  SAvançar = '&Avançar >>';
+  SAvancar = '&AvanÃ§ar >>';
   SRegistrarMinhaLoja = 'Registrar Minha Loja!';
   STransferirRegistro = 'Transferir Registro!';
-  SFalhaDeConexãoComOServidorDeRegi = 'Falha de conexão com o servidor de registros Nextar';
-  SJáFoiRealizadoUmRegistroNexCaféC = 'Já foi realizado um registro NexCafé com e-mail informado.';
+  SFalhaDeConexaoComOServidorDeRegi = 'Falha de conexÃ£o com o servidor de registros Nextar';
+  SJaFoiRealizadoUmRegistroNexCafeC = 'JÃ¡ foi realizado um registro NexCafÃ© com e-mail informado.';
   SErroNoProcessamentoDoSeuRegistro = 'Erro no processamento do seu registro (';
-  SPorFavorFaçoContatoComAEquipeDeA = '). Por favor faça contato com a equipe de atendimento Nextar.';
-  SParaUsarONEXéNecessárioRegistrar = 'Para usar o NEX é necessário registrar sua loja.';
-  SSeuNEXEstáRegistradoParaUsoEmOut = 'Seu NEX está registrado para uso em outro computador';
+  SPorFavorFavoContatoComAEquipeDeA = '). Por favor faÃ§a contato com a equipe de atendimento Nextar.';
+  SParaUsarONEXaNecessarioRegistrar = 'Para usar o NEX Ã© necessÃ¡rio registrar sua loja.';
+  SSeuNEXEstaRegistradoParaUsoEmOut = 'Seu NEX estÃ¡ registrado para uso em outro computador';
   SEnviamosSuaSenhaPara = 'Enviamos sua senha para ';
   SConfirmarRegistro = 'Confirmar registro';
-  SRegistroNexCafé = 'Registro NexCafé';
+  SRegistroNexCafe = 'Registro NexCafÃ©';
   STransferirRegistro_1 = 'Transferir registro';
   SSeuRegistroFoiRecuperadoComSuces = 'Seu registro foi recuperado com sucesso!';
   SRegistroTransferidoComSucesso = 'Registro transferido com sucesso!';
   SPorFavorInformeCorretamenteSeuEM = 'Por favor, informe corretamente seu e-mail';
   SPorFavorInformeUmaSenha = 'Por favor, informe uma senha';
-  SVocêInformouSenhasDiferentesPorF = 'Você informou senhas diferentes. Por favor informe novamente sua senha';
+  SVoceInformouSenhasDiferentesPorF = 'VocÃª informou senhas diferentes. Por favor informe novamente sua senha';
   SPorFavorInformeONomeDaLoja = 'Por favor informe o nome da loja';
-  SPorFavorInformeONomeDoProprietár = 'Por favor informe o nome do proprietário da loja';
+  SPorFavorInformeONomeDoProprietar = 'Por favor informe o nome do proprietÃ¡rio da loja';
 
 // END resource string wizard section
+// Extrai valor de string JSON: "key":"value"
+function ExtractJsonStr(const aJson, aKey: String): String;
+var P: Integer; sKey: String;
+begin
+  Result := '';
+  sKey := '"' + aKey + '":"';           // do not localize
+  P := Pos(sKey, aJson);
+  if P = 0 then Exit;
+  Inc(P, Length(sKey));
+  while (P <= Length(aJson)) and (aJson[P] <> '"') do
+    begin Result := Result + aJson[P]; Inc(P); end;
+end;
 
+// Extrai valor numerico JSON: "key":12345
+function ExtractJsonNum(const aJson, aKey: String): String;
+var P: Integer; sKey: String; C: Char;
+begin
+  Result := '';
+  sKey := '"' + aKey + '":';            // do not localize
+  P := Pos(sKey, aJson);
+  if P = 0 then Exit;
+  Inc(P, Length(sKey));
+  while (P <= Length(aJson)) and (aJson[P] = ' ') do Inc(P);
+  while P <= Length(aJson) do begin
+    C := aJson[P];
+    if not (C in ['0'..'9']) then Break;
+    Result := Result + C; Inc(P);
+  end;
+end;
+
+// Escape minimo para valores dentro de JSON string
+function EscapeJsonStr(const S: String): String;
+var I: Integer; C: Char;
+begin
+  Result := '';
+  for I := 1 to Length(S) do begin
+    C := S[I];
+    if C = '"'  then Result := Result + '\"'
+    else if C = '\' then Result := Result + '\\'
+    else Result := Result + C;
+  end;
+end;
 
 {$R *.dfm}
 
@@ -194,10 +247,10 @@ begin
   btnVoltar.Enabled := (Paginas.ActivePageIndex>FPagMostrar);
   btnVoltar.Visible := (Paginas.ActivePageIndex <> tsAtivar.PageIndex);
   case Paginas.ActivePageIndex of
-    0, 1 : btnAvancar.Caption := SAvançar;
+    0, 1 : btnAvancar.Caption := SAvancar;
     2 : btnAvancar.Caption := SRegistrarMinhaLoja;
     3 : panRodape.Visible := False;
-    4 : btnAvancar.Caption := SAvançar;
+    4 : btnAvancar.Caption := SAvancar;
     5 : btnAvancar.Caption := STransferirRegistro;
   end;
 end;
@@ -265,102 +318,175 @@ begin
 end;
 
 procedure TFrmCriarConta.CriarConta;
-var 
-  S: String;
-  sl : TStrings;
-  IC : TInfoCampanha;
-  aEmailChave: String;
+var
+  aBody: String;
+  aResp: String;
+  aTS  : Int64;
+  aSig : String;
+  aHttp    : OleVariant;
+  aSysTime : TSystemTime;
+  sStatus, sMsg, sOptin: String;
 begin
-   S := 'email='+URL_Encode(edEmail.Text) + '&' +  // do not localize
-        'senha='+URL_Encode(AnsiToUTF8(edSenha.Text)) + '&' + // do not localize
-        'tel='+URL_Encode(edTel.Text) + '&' + // do not localize
-        'tipotel=0'+'&'+ // do not localize
-        'nome='+URL_Encode(AnsiToUTF8(edProp.Text))+'&'+ // do not localize
-        'loja='+URL_Encode(AnsiToUTF8(edLoja.Text))+'&'+ // do not localize
-        'pais='+URL_Encode(AnsiToUTF8(edPais.EditValue))+'&'+ // do not localize
-        'codequip='+URL_Encode(gConfig.CodEquip)+'&'+ // do not localize
+  if edTel.Text = '' then begin
+    ShowMessage('Por favor, informe o telefone de contato.');
+    Exit;
+  end;
+
+  if cbOptin.Checked then sOptin := 'true' else sOptin := 'false'; // do not localize
+
+  aBody :=
+    '{"email":"'   + EscapeJsonStr(edEmail.Text)                + '",' + // do not localize
+    '"senha":"'    + EscapeJsonStr(AnsiToUTF8(edSenha.Text))    + '",' + // do not localize
+    '"nome":"'     + EscapeJsonStr(AnsiToUTF8(edProp.Text))     + '",' + // do not localize
+    '"loja":"'     + EscapeJsonStr(AnsiToUTF8(edLoja.Text))     + '",' + // do not localize
+    '"tel":"'      + EscapeJsonStr(edTel.Text)                  + '",' + // do not localize
+    '"pais":"'     + EscapeJsonStr(AnsiToUTF8(edPais.EditValue))+ '",' + // do not localize
+    '"codequip":"' + EscapeJsonStr(gConfig.CodEquip)            + '",' + // do not localize
+    '"optin":'     + sOptin                                     + ','  + // do not localize
 {$ifdef LOJA}
-        'tipo=1&'+ // do not localize
-        'atividade='+URL_Encode(AnsiToUTF8(edAtividade.Text))+'&'+ // do not localize
+    '"tipo":1,'                                                          + // do not localize
+    '"atividade":"'+ EscapeJsonStr(AnsiToUTF8(edAtividade.Text))+ '"}';  // do not localize
 {$else}
-        'tipo=0&'+ // do not localize
-{$endif}        
-        'optin='+URL_Encode(BoolStr[cbOptin.Checked]); // do not localize
+    '"tipo":0,'                                                          + // do not localize
+    '"atividade":""}';                                                     // do not localize
+{$endif}
 
-   DM.tIC.Active := True;     
-   DM.tIC.Refresh;
-   
-   if DM.tIC.IsEmpty then begin
-     IC := ObtemInfoCampanha;
-     try
-       if IC<>nil then DM.SalvaInfoCampanha(IC);
-     finally
-       if IC<>nil then IC.Free;
-     end;
-   end;
+  DebugMsg('CriarConta - body: ' + aBody); // do not localize
 
-   with DM do 
-   if not tIC.IsEmpty then 
-     S := S + 
-          '&campanha='+URL_Encode(AnsiToUTF8(tICCampanha.Value)) + // do not localize
-          '&utmccn='+URL_Encode(AnsiToUTF8(tICutmccn.Value)) + // do not localize
-          '&utmcct='+URL_Encode(AnsiToUTF8(tICutmcct.Value)) + // do not localize
-          '&utmctr='+URL_Encode(AnsiToUTF8(tICutmctr.Value)) + // do not localize
-          '&utmcsr='+URL_Encode(AnsiToUTF8(tICutmcsr.Value)) + // do not localize
-          '&utmcmd='+URL_Encode(AnsiToUTF8(tICutmcmd.Value)); // do not localize
+  GetSystemTime(aSysTime);
+  aTS  := Round((SystemTimeToDateTime(aSysTime) - EncodeDate(1970, 1, 1)) * 86400);
+  aSig := tHmac_sha256.calc(cNexcafeAppKey, gConfig.CodEquip + '|' + IntToStr(aTS)); // do not localize
 
-  DebugMsg('TFrmCriarConta2.CriarConta - ' + S); // do not localize
-          
-  sl := tStringList.Create;
-  try
-    sl.Text := h.Get(gUrls.Url('contas_criarcontabasica', S)); // do not localize
-    if sl.Text='' then
-      raise Exception.Create(SFalhaDeConexãoComOServidorDeRegi)
+  aHttp := CreateOleObject('WinHttp.WinHttpRequest.5.1');    // do not localize
+  aHttp.Open('POST', cNexcafeCreateAccountUrl, False);        // do not localize
+  aHttp.SetRequestHeader('Content-Type', 'application/json'); // do not localize
+  aHttp.SetRequestHeader('X-NexCafe-Key', cNexcafeAppKey);    // do not localize
+  aHttp.SetRequestHeader('X-Timestamp',   IntToStr(aTS));      // do not localize
+  aHttp.SetRequestHeader('X-Signature',   aSig);               // do not localize
+  aHttp.Send(aBody);
+  aResp := Trim(aHttp.ResponseText);
+  DebugMsg('CriarConta - resposta: ' + aResp); // do not localize
+
+  if aResp = '' then
+    raise Exception.Create(SFalhaDeConexaoComOServidorDeRegi);
+
+  sStatus := ExtractJsonStr(aResp, 'status');  // do not localize
+  sMsg    := ExtractJsonStr(aResp, 'message'); // do not localize
+
+  if sStatus = 'OK' then begin // do not localize
+    salvaLic(edEmail.Text, cNclic2PendingKey);
+    showAtivar;
+    TFrmConfirmarReg.Create(Self).ShowModal;
+    Paginas.ActivePage := tsAtivar;
+  end else begin
+    if sMsg <> '' then raise Exception.Create(sMsg)
+    else if sStatus = 'EMAIL-EXISTS' then // do not localize
+      raise Exception.Create(SJaFoiRealizadoUmRegistroNexCafeC)
     else
-    if sl[0]='0' then begin 
-      salvaLic(edEmail.Text, ChaveAtivar);
-      showAtivar;
-      TFrmConfirmarReg.Create(Self).ShowModal;
-      Paginas.ActivePage := tsAtivar;
-      try
-        aEmailChave := Trim(FPreReg.Values['email_chave']); // do not localize
-        if aEmailChave='' then aEmailChave := edEmail.Text;
-        kapi_reg_Criar(
-          AnsiToUTF8(edEmail.Text), 
-          AnsiToUTF8(aEmailChave),
-          AnsiToUTF8(edProp.Text),
-          AnsiToUTF8(edLoja.Text),
-          AnsiToUTF8(edAtividade.Text),
-          AnsiToUTF8(edTel.Text),
-          BoolStr[cbOptin.Checked]);
-      except
-      end;
-    end else
-    if sl[0]='1' then
-      raise exception.Create(SJáFoiRealizadoUmRegistroNexCaféC) else
-      raise exception.Create(SErroNoProcessamentoDoSeuRegistro+sl[0]+SPorFavorFaçoContatoComAEquipeDeA);
-  finally
-    sl.Free;
+      raise Exception.Create(SErroNoProcessamentoDoSeuRegistro +
+        sStatus + SPorFavorFavoContatoComAEquipeDeA); // do not localize
   end;
 end;
 
-procedure TFrmCriarConta.cxButton1Click(Sender: TObject);
-var sl: TStrings;
+procedure TFrmCriarConta.CriarContaNovo;
+var
+  aParams , aResp, aStatus, aCodLoja, aLicChaves, aRest: String;
+  aTS2: Int64;
+  aSig2: String;
+  aHttp2: OleVariant;
+  aSysTime: TSystemTime;
+  P1, P2: Integer;
 begin
-  sl := tStringList.Create;
-  try
-    sl.Text := h.Get(gUrls.Url('contas_ativar', 'conta='+gConfig.Conta+'&codativacao='+edCod.Text+'&codequip='+gConfig.CodEquip+'&ret=nohtml')); // do not localize
-    if sl[0]='0' then begin 
-      try kapi_reg_Confirmar(AnsiToUTF8(gConfig.Conta)); except end;
-      salvaLic(gConfig.Conta, sl[1]);
-      aposAtivar;
-      TFrmObrigado.Create(Self).ShowModal;
-    end else
-      raise exception.Create(sl[0]);
-  finally
-    sl.Free;
+  // Monta query string
+  aParams  := 'conta=' + URL_Encode(edEmail.Text) + // do not localize
+        '&nome=' + URL_Encode(AnsiToUTF8(edProp.Text + ' ' + edLoja.Text)) + // do not localize
+        '&codequip=' + URL_Encode(gConfig.CodEquip) + // do not localize
+        '&versao=215'; // do not localize
+
+  // HMAC com payload = conta|timestamp (loja ainda nao existe)
+  GetSystemTime(aSysTime);
+  aTS2 := Round((SystemTimeToDateTime(aSysTime) - EncodeDate(1970, 1, 1)) * 86400);
+  aSig2 := tHmac_sha256.calc(cNexcafeAppKey,
+    edEmail.Text + '|' + IntToStr(aTS2)); // do not localize
+
+  aHttp2 := CreateOleObject('WinHttp.WinHttpRequest.5.1'); // do not localize
+  aHttp2.Open('GET', cNexcafeCreateUrl + '?' + aParams, False); // do not localize
+  aHttp2.SetRequestHeader('X-NexCafe-Key', cNexcafeAppKey); // do not localize
+  aHttp2.SetRequestHeader('X-Timestamp', IntToStr(aTS2)); // do not localize
+  aHttp2.SetRequestHeader('X-Signature', aSig2); // do not localize
+  aHttp2.Send('');
+  aResp := Trim(aHttp2.ResponseText);
+  DebugMsg('CriarContaNovo - resposta: ' + aResp); // do not localize
+
+  // Parse: OK:100001:NCLIC2-... ou ALREADY-EXISTS:100001:NCLIC2-...
+  P1 := Pos(':', aResp);
+  if P1 = 0 then
+    raise Exception.Create('Resposta invalida do servidor de licencas'); // do not localize
+  aStatus := Copy(aResp, 1, P1 - 1);
+  aRest   := Copy(aResp, P1 + 1, Length(aResp));
+
+  if (aStatus = 'OK') or (aStatus = 'ALREADY-EXISTS') then begin // do not localize
+    P2 := Pos(':', aRest);
+    if P2 = 0 then
+      raise Exception.Create('Resposta invalida: falta codLoja/NCLIC2'); // do not localize
+    aCodLoja    := Copy(aRest, 1, P2 - 1);        // '100001'
+    aLicChaves  := Copy(aRest, P2 + 1, Length(aRest)); // 'NCLIC2-...'
+    DebugMsg('CriarContaNovo - codLoja:' + aCodLoja + ' lic:' + Copy(aLicChaves,1,20)); // do not localize
+    salvaLicNovo(edEmail.Text, aLicChaves, aCodLoja);
+    aposAtivar;
+    TFrmObrigado.Create(Self).Mostrar(SRegistroTransferidoComSucesso);
+    Close;
+  end else if aStatus = 'ERROR-UPDATE-REQUIRED' then // do not localize
+    raise Exception.Create('Versao desatualizada. Atualize o programa.')
+  else
+    raise Exception.Create('Erro no servidor de licencas: ' + aResp); // do not localize
+end;
+
+procedure TFrmCriarConta.cxButton1Click(Sender: TObject);
+var
+  aBody: String;
+  aResp: String;
+  aTS  : Int64;
+  aSig : String;
+  aHttp    : OleVariant;
+  aSysTime : TSystemTime;
+  sStatus, sMsg, sChaves, sIDLoja: String;
+begin
+  aBody :=
+    '{"email":"'      + EscapeJsonStr(gConfig.Conta)     + '",' + // do not localize
+    '"codativacao":"' + EscapeJsonStr(edCod.Text)         + '",' + // do not localize
+    '"codequip":"'    + EscapeJsonStr(gConfig.CodEquip)   + '"}';  // do not localize
+
+  GetSystemTime(aSysTime);
+  aTS  := Round((SystemTimeToDateTime(aSysTime) - EncodeDate(1970, 1, 1)) * 86400);
+  aSig := tHmac_sha256.calc(cNexcafeAppKey, gConfig.CodEquip + '|' + IntToStr(aTS)); // do not localize
+
+  aHttp := CreateOleObject('WinHttp.WinHttpRequest.5.1');    // do not localize
+  aHttp.Open('POST', cNexcafeConfirmAccountUrl, False);       // do not localize
+  aHttp.SetRequestHeader('Content-Type', 'application/json'); // do not localize
+  aHttp.SetRequestHeader('X-NexCafe-Key', cNexcafeAppKey);    // do not localize
+  aHttp.SetRequestHeader('X-Timestamp',   IntToStr(aTS));      // do not localize
+  aHttp.SetRequestHeader('X-Signature',   aSig);               // do not localize
+  aHttp.Send(aBody);
+  aResp := Trim(aHttp.ResponseText);
+  DebugMsg('ConfirmAccount - resposta: ' + aResp); // do not localize
+
+  sStatus  := ExtractJsonStr(aResp, 'status');  // do not localize
+  sMsg     := ExtractJsonStr(aResp, 'message'); // do not localize
+  sChaves  := ExtractJsonStr(aResp, 'chaves');  // do not localize
+  sIDLoja  := ExtractJsonNum(aResp, 'idloja');  // numero, sem aspas no JSON
+
+  if sStatus = 'OK' then begin // do not localize
+    salvaLicNovo(gConfig.Conta, sChaves, sIDLoja);
+    aposAtivar;
+    TFrmObrigado.Create(Self).ShowModal;
+    Close;
+  end else begin
+    // message do servidor ja tem texto amigavel para todos os casos
+    // (INVALID-CODE, EXPIRED-CODE, TOO-MANY-ATTEMPTS, ACCOUNT-NOT-FOUND, LICENSE-ERROR)
+    if sMsg <> '' then raise Exception.Create(sMsg)
+    else raise Exception.Create(sStatus); // do not localize
   end;
-  Close;
 end;
 
 function SoDig(S: String): String;
@@ -403,8 +529,8 @@ begin
   rbCodLoja.Visible := False;
   edChave.Visible := False;
   lbEsqueci.Visible := False;
-  lbTopo2.Caption := SParaUsarONEXéNecessárioRegistrar;
-  lbTransfTopo.Caption := SSeuNEXEstáRegistradoParaUsoEmOut;
+  lbTopo2.Caption := SParaUsarONEXï¿½Necessï¿½rioRegistrar;
+  lbTransfTopo.Caption := SSeuNEXEstï¿½RegistradoParaUsoEmOut;
   {$else}
   lbAtividade.Visible := False;
   edAtividade.Visible := False;
@@ -435,44 +561,74 @@ begin
   S := TFrmCorrigeEmail.Create(Self).EditarEmail(lbEmail.Caption);
   if S>'' then begin
     lbEmail.Caption := S;
-    salvaLic(S, ChaveAtivar);
+    salvaLic(S, cNclic2PendingKey);
   end;
 end;
 
 procedure TFrmCriarConta.lbEsqueciSenhaClick(Sender: TObject);
-var 
-  ChaveSeg : String;
-  SL : TStrings;
+var
+  aBody: String;
+  aResp: String;
+  aTS  : Int64;
+  aSig : String;
+  aHttp    : OleVariant;
+  aSysTime : TSystemTime;
+  sMsg: String;
 begin
-  SL := tStringList.Create;
-  try
-    ChaveSeg := H.Get(gUrls.Url('contas_obtemchaveseg'));
-    Sl.Text := H.Get(gUrls.Url('contas_esquecisenha', 'conta='+URL_Encode(gConfig.Conta)+'&chaveseg='+ChaveSeg+'&senhaseg='+GeraSenhaSeg(ChaveSeg))); // do not localize
-    if Sl.Values['erro']<>'0' then // do not localize
-      ShowMessage(UTF8ToAnsi(Sl.Text))  // do not localize
-    else
-      TFrmObrigado.Create(Self).Mostrar(SEnviamosSuaSenhaPara+Sl.Values['email']); // do not localize
-  finally
-    Sl.Free;
-  end;
+  aBody :=
+    '{"email":"'   + EscapeJsonStr(gConfig.Conta)   + '",' + // do not localize
+    '"codequip":"' + EscapeJsonStr(gConfig.CodEquip) + '"}';  // do not localize
+
+  GetSystemTime(aSysTime);
+  aTS  := Round((SystemTimeToDateTime(aSysTime) - EncodeDate(1970, 1, 1)) * 86400);
+  aSig := tHmac_sha256.calc(cNexcafeAppKey, gConfig.CodEquip + '|' + IntToStr(aTS)); // do not localize
+
+  aHttp := CreateOleObject('WinHttp.WinHttpRequest.5.1');    // do not localize
+  aHttp.Open('POST', cNexcafeForgotPasswordUrl, False);       // do not localize
+  aHttp.SetRequestHeader('Content-Type', 'application/json'); // do not localize
+  aHttp.SetRequestHeader('X-NexCafe-Key', cNexcafeAppKey);    // do not localize
+  aHttp.SetRequestHeader('X-Timestamp',   IntToStr(aTS));      // do not localize
+  aHttp.SetRequestHeader('X-Signature',   aSig);               // do not localize
+  aHttp.Send(aBody);
+  aResp := Trim(aHttp.ResponseText);
+  DebugMsg('ForgotPassword - resposta: ' + aResp); // do not localize
+
+  sMsg := ExtractJsonStr(aResp, 'message'); // do not localize
+  if sMsg <> '' then
+    TFrmObrigado.Create(Self).Mostrar(sMsg)
+  else
+    TFrmObrigado.Create(Self).Mostrar(SEnviamosSuaSenhaPara + gConfig.Conta);
 end;
 
 procedure TFrmCriarConta.lbReenviarClick(Sender: TObject);
-var 
-  ChaveSeg : String;
-  SL : TStrings;
+var
+  aBody: String;
+  aResp: String;
+  aTS  : Int64;
+  aSig : String;
+  aHttp    : OleVariant;
+  aSysTime : TSystemTime;
 begin
-  SL := tStringList.Create;
-  try
-    ChaveSeg := H.Get(gUrls.Url('contas_obtemchaveseg'));
-    Sl.Text := H.Get(gUrls.Url('contas_reenviaconfirmacao', 'conta='+gConfig.Conta+'&chaveseg='+ChaveSeg+'&senhaseg='+GeraSenhaSeg(ChaveSeg))); // do not localize
-    if Sl.Values['erro']<>'0' then // do not localize
-      ShowMessage(Sl.Values['Erro']) else // do not localize
-      TFrmConfirmarReg.Create(Self).ShowModal;
-      
-  finally
-    Sl.Free;
-  end;
+  aBody :=
+    '{"email":"'   + EscapeJsonStr(gConfig.Conta)   + '",' + // do not localize
+    '"codequip":"' + EscapeJsonStr(gConfig.CodEquip) + '"}';  // do not localize
+
+  GetSystemTime(aSysTime);
+  aTS  := Round((SystemTimeToDateTime(aSysTime) - EncodeDate(1970, 1, 1)) * 86400);
+  aSig := tHmac_sha256.calc(cNexcafeAppKey, gConfig.CodEquip + '|' + IntToStr(aTS)); // do not localize
+
+  aHttp := CreateOleObject('WinHttp.WinHttpRequest.5.1');    // do not localize
+  aHttp.Open('POST', cNexcafeResendConfirmUrl, False);        // do not localize
+  aHttp.SetRequestHeader('Content-Type', 'application/json'); // do not localize
+  aHttp.SetRequestHeader('X-NexCafe-Key', cNexcafeAppKey);    // do not localize
+  aHttp.SetRequestHeader('X-Timestamp',   IntToStr(aTS));      // do not localize
+  aHttp.SetRequestHeader('X-Signature',   aSig);               // do not localize
+  aHttp.Send(aBody);
+  aResp := Trim(aHttp.ResponseText);
+  DebugMsg('ResendConfirmation - resposta: ' + aResp); // do not localize
+
+  // Resposta sempre OK (anti-enumeracao) â€” apenas reexibe tela do codigo
+  TFrmConfirmarReg.Create(Self).ShowModal;
 end;
 
 procedure TFrmCriarConta.Mostrar(aPag: Integer);
@@ -494,7 +650,7 @@ begin
       Height := 286;
     end;
     4 : begin
-      Caption := SRegistroNexCafé;
+      Caption := SRegistroNexCafe;
       edEmailReg.SetFocus;
     end;
     5 : begin
@@ -590,22 +746,31 @@ begin
 
 end;
 
+procedure TFrmCriarConta.salvaLicNovo(aConta, aChaves, aIDLoja: String);
+begin
+    // override nos descendentes
+end;
+
 procedure TFrmCriarConta.showAtivar;
 begin
 
 end;
 
 procedure TFrmCriarConta.TransferirRegistro;
-var 
+var
   ChaveSeg : String;
   S : String;
   SL : TStrings;
+  aChaves, aLicVenc, aLicS, aLicChaves: String;
+  aTS2: Int64;
+  aSig2: String;
+  aHttp2: OleVariant;
+  aSysTime: TSystemTime;
 begin
   SL := tStringList.Create;
   try
     ChaveSeg := H.Get(gUrls.Url('contas_obtemchaveseg'));
-    
-    
+
     S := 'conta='+gConfig.Conta+ // do not localize
          '&senha='+URL_Encode(edSenhaT.Text)+ // do not localize
          '&ret=nohtml'+ // do not localize
@@ -614,12 +779,83 @@ begin
          '&senhaseg='+URL_Encode(GeraSenhaSeg(ChaveSeg)); // do not localize
 
     Sl.Text := H.Get(gUrls.Url('contas_transferir', S)); // do not localize
+    DebugMsg('TransferirRegistro - contas_transferir resposta: ' + Sl.Text); // do not localize
     if Sl.Values['erro']<>'0' then begin // do not localize
       Beep;
       ShowMessage(Sl.Values['erro']); // do not localize
       edSenhaT.SetFocus;
     end else begin
-      salvaLic(gConfig.Conta, sl.Values['chaves']); // do not localize
+      aChaves := sl.Values['chaves']; // do not localize
+      // NCLIC2: busca nova chave no novo servidor de licencas
+      if gConfig.DVA > 0 then
+        aLicVenc := FormatDateTime('dd/mm/yyyy', gConfig.DVA)
+      else if gConfig.AssinaturaVenceEm > 0 then
+        aLicVenc := FormatDateTime('dd/mm/yyyy', gConfig.AssinaturaVenceEm)
+      else if sl.Values['DVA'] <> '' then begin // do not localize
+        // converte YYYY-MM-DD para dd/mm/yyyy
+        aLicVenc := Copy(sl.Values['DVA'], 9, 2) + '/' + // do not localize
+                    Copy(sl.Values['DVA'], 6, 2) + '/' + // do not localize
+                    Copy(sl.Values['DVA'], 1, 4); // do not localize
+      end else
+        aLicVenc := '';
+      if aLicVenc <> '' then begin
+        aLicS := Format('vencimento=%s&codequip=%s&tipo=5&vplano=3&loja=%d&versao=215', // do not localize
+          [aLicVenc, gConfig.CodEquip, RegistroGlobal.IDLoja]);
+        try
+          GetSystemTime(aSysTime);
+          aTS2 := Round((SystemTimeToDateTime(aSysTime) - EncodeDate(1970, 1, 1)) * 86400);
+          aSig2 := tHmac_sha256.calc(cNexcafeAppKey,
+            IntToStr(RegistroGlobal.IDLoja) + '|' + IntToStr(aTS2)); // do not localize
+          aHttp2 := CreateOleObject('WinHttp.WinHttpRequest.5.1'); // do not localize
+          aHttp2.Open('GET', cNexcafeLicUrl + '?' + aLicS, False); // do not localize
+          aHttp2.SetRequestHeader('X-NexCafe-Key', cNexcafeAppKey); // do not localize
+          aHttp2.SetRequestHeader('X-Timestamp', IntToStr(aTS2)); // do not localize
+          aHttp2.SetRequestHeader('X-Signature', aSig2); // do not localize
+          aHttp2.Send('');
+          aLicChaves := Trim(aHttp2.ResponseText);
+          DebugMsg('TransferirRegistro - novo servidor resposta: ' + aLicChaves); // do not localize
+          // Auto-registro: loja nao existe no novo servidor -> registrar e tentar novamente
+          if aLicChaves = 'ERROR-LOJA-NOT-FOUND' then begin // do not localize
+            DebugMsg('TransferirRegistro - registrando loja no novo servidor...'); // do not localize
+            GetSystemTime(aSysTime);
+            aTS2 := Round((SystemTimeToDateTime(aSysTime) - EncodeDate(1970, 1, 1)) * 86400);
+            aSig2 := tHmac_sha256.calc(cNexcafeAppKey,
+              IntToStr(RegistroGlobal.IDLoja) + '|' + IntToStr(aTS2)); // do not localize
+            aHttp2 := CreateOleObject('WinHttp.WinHttpRequest.5.1'); // do not localize
+            aHttp2.Open('GET', cNexcafeRegUrl + '?' + // do not localize
+              Format('loja=%d&conta=%s&codequip=%s&vencimento=%s&tipo=5&vplano=3&versao=215', // do not localize
+                [RegistroGlobal.IDLoja, gConfig.Conta, gConfig.CodEquip, aLicVenc]),
+              False);
+            aHttp2.SetRequestHeader('X-NexCafe-Key', cNexcafeAppKey); // do not localize
+            aHttp2.SetRequestHeader('X-Timestamp', IntToStr(aTS2)); // do not localize
+            aHttp2.SetRequestHeader('X-Signature', aSig2); // do not localize
+            aHttp2.Send('');
+            aLicChaves := Trim(aHttp2.ResponseText);
+            DebugMsg('TransferirRegistro - registro resposta: ' + aLicChaves); // do not localize
+            if (aLicChaves = 'OK') or (aLicChaves = 'ALREADY-REGISTERED') then begin // do not localize
+              GetSystemTime(aSysTime);
+              aTS2 := Round((SystemTimeToDateTime(aSysTime) - EncodeDate(1970, 1, 1)) * 86400);
+              aSig2 := tHmac_sha256.calc(cNexcafeAppKey,
+                IntToStr(RegistroGlobal.IDLoja) + '|' + IntToStr(aTS2)); // do not localize
+              aHttp2 := CreateOleObject('WinHttp.WinHttpRequest.5.1'); // do not localize
+              aHttp2.Open('GET', cNexcafeLicUrl + '?' + aLicS, False); // do not localize
+              aHttp2.SetRequestHeader('X-NexCafe-Key', cNexcafeAppKey); // do not localize
+              aHttp2.SetRequestHeader('X-Timestamp', IntToStr(aTS2)); // do not localize
+              aHttp2.SetRequestHeader('X-Signature', aSig2); // do not localize
+              aHttp2.Send('');
+              aLicChaves := Trim(aHttp2.ResponseText);
+              DebugMsg('TransferirRegistro - retry apos registro: ' + aLicChaves); // do not localize
+            end;
+          end;
+          if Copy(aLicChaves, 1, 6) = 'NCLIC2' then // do not localize
+            aChaves := aLicChaves;
+        except
+          on E: Exception do
+            DebugMsg('TransferirRegistro - erro no servidor de licencas: ' + E.Message); // do not localize
+        end;
+      end;
+      salvaLic(gConfig.Conta, aChaves);
+      aposAtivar;
       TFrmObrigado.Create(Self).Mostrar(SRegistroTransferidoComSucesso);
       Close;
     end;
@@ -657,7 +893,7 @@ begin
   if edSenha.Text<>edSenha2.Text then begin
     Beep;
     edEmail.SetFocus;
-    ShowMessage(SVocêInformouSenhasDiferentesPorF);
+    ShowMessage(SVoceInformouSenhasDiferentesPorF);
     Exit;
   end;
 
@@ -680,7 +916,7 @@ begin
   if Trim(edProp.Text)='' then begin
     Beep;
     edProp.SetFocus;
-    ShowMessage(SPorFavorInformeONomeDoProprietár);
+    ShowMessage(SPorFavorInformeONomeDoProprietar);
     Exit;
   end;
 

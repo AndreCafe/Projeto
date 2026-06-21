@@ -12,12 +12,12 @@ DefaultDirName=C:\nexcafe
 DefaultGroupName=NexCafé
 OutputDir=c:\instaladores
 DirExistsWarning=No
-OutputBaseFilename=setup_nexcafe_X212
-VersionInfoProductTextVersion=5.0.0.212
+OutputBaseFilename=setup_nexcafe_X215
+VersionInfoProductTextVersion=5.0.0.215
 
 [Code]
 Const kInstaller = 'a';
-Const kVersion = 'X212';
+Const kVersion = 'X215';
 
 function Installer(Param: String): String;
 begin
@@ -69,6 +69,9 @@ Name: {userdesktop}\NexCafé NexServ; Filename: {app}\NexServ.exe; Tasks: desktop
 Name: {userdesktop}\NexCafé NexAdmin; Filename: {app}\NexAdmin.exe; Tasks: desktopicon; WorkingDir: {app}
 ;Name: "{userappdata}\Microsoft\Internet Explorer\Quick Launch\NexCafé NexServ"; Filename: "{app}\NexServ.exe"; Tasks: quicklaunchicon
 Name: {commonstartup}\NexCafé NexServ; Filename: {app}\NexServ.exe; Tasks: autostarticon; WorkingDir: {app}
+
+[Setup]
+SetupIconFile=C:\Meus Programas\nexcafe\NexCafeInstaller_Box.ico
 
 [UninstallRun]
 Filename: {app}\nexguard.exe; Parameters: REMOVEALL

@@ -289,6 +289,7 @@ type
     procedure SalvaImpressao(aImpressao: TncImpressao);
     procedure SalvaDebTempo(aDebTempo: TncDebTempo);
     procedure SalvaLic(aConta, aChaves: String);
+    procedure SalvaLicComIDLoja(aConta, aChaves, aIDLoja: String);
 
     function ObtemProcessos(aMaq: Integer): Integer;
     procedure FinalizaProcesso(aMaq, aProcessID: Integer);
@@ -541,8 +542,8 @@ uses
 
 // START resource string wizard section
 resourcestring
-  SJáExisteUmaTransfênciaDeArquivoE = 'Já existe uma transfência de arquivo em andamento';
-  STClienteNexCafeÉPrecisoInformarO = 'TClienteNexCafe: É preciso informar o servidor do NexCafé';
+  SJï¿½ExisteUmaTransfï¿½nciaDeArquivoE = 'Jï¿½ existe uma transfï¿½ncia de arquivo em andamento';
+  STClienteNexCafeï¿½PrecisoInformarO = 'TClienteNexCafe: ï¿½ preciso informar o servidor do NexCafï¿½';
 
 // END resource string wizard section
 
@@ -678,7 +679,7 @@ procedure TClienteNexCafe.EnviaArqFundo(aFonte: String; aDesktop: Boolean);
 var S: String;
 begin
   if FTransferindoArq<>taNenhum then
-    Raise ENexCafe.Create(SJáExisteUmaTransfênciaDeArquivoE);
+    Raise ENexCafe.Create(SJï¿½ExisteUmaTransfï¿½nciaDeArquivoE);
   if aDesktop then
     S := 'desktop_cliente_' // do not localize
   else   
@@ -779,7 +780,7 @@ begin
     FAtivando := True;
     try
       if FServidor=nil then 
-        Raise ENexCafe.Create(STClienteNexCafeÉPrecisoInformarO);
+        Raise ENexCafe.Create(STClienteNexCafeï¿½PrecisoInformarO);
         
       DebugMsg('Ativando COMPCLIENT'); // do not localize
       if (not FServidor.Ativo) then begin
@@ -787,17 +788,17 @@ begin
         FServidor.Ativo := True;
         if not FServidor.Ativo then 
           Raise EErroNexCafe.Create(ncerrConexaoPerdida);
-        DebugMsg('Conexão realizada');   // do not localize
+        DebugMsg('Conexï¿½o realizada');   // do not localize
       end else
-        DebugMsg('Servidor já estava ativo.'); // do not localize
+        DebugMsg('Servidor jï¿½ estava ativo.'); // do not localize
         
   
       if FAutoAtualizar and (not LadoServidor) then begin
-        DebugMsg('Obter versão do NexGuard disponível no servidor'); // do not localize
+        DebugMsg('Obter versï¿½o do NexGuard disponï¿½vel no servidor'); // do not localize
         ChecaErro(FServidor.ObtemVersaoGuard(Ver));
-        DebugMsg('Versão disponível no servidor x'+IntToStr(Ver)+' versão atual no client ' + FVersao); // do not localize
+        DebugMsg('Versï¿½o disponï¿½vel no servidor x'+IntToStr(Ver)+' versï¿½o atual no client ' + FVersao); // do not localize
         if (Ver>0) and (Ver<>GetVersionBuild(FVersao)) then begin
-          DebugMsg('Baixando nova versão'); // do not localize
+          DebugMsg('Baixando nova versï¿½o'); // do not localize
           FTransferindoArq := taAtualizacao;
           try
             FArqDestino := ExtractFilePath(ParamStr(0))+'nexguard_x'+IntToStr(Ver)+'.tmp'; // do not localize
@@ -814,7 +815,7 @@ begin
       
       DebugMsg('Conectado ao servidor'); // do not localize
       ChecaErro(FServidor.Login(FUsername, FSenha, FMaquina, FFuncAtual, False, FWndHandle, 0, 0, 0, '', FHandle));  
-      DebugMsg('Login da máquina OK'); // do not localize
+      DebugMsg('Login da mï¿½quina OK'); // do not localize
 
       FMesmoCompServ := (FindWindow('TncServBaseClassName', nil)<>0); // do not localize
         
@@ -830,9 +831,9 @@ begin
             S.Clear;
           end;
           
-          DebugMsg('Obtem lista de máquinas ...'); // do not localize
+          DebugMsg('Obtem lista de mï¿½quinas ...'); // do not localize
           ChecaErro(FServidor.ObtemStreamListaObj(FHandle, tcMaquina, S));
-          DebugMsg('Lista de máquinas OK'); // do not localize
+          DebugMsg('Lista de mï¿½quinas OK'); // do not localize
           S.Position := 0;
           FMaquinas.LeStream(S);
           S.Clear;
@@ -1753,6 +1754,15 @@ var s: String;
 begin
   S := 'chaves='+aChaves; // do not localize
   if aConta>'' then S := S + sLineBreak + 'conta=' + aConta; // do not localize
+  ChecaErro(Servidor.SalvaLic(S));
+end;
+
+procedure TClienteNexCafe.SalvaLicComIDLoja(aConta, aChaves, aIDLoja: String);
+var s: String;
+begin
+  S := 'chaves='+aChaves; // do not localize
+  if aConta > '' then S := S + sLineBreak + 'conta=' + aConta; // do not localize
+  if aIDLoja > '' then S := S + sLineBreak + 'idloja=' + aIDLoja; // do not localize
   ChecaErro(Servidor.SalvaLic(S));
 end;
 

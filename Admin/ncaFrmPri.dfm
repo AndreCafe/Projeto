@@ -5,7 +5,7 @@ object FrmPri: TFrmPri
   VertScrollBar.Visible = False
   Caption = 'NexCaf'#233' - Admin'
   ClientHeight = 667
-  ClientWidth = 1370
+  ClientWidth = 1280
   Color = 16118503
   Font.Charset = ANSI_CHARSET
   Font.Color = clWindowText
@@ -27,7 +27,7 @@ object FrmPri: TFrmPri
   object pgMaq: TcxPageControl
     Left = 0
     Top = 0
-    Width = 1370
+    Width = 1280
     Height = 667
     Margins.Left = 5
     Margins.Top = 5
@@ -57,7 +57,7 @@ object FrmPri: TFrmPri
     TabSlants.Positions = [spLeft, spRight]
     OnCanClose = pgMaqCanClose
     ClientRectBottom = 667
-    ClientRectRight = 1370
+    ClientRectRight = 1280
     ClientRectTop = 0
     object tsNexAdmin: TcxTabSheet
       Caption = 'Gerenciador'
@@ -65,12 +65,12 @@ object FrmPri: TFrmPri
       ImageIndex = 0
       ParentColor = False
       DesignSize = (
-        1370
+        1280
         667)
       object dsPri: TdxDockSite
         Left = 78
         Top = 24
-        Width = 1292
+        Width = 1202
         Height = 643
         Margins.Left = 5
         Margins.Top = 5
@@ -80,12 +80,12 @@ object FrmPri: TFrmPri
         ManagerColor = False
         Align = alClient
         DockingType = 5
-        OriginalWidth = 1292
+        OriginalWidth = 1202
         OriginalHeight = 643
         object dxLayoutDockSite4: TdxLayoutDockSite
           Left = 0
           Top = 0
-          Width = 1268
+          Width = 1178
           Height = 643
           ParentShowHint = False
           ShowHint = False
@@ -95,7 +95,7 @@ object FrmPri: TFrmPri
           object dxLayoutDockSite8: TdxLayoutDockSite
             Left = 0
             Top = 0
-            Width = 1268
+            Width = 1178
             Height = 643
             DockingType = 0
             OriginalWidth = 300
@@ -103,7 +103,7 @@ object FrmPri: TFrmPri
             object dxLayoutDockSite5: TdxLayoutDockSite
               Left = 0
               Top = 0
-              Width = 1054
+              Width = 964
               Height = 643
               ParentShowHint = False
               ShowHint = False
@@ -113,7 +113,7 @@ object FrmPri: TFrmPri
               object dxLayoutDockSite1: TdxLayoutDockSite
                 Left = 109
                 Top = 0
-                Width = 945
+                Width = 855
                 Height = 643
                 Color = clBtnFace
                 ManagerColor = False
@@ -125,7 +125,7 @@ object FrmPri: TFrmPri
                 object dxLayoutDockSite3: TdxLayoutDockSite
                   Left = 0
                   Top = 0
-                  Width = 596
+                  Width = 506
                   Height = 643
                   DockingType = 0
                   OriginalWidth = 300
@@ -133,7 +133,7 @@ object FrmPri: TFrmPri
                   object dxLayoutDockSite2: TdxLayoutDockSite
                     Left = 0
                     Top = 0
-                    Width = 596
+                    Width = 506
                     Height = 643
                     DockingType = 0
                     OriginalWidth = 300
@@ -142,7 +142,7 @@ object FrmPri: TFrmPri
                   object dpPaginas: TdxDockPanel
                     Left = 0
                     Top = 0
-                    Width = 596
+                    Width = 506
                     Height = 643
                     Color = clBtnFace
                     ManagerColor = False
@@ -179,7 +179,7 @@ object FrmPri: TFrmPri
                     object Paginas: TcxPageControl
                       Left = 0
                       Top = 0
-                      Width = 592
+                      Width = 502
                       Height = 639
                       Align = alClient
                       Color = clBtnFace
@@ -193,13 +193,13 @@ object FrmPri: TFrmPri
                       LookAndFeel.Kind = lfStandard
                       LookAndFeel.NativeStyle = False
                       ClientRectBottom = 639
-                      ClientRectRight = 592
+                      ClientRectRight = 502
                       ClientRectTop = 0
                     end
                   end
                 end
                 object dpAtalhosDir2: TdxDockPanel
-                  Left = 596
+                  Left = 506
                   Top = 0
                   Width = 349
                   Height = 643
@@ -245,7 +245,7 @@ object FrmPri: TFrmPri
               end
             end
             object dxVertContainerDockSite1: TdxVertContainerDockSite
-              Left = 1054
+              Left = 964
               Top = 0
               Width = 214
               Height = 643
@@ -305,7 +305,7 @@ object FrmPri: TFrmPri
             Left = 0
             Top = 0
             Width = 200
-            Height = 0
+            Height = 140
             Visible = False
             AllowFloating = True
             AutoHide = True
@@ -325,7 +325,7 @@ object FrmPri: TFrmPri
           Left = 0
           Top = 0
           Width = 207
-          Height = 0
+          Height = 140
           Visible = False
           OnVisibleChanged = dpPrevisaoVisibleChanged
           OnVisibleChanging = dpPrevisaoVisibleChanging
@@ -345,7 +345,7 @@ object FrmPri: TFrmPri
       object dxBarDockControl1: TdxBarDockControl
         Left = 0
         Top = 0
-        Width = 1370
+        Width = 1280
         Height = 24
         Margins.Left = 0
         Margins.Top = 4
@@ -389,6 +389,8 @@ object FrmPri: TFrmPri
       ImageIndex = 1
       ParentColor = False
       ParentFont = False
+      ExplicitWidth = 0
+      ExplicitHeight = 0
     end
   end
   object panPlanos: TLMDSimplePanel
@@ -646,6 +648,10 @@ object FrmPri: TFrmPri
           BeginGroup = True
           Visible = True
           ItemName = 'cmComprarAss'
+        end
+        item
+          Visible = True
+          ItemName = 'cmAtualizarVersao'
         end
         item
           Visible = True
@@ -1346,6 +1352,13 @@ object FrmPri: TFrmPri
         009C0000009C00000000000000000000000000000000000000390000007B0000
         0094000000940000006B00000039000000080000008400000000}
       OnClick = cmAtualizaLicClick
+    end
+    object cmAtualizarVersao: TdxBarButton
+      Caption = 'Buscar Atualiza'#231#227'o'
+      Category = 0
+      Hint = 'Buscar Atualiza'#231#227'o'
+      Visible = ivAlways
+      OnClick = cmAtualizarVersaoClick
     end
   end
   object cxEditStyleController1: TcxEditStyleController
