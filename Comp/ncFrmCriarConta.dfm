@@ -3,8 +3,8 @@ object FrmCriarConta: TFrmCriarConta
   Top = 0
   BorderStyle = bsDialog
   Caption = 'Registro da Loja'
-  ClientHeight = 360
-  ClientWidth = 448
+  ClientHeight = 340
+  ClientWidth = 423
   Color = 13160660
   Font.Charset = ANSI_CHARSET
   Font.Color = 2894892
@@ -18,12 +18,12 @@ object FrmCriarConta: TFrmCriarConta
   OnDestroy = FormDestroy
   OnShow = FormShow
   PixelsPerInch = 96
-  TextHeight = 18
+  TextHeight = 17
   object panPri: TLMDSimplePanel
     Left = 0
     Top = 0
-    Width = 448
-    Height = 300
+    Width = 423
+    Height = 283
     Margins.Top = 10
     Align = alClient
     Bevel.Mode = bmCustom
@@ -31,8 +31,8 @@ object FrmCriarConta: TFrmCriarConta
     object Paginas: TcxPageControl
       Left = 0
       Top = 0
-      Width = 448
-      Height = 300
+      Width = 423
+      Height = 283
       Align = alClient
       TabOrder = 0
       Properties.ActivePage = tsCriarInformar
@@ -42,22 +42,22 @@ object FrmCriarConta: TFrmCriarConta
       LookAndFeel.Kind = lfFlat
       LookAndFeel.NativeStyle = False
       OnChange = PaginasChange
-      ClientRectBottom = 300
-      ClientRectRight = 448
+      ClientRectBottom = 283
+      ClientRectRight = 423
       ClientRectTop = 0
       object tsCriarInformar: TcxTabSheet
         Caption = 'tsCriarInformar'
         ImageIndex = 3
         object rgCriar: TcxRadioButton
-          Left = 20
-          Top = 83
-          Width = 370
-          Height = 25
+          Left = 19
+          Top = 78
+          Width = 349
+          Height = 24
           Caption = 'Registrar agora - '#201' gr'#225'tis!'
           Checked = True
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
-          Font.Height = -20
+          Font.Height = -19
           Font.Name = 'Calibri'
           Font.Style = []
           ParentFont = False
@@ -68,14 +68,14 @@ object FrmCriarConta: TFrmCriarConta
           LookAndFeel.NativeStyle = False
         end
         object rgInformar: TcxRadioButton
-          Left = 20
-          Top = 119
-          Width = 396
-          Height = 27
+          Left = 19
+          Top = 112
+          Width = 374
+          Height = 26
           Caption = 'Minha loja j'#225' tem um registro.'
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
-          Font.Height = -20
+          Font.Height = -19
           Font.Name = 'Calibri'
           Font.Style = []
           ParentFont = False
@@ -84,10 +84,10 @@ object FrmCriarConta: TFrmCriarConta
           LookAndFeel.NativeStyle = False
         end
         object rgNaoCriar: TcxRadioButton
-          Left = 20
-          Top = 184
-          Width = 184
-          Height = 25
+          Left = 19
+          Top = 174
+          Width = 174
+          Height = 23
           Caption = 'N'#227'o quero registrar agora'
           Font.Charset = ANSI_CHARSET
           Font.Color = 5592405
@@ -102,8 +102,8 @@ object FrmCriarConta: TFrmCriarConta
         object panAtivar: TLMDSimplePanel
           Left = 0
           Top = 0
-          Width = 448
-          Height = 59
+          Width = 423
+          Height = 56
           Align = alTop
           Bevel.BorderSides = [fsBottom]
           Bevel.Mode = bmEdge
@@ -114,7 +114,7 @@ object FrmCriarConta: TFrmCriarConta
             Left = 12
             Top = 5
             Width = 48
-            Height = 49
+            Height = 46
             Margins.Left = 10
             Align = alLeft
             AutoSize = True
@@ -193,11 +193,11 @@ object FrmCriarConta: TFrmCriarConta
               68C6B74E3CDD69BA099D771CEA2965467B9C5CB519E527073FB21171035C33AE
               9C8EBE4231A0D011FB523FF63019BE62FB4F0090341D53E4BF00C88021195104
               99290000000049454E44AE426082}
-            ExplicitLeft = 13
-            ExplicitHeight = 51
+            ExplicitLeft = 11
+            ExplicitHeight = 45
           end
           object lbTopo1: TcxLabel
-            Left = 71
+            Left = 67
             Top = 4
             AutoSize = False
             Caption = 'Registro da Loja'
@@ -205,7 +205,7 @@ object FrmCriarConta: TFrmCriarConta
             ParentFont = False
             Style.Font.Charset = ANSI_CHARSET
             Style.Font.Color = clWhite
-            Style.Font.Height = -20
+            Style.Font.Height = -19
             Style.Font.Name = 'Calibri'
             Style.Font.Style = []
             Style.LookAndFeel.Kind = lfFlat
@@ -223,13 +223,13 @@ object FrmCriarConta: TFrmCriarConta
             Properties.Alignment.Vert = taVCenter
             Properties.WordWrap = True
             Transparent = True
-            Height = 28
-            Width = 288
-            AnchorY = 18
+            Height = 26
+            Width = 272
+            AnchorY = 17
           end
           object lbTopo2: TcxLabel
-            Left = 73
-            Top = 31
+            Left = 69
+            Top = 29
             AutoSize = False
             Caption = 'Para usar o NexCaf'#233' '#233' necess'#225'rio registrar sua loja'
             ParentFont = False
@@ -241,8 +241,8 @@ object FrmCriarConta: TFrmCriarConta
             Style.TextColor = 4539717
             Style.TextStyle = []
             Style.IsFontAssigned = True
-            Height = 18
-            Width = 343
+            Height = 17
+            Width = 324
           end
         end
       end
@@ -250,8 +250,8 @@ object FrmCriarConta: TFrmCriarConta
         Caption = '2. Telefone'
         ImageIndex = 1
         object edLoja: TcxTextEdit
-          Left = 154
-          Top = 82
+          Left = 145
+          Top = 77
           BeepOnEnter = False
           Style.LookAndFeel.NativeStyle = False
           Style.StyleController = cxEditStyleController1
@@ -259,23 +259,23 @@ object FrmCriarConta: TFrmCriarConta
           StyleFocused.LookAndFeel.NativeStyle = False
           StyleHot.LookAndFeel.NativeStyle = False
           TabOrder = 1
-          Width = 247
+          Width = 234
         end
         object cxLabel9: TcxLabel
-          Left = 25
-          Top = 82
+          Left = 24
+          Top = 77
           Caption = 'Nome da Loja'
           ParentFont = False
           Style.Font.Charset = ANSI_CHARSET
           Style.Font.Color = clWindowText
-          Style.Font.Height = -15
+          Style.Font.Height = -13
           Style.Font.Name = 'Calibri'
           Style.Font.Style = []
           Style.IsFontAssigned = True
         end
         object edProp: TcxTextEdit
-          Left = 154
-          Top = 113
+          Left = 145
+          Top = 107
           BeepOnEnter = False
           Style.LookAndFeel.NativeStyle = False
           Style.StyleController = cxEditStyleController1
@@ -283,47 +283,47 @@ object FrmCriarConta: TFrmCriarConta
           StyleFocused.LookAndFeel.NativeStyle = False
           StyleHot.LookAndFeel.NativeStyle = False
           TabOrder = 3
-          Width = 247
+          Width = 234
         end
         object cxLabel8: TcxLabel
-          Left = 25
-          Top = 114
+          Left = 24
+          Top = 108
           Caption = 'Propriet'#225'rio'
           ParentFont = False
           Style.Font.Charset = ANSI_CHARSET
           Style.Font.Color = clWindowText
-          Style.Font.Height = -15
+          Style.Font.Height = -13
           Style.Font.Name = 'Calibri'
           Style.Font.Style = []
           Style.IsFontAssigned = True
         end
         object lbAtividade: TcxLabel
-          Left = 25
-          Top = 212
+          Left = 24
+          Top = 200
           Caption = 'Ramo de Atividade'
           ParentFont = False
           Style.Font.Charset = ANSI_CHARSET
           Style.Font.Color = clWindowText
-          Style.Font.Height = -15
+          Style.Font.Height = -13
           Style.Font.Name = 'Calibri'
           Style.Font.Style = []
           Style.IsFontAssigned = True
         end
         object cxLabel1: TcxLabel
-          Left = 25
-          Top = 180
+          Left = 24
+          Top = 170
           Caption = 'Telefone'
           ParentFont = False
           Style.Font.Charset = ANSI_CHARSET
           Style.Font.Color = clWindowText
-          Style.Font.Height = -15
+          Style.Font.Height = -13
           Style.Font.Name = 'Calibri'
           Style.Font.Style = []
           Style.IsFontAssigned = True
         end
         object edTel: TcxMaskEdit
-          Left = 154
-          Top = 179
+          Left = 145
+          Top = 169
           BeepOnEnter = False
           Properties.MaxLength = 0
           Style.BorderColor = 14920840
@@ -337,13 +337,13 @@ object FrmCriarConta: TFrmCriarConta
           StyleHot.LookAndFeel.Kind = lfOffice11
           StyleHot.LookAndFeel.NativeStyle = False
           TabOrder = 8
-          Width = 247
+          Width = 234
         end
         object LMDSimplePanel1: TLMDSimplePanel
           Left = 0
           Top = 0
-          Width = 448
-          Height = 59
+          Width = 423
+          Height = 56
           Align = alTop
           Bevel.BorderSides = [fsBottom]
           Bevel.Mode = bmEdge
@@ -354,7 +354,7 @@ object FrmCriarConta: TFrmCriarConta
             Left = 12
             Top = 5
             Width = 48
-            Height = 49
+            Height = 46
             Margins.Left = 10
             Align = alLeft
             AutoSize = True
@@ -459,11 +459,11 @@ object FrmCriarConta: TFrmCriarConta
               0D399B0F54B43835C794A322BC1AD2C05B887DA5FFECC17A36636B3780C79001
               3CB58ED78D6E0E1ADAE95A3AF9E8CCD3D1621BC9D2545D5555A57DC19F372D75
               DA10F96F1AC74028ECD8092C0000000049454E44AE426082}
-            ExplicitLeft = 13
-            ExplicitHeight = 51
+            ExplicitLeft = 11
+            ExplicitHeight = 45
           end
           object cxLabel2: TcxLabel
-            Left = 71
+            Left = 67
             Top = 4
             AutoSize = False
             Caption = 'Registrar a Loja - '#201' gr'#225'tis!'
@@ -471,7 +471,7 @@ object FrmCriarConta: TFrmCriarConta
             ParentFont = False
             Style.Font.Charset = ANSI_CHARSET
             Style.Font.Color = clWhite
-            Style.Font.Height = -20
+            Style.Font.Height = -19
             Style.Font.Name = 'Calibri'
             Style.Font.Style = []
             Style.LookAndFeel.Kind = lfFlat
@@ -489,13 +489,13 @@ object FrmCriarConta: TFrmCriarConta
             Properties.Alignment.Vert = taVCenter
             Properties.WordWrap = True
             Transparent = True
-            Height = 26
-            Width = 360
-            AnchorY = 17
+            Height = 24
+            Width = 340
+            AnchorY = 16
           end
           object cxLabel3: TcxLabel
-            Left = 73
-            Top = 31
+            Left = 69
+            Top = 29
             AutoSize = False
             Caption = 'Informe o nome da loja, do propriet'#225'rio e o telefone.'
             ParentFont = False
@@ -507,13 +507,13 @@ object FrmCriarConta: TFrmCriarConta
             Style.TextColor = 4539717
             Style.TextStyle = []
             Style.IsFontAssigned = True
-            Height = 18
-            Width = 358
+            Height = 17
+            Width = 338
           end
         end
         object cbOptin: TcxCheckBox
-          Left = 23
-          Top = 248
+          Left = 22
+          Top = 234
           AutoSize = False
           Caption = 'Quero receber informa'#231#245'es por e-mail sobre o Nex!'
           ParentFont = False
@@ -535,12 +535,12 @@ object FrmCriarConta: TFrmCriarConta
           StyleHot.LookAndFeel.Kind = lfFlat
           StyleHot.LookAndFeel.NativeStyle = False
           TabOrder = 11
-          Height = 34
-          Width = 366
+          Height = 32
+          Width = 345
         end
         object edAtividade: TcxTextEdit
-          Left = 154
-          Top = 211
+          Left = 145
+          Top = 199
           BeepOnEnter = False
           Style.LookAndFeel.NativeStyle = False
           Style.StyleController = cxEditStyleController1
@@ -548,23 +548,23 @@ object FrmCriarConta: TFrmCriarConta
           StyleFocused.LookAndFeel.NativeStyle = False
           StyleHot.LookAndFeel.NativeStyle = False
           TabOrder = 9
-          Width = 247
+          Width = 234
         end
         object cxLabel16: TcxLabel
-          Left = 26
-          Top = 146
+          Left = 25
+          Top = 138
           Caption = 'Pa'#237's'
           ParentFont = False
           Style.Font.Charset = ANSI_CHARSET
           Style.Font.Color = clWindowText
-          Style.Font.Height = -15
+          Style.Font.Height = -13
           Style.Font.Name = 'Calibri'
           Style.Font.Style = []
           Style.IsFontAssigned = True
         end
         object edPais: TcxLookupComboBox
-          Left = 152
-          Top = 146
+          Left = 144
+          Top = 138
           Properties.ImmediateDropDownWhenActivated = True
           Properties.ImmediatePost = True
           Properties.KeyFieldNames = 'Cod'
@@ -579,15 +579,15 @@ object FrmCriarConta: TFrmCriarConta
           Properties.ListSource = dsPaises
           Style.StyleController = cxEditStyleController1
           TabOrder = 7
-          Width = 249
+          Width = 235
         end
       end
       object tsCriar1: TcxTabSheet
         Caption = '1. E-mail'
         ImageIndex = 0
         object Image4: TImage
-          Left = 20
-          Top = 80
+          Left = 19
+          Top = 76
           Width = 24
           Height = 24
           AutoSize = True
@@ -627,19 +627,19 @@ object FrmCriarConta: TFrmCriarConta
             82}
         end
         object edEmail: TcxTextEdit
-          Left = 20
-          Top = 106
+          Left = 19
+          Top = 100
           Style.LookAndFeel.NativeStyle = False
           Style.StyleController = cxEditStyleController1
           StyleDisabled.LookAndFeel.NativeStyle = False
           StyleFocused.LookAndFeel.NativeStyle = False
           StyleHot.LookAndFeel.NativeStyle = False
           TabOrder = 0
-          Width = 359
+          Width = 339
         end
         object edSenha2: TcxTextEdit
-          Left = 132
-          Top = 212
+          Left = 125
+          Top = 200
           Properties.EchoMode = eemPassword
           Style.LookAndFeel.NativeStyle = False
           Style.StyleController = cxEditStyleController1
@@ -647,23 +647,23 @@ object FrmCriarConta: TFrmCriarConta
           StyleFocused.LookAndFeel.NativeStyle = False
           StyleHot.LookAndFeel.NativeStyle = False
           TabOrder = 2
-          Width = 247
+          Width = 233
         end
         object cxLabel7: TcxLabel
-          Left = 19
-          Top = 212
+          Left = 18
+          Top = 200
           Caption = 'Confirmar Senha'
           ParentFont = False
           Style.Font.Charset = ANSI_CHARSET
           Style.Font.Color = clWindowText
-          Style.Font.Height = -15
+          Style.Font.Height = -13
           Style.Font.Name = 'Calibri'
           Style.Font.Style = []
           Style.IsFontAssigned = True
         end
         object edSenha: TcxTextEdit
-          Left = 132
-          Top = 180
+          Left = 125
+          Top = 170
           Properties.EchoMode = eemPassword
           Style.LookAndFeel.NativeStyle = False
           Style.StyleController = cxEditStyleController1
@@ -671,54 +671,54 @@ object FrmCriarConta: TFrmCriarConta
           StyleFocused.LookAndFeel.NativeStyle = False
           StyleHot.LookAndFeel.NativeStyle = False
           TabOrder = 1
-          Width = 247
+          Width = 233
         end
         object cxLabel6: TcxLabel
-          Left = 19
-          Top = 180
+          Left = 18
+          Top = 170
           Caption = 'Senha'
-          ParentFont = False
-          Style.Font.Charset = ANSI_CHARSET
-          Style.Font.Color = clWindowText
-          Style.Font.Height = -15
-          Style.Font.Name = 'Calibri'
-          Style.Font.Style = []
-          Style.IsFontAssigned = True
-        end
-        object cxLabel10: TcxLabel
-          Left = 20
-          Top = 138
-          Caption = 'O e-mail ser'#225' usado para identificar o registro da sua loja'
           ParentFont = False
           Style.Font.Charset = ANSI_CHARSET
           Style.Font.Color = clWindowText
           Style.Font.Height = -13
           Style.Font.Name = 'Calibri'
           Style.Font.Style = []
+          Style.IsFontAssigned = True
+        end
+        object cxLabel10: TcxLabel
+          Left = 19
+          Top = 130
+          Caption = 'O e-mail ser'#225' usado para identificar o registro da sua loja'
+          ParentFont = False
+          Style.Font.Charset = ANSI_CHARSET
+          Style.Font.Color = clWindowText
+          Style.Font.Height = -12
+          Style.Font.Name = 'Calibri'
+          Style.Font.Style = []
           Style.TextColor = clBlack
           Style.IsFontAssigned = True
         end
         object cxLabel5: TcxLabel
-          Left = 49
-          Top = 78
+          Left = 46
+          Top = 74
           AutoSize = False
           Caption = 'E-mail'
           ParentFont = False
           Style.Font.Charset = ANSI_CHARSET
           Style.Font.Color = clWindowText
-          Style.Font.Height = -20
+          Style.Font.Height = -19
           Style.Font.Name = 'Calibri'
           Style.Font.Style = []
           Style.TextStyle = [fsBold]
           Style.IsFontAssigned = True
-          Height = 28
-          Width = 155
+          Height = 26
+          Width = 147
         end
         object LMDSimplePanel3: TLMDSimplePanel
           Left = 0
           Top = 0
-          Width = 448
-          Height = 59
+          Width = 423
+          Height = 56
           Align = alTop
           Bevel.BorderSides = [fsBottom]
           Bevel.Mode = bmEdge
@@ -729,7 +729,7 @@ object FrmCriarConta: TFrmCriarConta
             Left = 12
             Top = 5
             Width = 48
-            Height = 49
+            Height = 46
             Margins.Left = 10
             Align = alLeft
             AutoSize = True
@@ -834,11 +834,11 @@ object FrmCriarConta: TFrmCriarConta
               0D399B0F54B43835C794A322BC1AD2C05B887DA5FFECC17A36636B3780C79001
               3CB58ED78D6E0E1ADAE95A3AF9E8CCD3D1621BC9D2545D5555A57DC19F372D75
               DA10F96F1AC74028ECD8092C0000000049454E44AE426082}
-            ExplicitLeft = 13
-            ExplicitHeight = 51
+            ExplicitLeft = 11
+            ExplicitHeight = 45
           end
           object cxLabel4: TcxLabel
-            Left = 71
+            Left = 67
             Top = 4
             AutoSize = False
             Caption = 'Registrar a Loja - '#201' gr'#225'tis!'
@@ -846,7 +846,7 @@ object FrmCriarConta: TFrmCriarConta
             ParentFont = False
             Style.Font.Charset = ANSI_CHARSET
             Style.Font.Color = clWhite
-            Style.Font.Height = -20
+            Style.Font.Height = -19
             Style.Font.Name = 'Calibri'
             Style.Font.Style = []
             Style.LookAndFeel.Kind = lfFlat
@@ -864,13 +864,13 @@ object FrmCriarConta: TFrmCriarConta
             Properties.Alignment.Vert = taVCenter
             Properties.WordWrap = True
             Transparent = True
-            Height = 28
-            Width = 330
-            AnchorY = 18
+            Height = 26
+            Width = 312
+            AnchorY = 17
           end
           object cxLabel11: TcxLabel
-            Left = 73
-            Top = 31
+            Left = 69
+            Top = 29
             Caption = 'Informe seu e-mail e senha'
             ParentFont = False
             Style.Font.Charset = ANSI_CHARSET
@@ -890,15 +890,15 @@ object FrmCriarConta: TFrmCriarConta
         object LMDSimplePanel4: TLMDSimplePanel
           Left = 0
           Top = 0
-          Width = 448
-          Height = 67
+          Width = 423
+          Height = 63
           Align = alTop
           Bevel.BorderSides = [fsBottom]
           Bevel.Mode = bmEdge
           Color = clWhite
           Font.Charset = ANSI_CHARSET
           Font.Color = clBtnFace
-          Font.Height = -15
+          Font.Height = -13
           Font.Name = 'Calibri'
           Font.Style = []
           ParentFont = False
@@ -908,7 +908,7 @@ object FrmCriarConta: TFrmCriarConta
             Left = 12
             Top = 5
             Width = 48
-            Height = 57
+            Height = 53
             Margins.Left = 10
             Align = alLeft
             AutoSize = True
@@ -1040,11 +1040,11 @@ object FrmCriarConta: TFrmCriarConta
               556487540545E7570E02CE5BA9DFDA01B9733B74D88AD77C66D32F81EFBDFC1B
               4261C793249205F02A2740AE1848E1896DF52D10F8DB347E061AD2D69BE8E86F
               897FF8FF56F95F9472CFA9B73F0F740000000049454E44AE426082}
-            ExplicitLeft = 13
-            ExplicitHeight = 51
+            ExplicitLeft = 11
+            ExplicitHeight = 45
           end
           object cxLabel12: TcxLabel
-            Left = 75
+            Left = 71
             Top = 3
             AutoSize = False
             Caption = 'Confirma'#231#227'o de Registro por E-mail'
@@ -1052,7 +1052,7 @@ object FrmCriarConta: TFrmCriarConta
             ParentFont = False
             Style.Font.Charset = ANSI_CHARSET
             Style.Font.Color = clWhite
-            Style.Font.Height = -20
+            Style.Font.Height = -19
             Style.Font.Name = 'Calibri'
             Style.Font.Style = []
             Style.LookAndFeel.Kind = lfFlat
@@ -1070,21 +1070,21 @@ object FrmCriarConta: TFrmCriarConta
             Properties.Alignment.Vert = taVCenter
             Properties.WordWrap = True
             Transparent = True
-            Height = 28
-            Width = 466
-            AnchorY = 17
+            Height = 26
+            Width = 440
+            AnchorY = 16
           end
           object LMDSimplePanel5: TLMDSimplePanel
-            Left = 77
-            Top = 33
-            Width = 371
-            Height = 26
+            Left = 73
+            Top = 31
+            Width = 350
+            Height = 25
             Bevel.Mode = bmCustom
             ParentColor = True
             TabOrder = 1
             object lbCorrigir: TcxLabel
               AlignWithMargins = True
-              Left = 204
+              Left = 208
               Top = 0
               Cursor = crHandPoint
               Margins.Left = 10
@@ -1097,7 +1097,7 @@ object FrmCriarConta: TFrmCriarConta
               ParentFont = False
               Style.Font.Charset = ANSI_CHARSET
               Style.Font.Color = clBlue
-              Style.Font.Height = -15
+              Style.Font.Height = -13
               Style.Font.Name = 'Calibri'
               Style.Font.Style = []
               Style.HotTrack = True
@@ -1110,8 +1110,9 @@ object FrmCriarConta: TFrmCriarConta
               StyleHot.TextColor = clBlue
               StyleHot.TextStyle = [fsBold, fsUnderline]
               OnClick = lbCorrigirClick
-              Height = 26
-              Width = 105
+              ExplicitLeft = 124
+              Height = 25
+              Width = 99
             end
             object lbEmail: TcxLabel
               Left = 0
@@ -1126,26 +1127,26 @@ object FrmCriarConta: TFrmCriarConta
           end
         end
         object cxLabel14: TcxLabel
-          Left = 28
-          Top = 84
+          Left = 26
+          Top = 79
           Caption = 'C'#243'digo'
           ParentFont = False
           Style.Font.Charset = ANSI_CHARSET
           Style.Font.Color = clWindowText
-          Style.Font.Height = -20
+          Style.Font.Height = -19
           Style.Font.Name = 'Calibri'
           Style.Font.Style = []
           Style.TextStyle = [fsBold]
           Style.IsFontAssigned = True
         end
         object edCod: TcxTextEdit
-          Left = 28
-          Top = 112
+          Left = 26
+          Top = 106
           AutoSize = False
           ParentFont = False
           Style.Font.Charset = ANSI_CHARSET
           Style.Font.Color = clWindowText
-          Style.Font.Height = -24
+          Style.Font.Height = -23
           Style.Font.Name = 'Courier New'
           Style.Font.Style = [fsBold]
           Style.LookAndFeel.NativeStyle = False
@@ -1155,14 +1156,14 @@ object FrmCriarConta: TFrmCriarConta
           StyleFocused.LookAndFeel.NativeStyle = False
           StyleHot.LookAndFeel.NativeStyle = False
           TabOrder = 2
-          Height = 33
-          Width = 133
+          Height = 31
+          Width = 126
         end
         object cxButton1: TcxButton
-          Left = 164
-          Top = 111
-          Width = 91
-          Height = 33
+          Left = 155
+          Top = 105
+          Width = 86
+          Height = 31
           Caption = 'Confirmar '#187
           Default = True
           TabOrder = 3
@@ -1171,8 +1172,8 @@ object FrmCriarConta: TFrmCriarConta
           LookAndFeel.NativeStyle = False
         end
         object cxLabel13: TcxLabel
-          Left = 28
-          Top = 190
+          Left = 26
+          Top = 179
           AutoSize = False
           Caption = 
             '* Enviamos para o seu e-mail um c'#243'digo de confirma'#231#227'o do seu reg' +
@@ -1188,12 +1189,12 @@ object FrmCriarConta: TFrmCriarConta
           Style.TextColor = 6250335
           Style.IsFontAssigned = True
           Properties.WordWrap = True
-          Height = 58
-          Width = 381
+          Height = 55
+          Width = 360
         end
         object lbReenviar: TcxLabel
-          Left = 28
-          Top = 150
+          Left = 26
+          Top = 142
           Cursor = crHandPoint
           AutoSize = False
           Caption = 'Re-enviar c'#243'digo por e-mail'
@@ -1213,16 +1214,16 @@ object FrmCriarConta: TFrmCriarConta
           StyleHot.TextColor = clBlue
           StyleHot.TextStyle = [fsUnderline]
           OnClick = lbReenviarClick
-          Height = 17
-          Width = 171
+          Height = 16
+          Width = 162
         end
       end
       object tsInformarRegistro: TcxTabSheet
         Caption = 'tsInformarRegistro'
         ImageIndex = 4
         object Image6: TImage
-          Left = 28
-          Top = 107
+          Left = 26
+          Top = 101
           Width = 24
           Height = 24
           AutoSize = True
@@ -1261,18 +1262,18 @@ object FrmCriarConta: TFrmCriarConta
             82}
         end
         object edEmailReg: TcxTextEdit
-          Left = 57
-          Top = 107
+          Left = 54
+          Top = 101
           Style.BorderStyle = ebsFlat
           Style.StyleController = cxEditStyleController1
           TabOrder = 0
-          Width = 289
+          Width = 273
         end
         object rbEmail: TcxRadioButton
-          Left = 26
-          Top = 84
-          Width = 290
-          Height = 17
+          Left = 25
+          Top = 79
+          Width = 273
+          Height = 16
           Cursor = crHandPoint
           Caption = 'Informe seu e-mail de registro'
           Checked = True
@@ -1288,8 +1289,8 @@ object FrmCriarConta: TFrmCriarConta
           LookAndFeel.Kind = lfFlat
         end
         object lbEsqueci: TcxLabel
-          Left = 55
-          Top = 205
+          Left = 52
+          Top = 194
           Cursor = crHandPoint
           Caption = 'Esqueci meu c'#243'digo de loja'
           ParentFont = False
@@ -1308,9 +1309,9 @@ object FrmCriarConta: TFrmCriarConta
           Visible = False
         end
         object rbCodLoja: TcxRadioButton
-          Left = 25
-          Top = 154
-          Width = 406
+          Left = 24
+          Top = 145
+          Width = 383
           Height = 16
           Cursor = crHandPoint
           Caption = 
@@ -1327,15 +1328,15 @@ object FrmCriarConta: TFrmCriarConta
           LookAndFeel.Kind = lfFlat
         end
         object edChave: TcxMaskEdit
-          Left = 57
-          Top = 176
+          Left = 54
+          Top = 166
           ParentFont = False
           Properties.CharCase = ecUpperCase
           Properties.EditMask = 'aaaa\-99999'
           Properties.MaxLength = 0
           Style.Font.Charset = ANSI_CHARSET
           Style.Font.Color = clWindowText
-          Style.Font.Height = -15
+          Style.Font.Height = -13
           Style.Font.Name = 'Calibri'
           Style.Font.Style = []
           Style.StyleController = cxEditStyleController1
@@ -1343,13 +1344,13 @@ object FrmCriarConta: TFrmCriarConta
           TabOrder = 4
           Text = '    -     '
           Visible = False
-          Width = 130
+          Width = 123
         end
         object LMDSimplePanel2: TLMDSimplePanel
           Left = 0
           Top = 0
-          Width = 448
-          Height = 59
+          Width = 423
+          Height = 56
           Align = alTop
           Bevel.BorderSides = [fsBottom]
           Bevel.Mode = bmEdge
@@ -1360,7 +1361,7 @@ object FrmCriarConta: TFrmCriarConta
             Left = 12
             Top = 5
             Width = 48
-            Height = 49
+            Height = 46
             Margins.Left = 10
             Align = alLeft
             AutoSize = True
@@ -1439,11 +1440,11 @@ object FrmCriarConta: TFrmCriarConta
               68C6B74E3CDD69BA099D771CEA2965467B9C5CB519E527073FB21171035C33AE
               9C8EBE4231A0D011FB523FF63019BE62FB4F0090341D53E4BF00C88021195104
               99290000000049454E44AE426082}
-            ExplicitLeft = 13
-            ExplicitHeight = 51
+            ExplicitLeft = 11
+            ExplicitHeight = 45
           end
           object cxLabel19: TcxLabel
-            Left = 71
+            Left = 67
             Top = 4
             AutoSize = False
             Caption = 'Registro da Loja'
@@ -1451,7 +1452,7 @@ object FrmCriarConta: TFrmCriarConta
             ParentFont = False
             Style.Font.Charset = ANSI_CHARSET
             Style.Font.Color = clWhite
-            Style.Font.Height = -20
+            Style.Font.Height = -19
             Style.Font.Name = 'Calibri'
             Style.Font.Style = []
             Style.LookAndFeel.Kind = lfFlat
@@ -1469,13 +1470,13 @@ object FrmCriarConta: TFrmCriarConta
             Properties.Alignment.Vert = taVCenter
             Properties.WordWrap = True
             Transparent = True
-            Height = 28
-            Width = 260
-            AnchorY = 18
+            Height = 26
+            Width = 246
+            AnchorY = 17
           end
           object cxLabel20: TcxLabel
-            Left = 73
-            Top = 31
+            Left = 69
+            Top = 29
             Caption = 'Digite suas informa'#231#245'es de registro'
             ParentFont = False
             Style.Font.Charset = ANSI_CHARSET
@@ -1495,8 +1496,8 @@ object FrmCriarConta: TFrmCriarConta
         object LMDSimplePanel6: TLMDSimplePanel
           Left = 0
           Top = 0
-          Width = 448
-          Height = 60
+          Width = 423
+          Height = 57
           Align = alTop
           Bevel.BorderSides = [fsBottom]
           Bevel.Mode = bmEdge
@@ -1507,7 +1508,7 @@ object FrmCriarConta: TFrmCriarConta
             Left = 7
             Top = 5
             Width = 52
-            Height = 50
+            Height = 47
             Margins.Left = 5
             Align = alLeft
             AutoSize = True
@@ -1618,10 +1619,10 @@ object FrmCriarConta: TFrmCriarConta
               A9655D647A7D9DFED1BE53F0F6F51668D55A1153CD488822340AED944F64DA48
               D4528B58223613EF208E626DD1F27603DDB7D0BDC8F4B700A520EDF6F7FF00E7
               DB1C37B7A77B300000000049454E44AE426082}
-            ExplicitHeight = 51
+            ExplicitHeight = 45
           end
           object cxLabel15: TcxLabel
-            Left = 71
+            Left = 67
             Top = 4
             AutoSize = False
             Caption = 'Transferir Registro'
@@ -1629,7 +1630,7 @@ object FrmCriarConta: TFrmCriarConta
             ParentFont = False
             Style.Font.Charset = ANSI_CHARSET
             Style.Font.Color = clWhite
-            Style.Font.Height = -20
+            Style.Font.Height = -19
             Style.Font.Name = 'Calibri'
             Style.Font.Style = []
             Style.LookAndFeel.Kind = lfFlat
@@ -1647,13 +1648,13 @@ object FrmCriarConta: TFrmCriarConta
             Properties.Alignment.Vert = taVCenter
             Properties.WordWrap = True
             Transparent = True
-            Height = 28
-            Width = 326
-            AnchorY = 18
+            Height = 26
+            Width = 308
+            AnchorY = 17
           end
           object lbTransfTopo: TcxLabel
-            Left = 73
-            Top = 31
+            Left = 69
+            Top = 29
             Caption = 'Seu NexCaf'#233' est'#225' registrado para uso em outro computador'
             ParentFont = False
             Style.Font.Charset = ANSI_CHARSET
@@ -1667,21 +1668,21 @@ object FrmCriarConta: TFrmCriarConta
           end
         end
         object lbTransfPrompt: TcxLabel
-          Left = 23
-          Top = 76
+          Left = 22
+          Top = 72
           Caption = 'Senha de Registro'
           ParentFont = False
           Style.Font.Charset = ANSI_CHARSET
           Style.Font.Color = clWindowText
-          Style.Font.Height = -15
+          Style.Font.Height = -13
           Style.Font.Name = 'Calibri'
           Style.Font.Style = []
           Style.TextStyle = [fsBold]
           Style.IsFontAssigned = True
         end
         object edSenhaT: TcxTextEdit
-          Left = 25
-          Top = 100
+          Left = 24
+          Top = 94
           Properties.EchoMode = eemPassword
           Style.LookAndFeel.NativeStyle = False
           Style.StyleController = cxEditStyleController1
@@ -1689,11 +1690,11 @@ object FrmCriarConta: TFrmCriarConta
           StyleFocused.LookAndFeel.NativeStyle = False
           StyleHot.LookAndFeel.NativeStyle = False
           TabOrder = 2
-          Width = 255
+          Width = 240
         end
         object cxLabel21: TcxLabel
-          Left = 23
-          Top = 132
+          Left = 22
+          Top = 125
           Caption = 'Informe sua senha de registro e clique em transferir.'
           ParentFont = False
           Style.Font.Charset = ANSI_CHARSET
@@ -1705,8 +1706,8 @@ object FrmCriarConta: TFrmCriarConta
           Style.IsFontAssigned = True
         end
         object lbEsqueciSenha: TcxLabel
-          Left = 288
-          Top = 104
+          Left = 272
+          Top = 98
           Cursor = crHandPoint
           Caption = 'Esqueci minha senha'
           ParentFont = False
@@ -1727,19 +1728,19 @@ object FrmCriarConta: TFrmCriarConta
   end
   object panRodape: TLMDSimplePanel
     Left = 0
-    Top = 300
-    Width = 448
-    Height = 60
+    Top = 283
+    Width = 423
+    Height = 57
     Align = alBottom
     Bevel.BorderSides = [fsTop]
     Bevel.Mode = bmEdge
     TabOrder = 1
     object btnAvancar: TcxButton
       AlignWithMargins = True
-      Left = 117
+      Left = 112
       Top = 12
-      Width = 169
-      Height = 36
+      Width = 159
+      Height = 33
       Margins.Left = 10
       Margins.Top = 10
       Margins.Bottom = 10
@@ -1747,7 +1748,7 @@ object FrmCriarConta: TFrmCriarConta
       Caption = 'Registrar Minha Loja'
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
-      Font.Height = -15
+      Font.Height = -13
       Font.Name = 'Calibri'
       Font.Style = [fsBold]
       ParentFont = False
@@ -1760,8 +1761,8 @@ object FrmCriarConta: TFrmCriarConta
       AlignWithMargins = True
       Left = 12
       Top = 12
-      Width = 92
-      Height = 36
+      Width = 87
+      Height = 33
       Margins.Left = 10
       Margins.Top = 10
       Margins.Bottom = 10
