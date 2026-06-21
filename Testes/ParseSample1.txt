@@ -1,0 +1,4 @@
+"Delphi",6,"rocks"
+".NET","is","interesting"
+1,2,3,4
+"Easy",2,"code"

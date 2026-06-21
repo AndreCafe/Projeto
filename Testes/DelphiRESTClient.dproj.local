@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2009/06/11 21:37:58.666.dproj,C:\Users\Andreano\Documents\RAD Studio\Projects\Delphi Meeting 2009\REST\01_RssClient\RssClient.dproj=C:\Users\Andreano\Documents\RAD Studio\Projects\Delphi Meeting 2009\REST\01_RssClient\DelphiRESTClient.dproj</Transaction>
+    <Transaction>2009/06/11 21:38:11.155.pas,C:\Users\Andreano\Documents\RAD Studio\Projects\Delphi Meeting 2009\REST\01_RssClient\RssClientForm.pas=C:\Users\Andreano\Documents\RAD Studio\Projects\Delphi Meeting 2009\REST\01_RssClient\RestClientForm.pas</Transaction>
+    <Transaction>2009/06/11 21:38:11.155.dfm,C:\Users\Andreano\Documents\RAD Studio\Projects\Delphi Meeting 2009\REST\01_RssClient\RssClientForm.dfm=C:\Users\Andreano\Documents\RAD Studio\Projects\Delphi Meeting 2009\REST\01_RssClient\RestClientForm.dfm</Transaction>
+  </Transactions>
+</BorlandProject>

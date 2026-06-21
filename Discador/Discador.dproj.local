@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2012/01/27 15:57:31.888.pas,C:\Documents and Settings\Administrador\Meus documentos\RAD Studio\Projects\Unit9.pas=C:\Projetos\Discador\uConfig.pas</Transaction>
+    <Transaction>2012/01/27 15:57:31.888.dfm,C:\Documents and Settings\Administrador\Meus documentos\RAD Studio\Projects\Unit9.dfm=C:\Projetos\Discador\uConfig.dfm</Transaction>
+    <Transaction>2012/01/27 15:58:36.960.pas,C:\Documents and Settings\Administrador\Meus documentos\RAD Studio\Projects\Unit8.pas=C:\Projetos\Discador\uFrmPri.pas</Transaction>
+    <Transaction>2012/01/27 15:58:36.960.dfm,C:\Documents and Settings\Administrador\Meus documentos\RAD Studio\Projects\Unit8.dfm=C:\Projetos\Discador\uFrmPri.dfm</Transaction>
+    <Transaction>2012/01/27 15:58:42.180.dproj,C:\Documents and Settings\Administrador\Meus documentos\RAD Studio\Projects\Project6.dproj=C:\Projetos\Discador\Discador.dproj</Transaction>
+    <Transaction>2012/01/30 10:25:15.932.pas,C:\Projetos\Discador\Unit1.pas=C:\Projetos\Discador\uFrmDiscar.pas</Transaction>
+    <Transaction>2012/01/30 10:25:15.932.dfm,C:\Projetos\Discador\Unit1.dfm=C:\Projetos\Discador\uFrmDiscar.dfm</Transaction>
+  </Transactions>
+</BorlandProject>

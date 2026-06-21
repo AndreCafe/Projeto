@@ -1,0 +1,55 @@
+package cmD7;
+
+{$R *.res}
+{$ALIGN 8}
+{$ASSERTIONS ON}
+{$BOOLEVAL OFF}
+{$DEBUGINFO ON}
+{$EXTENDEDSYNTAX ON}
+{$IMPORTEDDATA ON}
+{$IOCHECKS ON}
+{$LOCALSYMBOLS ON}
+{$LONGSTRINGS ON}
+{$OPENSTRINGS ON}
+{$OPTIMIZATION ON}
+{$OVERFLOWCHECKS OFF}
+{$RANGECHECKS OFF}
+{$REFERENCEINFO ON}
+{$SAFEDIVIDE OFF}
+{$STACKFRAMES OFF}
+{$TYPEDADDRESS OFF}
+{$VARSTRINGCHECKS ON}
+{$WRITEABLECONST ON}
+{$MINENUMSIZE 1}
+{$IMAGEBASE $400000}
+{$DESCRIPTION 'Cyber-Manager'}
+{$IMPLICITBUILD OFF}
+
+requires
+  vcl,
+  vcldb,
+  bdertl,
+  vclx,
+  CSCommD7,
+  dcllmd_d7,
+  NexusDB105ll70,
+  NexusDB1051x70,
+  NexusDB105sr70,
+  NexusDB105sd70,
+  NexusDB105sq70,
+  NexusDB105st70,
+  NexusDB105pt70,
+  NexusDB105tw70,
+  NexusDB105db70,
+  NexusDB105ch70;
+
+contains
+  cmServBase in 'cmServBase.pas',
+  CMServBD in 'cmServBD.pas' {FFEM: TnxBaseEngineManager},
+  cmServCom in 'cmServCom.pas',
+  cmServReg in 'cmServReg.pas',
+  cmCompCliente in '..\Cliente\cmCompCliente.pas',
+  cmClassesBase in '..\Comum\cmClassesBase.pas',
+  cmServRemoto in '..\Cliente\cmServRemoto.pas';
+
+end.

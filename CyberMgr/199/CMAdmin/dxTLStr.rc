@@ -1,0 +1,26 @@
+/*
+   dxTLStr.rc
+   Developer Express Visual Component Library
+   Express grid string resource
+*/
+
+STRINGTABLE
+{
+// dxTreeList & dxDBgrid strings
+  38801, "Proprietário inválido TdxTreeListNode"
+  38802, "Personalizar"
+  38803, "Confirmação";
+  38804, "Eliminar registo?"
+  38805, "Eliminar todos os registos seleccionados?"
+  38806, "%s: Coluna pelo Campo ''%s'' não encontrada"
+  38807, "Arraste uma coluna para aqui para ordenar por essa coluna"
+  38808, "Tabela em modo de edição ou inserção"
+
+  38809, "   Bandas    "
+  38810, "  Cabeçalhos "
+  38811, "Propriedade ""DefaultFields"" deve ser Falsa"
+  38812, "Nome do grupo inválido!"
+  38813, "Nome do grupo inválido: duplicado!"
+}
+
+

@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2012/03/12 12:05:48.713.dproj,C:\Documents and Settings\Administrador\Meus documentos\RAD Studio\Projects\Project8.dproj=C:\Documents and Settings\Administrador\Meus documentos\RAD Studio\Projects\Project8.dproj</Transaction>
+    <Transaction>2012/03/12 15:14:10.946.pas,C:\Documents and Settings\Administrador\Meus documentos\RAD Studio\Projects\Unit11.pas=C:\Projetos\NexCafe\Utils\uGEOIP.pas</Transaction>
+    <Transaction>2012/03/12 15:14:10.946.dfm,C:\Documents and Settings\Administrador\Meus documentos\RAD Studio\Projects\Unit11.dfm=C:\Projetos\NexCafe\Utils\uGEOIP.dfm</Transaction>
+    <Transaction>2012/03/12 15:14:18.120.dproj,C:\Documents and Settings\Administrador\Meus documentos\RAD Studio\Projects\Project8.dproj=C:\Documents and Settings\Administrador\Meus documentos\RAD Studio\Projects\GeoIP.dproj</Transaction>
+    <Transaction>2012/03/13 09:44:01.586.dproj,C:\Documents and Settings\Administrador\Meus documentos\RAD Studio\Projects\GeoIP.dproj=C:\Projetos\GS\GeoIP.dproj</Transaction>
+    <Transaction>2012/03/13 09:44:12.049.pas,C:\Projetos\NexCafe\Utils\uGEOIP.pas=C:\Projetos\GS\uGEOIP.pas</Transaction>
+    <Transaction>2012/03/13 09:44:12.049.dfm,C:\Projetos\NexCafe\Utils\uGEOIP.dfm=C:\Projetos\GS\uGEOIP.dfm</Transaction>
+    <Transaction>2012/03/13 12:37:33.134.dproj,C:\Projetos\GS\GeoIP.dproj=C:\Projetos\GS\GeoIP.dproj</Transaction>
+    <Transaction>2012/03/13 12:37:55.483.dproj,C:\Projetos\GS\GeoIP.dproj=C:\Projetos\GS\GeoIP.dproj</Transaction>
+    <Transaction>2012/04/11 17:46:58.628.dproj,C:\Projetos\GS\GeoIP.dproj=C:\Projetos\GS\CorrigeOrigem.dproj</Transaction>
+    <Transaction>2012/04/11 17:47:08.206.pas,C:\Projetos\GS\uGEOIP.pas=C:\Projetos\GS\uCorrigeOrigem.pas</Transaction>
+    <Transaction>2012/04/11 17:47:08.206.dfm,C:\Projetos\GS\uGEOIP.dfm=C:\Projetos\GS\uCorrigeOrigem.dfm</Transaction>
+  </Transactions>
+</BorlandProject>

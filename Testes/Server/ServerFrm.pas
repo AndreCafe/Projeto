@@ -1,0 +1,56 @@
+unit ServerFrm;
+
+interface
+
+uses
+  {$IFDEF NXWINAPI}nxWinAPI{$ELSE}Windows{$ENDIF}, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, StdCtrls, nxllPluginBase, nxrpBase, nxrpServer, nxllTransport,
+  nxrpCommandHandler, nxllSimpleCommandHandler, nxtmSharedMemoryTransport,
+  nxtnNamedPipeTransport, nxllComponent, nxptBasePooledTransport,
+  nxtwWinsockTransport, nxpvPlatformImplementation, nxrmAllDefaults;
+
+type
+  TfrmServer = class(TForm)
+    Winsock: TnxWinsockTransport;
+    NamedPipe: TnxNamedPipeTransport;
+    SharedMemory: TnxSharedMemoryTransport;
+    SimpleCommandHandler: TnxSimpleCommandHandler;
+    RemotingCommandHandler: TnxRemotingCommandHandler;
+    RemotingServer: TnxRemotingServer;
+    bnStart: TButton;
+    bnStop: TButton;
+    procedure bnStartClick(Sender: TObject);
+    procedure bnStopClick(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmServer: TfrmServer;
+
+implementation
+
+{$R *.dfm}
+
+procedure TfrmServer.bnStartClick(Sender: TObject);
+begin
+  try
+//    Winsock.Open;
+//    NamedPipe.Open;
+    SharedMemory.Open;
+  except
+    SimpleCommandHandler.Close;
+    raise;
+  end;
+  Caption := 'Server started';
+end;
+
+procedure TfrmServer.bnStopClick(Sender: TObject);
+begin
+  SimpleCommandHandler.Close;
+  Caption := 'Server stopped';
+end;
+
+end.

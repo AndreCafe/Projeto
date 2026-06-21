@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2005/12/26 12:34:51.196.pas,C:\Projetos\Diatec\270\Unit2.pas=C:\Projetos\Diatec\270\uAFrmExp.pas</Transaction>
+    <Transaction>2005/12/26 12:34:51.196.dfm,C:\Projetos\Diatec\270\Unit2.dfm=C:\Projetos\Diatec\270\uAFrmExp.dfm</Transaction>
+    <Transaction>2005/12/28 21:03:17.390.pas,C:\Projetos\Diatec\270\Unit2.pas=C:\Projetos\Diatec\270\uDMARels.pas</Transaction>
+    <Transaction>2005/12/28 21:03:17.390.dfm,C:\Projetos\Diatec\270\Unit2.dfm=C:\Projetos\Diatec\270\uDMARels.dfm</Transaction>
+    <Transaction>2006/04/05 18:40:18.090.pas,C:\Projetos\Diatec\270\Unit2.pas=C:\Projetos\Diatec\270\uDTFrmRel.pas</Transaction>
+    <Transaction>2006/04/05 18:40:18.090.dfm,C:\Projetos\Diatec\270\Unit2.dfm=C:\Projetos\Diatec\270\uDTFrmRel.dfm</Transaction>
+    <Transaction>2006/04/05 18:40:30.588.pas,C:\Projetos\Diatec\270\uDTFrmRel.pas=C:\Projetos\Diatec\270\uAFrmRel.pas</Transaction>
+    <Transaction>2006/04/05 18:40:30.588.dfm,C:\Projetos\Diatec\270\uDTFrmRel.dfm=C:\Projetos\Diatec\270\uAFrmRel.dfm</Transaction>
+  </Transactions>
+</BorlandProject>

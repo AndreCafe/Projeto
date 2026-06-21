@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2006/10/25 14:35:51.748.pas,C:\Documents and Settings\IBM\My Documents\Borland Studio Projects\Unit16.pas=C:\Projetos\Email\uDMEmail.pas</Transaction>
+    <Transaction>2006/10/25 14:35:51.748.dfm,C:\Documents and Settings\IBM\My Documents\Borland Studio Projects\Unit16.dfm=C:\Projetos\Email\uDMEmail.dfm</Transaction>
+    <Transaction>2006/10/25 14:36:13.380.pas,C:\Documents and Settings\IBM\My Documents\Borland Studio Projects\Unit15.pas=C:\Projetos\Email\uFrmPri.pas</Transaction>
+    <Transaction>2006/10/25 14:36:13.380.dfm,C:\Documents and Settings\IBM\My Documents\Borland Studio Projects\Unit15.dfm=C:\Projetos\Email\uFrmPri.dfm</Transaction>
+    <Transaction>2006/10/25 14:36:25.257.bdsproj,C:\Documents and Settings\IBM\My Documents\Borland Studio Projects\Project13.bdsproj=C:\Projetos\Email\TesteEmail.bdsproj</Transaction>
+  </Transactions>
+</BorlandProject>

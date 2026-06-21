@@ -1,0 +1,15 @@
+<Library Name="NewLibrary" UID="{9D769963-59D6-4D79-A3C9-C3C9D47731BA}" Documentation="">
+  <Services>
+    <Service Name="NewService" Ancestor="DARemoteService">
+      <Interfaces>
+         <Interface Name="Default" UID="{6115CE72-9D08-48A6-9363-4A8B15B73CB7}" Documentation="Service NewService. This service has been automatically generated using the Data Abstract template you can find in the Templates directory.">
+            <Operations>
+            </Operations>
+         </Interface>
+      </Interfaces>
+    </Service>
+  </Services>
+  <Uses>
+     <Use Name="DataAbstract" UID="{270D7378-224E-4AF7-90C8-C85C9A4BBD01}" Documentation="" Rodl="C:\Arquivos de programas\RemObjects Software\Data Abstract\\Source\DataAbstract.rodl" />
+  </Uses>
+</Library>

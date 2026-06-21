@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2007/02/05 10:25:32.328.pas,C:\Documents and Settings\IBM\My Documents\Borland Studio Projects\Unit16.pas=C:\Projetos\CyberMgr\Atual\utils\uImpVSCyber.pas</Transaction>
+    <Transaction>2007/02/05 10:25:32.358.dfm,C:\Documents and Settings\IBM\My Documents\Borland Studio Projects\Unit16.dfm=C:\Projetos\CyberMgr\Atual\utils\uImpVSCyber.dfm</Transaction>
+    <Transaction>2007/02/05 10:25:36.203.bdsproj,C:\Documents and Settings\IBM\My Documents\Borland Studio Projects\Project14.bdsproj=C:\Projetos\CyberMgr\Atual\utils\ImpVSCyber.bdsproj</Transaction>
+  </Transactions>
+</BorlandProject>

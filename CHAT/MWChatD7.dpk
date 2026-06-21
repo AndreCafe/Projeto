@@ -1,0 +1,65 @@
+package MWChatD7;
+
+{$R *.res}
+{$ALIGN 8}
+{$ASSERTIONS ON}
+{$BOOLEVAL OFF}
+{$DEBUGINFO ON}
+{$EXTENDEDSYNTAX ON}
+{$IMPORTEDDATA ON}
+{$IOCHECKS ON}
+{$LOCALSYMBOLS ON}
+{$LONGSTRINGS ON}
+{$OPENSTRINGS ON}
+{$OPTIMIZATION ON}
+{$OVERFLOWCHECKS OFF}
+{$RANGECHECKS OFF}
+{$REFERENCEINFO ON}
+{$SAFEDIVIDE OFF}
+{$STACKFRAMES OFF}
+{$TYPEDADDRESS OFF}
+{$VARSTRINGCHECKS ON}
+{$WRITEABLECONST OFF}
+{$MINENUMSIZE 1}
+{$IMAGEBASE $400000}
+{$DESCRIPTION 'CHAT - KBMMW'}
+{$IMPLICITBUILD ON}
+
+requires
+  vcl,
+  rtl,
+  vcljpg,
+  adortl,
+  bdertl,
+  vclactnband,
+  vclx,
+  vcldb,
+  cxLibraryVCLD7,
+  dxThemeD7,
+  cxPageControlVCLD7,
+  kbmMemD7Run,
+  kbmMWRunD7,
+  cxEditorsVCLD7,
+  cxDataD7,
+  dbrtl,
+  cxExtEditorsVCLD7,
+  dcllmd_d7,
+  designide,
+  PngComponentsD7,
+  PNG_D7,
+  RVPkgD7,
+  ibxpress,
+  dsnap,
+  indy,
+  HDSerialD7;
+
+contains
+  chfrConversa in 'chfrConversa.pas' {chFrameConversa: TFrame},
+  chpcConversas in 'chpcConversas.pas',
+  chBase in 'chBase.pas',
+  chKBM in 'chKBM.pas',
+  chfrBase in 'chfrBase.pas' {chFrameBase: TFrame},
+  chfrConversaRV in 'chfrConversaRV.pas' {chFrameConversaRV: TFrame},
+  chfrPadrao in 'chfrPadrao.pas' {chFramePadrao: TFrame};
+
+end.

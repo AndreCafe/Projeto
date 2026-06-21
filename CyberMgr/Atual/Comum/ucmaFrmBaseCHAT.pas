@@ -1,0 +1,227 @@
+unit ucmaFrmBaseCHAT;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, cxStyles, cxCustomData, cxGraphics, cxFilter, cxData, cxDataStorage,
+  cxEdit, DB, cxDBData, Menus, cxLookAndFeelPainters, StdCtrls, cxButtons,
+  cxContainer, cxTextEdit, cxMaskEdit, cxDropDownEdit, cxLookAndFeels,
+  cxGridLevel, cxClasses, cxControls, cxGridCustomView, cxGridCustomTableView,
+  cxGridTableView, cxGridDBTableView, cxGrid, LMDSimplePanel,
+  LMDCustomScrollBox, LMDScrollBox, lmdsplt, LMDCustomControl, LMDCustomPanel,
+  LMDCustomBevelPanel, cxMemo, cxRichEdit, RVStyle, RVScroll, RichView, ExtCtrls,
+  cxLabel;
+
+type
+  TEnviarMsg = procedure (const aPara: Integer; const aTexto: String) of object;
+  
+  TFrmBaseChat = class(TForm)
+    panPri: TLMDSplitterPanel;
+    LMDSplitterPane1: TLMDSplitterPane;
+    LMDSplitterPane2: TLMDSplitterPane;
+    meTexto: TMemo;
+    panEnviar: TLMDSimplePanel;
+    edMaq: TcxComboBox;
+    lbMaq: TLabel;
+    btnEnviar: TcxButton;
+    RV: TRichView;
+    RVStyle1: TRVStyle;
+    TimerAtencao: TTimer;
+    procedure FormCreate(Sender: TObject);
+    procedure meTextoChange(Sender: TObject);
+    procedure btnEnviarClick(Sender: TObject);
+    procedure meTextoKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure edMaqPropertiesCloseUp(Sender: TObject);
+    procedure meTextoEnter(Sender: TObject);
+    procedure meTextoExit(Sender: TObject);
+    procedure TimerAtencaoTimer(Sender: TObject);
+    procedure RVEnter(Sender: TObject);
+    procedure edMaqEnter(Sender: TObject);
+  private
+    FMaq: Integer;
+    FEnviarMsg: TEnviarMsg;
+    FAtencao: Boolean;
+    FMudouAtencao: TNotifyEvent;
+    FNaoPiscar: Boolean;
+    procedure SetEnviarMsg(const Value: TEnviarMsg);
+    procedure SetMaq(const Value: Integer);
+    procedure SetAtencao(const Value: Boolean);
+    { Private declarations }
+  public
+    procedure MsgEnv(const aHora: TDateTime; const aDe, aPara:Integer; const aTexto: String);
+    { Public declarations }
+    property EnviarMsg: TEnviarMsg
+      read FEnviarMsg write SetEnviarMsg;
+      
+    property NumMaq: Integer 
+      read FMaq write SetMaq;
+
+    property Atencao: Boolean
+      read FAtencao write SetAtencao;  
+
+    property MudouAtencao: TNotifyEvent
+      read FMudouAtencao write FMudouAtencao;  
+
+    property NaoPiscar: Boolean
+      read FNaoPiscar write FNaoPiscar;   
+  end;
+
+var
+  FrmBaseChat: TFrmBaseChat;
+
+implementation
+
+{$R *.dfm}
+
+{ TFrmBaseChat }
+
+function ZeroPad(I: Integer): String;
+begin
+  Result := IntToStr(I);
+  if I=-1 then Result := 'T';
+  Result := ' '+Result+' ';  
+end;
+
+procedure TFrmBaseChat.btnEnviarClick(Sender: TObject);
+begin
+  Atencao := False;
+  if FMaq>0 then
+    FEnviarMsg(0, meTexto.Text)
+  else
+  if SameText(edMaq.Text, 'Todos') then
+    FEnviarMsg(-1, meTexto.Text)else
+    FEnviarMsg(StrToInt(edMaq.Text), meTexto.Text);
+  meTexto.Lines.Clear;  
+  btnEnviar.Enabled := False;
+  meTexto.SetFocus;
+end;
+
+procedure TFrmBaseChat.edMaqEnter(Sender: TObject);
+begin
+  Atencao := False;
+end;
+
+procedure TFrmBaseChat.edMaqPropertiesCloseUp(Sender: TObject);
+begin
+  meTexto.SetFocus;
+end;
+
+procedure TFrmBaseChat.FormCreate(Sender: TObject);
+begin
+  FMaq := 0;
+  FEnviarMsg := nil;
+  FMudouAtencao := nil;
+  FNaoPiscar := False;
+  FAtencao := True;
+  Atencao := False;
+end;
+
+procedure TFrmBaseChat.meTextoChange(Sender: TObject);
+begin
+  btnEnviar.Enabled := (meTexto.Text>'');
+end;
+
+procedure TFrmBaseChat.meTextoKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if (ssCtrl in Shift) and (Key=13) and (meTexto.Text>'') then
+    btnEnviarClick(nil);
+end;
+
+procedure TFrmBaseChat.MsgEnv(const aHora: TDateTime; const aDe, aPara: Integer;
+  const aTexto: String);
+var 
+  S: String;  
+  I: Integer;
+begin
+  if (aDe>0) then
+    S := ZeroPad(aDe) else
+    S := ZeroPad(aPara);
+
+  if aDe=FMaq then
+    I := 0 else
+    I := 3;
+
+  if (aDe>0) and (FMaq=0) and (meTexto.Text='') then
+    edMaq.Text := IntToStr(aDe); 
+    
+  if FMaq=0 then begin
+    RV.AddText(S, I+1);
+    S := '  '+FormatDateTime('dd/mm/yyyy hh:mm:ss', aHora);
+  end else
+    S := FormatDateTime('hh:mm:ss', aHora);
+
+  if aDe=0 then
+    S := S+' - Atendente' else
+    S := S+' - Cliente';
+    
+  RV.AddText(S, I);
+  RV.AddTextBlockNL(aTexto, I+2, 0);
+  RV.Reformat;
+
+  RV.ScrollTo(RV.VScrollMax);
+
+  if (aDe<>FMaq) and (not meTexto.Focused) and (not RV.Focused) and (not edMaq.Focused) then
+    Atencao := True;
+end;
+
+procedure TFrmBaseChat.RVEnter(Sender: TObject);
+begin
+  Atencao := False;
+end;
+
+procedure TFrmBaseChat.SetAtencao(const Value: Boolean);
+begin
+  if Value=FAtencao then Exit;
+  FAtencao := Value;
+  if FAtencao then begin
+    if not NaoPiscar then 
+      panPri.Bevel.BorderinnerWidth := 3;
+    TimerAtencao.Enabled := True;
+    
+    Application.BringToFront;
+  end else begin
+    panPri.Bevel.BorderInnerWidth := 0;
+    TimerAtencao.Enabled := False;
+  end;
+  if Assigned(FMudouAtencao) then
+     FMudouAtencao(Self);
+end;
+
+procedure TFrmBaseChat.SetEnviarMsg(const Value: TEnviarMsg);
+begin
+  FEnviarMsg := Value;
+  meTexto.Enabled := Assigned(FEnviarMsg);
+end;
+
+procedure TFrmBaseChat.SetMaq(const Value: Integer);
+begin
+  FMaq := Value;
+  lbMaq.Visible := (FMaq=0);
+  edMaq.Visible := (FMaq=0);
+end;
+
+procedure TFrmBaseChat.TimerAtencaoTimer(Sender: TObject);
+begin
+  with panPri.Bevel do
+  if BorderColor=clOlive then
+    BorderColor := clYellow else
+    BorderColor := clOlive;
+    
+{  if meTexto.Focused or RV.Focused or edMaq.Focused then
+    Atencao := False;}
+end;
+
+procedure TFrmBaseChat.meTextoEnter(Sender: TObject);
+begin
+  meTexto.Color := $00CAFFCA;
+  Atencao := False;
+end;
+
+procedure TFrmBaseChat.meTextoExit(Sender: TObject);
+begin
+  meTexto.Color := clWhite;
+end;
+
+end.

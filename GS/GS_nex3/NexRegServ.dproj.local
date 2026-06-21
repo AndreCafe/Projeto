@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2006/06/03 15:20:03.191.pas,C:\Projetos\GS\uRSQSRegistro100.pas=C:\Projetos\GS\uRSQSRegistro200.pas</Transaction>
+    <Transaction>2006/06/03 15:20:03.191.dfm,C:\Projetos\GS\uRSQSRegistro100.dfm=C:\Projetos\GS\uRSQSRegistro200.dfm</Transaction>
+    <Transaction>2006/06/03 17:29:24.020.pas,C:\Projetos\GS\Unit2.pas=C:\Projetos\GS\uRSGerenteChave.pas</Transaction>
+    <Transaction>2006/06/05 12:10:36.569.pas,C:\Projetos\GS\Unit2.pas=C:\Projetos\GS\uRSDMGerenteChave.pas</Transaction>
+    <Transaction>2006/06/05 12:10:36.569.dfm,C:\Projetos\GS\Unit2.dfm=C:\Projetos\GS\uRSDMGerenteChave.dfm</Transaction>
+    <Transaction>2006/06/12 16:18:55.582.pas,C:\Projetos\GS\uRSQSRegistro200.pas=</Transaction>
+    <Transaction>2006/06/12 16:18:55.602.dfm,C:\Projetos\GS\uRSQSRegistro200.dfm=</Transaction>
+    <Transaction>2006/12/16 11:36:58.871.bdsproj,C:\Projetos\GS\RegistroServ.bdsproj=C:\Projetos\GS\NexRegServ.bdsproj</Transaction>
+    <Transaction>2009/12/05 10:45:59.139.pas,c:\projetos\gs\uRSQSRegistro200.pas=C:\Projetos\GS\uRSQSRegistro300.pas</Transaction>
+    <Transaction>2009/12/05 10:45:59.139.dfm,c:\projetos\gs\uRSQSRegistro200.dfm=C:\Projetos\GS\uRSQSRegistro300.dfm</Transaction>
+    <Transaction>2009/12/08 17:19:21.107.pas,C:\Projetos\GS\Unit2.pas=C:\Projetos\GS\uRSPrecos.pas</Transaction>
+    <Transaction>2009/12/08 17:20:14.967.pas,C:\Projetos\GS\uRSPrecos.pas=C:\Projetos\GS\uRSAss.pas</Transaction>
+  </Transactions>
+</BorlandProject>

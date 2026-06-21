@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2005/12/16 15:02:05.911.bdsproj,C:\Projetos\FormMgr\FormMgrR.bdsproj=C:\Projetos\FormMgr\FormMgrR10.bdsproj</Transaction>
+    <Transaction>2007/04/13 15:26:32.919.dproj,C:\Projetos\FormMgr\FormMgrR10.dproj=C:\Projetos\FormMgr\FormMgrR2007.dproj</Transaction>
+    <Transaction>2009/09/18 10:28:16.323.dproj,C:\Projetos\FormMgr\FormMgrR2007.dproj=C:\Projetos\FormMgr\FormMgrR2009.dproj</Transaction>
+  </Transactions>
+</BorlandProject>

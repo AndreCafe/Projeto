@@ -1,0 +1,57 @@
+package cmD5;
+
+{$R *.RES}
+{$ALIGN ON}
+{$ASSERTIONS ON}
+{$BOOLEVAL OFF}
+{$DEBUGINFO ON}
+{$EXTENDEDSYNTAX ON}
+{$IMPORTEDDATA ON}
+{$IOCHECKS ON}
+{$LOCALSYMBOLS ON}
+{$LONGSTRINGS ON}
+{$OPENSTRINGS ON}
+{$OPTIMIZATION ON}
+{$OVERFLOWCHECKS OFF}
+{$RANGECHECKS OFF}
+{$REFERENCEINFO ON}
+{$SAFEDIVIDE OFF}
+{$STACKFRAMES OFF}
+{$TYPEDADDRESS OFF}
+{$VARSTRINGCHECKS ON}
+{$WRITEABLECONST ON}
+{$MINENUMSIZE 1}
+{$IMAGEBASE $400000}
+{$DESCRIPTION 'Cyber-Manager'}
+{$IMPLICITBUILD OFF}
+
+requires
+  vcl50,
+  Vcldb50,
+  CSCommD5,
+  Vclbde50,
+  Vclx50,
+  lmd50_d5,
+  NexusDB103ll50,
+  NexusDB1031x50,
+  NexusDB103sr50,
+  NexusDB103sd50,
+  NexusDB103sq50,
+  NexusDB103st50,
+  NexusDB103pt50,
+  NexusDB103tw50,
+  NexusDB103db50,
+  NexusDB103ch50;
+
+contains
+  cmServBase in 'cmServBase.pas',
+  CMServBD in 'cmServBD.pas' {FFEM: TnxBaseEngineManager},
+  cmServCom in 'cmServCom.pas',
+  cmServReg in 'cmServReg.pas',
+  cmCompCliente in '..\Cliente\cmCompCliente.pas',
+  cmClassesBase in '..\Comum\cmClassesBase.pas',
+  cmServRemoto in '..\Cliente\cmServRemoto.pas',
+  CMChecaBD in 'CMChecaBD.pas',
+  cmProtecao in '..\Protecao\cmProtecao.pas';
+
+end.

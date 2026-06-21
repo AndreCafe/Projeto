@@ -1,0 +1,1843 @@
+[tvCli: TcxPropertiesStoreComponent]
+=
+DragMode=dmManual
+FakeComponentLink1=
+FakeComponentLink2=
+FakeComponentLink3=
+Name=tvCli
+Tag=0
+
+[tvCli/BackgroundBitmaps: TcxGridTableBackgroundBitmaps]
+=
+
+[tvCli/BackgroundBitmaps/Background: TBitmap]
+=
+
+[tvCli/BackgroundBitmaps/Content: TBitmap]
+=
+
+[tvCli/BackgroundBitmaps/FilterBox: TBitmap]
+=
+
+[tvCli/BackgroundBitmaps/Footer: TBitmap]
+=
+
+[tvCli/BackgroundBitmaps/Header: TBitmap]
+=
+
+[tvCli/BackgroundBitmaps/Group: TBitmap]
+=
+
+[tvCli/BackgroundBitmaps/GroupByBox: TBitmap]
+=
+
+[tvCli/BackgroundBitmaps/Indicator: TBitmap]
+=
+
+[tvCli/BackgroundBitmaps/Preview: TBitmap]
+=
+
+[tvCli/DataController: TcxGridDBDataController]
+=
+DataSource=dsTab
+DetailKeyFieldNames=
+KeyFieldNames=
+MasterKeyFieldNames=
+Options=[dcoAssignGroupingValues,dcoAssignMasterDetailKeys,dcoSaveExpanding]
+
+[tvCli/DataController/DataModeController: TcxDBDataModeController]
+=
+DetailInSQLMode=False
+GridMode=False
+GridModeBufferCount=0
+SmartRefresh=False
+SyncMode=True
+
+[tvCli/DataController/Filter: TcxDBDataFilterCriteria]
+=
+MaxValueListCount=0
+Options=[fcoCaseInsensitive]
+PercentWildcard=37
+UnderscoreWildcard=95
+Active=True
+AutoDataSetFilter=True
+DateTimeFormat=
+IgnoreOrigin=True
+TranslateBetween=False
+TranslateIn=False
+SupportedLike=True
+
+[tvCli/DataController/Summary: TcxDataSummary]
+=
+Options=[]
+
+[tvCli/DataController/Summary/DefaultGroupSummaryItems: TcxDataGroupSummaryItems]
+=
+BeginText=(
+EndText=)
+Separator=,
+
+[tvCli/DataController/Summary/DefaultGroupSummaryItems/0: TcxGridDBTableSummaryItem]
+=
+Column=tvCliCodigo
+Format=0 itens
+Kind=skCount
+Position=spGroup
+FieldName=Codigo
+
+[tvCli/DataController/Summary/FooterSummaryItems: TcxDataFooterSummaryItems]
+=
+
+[tvCli/DataController/Summary/FooterSummaryItems/0: TcxGridDBTableSummaryItem]
+=
+Column=tvCliCodigo
+Format=0
+Kind=skCount
+Position=spFooter
+FieldName=Codigo
+
+[tvCli/DataController/Summary/SummaryGroups: TcxDataSummaryGroups]
+=
+
+[tvCli/Filtering: TcxGridTableFiltering]
+=
+CustomizeDialog=True
+DropDownWidth=0
+MaxDropDownCount=15
+Visible=fvNonEmpty
+
+[tvCli/NavigatorButtons: TcxNavigatorControlButtons]
+=
+ConfirmDelete=False
+
+[tvCli/NavigatorButtons/First: TcxNavigatorButton]
+=
+Enabled=True
+Hint=
+ImageIndex=-1
+Visible=True
+
+[tvCli/NavigatorButtons/PriorPage: TcxNavigatorButton]
+=
+Enabled=True
+Hint=
+ImageIndex=-1
+Visible=True
+
+[tvCli/NavigatorButtons/Prior: TcxNavigatorButton]
+=
+Enabled=True
+Hint=
+ImageIndex=-1
+Visible=True
+
+[tvCli/NavigatorButtons/Next: TcxNavigatorButton]
+=
+Enabled=True
+Hint=
+ImageIndex=-1
+Visible=True
+
+[tvCli/NavigatorButtons/NextPage: TcxNavigatorButton]
+=
+Enabled=True
+Hint=
+ImageIndex=-1
+Visible=True
+
+[tvCli/NavigatorButtons/Last: TcxNavigatorButton]
+=
+Enabled=True
+Hint=
+ImageIndex=-1
+Visible=True
+
+[tvCli/NavigatorButtons/Insert: TcxNavigatorButton]
+=
+Enabled=True
+Hint=
+ImageIndex=-1
+Visible=True
+
+[tvCli/NavigatorButtons/Delete: TcxNavigatorButton]
+=
+Enabled=True
+Hint=
+ImageIndex=-1
+Visible=True
+
+[tvCli/NavigatorButtons/Edit: TcxNavigatorButton]
+=
+Enabled=True
+Hint=
+ImageIndex=-1
+Visible=True
+
+[tvCli/NavigatorButtons/Post: TcxNavigatorButton]
+=
+Enabled=True
+Hint=
+ImageIndex=-1
+Visible=True
+
+[tvCli/NavigatorButtons/Cancel: TcxNavigatorButton]
+=
+Enabled=True
+Hint=
+ImageIndex=-1
+Visible=True
+
+[tvCli/NavigatorButtons/Refresh: TcxNavigatorButton]
+=
+Enabled=True
+Hint=
+ImageIndex=-1
+Visible=True
+
+[tvCli/NavigatorButtons/SaveBookmark: TcxNavigatorButton]
+=
+Enabled=True
+Hint=
+ImageIndex=-1
+Visible=True
+
+[tvCli/NavigatorButtons/GotoBookmark: TcxNavigatorButton]
+=
+Enabled=True
+Hint=
+ImageIndex=-1
+Visible=True
+
+[tvCli/NavigatorButtons/Filter: TcxNavigatorButton]
+=
+Enabled=True
+Hint=
+ImageIndex=-1
+Visible=True
+
+[tvCli/OptionsBehavior: TcxGridTableOptionsBehavior]
+=
+AlwaysShowEditor=False
+CellHints=False
+DragFocusing=dfNone
+DragHighlighting=True
+DragOpening=True
+DragScrolling=True
+FocusCellOnTab=False
+FocusFirstCellOnNewRecord=False
+GoToNextCellOnEnter=False
+ImmediateEditor=True
+IncSearch=True
+IncSearchItem=tvCliLoja
+NavigatorHints=False
+BestFitMaxRecordCount=0
+ExpandMasterRowOnDblClick=True
+FocusCellOnCycle=False
+PullFocusing=False
+
+[tvCli/OptionsCustomize: TcxGridTableOptionsCustomize]
+=
+ColumnFiltering=True
+ColumnGrouping=True
+ColumnHiding=False
+ColumnHidingOnGrouping=True
+ColumnHorzSizing=True
+ColumnMoving=True
+ColumnSorting=True
+DataRowSizing=False
+GroupRowSizing=False
+
+[tvCli/OptionsData: TcxCustomGridTableOptionsData]
+=
+Appending=False
+CancelOnExit=False
+Deleting=False
+DeletingConfirmation=False
+Editing=False
+Inserting=False
+
+[tvCli/OptionsSelection: TcxGridTableOptionsSelection]
+=
+CellSelect=False
+HideFocusRect=True
+HideSelection=False
+InvertSelect=True
+MultiSelect=False
+UnselectFocusedRecordOnExit=True
+
+[tvCli/OptionsView: TcxGridTableOptionsView]
+=
+ScrollBars=ssBoth
+CellEndEllipsis=False
+Navigator=True
+NavigatorOffset=50
+ShowEditButtons=gsebNever
+CellAutoHeight=False
+CellTextMaxLineCount=0
+ColumnAutoWidth=False
+DataRowHeight=0
+ExpandButtonsForEmptyDetails=True
+Footer=True
+GridLineColor=536870912
+GridLines=glBoth
+GroupByBox=True
+GroupFooters=gfInvisible
+GroupRowHeight=0
+Header=True
+HeaderAutoHeight=False
+HeaderEndEllipsis=False
+HeaderHeight=0
+Indicator=False
+IndicatorWidth=12
+NewItemRow=False
+NewItemRowInfoText=Click here to add a new row
+NewItemRowSeparatorColor=536870912
+NewItemRowSeparatorWidth=6
+RowSeparatorColor=536870912
+RowSeparatorWidth=0
+
+[tvCli/Preview: TcxGridPreview]
+=
+AutoHeight=True
+LeftIndent=20
+MaxLineCount=3
+Place=ppBottom
+RightIndent=5
+Visible=False
+
+[tvCli/Styles: TcxGridTableViewStyles]
+=
+Background=cxStyle25
+StyleSheet=GridTableViewStyleSheetDevExpress
+Content=cxStyle26
+ContentEven=cxStyle27
+ContentOdd=cxStyle28
+Inactive=cxStyle34
+IncSearch=cxStyle35
+Selection=cxStyle38
+FilterBox=cxStyle29
+Footer=cxStyle30
+Group=cxStyle31
+GroupByBox=cxStyle32
+Header=cxStyle33
+Indicator=cxStyle36
+Preview=cxStyle37
+
+[tvCliAtualizadoEm: TcxPropertiesStoreComponent]
+=
+Caption=AtualizadoEm
+FooterAlignmentHorz=taLeftJustify
+GroupIndex=-1
+HeaderAlignmentHorz=taLeftJustify
+HeaderAlignmentVert=vaTop
+HeaderGlyphAlignmentHorz=taLeftJustify
+HeaderGlyphAlignmentVert=vaCenter
+Hidden=False
+MinWidth=20
+Name=tvCliAtualizadoEm
+Properties=
+PropertiesClassName=
+RepositoryItem=
+SortOrder=soNone
+Tag=0
+Visible=True
+Width=109
+
+[tvCliAtualizadoEm/DataBinding: TcxGridItemDBDataBinding]
+=
+FieldName=AtualizadoEm
+
+[tvCliAtualizadoEm/HeaderGlyph: TBitmap]
+=
+
+[tvCliAtualizadoEm/Options: TcxGridColumnOptions]
+=
+Editing=True
+Filtering=True
+Focusing=True
+IncSearch=True
+ShowEditButtons=isebDefault
+Grouping=True
+HorzSizing=True
+Moving=True
+Sorting=True
+
+[tvCliAtualizadoEm/Styles: TcxGridColumnStyles]
+=
+
+[tvCliAtualizadoPor: TcxPropertiesStoreComponent]
+=
+Caption=AtualizadoPor
+FooterAlignmentHorz=taLeftJustify
+GroupIndex=-1
+HeaderAlignmentHorz=taLeftJustify
+HeaderAlignmentVert=vaTop
+HeaderGlyphAlignmentHorz=taLeftJustify
+HeaderGlyphAlignmentVert=vaCenter
+Hidden=False
+MinWidth=20
+Name=tvCliAtualizadoPor
+Properties=
+PropertiesClassName=
+RepositoryItem=
+SortOrder=soNone
+Tag=0
+Visible=True
+Width=89
+
+[tvCliAtualizadoPor/DataBinding: TcxGridItemDBDataBinding]
+=
+FieldName=AtualizadoPor
+
+[tvCliAtualizadoPor/HeaderGlyph: TBitmap]
+=
+
+[tvCliAtualizadoPor/Options: TcxGridColumnOptions]
+=
+Editing=True
+Filtering=True
+Focusing=True
+IncSearch=True
+ShowEditButtons=isebDefault
+Grouping=True
+HorzSizing=True
+Moving=True
+Sorting=True
+
+[tvCliAtualizadoPor/Styles: TcxGridColumnStyles]
+=
+
+[tvCliBairro: TcxPropertiesStoreComponent]
+=
+Caption=Bairro
+FooterAlignmentHorz=taLeftJustify
+GroupIndex=-1
+HeaderAlignmentHorz=taLeftJustify
+HeaderAlignmentVert=vaTop
+HeaderGlyphAlignmentHorz=taLeftJustify
+HeaderGlyphAlignmentVert=vaCenter
+Hidden=False
+MinWidth=20
+Name=tvCliBairro
+Properties=
+PropertiesClassName=
+RepositoryItem=
+SortOrder=soNone
+Tag=0
+Visible=True
+Width=51
+
+[tvCliBairro/DataBinding: TcxGridItemDBDataBinding]
+=
+FieldName=Bairro
+
+[tvCliBairro/HeaderGlyph: TBitmap]
+=
+
+[tvCliBairro/Options: TcxGridColumnOptions]
+=
+Editing=True
+Filtering=True
+Focusing=True
+IncSearch=True
+ShowEditButtons=isebDefault
+Grouping=True
+HorzSizing=True
+Moving=True
+Sorting=True
+
+[tvCliBairro/Styles: TcxGridColumnStyles]
+=
+
+[tvCliCadastroEm: TcxPropertiesStoreComponent]
+=
+Caption=Data Cadastro
+FooterAlignmentHorz=taLeftJustify
+GroupIndex=-1
+HeaderAlignmentHorz=taLeftJustify
+HeaderAlignmentVert=vaTop
+HeaderGlyphAlignmentHorz=taLeftJustify
+HeaderGlyphAlignmentVert=vaCenter
+Hidden=False
+MinWidth=20
+Name=tvCliCadastroEm
+Properties=
+PropertiesClassName=
+RepositoryItem=
+SortOrder=soNone
+Tag=0
+Visible=True
+Width=93
+
+[tvCliCadastroEm/DataBinding: TcxGridItemDBDataBinding]
+=
+FieldName=Data Cadastro
+
+[tvCliCadastroEm/HeaderGlyph: TBitmap]
+=
+
+[tvCliCadastroEm/Options: TcxGridColumnOptions]
+=
+Editing=True
+Filtering=True
+Focusing=True
+IncSearch=True
+ShowEditButtons=isebDefault
+Grouping=True
+HorzSizing=True
+Moving=True
+Sorting=True
+
+[tvCliCadastroEm/Styles: TcxGridColumnStyles]
+=
+
+[tvCliCadastroPor: TcxPropertiesStoreComponent]
+=
+Caption=Cadastro Por
+FooterAlignmentHorz=taLeftJustify
+GroupIndex=-1
+HeaderAlignmentHorz=taLeftJustify
+HeaderAlignmentVert=vaTop
+HeaderGlyphAlignmentHorz=taLeftJustify
+HeaderGlyphAlignmentVert=vaCenter
+Hidden=False
+MinWidth=20
+Name=tvCliCadastroPor
+Properties=
+PropertiesClassName=
+RepositoryItem=
+SortOrder=soNone
+Tag=0
+Visible=True
+Width=86
+
+[tvCliCadastroPor/DataBinding: TcxGridItemDBDataBinding]
+=
+FieldName=Cadastro Por
+
+[tvCliCadastroPor/HeaderGlyph: TBitmap]
+=
+
+[tvCliCadastroPor/Options: TcxGridColumnOptions]
+=
+Editing=True
+Filtering=True
+Focusing=True
+IncSearch=True
+ShowEditButtons=isebDefault
+Grouping=True
+HorzSizing=True
+Moving=True
+Sorting=True
+
+[tvCliCadastroPor/Styles: TcxGridColumnStyles]
+=
+
+[tvCliCEP: TcxPropertiesStoreComponent]
+=
+Caption=CEP
+FooterAlignmentHorz=taLeftJustify
+GroupIndex=-1
+HeaderAlignmentHorz=taLeftJustify
+HeaderAlignmentVert=vaTop
+HeaderGlyphAlignmentHorz=taLeftJustify
+HeaderGlyphAlignmentVert=vaCenter
+Hidden=False
+MinWidth=20
+Name=tvCliCEP
+Properties=
+PropertiesClassName=
+RepositoryItem=
+SortOrder=soNone
+Tag=0
+Visible=True
+Width=57
+
+[tvCliCEP/DataBinding: TcxGridItemDBDataBinding]
+=
+FieldName=CEP
+
+[tvCliCEP/HeaderGlyph: TBitmap]
+=
+
+[tvCliCEP/Options: TcxGridColumnOptions]
+=
+Editing=True
+Filtering=True
+Focusing=True
+IncSearch=True
+ShowEditButtons=isebDefault
+Grouping=True
+HorzSizing=True
+Moving=True
+Sorting=True
+
+[tvCliCEP/Styles: TcxGridColumnStyles]
+=
+
+[tvCliCidade: TcxPropertiesStoreComponent]
+=
+Caption=Cidade
+FooterAlignmentHorz=taLeftJustify
+GroupIndex=-1
+HeaderAlignmentHorz=taLeftJustify
+HeaderAlignmentVert=vaTop
+HeaderGlyphAlignmentHorz=taLeftJustify
+HeaderGlyphAlignmentVert=vaCenter
+Hidden=False
+MinWidth=20
+Name=tvCliCidade
+Properties=
+PropertiesClassName=
+RepositoryItem=
+SortOrder=soNone
+Tag=0
+Visible=True
+Width=64
+
+[tvCliCidade/DataBinding: TcxGridItemDBDataBinding]
+=
+FieldName=Cidade
+
+[tvCliCidade/HeaderGlyph: TBitmap]
+=
+
+[tvCliCidade/Options: TcxGridColumnOptions]
+=
+Editing=True
+Filtering=True
+Focusing=True
+IncSearch=True
+ShowEditButtons=isebDefault
+Grouping=True
+HorzSizing=True
+Moving=True
+Sorting=True
+
+[tvCliCidade/Styles: TcxGridColumnStyles]
+=
+
+[tvCliCNPJ: TcxPropertiesStoreComponent]
+=
+Caption=CNPJ
+FooterAlignmentHorz=taLeftJustify
+GroupIndex=-1
+HeaderAlignmentHorz=taLeftJustify
+HeaderAlignmentVert=vaTop
+HeaderGlyphAlignmentHorz=taLeftJustify
+HeaderGlyphAlignmentVert=vaCenter
+Hidden=False
+MinWidth=20
+Name=tvCliCNPJ
+Properties=
+PropertiesClassName=
+RepositoryItem=
+SortOrder=soNone
+Tag=0
+Visible=True
+Width=48
+
+[tvCliCNPJ/DataBinding: TcxGridItemDBDataBinding]
+=
+FieldName=CNPJ
+
+[tvCliCNPJ/HeaderGlyph: TBitmap]
+=
+
+[tvCliCNPJ/Options: TcxGridColumnOptions]
+=
+Editing=True
+Filtering=True
+Focusing=True
+IncSearch=True
+ShowEditButtons=isebDefault
+Grouping=True
+HorzSizing=True
+Moving=True
+Sorting=True
+
+[tvCliCNPJ/Styles: TcxGridColumnStyles]
+=
+
+[tvCliCodigo: TcxPropertiesStoreComponent]
+=
+Caption=Codigo
+FooterAlignmentHorz=taLeftJustify
+GroupIndex=-1
+HeaderAlignmentHorz=taLeftJustify
+HeaderAlignmentVert=vaTop
+HeaderGlyphAlignmentHorz=taLeftJustify
+HeaderGlyphAlignmentVert=vaCenter
+Hidden=False
+MinWidth=20
+Name=tvCliCodigo
+Properties=
+PropertiesClassName=
+RepositoryItem=
+SortOrder=soNone
+Tag=0
+Visible=True
+Width=56
+
+[tvCliCodigo/DataBinding: TcxGridItemDBDataBinding]
+=
+FieldName=Codigo
+
+[tvCliCodigo/HeaderGlyph: TBitmap]
+=
+
+[tvCliCodigo/Options: TcxGridColumnOptions]
+=
+Editing=True
+Filtering=True
+Focusing=True
+IncSearch=True
+ShowEditButtons=isebDefault
+Grouping=True
+HorzSizing=True
+Moving=True
+Sorting=True
+
+[tvCliCodigo/Styles: TcxGridColumnStyles]
+=
+
+[tvCliDBColumn1: TcxPropertiesStoreComponent]
+=
+Caption=Valor Venda
+FooterAlignmentHorz=taRightJustify
+GroupIndex=-1
+HeaderAlignmentHorz=taLeftJustify
+HeaderAlignmentVert=vaTop
+HeaderGlyphAlignmentHorz=taLeftJustify
+HeaderGlyphAlignmentVert=vaCenter
+Hidden=False
+MinWidth=20
+Name=tvCliDBColumn1
+PropertiesClassName=TcxCurrencyEditProperties
+RepositoryItem=
+SortOrder=soNone
+Tag=0
+Visible=True
+Width=80
+
+[tvCliDBColumn1/DataBinding: TcxGridItemDBDataBinding]
+=
+FieldName=Valor
+
+[tvCliDBColumn1/HeaderGlyph: TBitmap]
+=
+
+[tvCliDBColumn1/Options: TcxGridColumnOptions]
+=
+Editing=True
+Filtering=True
+Focusing=True
+IncSearch=True
+ShowEditButtons=isebDefault
+Grouping=True
+HorzSizing=True
+Moving=True
+Sorting=True
+
+[tvCliDBColumn1/Properties: TcxCurrencyEditProperties]
+=
+AutoSelect=True
+DecimalPlaces=2
+DisplayFormat=R$ ,0.00;(R$ ,0.00)
+EchoMode=eemNormal
+HideSelection=True
+MaxValue=0
+MinValue=0
+Nullable=True
+NullString=
+ReadOnly=False
+UseLeftAlignmentOnEditing=True
+UseThousandSeparator=False
+ValidateOnEnter=True
+
+[tvCliDBColumn1/Properties/Alignment: TcxEditAlignment]
+=
+Horz=taRightJustify
+Vert=taTopJustify
+
+[tvCliDBColumn1/Styles: TcxGridColumnStyles]
+=
+
+[tvCliDBColumn2: TcxPropertiesStoreComponent]
+=
+Caption=Valor Recebido
+FooterAlignmentHorz=taRightJustify
+GroupIndex=-1
+HeaderAlignmentHorz=taLeftJustify
+HeaderAlignmentVert=vaTop
+HeaderGlyphAlignmentHorz=taLeftJustify
+HeaderGlyphAlignmentVert=vaCenter
+Hidden=False
+MinWidth=20
+Name=tvCliDBColumn2
+PropertiesClassName=TcxCurrencyEditProperties
+RepositoryItem=
+SortOrder=soNone
+Tag=0
+Visible=True
+Width=94
+
+[tvCliDBColumn2/DataBinding: TcxGridItemDBDataBinding]
+=
+FieldName=ValorRec
+
+[tvCliDBColumn2/HeaderGlyph: TBitmap]
+=
+
+[tvCliDBColumn2/Options: TcxGridColumnOptions]
+=
+Editing=True
+Filtering=True
+Focusing=True
+IncSearch=True
+ShowEditButtons=isebDefault
+Grouping=True
+HorzSizing=True
+Moving=True
+Sorting=True
+
+[tvCliDBColumn2/Properties: TcxCurrencyEditProperties]
+=
+AutoSelect=True
+DecimalPlaces=2
+DisplayFormat=R$ ,0.00;(R$ ,0.00)
+EchoMode=eemNormal
+HideSelection=True
+MaxValue=0
+MinValue=0
+Nullable=True
+NullString=
+ReadOnly=False
+UseLeftAlignmentOnEditing=True
+UseThousandSeparator=False
+ValidateOnEnter=True
+
+[tvCliDBColumn2/Properties/Alignment: TcxEditAlignment]
+=
+Horz=taRightJustify
+Vert=taTopJustify
+
+[tvCliDBColumn2/Styles: TcxGridColumnStyles]
+=
+
+[tvCliEmailReg: TcxPropertiesStoreComponent]
+=
+Caption=EmailReg
+FooterAlignmentHorz=taLeftJustify
+GroupIndex=-1
+HeaderAlignmentHorz=taLeftJustify
+HeaderAlignmentVert=vaTop
+HeaderGlyphAlignmentHorz=taLeftJustify
+HeaderGlyphAlignmentVert=vaCenter
+Hidden=False
+MinWidth=20
+Name=tvCliEmailReg
+Properties=
+PropertiesClassName=
+RepositoryItem=
+SortOrder=soNone
+Tag=0
+Visible=True
+Width=118
+
+[tvCliEmailReg/DataBinding: TcxGridItemDBDataBinding]
+=
+FieldName=EmailReg
+
+[tvCliEmailReg/HeaderGlyph: TBitmap]
+=
+
+[tvCliEmailReg/Options: TcxGridColumnOptions]
+=
+Editing=True
+Filtering=True
+Focusing=True
+IncSearch=True
+ShowEditButtons=isebDefault
+Grouping=True
+HorzSizing=True
+Moving=True
+Sorting=True
+
+[tvCliEmailReg/Styles: TcxGridColumnStyles]
+=
+
+[tvCliEmailTec: TcxPropertiesStoreComponent]
+=
+Caption=EmailTec
+FooterAlignmentHorz=taLeftJustify
+GroupIndex=-1
+HeaderAlignmentHorz=taLeftJustify
+HeaderAlignmentVert=vaTop
+HeaderGlyphAlignmentHorz=taLeftJustify
+HeaderGlyphAlignmentVert=vaCenter
+Hidden=False
+MinWidth=20
+Name=tvCliEmailTec
+Properties=
+PropertiesClassName=
+RepositoryItem=
+SortOrder=soNone
+Tag=0
+Visible=True
+Width=118
+
+[tvCliEmailTec/DataBinding: TcxGridItemDBDataBinding]
+=
+FieldName=EmailTec
+
+[tvCliEmailTec/HeaderGlyph: TBitmap]
+=
+
+[tvCliEmailTec/Options: TcxGridColumnOptions]
+=
+Editing=True
+Filtering=True
+Focusing=True
+IncSearch=True
+ShowEditButtons=isebDefault
+Grouping=True
+HorzSizing=True
+Moving=True
+Sorting=True
+
+[tvCliEmailTec/Styles: TcxGridColumnStyles]
+=
+
+[tvCliEndereco: TcxPropertiesStoreComponent]
+=
+Caption=Endereco
+FooterAlignmentHorz=taLeftJustify
+GroupIndex=-1
+HeaderAlignmentHorz=taLeftJustify
+HeaderAlignmentVert=vaTop
+HeaderGlyphAlignmentHorz=taLeftJustify
+HeaderGlyphAlignmentVert=vaCenter
+Hidden=False
+MinWidth=20
+Name=tvCliEndereco
+Properties=
+PropertiesClassName=
+RepositoryItem=
+SortOrder=soNone
+Tag=0
+Visible=True
+Width=180
+
+[tvCliEndereco/DataBinding: TcxGridItemDBDataBinding]
+=
+FieldName=Endereco
+
+[tvCliEndereco/HeaderGlyph: TBitmap]
+=
+
+[tvCliEndereco/Options: TcxGridColumnOptions]
+=
+Editing=True
+Filtering=True
+Focusing=True
+IncSearch=True
+ShowEditButtons=isebDefault
+Grouping=True
+HorzSizing=True
+Moving=True
+Sorting=True
+
+[tvCliEndereco/Styles: TcxGridColumnStyles]
+=
+
+[tvCliFormaPagto: TcxPropertiesStoreComponent]
+=
+Caption=FormaPagto
+FooterAlignmentHorz=taLeftJustify
+GroupIndex=-1
+HeaderAlignmentHorz=taLeftJustify
+HeaderAlignmentVert=vaTop
+HeaderGlyphAlignmentHorz=taLeftJustify
+HeaderGlyphAlignmentVert=vaCenter
+Hidden=False
+MinWidth=20
+Name=tvCliFormaPagto
+Properties=
+PropertiesClassName=
+RepositoryItem=
+SortOrder=soNone
+Tag=0
+Visible=True
+Width=81
+
+[tvCliFormaPagto/DataBinding: TcxGridItemDBDataBinding]
+=
+FieldName=FormaPagto
+
+[tvCliFormaPagto/HeaderGlyph: TBitmap]
+=
+
+[tvCliFormaPagto/Options: TcxGridColumnOptions]
+=
+Editing=True
+Filtering=True
+Focusing=True
+IncSearch=True
+ShowEditButtons=isebDefault
+Grouping=True
+HorzSizing=True
+Moving=True
+Sorting=True
+
+[tvCliFormaPagto/Styles: TcxGridColumnStyles]
+=
+
+[tvCliGerente: TcxPropertiesStoreComponent]
+=
+Caption=Gerente
+FooterAlignmentHorz=taLeftJustify
+GroupIndex=-1
+HeaderAlignmentHorz=taLeftJustify
+HeaderAlignmentVert=vaTop
+HeaderGlyphAlignmentHorz=taLeftJustify
+HeaderGlyphAlignmentVert=vaCenter
+Hidden=False
+MinWidth=20
+Name=tvCliGerente
+Properties=
+PropertiesClassName=
+RepositoryItem=
+SortOrder=soNone
+Tag=0
+Visible=True
+Width=94
+
+[tvCliGerente/DataBinding: TcxGridItemDBDataBinding]
+=
+FieldName=Gerente
+
+[tvCliGerente/HeaderGlyph: TBitmap]
+=
+
+[tvCliGerente/Options: TcxGridColumnOptions]
+=
+Editing=True
+Filtering=True
+Focusing=True
+IncSearch=True
+ShowEditButtons=isebDefault
+Grouping=True
+HorzSizing=True
+Moving=True
+Sorting=True
+
+[tvCliGerente/Styles: TcxGridColumnStyles]
+=
+
+[tvCliIE: TcxPropertiesStoreComponent]
+=
+Caption=IE
+FooterAlignmentHorz=taLeftJustify
+GroupIndex=-1
+HeaderAlignmentHorz=taLeftJustify
+HeaderAlignmentVert=vaTop
+HeaderGlyphAlignmentHorz=taLeftJustify
+HeaderGlyphAlignmentVert=vaCenter
+Hidden=False
+MinWidth=20
+Name=tvCliIE
+Properties=
+PropertiesClassName=
+RepositoryItem=
+SortOrder=soNone
+Tag=0
+Visible=True
+Width=33
+
+[tvCliIE/DataBinding: TcxGridItemDBDataBinding]
+=
+FieldName=IE
+
+[tvCliIE/HeaderGlyph: TBitmap]
+=
+
+[tvCliIE/Options: TcxGridColumnOptions]
+=
+Editing=True
+Filtering=True
+Focusing=True
+IncSearch=True
+ShowEditButtons=isebDefault
+Grouping=True
+HorzSizing=True
+Moving=True
+Sorting=True
+
+[tvCliIE/Styles: TcxGridColumnStyles]
+=
+
+[tvCliLicMaq: TcxPropertiesStoreComponent]
+=
+Caption=LicMaq
+FooterAlignmentHorz=taLeftJustify
+GroupIndex=-1
+HeaderAlignmentHorz=taLeftJustify
+HeaderAlignmentVert=vaTop
+HeaderGlyphAlignmentHorz=taLeftJustify
+HeaderGlyphAlignmentVert=vaCenter
+Hidden=False
+MinWidth=20
+Name=tvCliLicMaq
+Properties=
+PropertiesClassName=
+RepositoryItem=
+SortOrder=soNone
+Tag=0
+Visible=True
+Width=55
+
+[tvCliLicMaq/DataBinding: TcxGridItemDBDataBinding]
+=
+FieldName=LicMaq
+
+[tvCliLicMaq/HeaderGlyph: TBitmap]
+=
+
+[tvCliLicMaq/Options: TcxGridColumnOptions]
+=
+Editing=True
+Filtering=True
+Focusing=True
+IncSearch=True
+ShowEditButtons=isebDefault
+Grouping=True
+HorzSizing=True
+Moving=True
+Sorting=True
+
+[tvCliLicMaq/Styles: TcxGridColumnStyles]
+=
+
+[tvCliLicTipo: TcxPropertiesStoreComponent]
+=
+Caption=Tipo Licença
+FooterAlignmentHorz=taLeftJustify
+GroupIndex=-1
+HeaderAlignmentHorz=taLeftJustify
+HeaderAlignmentVert=vaTop
+HeaderGlyphAlignmentHorz=taLeftJustify
+HeaderGlyphAlignmentVert=vaCenter
+Hidden=False
+MinWidth=20
+Name=tvCliLicTipo
+PropertiesClassName=TcxImageComboBoxProperties
+RepositoryItem=
+SortOrder=soNone
+Tag=0
+Visible=True
+Width=81
+
+[tvCliLicTipo/DataBinding: TcxGridItemDBDataBinding]
+=
+FieldName=LicTipo
+
+[tvCliLicTipo/HeaderGlyph: TBitmap]
+=
+
+[tvCliLicTipo/Options: TcxGridColumnOptions]
+=
+Editing=True
+Filtering=True
+Focusing=True
+IncSearch=True
+ShowEditButtons=isebDefault
+Grouping=True
+HorzSizing=True
+Moving=True
+Sorting=True
+
+[tvCliLicTipo/Properties: TcxImageComboBoxProperties]
+=
+DefaultDescription=
+DefaultImageIndex=-1
+DropDownRows=8
+ImageAlign=iaLeft
+ImmediateDropDown=True
+ImmediatePost=True
+ImmediateUpdateText=True
+MultiLineText=False
+ReadOnly=False
+Revertable=False
+ShowDescriptions=True
+ValidateOnEnter=True
+
+[tvCliLicTipo/Properties/Alignment: TcxEditAlignment]
+=
+Horz=taLeftJustify
+Vert=taVCenter
+
+[tvCliLicTipo/Properties/ButtonGlyph: TBitmap]
+=
+
+[tvCliLicTipo/Properties/Items: TcxImageComboBoxItems]
+=
+
+[tvCliLicTipo/Properties/Items/0: TcxImageComboBoxItem]
+=
+Description=Temporária
+ImageIndex=-1
+Tag=0
+Value=1
+
+[tvCliLicTipo/Properties/Items/1: TcxImageComboBoxItem]
+=
+Description=Definitiva
+ImageIndex=-1
+Tag=0
+Value=2
+
+[tvCliLicTipo/Properties/Items/2: TcxImageComboBoxItem]
+=
+Description=Teste Gratuito
+ImageIndex=-1
+Tag=0
+Value=3
+
+[tvCliLicTipo/Styles: TcxGridColumnStyles]
+=
+
+[tvCliLicVenc: TcxPropertiesStoreComponent]
+=
+Caption=LicVenc
+FooterAlignmentHorz=taLeftJustify
+GroupIndex=-1
+HeaderAlignmentHorz=taLeftJustify
+HeaderAlignmentVert=vaTop
+HeaderGlyphAlignmentHorz=taLeftJustify
+HeaderGlyphAlignmentVert=vaCenter
+Hidden=False
+MinWidth=20
+Name=tvCliLicVenc
+Properties=
+PropertiesClassName=
+RepositoryItem=
+SortOrder=soNone
+Tag=0
+Visible=True
+Width=64
+
+[tvCliLicVenc/DataBinding: TcxGridItemDBDataBinding]
+=
+FieldName=LicVenc
+
+[tvCliLicVenc/HeaderGlyph: TBitmap]
+=
+
+[tvCliLicVenc/Options: TcxGridColumnOptions]
+=
+Editing=True
+Filtering=True
+Focusing=True
+IncSearch=True
+ShowEditButtons=isebDefault
+Grouping=True
+HorzSizing=True
+Moving=True
+Sorting=True
+
+[tvCliLicVenc/Styles: TcxGridColumnStyles]
+=
+
+[tvCliLoja: TcxPropertiesStoreComponent]
+=
+Caption=Loja
+FooterAlignmentHorz=taLeftJustify
+GroupIndex=-1
+HeaderAlignmentHorz=taLeftJustify
+HeaderAlignmentVert=vaCenter
+HeaderGlyphAlignmentHorz=taLeftJustify
+HeaderGlyphAlignmentVert=vaCenter
+Hidden=False
+MinWidth=20
+Name=tvCliLoja
+Properties=
+PropertiesClassName=
+RepositoryItem=
+SortOrder=soAscending
+Tag=0
+Visible=True
+Width=84
+
+[tvCliLoja/DataBinding: TcxGridItemDBDataBinding]
+=
+FieldName=Loja
+
+[tvCliLoja/HeaderGlyph: TBitmap]
+=
+
+[tvCliLoja/Options: TcxGridColumnOptions]
+=
+Editing=True
+Filtering=True
+Focusing=True
+IncSearch=True
+ShowEditButtons=isebDefault
+Grouping=True
+HorzSizing=True
+Moving=True
+Sorting=True
+
+[tvCliLoja/Styles: TcxGridColumnStyles]
+=
+
+[tvCliManInicio: TcxPropertiesStoreComponent]
+=
+Caption=ManInicio
+FooterAlignmentHorz=taLeftJustify
+GroupIndex=-1
+HeaderAlignmentHorz=taLeftJustify
+HeaderAlignmentVert=vaTop
+HeaderGlyphAlignmentHorz=taLeftJustify
+HeaderGlyphAlignmentVert=vaCenter
+Hidden=False
+MinWidth=20
+Name=tvCliManInicio
+Properties=
+PropertiesClassName=
+RepositoryItem=
+SortOrder=soNone
+Tag=0
+Visible=True
+Width=68
+
+[tvCliManInicio/DataBinding: TcxGridItemDBDataBinding]
+=
+FieldName=ManInicio
+
+[tvCliManInicio/HeaderGlyph: TBitmap]
+=
+
+[tvCliManInicio/Options: TcxGridColumnOptions]
+=
+Editing=True
+Filtering=True
+Focusing=True
+IncSearch=True
+ShowEditButtons=isebDefault
+Grouping=True
+HorzSizing=True
+Moving=True
+Sorting=True
+
+[tvCliManInicio/Styles: TcxGridColumnStyles]
+=
+
+[tvCliManVenc: TcxPropertiesStoreComponent]
+=
+Caption=ManVenc
+FooterAlignmentHorz=taLeftJustify
+GroupIndex=-1
+HeaderAlignmentHorz=taLeftJustify
+HeaderAlignmentVert=vaTop
+HeaderGlyphAlignmentHorz=taLeftJustify
+HeaderGlyphAlignmentVert=vaCenter
+Hidden=False
+MinWidth=20
+Name=tvCliManVenc
+Properties=
+PropertiesClassName=
+RepositoryItem=
+SortOrder=soNone
+Tag=0
+Visible=True
+Width=66
+
+[tvCliManVenc/DataBinding: TcxGridItemDBDataBinding]
+=
+FieldName=ManVenc
+
+[tvCliManVenc/HeaderGlyph: TBitmap]
+=
+
+[tvCliManVenc/Options: TcxGridColumnOptions]
+=
+Editing=True
+Filtering=True
+Focusing=True
+IncSearch=True
+ShowEditButtons=isebDefault
+Grouping=True
+HorzSizing=True
+Moving=True
+Sorting=True
+
+[tvCliManVenc/Styles: TcxGridColumnStyles]
+=
+
+[tvCliNumMaq: TcxPropertiesStoreComponent]
+=
+Caption=NumMaq
+FooterAlignmentHorz=taLeftJustify
+GroupIndex=-1
+HeaderAlignmentHorz=taLeftJustify
+HeaderAlignmentVert=vaTop
+HeaderGlyphAlignmentHorz=taLeftJustify
+HeaderGlyphAlignmentVert=vaCenter
+Hidden=False
+MinWidth=20
+Name=tvCliNumMaq
+Properties=
+PropertiesClassName=
+RepositoryItem=
+SortOrder=soNone
+Tag=0
+Visible=True
+Width=64
+
+[tvCliNumMaq/DataBinding: TcxGridItemDBDataBinding]
+=
+FieldName=NumMaq
+
+[tvCliNumMaq/HeaderGlyph: TBitmap]
+=
+
+[tvCliNumMaq/Options: TcxGridColumnOptions]
+=
+Editing=True
+Filtering=True
+Focusing=True
+IncSearch=True
+ShowEditButtons=isebDefault
+Grouping=True
+HorzSizing=True
+Moving=True
+Sorting=True
+
+[tvCliNumMaq/Styles: TcxGridColumnStyles]
+=
+
+[tvCliObs: TcxPropertiesStoreComponent]
+=
+Caption=Obs
+FooterAlignmentHorz=taLeftJustify
+GroupIndex=-1
+HeaderAlignmentHorz=taLeftJustify
+HeaderAlignmentVert=vaTop
+HeaderGlyphAlignmentHorz=taLeftJustify
+HeaderGlyphAlignmentVert=vaCenter
+Hidden=False
+MinWidth=20
+Name=tvCliObs
+Properties=
+PropertiesClassName=
+RepositoryItem=
+SortOrder=soNone
+Tag=0
+Visible=True
+Width=42
+
+[tvCliObs/DataBinding: TcxGridItemDBDataBinding]
+=
+FieldName=Obs
+
+[tvCliObs/HeaderGlyph: TBitmap]
+=
+
+[tvCliObs/Options: TcxGridColumnOptions]
+=
+Editing=True
+Filtering=True
+Focusing=True
+IncSearch=True
+ShowEditButtons=isebDefault
+Grouping=True
+HorzSizing=True
+Moving=True
+Sorting=True
+
+[tvCliObs/Styles: TcxGridColumnStyles]
+=
+
+[tvCliPais: TcxPropertiesStoreComponent]
+=
+Caption=Pais
+FooterAlignmentHorz=taLeftJustify
+GroupIndex=-1
+HeaderAlignmentHorz=taLeftJustify
+HeaderAlignmentVert=vaTop
+HeaderGlyphAlignmentHorz=taLeftJustify
+HeaderGlyphAlignmentVert=vaCenter
+Hidden=False
+MinWidth=20
+Name=tvCliPais
+Properties=
+PropertiesClassName=
+RepositoryItem=
+SortOrder=soNone
+Tag=0
+Visible=True
+Width=42
+
+[tvCliPais/DataBinding: TcxGridItemDBDataBinding]
+=
+FieldName=Pais
+
+[tvCliPais/HeaderGlyph: TBitmap]
+=
+
+[tvCliPais/Options: TcxGridColumnOptions]
+=
+Editing=True
+Filtering=True
+Focusing=True
+IncSearch=True
+ShowEditButtons=isebDefault
+Grouping=True
+HorzSizing=True
+Moving=True
+Sorting=True
+
+[tvCliPais/Styles: TcxGridColumnStyles]
+=
+
+[tvCliProprietarios: TcxPropertiesStoreComponent]
+=
+Caption=Proprietarios
+FooterAlignmentHorz=taLeftJustify
+GroupIndex=-1
+HeaderAlignmentHorz=taLeftJustify
+HeaderAlignmentVert=vaTop
+HeaderGlyphAlignmentHorz=taLeftJustify
+HeaderGlyphAlignmentVert=vaCenter
+Hidden=False
+MinWidth=20
+Name=tvCliProprietarios
+Properties=
+PropertiesClassName=
+RepositoryItem=
+SortOrder=soNone
+Tag=0
+Visible=True
+Width=84
+
+[tvCliProprietarios/DataBinding: TcxGridItemDBDataBinding]
+=
+FieldName=Proprietarios
+
+[tvCliProprietarios/HeaderGlyph: TBitmap]
+=
+
+[tvCliProprietarios/Options: TcxGridColumnOptions]
+=
+Editing=True
+Filtering=True
+Focusing=True
+IncSearch=True
+ShowEditButtons=isebDefault
+Grouping=True
+HorzSizing=True
+Moving=True
+Sorting=True
+
+[tvCliProprietarios/Styles: TcxGridColumnStyles]
+=
+
+[tvCliRazaoSocial: TcxPropertiesStoreComponent]
+=
+Caption=RazaoSocial
+FooterAlignmentHorz=taLeftJustify
+GroupIndex=-1
+HeaderAlignmentHorz=taLeftJustify
+HeaderAlignmentVert=vaTop
+HeaderGlyphAlignmentHorz=taLeftJustify
+HeaderGlyphAlignmentVert=vaCenter
+Hidden=False
+MinWidth=20
+Name=tvCliRazaoSocial
+Properties=
+PropertiesClassName=
+RepositoryItem=
+SortOrder=soNone
+Tag=0
+Visible=True
+Width=80
+
+[tvCliRazaoSocial/DataBinding: TcxGridItemDBDataBinding]
+=
+FieldName=RazaoSocial
+
+[tvCliRazaoSocial/HeaderGlyph: TBitmap]
+=
+
+[tvCliRazaoSocial/Options: TcxGridColumnOptions]
+=
+Editing=True
+Filtering=True
+Focusing=True
+IncSearch=True
+ShowEditButtons=isebDefault
+Grouping=True
+HorzSizing=True
+Moving=True
+Sorting=True
+
+[tvCliRazaoSocial/Styles: TcxGridColumnStyles]
+=
+
+[tvCliSenha: TcxPropertiesStoreComponent]
+=
+Caption=Senha
+FooterAlignmentHorz=taLeftJustify
+GroupIndex=-1
+HeaderAlignmentHorz=taLeftJustify
+HeaderAlignmentVert=vaTop
+HeaderGlyphAlignmentHorz=taLeftJustify
+HeaderGlyphAlignmentVert=vaCenter
+Hidden=False
+MinWidth=20
+Name=tvCliSenha
+Properties=
+PropertiesClassName=
+RepositoryItem=
+SortOrder=soNone
+Tag=0
+Visible=True
+Width=53
+
+[tvCliSenha/DataBinding: TcxGridItemDBDataBinding]
+=
+FieldName=Senha
+
+[tvCliSenha/HeaderGlyph: TBitmap]
+=
+
+[tvCliSenha/Options: TcxGridColumnOptions]
+=
+Editing=True
+Filtering=True
+Focusing=True
+IncSearch=True
+ShowEditButtons=isebDefault
+Grouping=True
+HorzSizing=True
+Moving=True
+Sorting=True
+
+[tvCliSenha/Styles: TcxGridColumnStyles]
+=
+
+[tvCliSerieHD: TcxPropertiesStoreComponent]
+=
+Caption=SerieHD
+FooterAlignmentHorz=taLeftJustify
+GroupIndex=-1
+HeaderAlignmentHorz=taLeftJustify
+HeaderAlignmentVert=vaTop
+HeaderGlyphAlignmentHorz=taLeftJustify
+HeaderGlyphAlignmentVert=vaCenter
+Hidden=False
+MinWidth=20
+Name=tvCliSerieHD
+Properties=
+PropertiesClassName=
+RepositoryItem=
+SortOrder=soNone
+Tag=0
+Visible=True
+Width=64
+
+[tvCliSerieHD/DataBinding: TcxGridItemDBDataBinding]
+=
+FieldName=SerieHD
+
+[tvCliSerieHD/HeaderGlyph: TBitmap]
+=
+
+[tvCliSerieHD/Options: TcxGridColumnOptions]
+=
+Editing=True
+Filtering=True
+Focusing=True
+IncSearch=True
+ShowEditButtons=isebDefault
+Grouping=True
+HorzSizing=True
+Moving=True
+Sorting=True
+
+[tvCliSerieHD/Styles: TcxGridColumnStyles]
+=
+
+[tvCliTelefones: TcxPropertiesStoreComponent]
+=
+Caption=Telefones
+FooterAlignmentHorz=taLeftJustify
+GroupIndex=-1
+HeaderAlignmentHorz=taLeftJustify
+HeaderAlignmentVert=vaTop
+HeaderGlyphAlignmentHorz=taLeftJustify
+HeaderGlyphAlignmentVert=vaCenter
+Hidden=False
+MinWidth=20
+Name=tvCliTelefones
+Properties=
+PropertiesClassName=
+RepositoryItem=
+SortOrder=soNone
+Tag=0
+Visible=True
+Width=70
+
+[tvCliTelefones/DataBinding: TcxGridItemDBDataBinding]
+=
+FieldName=Telefones
+
+[tvCliTelefones/HeaderGlyph: TBitmap]
+=
+
+[tvCliTelefones/Options: TcxGridColumnOptions]
+=
+Editing=True
+Filtering=True
+Focusing=True
+IncSearch=True
+ShowEditButtons=isebDefault
+Grouping=True
+HorzSizing=True
+Moving=True
+Sorting=True
+
+[tvCliTelefones/Styles: TcxGridColumnStyles]
+=
+
+[tvCliTipoLoja: TcxPropertiesStoreComponent]
+=
+Caption=Tipo Loja
+FooterAlignmentHorz=taLeftJustify
+GroupIndex=-1
+HeaderAlignmentHorz=taLeftJustify
+HeaderAlignmentVert=vaTop
+HeaderGlyphAlignmentHorz=taLeftJustify
+HeaderGlyphAlignmentVert=vaCenter
+Hidden=False
+MinWidth=20
+Name=tvCliTipoLoja
+PropertiesClassName=TcxImageComboBoxProperties
+RepositoryItem=
+SortOrder=soNone
+Tag=0
+Visible=True
+Width=66
+
+[tvCliTipoLoja/DataBinding: TcxGridItemDBDataBinding]
+=
+FieldName=TipoLoja
+
+[tvCliTipoLoja/HeaderGlyph: TBitmap]
+=
+
+[tvCliTipoLoja/Options: TcxGridColumnOptions]
+=
+Editing=True
+Filtering=True
+Focusing=True
+IncSearch=True
+ShowEditButtons=isebDefault
+Grouping=True
+HorzSizing=True
+Moving=True
+Sorting=True
+
+[tvCliTipoLoja/Properties: TcxImageComboBoxProperties]
+=
+DefaultDescription=
+DefaultImageIndex=-1
+DropDownRows=8
+ImageAlign=iaLeft
+ImmediateDropDown=True
+ImmediatePost=False
+ImmediateUpdateText=False
+MultiLineText=False
+ReadOnly=False
+Revertable=False
+ShowDescriptions=True
+ValidateOnEnter=True
+
+[tvCliTipoLoja/Properties/Alignment: TcxEditAlignment]
+=
+Horz=taLeftJustify
+Vert=taVCenter
+
+[tvCliTipoLoja/Properties/ButtonGlyph: TBitmap]
+=
+
+[tvCliTipoLoja/Properties/Items: TcxImageComboBoxItems]
+=
+
+[tvCliTipoLoja/Properties/Items/0: TcxImageComboBoxItem]
+=
+Description=Cyber Café
+ImageIndex=-1
+Tag=0
+Value=0
+
+[tvCliTipoLoja/Properties/Items/1: TcxImageComboBoxItem]
+=
+Description=Lan House
+ImageIndex=-1
+Tag=0
+Value=1
+
+[tvCliTipoLoja/Properties/Items/2: TcxImageComboBoxItem]
+=
+Description=Ambos
+ImageIndex=-1
+Tag=0
+Value=2
+
+[tvCliTipoLoja/Styles: TcxGridColumnStyles]
+=
+
+[tvCliUF: TcxPropertiesStoreComponent]
+=
+Caption=UF
+FooterAlignmentHorz=taLeftJustify
+GroupIndex=-1
+HeaderAlignmentHorz=taLeftJustify
+HeaderAlignmentVert=vaTop
+HeaderGlyphAlignmentHorz=taLeftJustify
+HeaderGlyphAlignmentVert=vaCenter
+Hidden=False
+MinWidth=20
+Name=tvCliUF
+Properties=
+PropertiesClassName=
+RepositoryItem=
+SortOrder=soNone
+Tag=0
+Visible=True
+Width=36
+
+[tvCliUF/DataBinding: TcxGridItemDBDataBinding]
+=
+FieldName=UF
+
+[tvCliUF/HeaderGlyph: TBitmap]
+=
+
+[tvCliUF/Options: TcxGridColumnOptions]
+=
+Editing=True
+Filtering=True
+Focusing=True
+IncSearch=True
+ShowEditButtons=isebDefault
+Grouping=True
+HorzSizing=True
+Moving=True
+Sorting=True
+
+[tvCliUF/Styles: TcxGridColumnStyles]
+=
+

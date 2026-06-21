@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2006/12/16 11:38:41.008.bdsproj,C:\Projetos\GS\RegistroSvc.bdsproj=C:\Projetos\GS\NexRegSvc.bdsproj</Transaction>
+    <Transaction>2006/12/16 11:39:01.147.pas,C:\Projetos\GS\uRegistroSvc.pas=C:\Projetos\GS\uNexRegSvc.pas</Transaction>
+    <Transaction>2006/12/16 11:39:01.147.dfm,C:\Projetos\GS\uRegistroSvc.dfm=C:\Projetos\GS\uNexRegSvc.dfm</Transaction>
+    <Transaction>2010/12/04 00:43:00.281.dproj,C:\Projetos\GS\NexRegSvc.dproj=C:\Projetos\GS\NR_Email_Svc.dproj</Transaction>
+    <Transaction>2010/12/04 00:45:47.727.pas,C:\Projetos\GS\uRSDM.pas=C:\Projetos\GS\NR_Email_DM.pas</Transaction>
+    <Transaction>2010/12/04 00:45:47.727.dfm,C:\Projetos\GS\uRSDM.dfm=C:\Projetos\GS\NR_Email_DM.dfm</Transaction>
+    <Transaction>2010/12/04 00:45:56.607.pas,C:\Projetos\GS\NR_Email_DM.pas=C:\Projetos\GS\uRSDM.pas</Transaction>
+    <Transaction>2010/12/04 00:45:56.607.dfm,C:\Projetos\GS\NR_Email_DM.dfm=C:\Projetos\GS\uRSDM.dfm</Transaction>
+    <Transaction>2010/12/04 00:46:35.698.pas,C:\Projetos\GS\uRSDM.pas=C:\Projetos\GS\NR_Email_DM.pas</Transaction>
+    <Transaction>2010/12/04 00:46:35.698.dfm,C:\Projetos\GS\uRSDM.dfm=C:\Projetos\GS\NR_Email_DM.dfm</Transaction>
+    <Transaction>2010/12/04 00:57:32.074.pas,C:\Projetos\GS\uNexRegSvc.pas=C:\Projetos\GS\uNR_Email_Svc.pas</Transaction>
+    <Transaction>2010/12/04 00:57:32.074.dfm,C:\Projetos\GS\uNexRegSvc.dfm=C:\Projetos\GS\uNR_Email_Svc.dfm</Transaction>
+  </Transactions>
+</BorlandProject>

@@ -1,0 +1,48 @@
+package cmD7;
+
+{$R *.res}
+{$ALIGN 8}
+{$ASSERTIONS ON}
+{$BOOLEVAL OFF}
+{$DEBUGINFO ON}
+{$EXTENDEDSYNTAX ON}
+{$IMPORTEDDATA ON}
+{$IOCHECKS ON}
+{$LOCALSYMBOLS ON}
+{$LONGSTRINGS ON}
+{$OPENSTRINGS ON}
+{$OPTIMIZATION ON}
+{$OVERFLOWCHECKS OFF}
+{$RANGECHECKS OFF}
+{$REFERENCEINFO ON}
+{$SAFEDIVIDE OFF}
+{$STACKFRAMES OFF}
+{$TYPEDADDRESS OFF}
+{$VARSTRINGCHECKS ON}
+{$WRITEABLECONST ON}
+{$MINENUMSIZE 1}
+{$IMAGEBASE $400000}
+{$DESCRIPTION 'Cyber-Manager'}
+{$IMPLICITBUILD OFF}
+
+requires
+  vcl,
+  vcldb,
+  bdertl,
+  vclx,
+  CSCommD7,
+  dcllmd_d7,
+  ff2_d70,
+  FFTbMgrD7;
+
+contains
+  uCMChecaTabelas in 'ucmChecaTabelas.pas' {FrmChecaBD},
+  cmServBase in 'cmServBase.pas',
+  CMServBD in 'cmServBD.pas' {FFEM: TffBaseEngineManager},
+  cmServCom in 'cmServCom.pas',
+  cmServReg in 'cmServReg.pas',
+  cmCompCliente in '..\Cliente\cmCompCliente.pas',
+  cmClassesBase in '..\Comum\cmClassesBase.pas',
+  cmServRemoto in '..\Cliente\cmServRemoto.pas';
+
+end.

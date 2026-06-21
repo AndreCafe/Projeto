@@ -1,0 +1,2 @@
+- Campo FASE aumentou de 10 para 12
+- Criado campo ListaProj no tecnico 

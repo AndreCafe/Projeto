@@ -1,0 +1,371 @@
+unit uEditors;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
+  cxGraphics, cxEdit,
+  dxDBFrame, Db, DBTables, ExtCtrls, StdCtrls, ImgList, cxCheckBox,
+  cxButtonEdit, cxHyperLinkEdit, cxMemo, cxDBEdit, cxImage, cxContainer,
+  cxCurrencyEdit, cxCalendar, cxMaskEdit, cxImageComboBox,
+  cxControls, cxDropDownEdit, cxTextEdit, cxLookupEdit, cxDBLookupEdit,
+  cxButtons, cxLookAndFeelPainters, dxOperationTypes,
+  cxDBLookupComboBox, dxPSCore, cxLookAndFeels, Menus, dxSkinsCore,
+  cxClasses, cxLabel, ADODB;
+
+type
+  TframeEditors = class(TdxDBFrame)
+    pnCustomize: TPanel;
+    Bevel3: TBevel;
+    Label114: TcxLabel;
+    Label115: TcxLabel;
+    edButtonTransparence: TcxLabel;
+    Label117: TcxLabel;
+    Label2: TcxLabel;
+    Bevel4: TBevel;
+    Bevel5: TBevel;
+    Label3: TcxLabel;
+    Label4: TcxLabel;
+    Bevel6: TBevel;
+    Label5: TcxLabel;
+    Bevel7: TBevel;
+    Bevel8: TBevel;
+    pnlStyleControllerProperties: TPanel;
+    lblStyleControllerProperties: TcxLabel;
+    ColorDialog: TColorDialog;
+    StyleController: TcxEditStyleController;
+    edBorderColor: TcxButtonEdit;
+    edBorderStyle: TcxComboBox;
+    edButtonViewStyle: TcxComboBox;
+    ButtonTransparence: TcxComboBox;
+    cbLeft: TcxCheckBox;
+    cbRight: TcxCheckBox;
+    cbTop: TcxCheckBox;
+    cbBottom: TcxCheckBox;
+    cbHotTrack: TcxCheckBox;
+    cbShadow: TcxCheckBox;
+    cbNativeStyle: TcxCheckBox;
+    Label19: TcxLabel;
+    edColor: TcxButtonEdit;
+    pnForm: TPanel;
+    PaintBox: TPaintBox;
+    bvlDetails: TBevel;
+    bvlBiography: TBevel;
+    bvlActs: TBevel;
+    lbFirstName: TcxLabel;
+    lbDetails: TcxLabel;
+    lbBiography: TcxLabel;
+    Label16: TcxLabel;
+    lbFilm: TcxLabel;
+    Label9: TcxLabel;
+    Label12: TcxLabel;
+    Label13: TcxLabel;
+    Label14: TcxLabel;
+    Label15: TcxLabel;
+    Label18: TcxLabel;
+    Label20: TcxLabel;
+    edRuntime: TcxDBTextEdit;
+    edYear: TcxDBTextEdit;
+    edTagLine: TcxDBTextEdit;
+    btnNextFilm: TcxButton;
+    btnPrevFilm: TcxButton;
+    edFilmImage: TcxDBImage;
+    edFirstName: TcxDBTextEdit;
+    edGender: TcxDBImageComboBox;
+    edBirthDate: TcxDBDateEdit;
+    edBiorgaphy: TcxDBMemo;
+    edBirthName: TcxDBTextEdit;
+    edNickName: TcxDBTextEdit;
+    edCountry: TcxDBLookupComboBox;
+    edPhoto: TcxDBImage;
+    btnPrevPhoto: TcxButton;
+    btnNextPhoto: TcxButton;
+    edFilmCaption: TcxDBTextEdit;
+    edPersonDescription: TcxDBTextEdit;
+    edPersonLine: TcxDBLookupComboBox;
+    edPlotOutline: TcxDBMemo;
+    procedure edBorderColorButtonClick(Sender: TObject;
+      AbsoluteIndex: Integer);
+    procedure edBorderColorDblClick(Sender: TObject);
+    procedure edBorderStyleChange(Sender: TObject);
+    procedure edButtonViewStyleChange(Sender: TObject);
+    procedure ButtonTransparenceChange(Sender: TObject);
+    procedure cbLeftChange(Sender: TObject);
+    procedure cbRightChange(Sender: TObject);
+    procedure cbTopChange(Sender: TObject);
+    procedure cbBottomChange(Sender: TObject);
+    procedure cbHotTrackChange(Sender: TObject);
+    procedure cbShadowChange(Sender: TObject);
+    procedure cbNativeStyleChange(Sender: TObject);
+    procedure edColorButtonClick(Sender: TObject;
+      AButtonIndex: Integer);
+    procedure edColorDblClick(Sender: TObject);
+    procedure btnPrevPhotoClick(Sender: TObject);
+    procedure btnNextPhotoClick(Sender: TObject);
+    procedure btnPrevFilmClick(Sender: TObject);
+    procedure btnNextFilmClick(Sender: TObject);
+  protected
+    procedure AddBars; override;
+    procedure AddOperations; override;
+    function GetHint: string; override;
+    function GetPrintableComponent: TComponent; override;
+    procedure PrepareLink(AReportLink: TBasedxReportLink); override;
+    procedure InitCustomizationPanel;
+    function GetDataSet: TDataSet; override;
+    procedure DataSetStateChanged; override;
+    procedure UpdateOperations; override;
+    procedure LookAndFeelChanged; override;
+  public
+    constructor Create(AOwner: TComponent); override;
+  end;
+
+implementation
+
+uses
+  MainData, uStrsConst, dxPsContainerLnk, dxPScxEditorProducers,
+  dxPScxExtEditorProducers;
+
+{$R *.DFM}
+
+constructor TframeEditors.Create(AOwner: TComponent);
+begin
+  inherited;
+  pnlSeparator.Color := clBtnFace;
+  InitCustomizationPanel;
+end;
+
+procedure TframeEditors.AddBars;
+begin
+  inherited;
+  BarList.AddBar(btStandard);
+end;
+
+procedure TframeEditors.AddOperations;
+  procedure AddFileOperations;
+  begin
+    with Operations do
+    begin
+      AddOperation(otExportTo, nil);
+      AddOperation(otExportToHTML, nil);
+      AddOperation(otExportToXML, nil);
+      AddOperation(otExportToExcel, nil);
+      AddOperation(otExportToText, nil);
+      AddOperation(otPrintStyles, nil);
+      AddOperation(otDefinePrintStyles, nil);
+      AddOperation(otPrintPreview, nil);
+      AddOperation(otPrint, nil);
+      AddOperation(otStyles, nil);
+    end;
+  end;
+
+begin
+  inherited;
+  AddFileOperations;
+end;
+
+function TframeEditors.GetDataSet: TDataSet;
+begin
+  Result := dmMain.cdsMovieStars;
+end;
+
+procedure TframeEditors.DataSetStateChanged;
+begin
+  inherited;
+  //  need synchronize photo with dmmain.cdsMovieStarsID.Value
+  with dmmain.cdsMovieStarsPhotos do
+  begin
+    btnPrevPhoto.Enabled := not IsEmpty and (RecNo > 1);
+    btnNextPhoto.Enabled := not IsEmpty and (RecNo < RecordCount);
+  end;
+  with dmMain.cdsMovies do
+  begin
+    btnPrevFilm.Enabled := not IsEmpty and (RecNo > 1);
+    btnNextFilm.Enabled := not IsEmpty and (RecNo < RecordCount);
+  end;
+end;
+
+procedure TframeEditors.UpdateOperations;
+begin
+  inherited  UpdateOperations;
+  Operations.Items[otStyles].Enabled := False;
+end;
+
+function TframeEditors.GetHint: string;
+begin
+  {$IFNDEF PS3}
+  Result := sdxFrameEditorHint;
+  {$ELSE}
+  Result := inherited GetHint;
+  {$ENDIF}
+end;
+
+function TframeEditors.GetPrintableComponent: TComponent;
+begin
+  Result := pnForm;
+end;
+
+procedure TframeEditors.PrepareLink(AReportLink: TBasedxReportLink);
+begin
+  inherited;
+  TdxCustomContainerReportLink(AReportLink).HideComponents([PaintBox, btnPrevPhoto, btnNextPhoto, btnPrevFilm, btnNextFilm]);
+end;
+
+procedure TframeEditors.InitCustomizationPanel;
+begin
+  edBorderColor.Style.Color := StyleController.Style.BorderColor;
+  edColor.Style.Color := StyleController.Style.Color;
+  edBorderStyle.ItemIndex := Integer(StyleController.Style.BorderStyle);
+  edButtonViewStyle.ItemIndex := Integer(StyleController.Style.ButtonStyle);
+  ButtonTransparence.ItemIndex := Integer(StyleController.Style.ButtonTransparency);
+  cbHotTrack.Checked := StyleController.Style.HotTrack;
+  cbShadow.Checked := StyleController.Style.Shadow;
+  cbLeft.Checked := bLeft in StyleController.Style.Edges;
+  cbRight.Checked := bRight in StyleController.Style.Edges;
+  cbTop.Checked := bTop in StyleController.Style.Edges;
+  cbBottom.Checked := bBottom in StyleController.Style.Edges;
+  cbNativeStyle.Checked := StyleController.Style.LookAndFeel.NativeStyle;
+end;
+
+procedure TframeEditors.edBorderColorButtonClick(Sender: TObject;
+  AbsoluteIndex: Integer);
+begin
+  inherited;
+  ColorDialog.Color := edBorderColor.Style.Color;
+  if ColorDialog.Execute then
+  begin
+    edBorderColor.Style.Color := ColorDialog.Color;
+    edBorderColor.Style.Font.Color := ColorToRGB(edBorderColor.Style.Color) xor $FFFFFF;
+    StyleController.Style.BorderColor := edBorderColor.Style.Color;
+  end;
+end;
+
+procedure TframeEditors.edBorderColorDblClick(Sender: TObject);
+begin
+  inherited;
+  edBorderColorButtonClick(nil, 0);
+end;
+
+procedure TframeEditors.edBorderStyleChange(Sender: TObject);
+begin
+  inherited;
+  StyleController.Style.BorderStyle := TcxEditBorderStyle(edBorderStyle.ItemIndex);
+end;
+
+procedure TframeEditors.edButtonViewStyleChange(Sender: TObject);
+begin
+  inherited;
+  StyleController.Style.ButtonStyle := TcxEditButtonStyle(edButtonViewStyle.ItemIndex);
+end;
+
+procedure TframeEditors.ButtonTransparenceChange(Sender: TObject);
+begin
+  inherited;
+  StyleController.Style.ButtonTransparency := TcxEditButtonTransparency(ButtonTransparence.ItemIndex);
+end;
+
+procedure TframeEditors.cbLeftChange(Sender: TObject);
+begin
+  inherited;
+  with StyleController.Style do
+    if cbLeft.Checked then
+      Edges := Edges + [bLeft]
+    else
+      Edges := Edges - [bLeft];
+end;
+
+procedure TframeEditors.cbRightChange(Sender: TObject);
+begin
+  inherited;
+  with StyleController.Style do
+    if cbRight.Checked then
+      Edges := Edges + [bRight]
+    else
+      Edges := Edges - [bRight];
+end;
+
+procedure TframeEditors.cbTopChange(Sender: TObject);
+begin
+  inherited;
+  with StyleController.Style do
+    if cbTop.Checked then
+      Edges := Edges + [bTop]
+    else
+      Edges := Edges - [bTop];
+end;
+
+procedure TframeEditors.cbBottomChange(Sender: TObject);
+begin
+  inherited;
+  with StyleController.Style do
+    if cbBottom.Checked then
+      Edges := Edges + [bBottom]
+    else
+      Edges := Edges - [bBottom];
+end;
+
+procedure TframeEditors.cbHotTrackChange(Sender: TObject);
+begin
+  inherited;
+  StyleController.Style.HotTrack := cbHotTrack.Checked;
+end;
+
+procedure TframeEditors.cbShadowChange(Sender: TObject);
+begin
+  inherited;
+  StyleController.Style.Shadow := cbShadow.Checked;
+end;
+
+procedure TframeEditors.cbNativeStyleChange(Sender: TObject);
+begin
+  inherited;
+  StyleController.Style.LookAndFeel.NativeStyle := cbNativeStyle.Checked;
+end;
+
+procedure TframeEditors.edColorButtonClick(Sender: TObject;
+  AButtonIndex: Integer);
+begin
+  inherited;
+  ColorDialog.Color := edColor.Style.Color;
+  if ColorDialog.Execute then
+  begin
+    edColor.Style.Color := ColorDialog.Color;
+    edColor.Style.Font.Color := ColorToRGB(edColor.Style.Color) xor $FFFFFF;
+    StyleController.Style.Color := edColor.Style.Color;
+  end;
+end;
+
+procedure TframeEditors.edColorDblClick(Sender: TObject);
+begin
+  inherited;
+  edColorButtonClick(nil, 0);
+end;
+
+procedure TframeEditors.btnPrevPhotoClick(Sender: TObject);
+begin
+  dmmain.cdsMovieStars.Prior;
+end;
+
+procedure TframeEditors.btnNextPhotoClick(Sender: TObject);
+begin
+  dmmain.cdsMovieStars.Next;
+end;
+
+procedure TframeEditors.btnPrevFilmClick(Sender: TObject);
+begin
+  dmMain.cdsMovies.Prior;
+end;
+
+procedure TframeEditors.btnNextFilmClick(Sender: TObject);
+begin
+  dmMain.cdsMovies.Next;
+end;
+
+procedure TframeEditors.LookAndFeelChanged;
+begin
+  inherited LookAndFeelChanged;
+end;
+
+end.
+
+
+

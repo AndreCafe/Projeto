@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2006/05/05 10:46:28.946.pas,C:\Documents and Settings\IBM\My Documents\Borland Studio Projects\Unit13.pas=C:\Projetos\CyberMgr\Atual\utils\uImpODIN.pas</Transaction>
+    <Transaction>2006/05/05 10:46:28.946.dfm,C:\Documents and Settings\IBM\My Documents\Borland Studio Projects\Unit13.dfm=C:\Projetos\CyberMgr\Atual\utils\uImpODIN.dfm</Transaction>
+    <Transaction>2006/05/05 10:46:35.396.bdsproj,C:\Documents and Settings\IBM\My Documents\Borland Studio Projects\Project10.bdsproj=C:\Projetos\CyberMgr\Atual\utils\ImpODIN.bdsproj</Transaction>
+    <Transaction>2006/08/02 22:45:16.106.bdsproj,C:\Projetos\CyberMgrT\Atual\utils\ImpODIN.bdsproj=C:\Projetos\CyberMgrT\Atual\utils\ImpTXT.bdsproj</Transaction>
+    <Transaction>2006/08/02 22:45:26.571.pas,C:\Projetos\CyberMgrT\Atual\utils\uImpODIN.pas=C:\Projetos\CyberMgrT\Atual\utils\uImpTXT.pas</Transaction>
+    <Transaction>2006/08/02 22:45:26.571.dfm,C:\Projetos\CyberMgrT\Atual\utils\uImpODIN.dfm=C:\Projetos\CyberMgrT\Atual\utils\uImpTXT.dfm</Transaction>
+  </Transactions>
+</BorlandProject>

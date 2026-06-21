@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{95b7288c-f350-46b0-98fa-d658b354b16c}</ProjectGuid>
+    <MainSource>NexReg.dpr</MainSource>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <DCC_DCCCompiler>DCC32</DCC_DCCCompiler>
+    <DCC_DependencyCheckOutputName>C:\Meus Programas\NexReg\NexReg.exe</DCC_DependencyCheckOutputName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <Version>7.0</Version>
+    <DCC_DebugInformation>False</DCC_DebugInformation>
+    <DCC_LocalDebugSymbols>False</DCC_LocalDebugSymbols>
+    <DCC_SymbolReferenceInfo>0</DCC_SymbolReferenceInfo>
+    <DCC_ExeOutput>C:\Meus Programas\NexReg</DCC_ExeOutput>
+    <DCC_DcuOutput>C:\ProjetoDCU\D2006</DCC_DcuOutput>
+    <DCC_ObjOutput>C:\ProjetoDCU\D2006</DCC_ObjOutput>
+    <DCC_HppOutput>C:\ProjetoDCU\D2006</DCC_HppOutput>
+    <DCC_Define>RELEASE</DCC_Define>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <Version>7.0</Version>
+    <DCC_ExeOutput>C:\Meus Programas\NexReg</DCC_ExeOutput>
+    <DCC_DcuOutput>C:\ProjetoDCU\D2007</DCC_DcuOutput>
+    <DCC_ObjOutput>C:\ProjetoDCU\D2007</DCC_ObjOutput>
+    <DCC_HppOutput>C:\ProjetoDCU\D2007</DCC_HppOutput>
+    <DCC_Define>DEBUG</DCC_Define>
+  </PropertyGroup>
+  <ProjectExtensions>
+    <Borland.Personality>Delphi.Personality</Borland.Personality>
+    <Borland.ProjectType>VCLApplication</Borland.ProjectType>
+    <BorlandProject>
+<BorlandProject><Delphi.Personality><Parameters><Parameters Name="UseLauncher">False</Parameters><Parameters Name="LoadAllSymbols">True</Parameters><Parameters Name="LoadUnspecifiedSymbols">False</Parameters></Parameters><Language><Language Name="RootDir">C:\Arquivos de programas\Borland\Delphi7\Bin\</Language></Language><VersionInfo><VersionInfo Name="IncludeVerInfo">True</VersionInfo><VersionInfo Name="AutoIncBuild">False</VersionInfo><VersionInfo Name="MajorVer">1</VersionInfo><VersionInfo Name="MinorVer">0</VersionInfo><VersionInfo Name="Release">0</VersionInfo><VersionInfo Name="Build">1</VersionInfo><VersionInfo Name="Debug">False</VersionInfo><VersionInfo Name="PreRelease">False</VersionInfo><VersionInfo Name="Special">False</VersionInfo><VersionInfo Name="Private">False</VersionInfo><VersionInfo Name="DLL">False</VersionInfo><VersionInfo Name="Locale">1046</VersionInfo><VersionInfo Name="CodePage">1252</VersionInfo></VersionInfo><VersionInfoKeys><VersionInfoKeys Name="CompanyName"></VersionInfoKeys><VersionInfoKeys Name="FileDescription"></VersionInfoKeys><VersionInfoKeys Name="FileVersion">1.0.0.1</VersionInfoKeys><VersionInfoKeys Name="InternalName"></VersionInfoKeys><VersionInfoKeys Name="LegalCopyright"></VersionInfoKeys><VersionInfoKeys Name="LegalTrademarks"></VersionInfoKeys><VersionInfoKeys Name="OriginalFilename"></VersionInfoKeys><VersionInfoKeys Name="ProductName"></VersionInfoKeys><VersionInfoKeys Name="ProductVersion">1.0.0.0</VersionInfoKeys><VersionInfoKeys Name="Comments"></VersionInfoKeys></VersionInfoKeys><Source><Source Name="MainSource">NexReg.dpr</Source></Source></Delphi.Personality></BorlandProject></BorlandProject>
+  </ProjectExtensions>
+  <Import Project="$(MSBuildBinPath)\Borland.Delphi.Targets" />
+  <ItemGroup>
+    <DelphiCompile Include="NexReg.dpr">
+      <MainSource>MainSource</MainSource>
+    </DelphiCompile>
+    <DCCReference Include="..\FormMgr\ufmFormBase.pas">
+      <Form>FrmBase</Form>
+    </DCCReference>
+    <DCCReference Include="..\FormMgr\ufmImagens.pas">
+      <Form>dmImagens</Form>
+      <DesignClass>TDataModule</DesignClass>
+    </DCCReference>
+    <DCCReference Include="C:\comp\kbmMW25\Source\kbmMWZipStdTransStream.pas" />
+    <DCCReference Include="nrAutorizacao.pas" />
+    <DCCReference Include="uFrmAutorizacao.pas">
+      <Form>FrmAut</Form>
+    </DCCReference>
+    <DCCReference Include="uFrmHC.pas">
+      <Form>FrmHC</Form>
+    </DCCReference>
+    <DCCReference Include="uLicenca.pas" />
+    <DCCReference Include="uLicEXECryptor.pas" />
+    <DCCReference Include="uLinkBol.pas" />
+    <DCCReference Include="uNexRegDM.pas">
+      <Form>DM</Form>
+      <DesignClass>TDataModule</DesignClass>
+    </DCCReference>
+    <DCCReference Include="uNexRegPri.pas">
+      <Form>FrmPri</Form>
+    </DCCReference>
+    <DCCReference Include="uNRfbAut.pas">
+      <Form>fbAut</Form>
+      <DesignClass>TFrmBasePai</DesignClass>
+    </DCCReference>
+    <DCCReference Include="uNRfbClientes.pas">
+      <Form>fbClientes</Form>
+    </DCCReference>
+    <DCCReference Include="uNRfbTitulos.pas">
+      <Form>fbTitulos</Form>
+      <DesignClass>TFrmBasePai</DesignClass>
+    </DCCReference>
+    <DCCReference Include="uNRFrmCli.pas">
+      <Form>FrmCli</Form>
+    </DCCReference>
+    <DCCReference Include="uNRFrmLogin.pas">
+      <Form>FrmLogin</Form>
+    </DCCReference>
+    <DCCReference Include="uNRFrmSenha.pas">
+      <Form>FrmAlteraSenha</Form>
+    </DCCReference>
+    <DCCReference Include="uNRFrmTitulo.pas">
+      <Form>FrmTitulo</Form>
+    </DCCReference>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,7 @@
+This demo demonstrates an RTF editor with the Ribbon interface similar to that found in Microsoft Office 2007 and higher.
+
+To mimic the appearance and layout adaptation capabilities of Ribbon UI elements, it uses our TdxRibbon, TdxRibbonBackstageView, TdxBarApplicationMenu, TdxRibbonMiniToolbar, TdxRibbonPopupMenu, TdxBarScreenTipRepository, TdxRibbonStatusBar, and TcxImageList components.
+You can examine the effect of resizing the editor's window, and in particular, you can see how the bar items are arranged and sized within tab groups and how the width of tab captions is adjusted.
+A newly developed Skin Chooser Gallery allows you to instantly apply skins from the ExpressSkins Library to the Ribbon form.
+
+This application represents a fully functional RTF editor with standard editing features.

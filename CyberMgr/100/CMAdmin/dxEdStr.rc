@@ -1,0 +1,76 @@
+/*
+   dxEdStr.rc
+   Developer Express Visual Component Library
+   Express inplace editors strings resource
+*/
+
+STRINGTABLE
+{
+  //dxGrClms strings
+  38901, "Sim"
+  38902, "Não"
+  38903, "Hoje"
+  38904, "Limpar"
+
+  // blob edit buttons
+  38905,  "&OK"
+  38906,  "&Cancelar"
+  38907,  "&Fechar"
+
+  38908,  "Cor&tar"
+  38909,  "&Copiar"
+  38910,  "C&olar"
+  38911,  "&Eliminar"
+  38912,  "&Guardar para ficheiro..."
+  38913,  "&Carregar de ficheiro..."
+
+  38914,  "Cor&tar"
+  38915,  "&Copiar"
+  38916,  "C&olar"
+  38917,  "&Eliminar"
+  38918,  "&Carregar de..."
+  38919,  "&Guardar para..."
+
+  38920,  "Cortar"
+  38921,  "Copiar"
+  38922,  "Colar"
+  38923,  "Eliminar"
+  38924,  "Carregar de ficheiro..."
+  38925,  "Guardar para ficheiro..."
+
+  38926,  "Caixa de Ferramentas"
+
+  38927,  "Data Inválida"
+
+  38928,  "HOJE"
+  38929,  "ONTEM"
+  38930,  "AMANHÃ"
+  38931,  "DOMINGO"
+  38932,  "SEGUNDA"
+  38933,  "TERÇA"
+  38934,  "QUARTA"
+  38935,  "QUINTA"
+  38936,  "SEXTA"
+  38937,  "SÁBADO"
+  38938,  "PRIMEIRO"
+  38939,  "SEGUNDO"
+  38940,  "TERCEIRO"
+  38941,  "QUARTO"
+  38942,  "QUINTO"
+  38943,  "SEXTO"
+  38944,  "SÉTIMO"
+  38945,  "IDM"
+  38946,  "FDM"
+  38947,  "AGORA"
+
+  38948, "Valor inválido. Use a tecla ESCape para abandonar alterações."
+
+  38949, "A&nular"
+  38950, "&Refazer"
+  38952, "Cor&tar"
+  38953, "&Copiar"
+  38954, "C&olar"
+  38955, "&Eliminar"
+  38956, "&Seleccionar tudo"
+}
+

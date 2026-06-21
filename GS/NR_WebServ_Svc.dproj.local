@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2006/12/16 11:38:41.008.bdsproj,C:\Projetos\GS\RegistroSvc.bdsproj=C:\Projetos\GS\NexRegSvc.bdsproj</Transaction>
+    <Transaction>2006/12/16 11:39:01.147.pas,C:\Projetos\GS\uRegistroSvc.pas=C:\Projetos\GS\uNexRegSvc.pas</Transaction>
+    <Transaction>2006/12/16 11:39:01.147.dfm,C:\Projetos\GS\uRegistroSvc.dfm=C:\Projetos\GS\uNexRegSvc.dfm</Transaction>
+    <Transaction>2010/12/04 00:01:02.219.dproj,C:\Projetos\GS\NexRegSvc.dproj=C:\Projetos\GS\NR_WebServ_Svc.dproj</Transaction>
+    <Transaction>2010/12/04 00:01:44.182.pas,C:\Projetos\GS\uRSDM.pas=C:\Projetos\GS\nr_dm_webserv.pas</Transaction>
+    <Transaction>2010/12/04 00:01:44.182.dfm,C:\Projetos\GS\uRSDM.dfm=C:\Projetos\GS\nr_dm_webserv.dfm</Transaction>
+    <Transaction>2010/12/04 00:02:22.966.pas,C:\Projetos\GS\nr_dm_webserv.pas=C:\Projetos\GS\NR_WebServ_DM.pas</Transaction>
+    <Transaction>2010/12/04 00:02:22.966.dfm,C:\Projetos\GS\nr_dm_webserv.dfm=C:\Projetos\GS\NR_WebServ_DM.dfm</Transaction>
+    <Transaction>2010/12/04 00:11:30.181.pas,C:\Projetos\GS\uNexRegSvc.pas=C:\Projetos\GS\uNR_WebServ_Svc.pas</Transaction>
+    <Transaction>2010/12/04 00:11:30.181.dfm,C:\Projetos\GS\uNexRegSvc.dfm=C:\Projetos\GS\uNR_WebServ_Svc.dfm</Transaction>
+    <Transaction>2010/12/04 00:17:58.086.pas,C:\Projetos\GS\Unit2.pas=C:\Projetos\GS\nr_db_conn.pas</Transaction>
+    <Transaction>2010/12/04 00:17:58.086.dfm,C:\Projetos\GS\Unit2.dfm=C:\Projetos\GS\nr_db_conn.dfm</Transaction>
+    <Transaction>2012/04/09 10:37:44.638.pas,C:\Projetos\GS\Unit2.pas=C:\Projetos\GS\uNR_chaveseg.pas</Transaction>
+    <Transaction>2012/11/12 06:55:35.736.pas,C:\Projetos\GS\Unit2.pas=C:\Projetos\GS\nr_checaconta.pas</Transaction>
+    <Transaction>2012/11/12 13:28:53.291.pas,C:\Projetos\GS\Unit2.pas=C:\Projetos\GS\nr_cc_add.pas</Transaction>
+    <Transaction>2012/11/12 13:28:53.291.dfm,C:\Projetos\GS\Unit2.dfm=C:\Projetos\GS\nr_cc_add.dfm</Transaction>
+    <Transaction>2012/11/12 22:04:21.005.pas,C:\Projetos\GS\nr_cc_add.pas=C:\Projetos\GS\nr_autoconn.pas</Transaction>
+    <Transaction>2012/11/12 22:04:21.005.dfm,C:\Projetos\GS\nr_cc_add.dfm=C:\Projetos\GS\nr_autoconn.dfm</Transaction>
+    <Transaction>2012/11/13 13:22:06.763.pas,C:\Projetos\GS\uRSServBD.pas=</Transaction>
+    <Transaction>2012/11/13 13:22:06.763.dfm,C:\Projetos\GS\uRSServBD.dfm=</Transaction>
+    <Transaction>2012/11/13 13:22:06.779.pas,C:\Projetos\GS\uRSQSRegistro300.pas=</Transaction>
+    <Transaction>2012/11/13 13:22:06.779.dfm,C:\Projetos\GS\uRSQSRegistro300.dfm=</Transaction>
+    <Transaction>2012/11/13 13:22:06.795.pas,C:\Projetos\GS\uRSQSRegistro200.pas=</Transaction>
+    <Transaction>2012/11/13 13:22:06.795.dfm,C:\Projetos\GS\uRSQSRegistro200.dfm=</Transaction>
+    <Transaction>2012/11/13 13:22:06.810.pas,C:\Projetos\GS\uRSQSRegistro100.pas=</Transaction>
+    <Transaction>2012/11/13 13:22:06.810.dfm,C:\Projetos\GS\uRSQSRegistro100.dfm=</Transaction>
+    <Transaction>2012/11/13 13:22:06.826.pas,C:\Projetos\GS\uRSQSAdmin100.pas=</Transaction>
+    <Transaction>2012/11/13 13:22:06.826.dfm,C:\Projetos\GS\uRSQSAdmin100.dfm=</Transaction>
+  </Transactions>
+</BorlandProject>

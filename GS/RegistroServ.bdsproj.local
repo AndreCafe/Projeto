@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2006/06/03 15:20:03.191.pas,C:\Projetos\GS\uRSQSRegistro100.pas=C:\Projetos\GS\uRSQSRegistro200.pas</Transaction>
+    <Transaction>2006/06/03 15:20:03.191.dfm,C:\Projetos\GS\uRSQSRegistro100.dfm=C:\Projetos\GS\uRSQSRegistro200.dfm</Transaction>
+    <Transaction>2006/06/03 17:29:24.020.pas,C:\Projetos\GS\Unit2.pas=C:\Projetos\GS\uRSGerenteChave.pas</Transaction>
+    <Transaction>2006/06/05 12:10:36.569.pas,C:\Projetos\GS\Unit2.pas=C:\Projetos\GS\uRSDMGerenteChave.pas</Transaction>
+    <Transaction>2006/06/05 12:10:36.569.dfm,C:\Projetos\GS\Unit2.dfm=C:\Projetos\GS\uRSDMGerenteChave.dfm</Transaction>
+    <Transaction>2006/06/12 16:18:55.582.pas,C:\Projetos\GS\uRSQSRegistro200.pas=</Transaction>
+    <Transaction>2006/06/12 16:18:55.602.dfm,C:\Projetos\GS\uRSQSRegistro200.dfm=</Transaction>
+  </Transactions>
+</BorlandProject>

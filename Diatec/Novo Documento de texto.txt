@@ -1,0 +1,45 @@
+    
+ 
+      
+ 1     
+ 
+   Mover mensagem para a pasta:  (selecione)(NOVA PASTA) 
+
+  
+ Data: Wed, 06 Feb 2002 14:16:02 +0000
+ De: Peter Igor Volf <pivolf@hotmail.com> (guardar endereço)
+ Para: pcphone@ig.com.br
+ Assunto: Arquivos Diatec
+ Mensagem 1
+(ver cabeçalho)
+ 
+ 
+ 
+João, 
+
+Seguem os fontes do Diatec e base DBF para teste. A seguir a relação de 
+problemas detectados: 
+
+1. Erro, file is locked ao tentarmos apontar uma OS. 
+2. Sistema está permitindo apontar horas noturnas ou de fins de semana para 
+clientes que não permitem este tipo de apontamento (tratar no apontamento). 
+3. Implementei a função "copiar para disquete", mas ele não está permitindo 
+a cópia com as tabelas abertas. Seria interessante já implementar o lance 
+dele ver se tem estaço em temp e baixar para lá depois copiando para o 
+disquete para otimizar o download. 
+4. Quando geramos vários apontamentos com ocorrências diferentes, rateamos 
+as horas e depois desmarcamos, voltamos o reteio e rateamos 
+
+Enviei tambem as tabelas do diatec server pra você fazer os testes com os 
+dados que estou usando 
+
+OBS: Estou lhe enviando via Hotmail pois estamos com problemas que as 
+mensagens não estão saindo, mas recebemos normalmente, portanto me responda 
+via microsigarp. 
+
+Valeu 
+Peter 
+
+
+ 
+ 

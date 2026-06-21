@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2005/12/28 13:59:33.792.pas,C:\Projetos\Diatec\270\Unit2.pas=C:\Projetos\Diatec\270\uDTRels.pas</Transaction>
+    <Transaction>2005/12/28 13:59:33.792.dfm,C:\Projetos\Diatec\270\Unit2.dfm=C:\Projetos\Diatec\270\uDTRels.dfm</Transaction>
+    <Transaction>2006/04/06 19:07:20.284.pas,C:\Projetos\Diatec\270\Unit2.pas=C:\Projetos\Diatec\270\uDTFrmExcluiOSServ.pas</Transaction>
+    <Transaction>2006/04/06 19:07:20.284.dfm,C:\Projetos\Diatec\270\Unit2.dfm=C:\Projetos\Diatec\270\uDTFrmExcluiOSServ.dfm</Transaction>
+  </Transactions>
+</BorlandProject>

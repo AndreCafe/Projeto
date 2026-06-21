@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2005/12/20 23:00:18.654.bdsproj,C:\Projetos\CyberMgr\Atual\CMAdmin\CMAdmin.bdsproj=C:\Projetos\CyberMgr\Atual\CMAdmin\CMAdmin.bdsproj</Transaction>
+    <Transaction>2006/01/25 09:36:26.243.pas,C:\Projetos\CyberMgr\Atual\CMAdmin\Unit1.pas=C:\Projetos\CyberMgr\Atual\CMAdmin\ucmaFrmZerarTempo.pas</Transaction>
+    <Transaction>2006/01/25 09:36:26.243.dfm,C:\Projetos\CyberMgr\Atual\CMAdmin\Unit1.dfm=C:\Projetos\CyberMgr\Atual\CMAdmin\ucmaFrmZerarTempo.dfm</Transaction>
+    <Transaction>2006/02/22 20:41:23.514.pas,C:\Projetos\CyberMgr\Atual\CMAdmin\Unit1.pas=C:\Projetos\CyberMgr\Atual\CMAdmin\ucmaFrmFundo.pas</Transaction>
+    <Transaction>2006/02/22 20:41:23.514.dfm,C:\Projetos\CyberMgr\Atual\CMAdmin\Unit1.dfm=C:\Projetos\CyberMgr\Atual\CMAdmin\ucmaFrmFundo.dfm</Transaction>
+    <Transaction>2006/03/03 10:37:50.102.pas,C:\Projetos\CyberMgr\Atual\CMAdminV\ucmafbOpcoes.pas=C:\Projetos\CyberMgr\Atual\CMAdmin\ucmafbOpcoes.pas</Transaction>
+    <Transaction>2006/03/03 10:37:50.102.dfm,C:\Projetos\CyberMgr\Atual\CMAdminV\ucmafbOpcoes.dfm=C:\Projetos\CyberMgr\Atual\CMAdmin\ucmafbOpcoes.dfm</Transaction>
+    <Transaction>2006/03/03 10:38:20.686.pas,C:\Projetos\CyberMgr\196\CMAdmin\ucmafbTarBasica.pas=C:\Projetos\CyberMgr\Atual\CMAdmin\ucmafbTarBasica.pas</Transaction>
+    <Transaction>2006/03/03 10:38:20.686.dfm,C:\Projetos\CyberMgr\196\CMAdmin\ucmafbTarBasica.dfm=C:\Projetos\CyberMgr\Atual\CMAdmin\ucmafbTarBasica.dfm</Transaction>
+    <Transaction>2006/03/22 21:05:42.251.pas,C:\Projetos\CyberMgr\Atual\CMAdmin\ucmaFrmAcesso.pas=C:\Projetos\CyberMgr\Atual\CMAdmin\ucmaFrmAcesso2.pas</Transaction>
+    <Transaction>2006/03/22 21:05:42.251.dfm,C:\Projetos\CyberMgr\Atual\CMAdmin\ucmaFrmAcesso.dfm=C:\Projetos\CyberMgr\Atual\CMAdmin\ucmaFrmAcesso2.dfm</Transaction>
+    <Transaction>2006/03/23 10:31:18.829.pas,C:\Projetos\CyberMgr\Atual\CMAdmin\ucmaFrmAcesso.pas=</Transaction>
+    <Transaction>2006/03/23 10:31:18.829.dfm,C:\Projetos\CyberMgr\Atual\CMAdmin\ucmaFrmAcesso.dfm=</Transaction>
+    <Transaction>2006/03/23 10:45:58.574.pas,C:\Projetos\CyberMgr\Atual\CMAdmin\ucmaFrmAcesso2.pas=C:\Projetos\CyberMgr\Atual\CMAdmin\ucmaFrmAcesso.pas</Transaction>
+    <Transaction>2006/03/23 10:45:58.574.dfm,C:\Projetos\CyberMgr\Atual\CMAdmin\ucmaFrmAcesso2.dfm=C:\Projetos\CyberMgr\Atual\CMAdmin\ucmaFrmAcesso.dfm</Transaction>
+    <Transaction>2006/03/27 11:46:12.503.pas,C:\Projetos\CyberMgr\Atual\CMAdmin\Unit3.pas=C:\Projetos\CyberMgr\Atual\CMAdmin\ucmaFrmEtapa.pas</Transaction>
+    <Transaction>2006/03/27 11:46:12.503.dfm,C:\Projetos\CyberMgr\Atual\CMAdmin\Unit3.dfm=C:\Projetos\CyberMgr\Atual\CMAdmin\ucmaFrmEtapa.dfm</Transaction>
+    <Transaction>2006/03/28 20:21:10.832.pas,C:\Projetos\CyberMgr\Atual\CMAdmin\Unit2.pas=</Transaction>
+    <Transaction>2006/03/28 20:21:10.832.dfm,C:\Projetos\CyberMgr\Atual\CMAdmin\Unit2.dfm=</Transaction>
+    <Transaction>2006/03/30 11:11:22.904.pas,C:\Projetos\CyberMgr\Atual\CMAdmin\Unit3.pas=C:\Projetos\CyberMgr\Atual\CMAdmin\ucmaColorConv.pas</Transaction>
+    <Transaction>2006/06/24 01:30:10.645.pas,C:\Projetos\CyberMgr\Atual\CMAdmin\Unit3.pas=C:\Projetos\CyberMgr\Atual\CMAdmin\ucmaFrmCHAT.pas</Transaction>
+    <Transaction>2006/06/24 01:30:10.645.dfm,C:\Projetos\CyberMgr\Atual\CMAdmin\Unit3.dfm=C:\Projetos\CyberMgr\Atual\CMAdmin\ucmaFrmCHAT.dfm</Transaction>
+    <Transaction>2006/06/24 13:35:14.512.pas,C:\Projetos\CyberMgr\Atual\CMAdmin\ucmaFrmCHAT.pas=C:\Projetos\CyberMgr\Atual\Comum\ucmaFrmBaseCHAT.pas</Transaction>
+    <Transaction>2006/06/24 13:35:14.512.dfm,C:\Projetos\CyberMgr\Atual\CMAdmin\ucmaFrmCHAT.dfm=C:\Projetos\CyberMgr\Atual\Comum\ucmaFrmBaseCHAT.dfm</Transaction>
+    <Transaction>2006/06/24 13:41:48.749.pas,C:\Projetos\CyberMgr\Atual\CMAdmin\Unit3.pas=C:\Projetos\CyberMgr\Atual\CMAdmin\ucmaFrmChat.pas</Transaction>
+    <Transaction>2006/06/24 13:41:48.749.dfm,C:\Projetos\CyberMgr\Atual\CMAdmin\Unit3.dfm=C:\Projetos\CyberMgr\Atual\CMAdmin\ucmaFrmChat.dfm</Transaction>
+    <Transaction>2006/06/25 23:14:58.615.pas,C:\Projetos\CyberMgr\Atual\CMAdmin\Unit3.pas=C:\Projetos\CyberMgr\Atual\CMAdmin\ucmaFrmTempo.pas</Transaction>
+    <Transaction>2006/06/25 23:14:58.635.dfm,C:\Projetos\CyberMgr\Atual\CMAdmin\Unit3.dfm=C:\Projetos\CyberMgr\Atual\CMAdmin\ucmaFrmTempo.dfm</Transaction>
+    <Transaction>2006/06/25 23:22:51.825.pas,C:\Projetos\CyberMgr\Atual\CMAdmin\Unit1.pas=C:\Projetos\CyberMgr\Atual\CMAdmin\ucmaFrmSessao.pas</Transaction>
+    <Transaction>2006/06/25 23:22:51.825.dfm,C:\Projetos\CyberMgr\Atual\CMAdmin\Unit1.dfm=C:\Projetos\CyberMgr\Atual\CMAdmin\ucmaFrmSessao.dfm</Transaction>
+    <Transaction>2006/06/27 22:24:18.183.pas,C:\Projetos\CyberMgr\Atual\CMAdmin\ucmafbClientes.pas=C:\Projetos\CyberMgr\Atual\CMAdmin\ucmafbPesqCli.pas</Transaction>
+    <Transaction>2006/06/27 22:24:18.183.dfm,C:\Projetos\CyberMgr\Atual\CMAdmin\ucmafbClientes.dfm=C:\Projetos\CyberMgr\Atual\CMAdmin\ucmafbPesqCli.dfm</Transaction>
+  </Transactions>
+	<IPServerDescMap></IPServerDescMap>
+	<StarTeamShortcuts>; 1; 0; False; 0; -1; </StarTeamShortcuts>
+	<StarTeamMiscUserData></StarTeamMiscUserData>
+</BorlandProject>

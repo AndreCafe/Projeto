@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2007/10/25 15:58:47.046.pas,C:\Documents and Settings\Joao\My Documents\RAD Studio\Projects\Unit13.pas=C:\Projetos\Utils\uEstatisticasNextar.pas</Transaction>
+    <Transaction>2007/10/25 15:58:47.062.dfm,C:\Documents and Settings\Joao\My Documents\RAD Studio\Projects\Unit13.dfm=C:\Projetos\Utils\uEstatisticasNextar.dfm</Transaction>
+    <Transaction>2007/10/25 15:58:53.234.dproj,C:\Documents and Settings\Joao\My Documents\RAD Studio\Projects\Project11.dproj=C:\Projetos\Utils\EstatisticasNextar.dproj</Transaction>
+    <Transaction>2011/05/04 08:31:48.647.pas,C:\Projetos\Utils\uEstatisticasNextar.pas=C:\Projetos\GS\uEstCadastro.pas</Transaction>
+    <Transaction>2011/05/04 08:31:48.647.dfm,C:\Projetos\Utils\uEstatisticasNextar.dfm=C:\Projetos\GS\uEstCadastro.dfm</Transaction>
+    <Transaction>2011/05/04 08:32:10.398.dproj,C:\Projetos\Utils\EstatisticasNextar.dproj=C:\Projetos\GS\EstCadastro.dproj</Transaction>
+    <Transaction>2011/08/23 18:55:27.920.pas,C:\Projetos\GS\uEstCadastro.pas=C:\Projetos\GS\uEstRedirs.pas</Transaction>
+    <Transaction>2011/08/23 18:55:27.920.dfm,C:\Projetos\GS\uEstCadastro.dfm=C:\Projetos\GS\uEstRedirs.dfm</Transaction>
+    <Transaction>2011/08/23 18:55:37.516.dproj,C:\Projetos\GS\EstCadastro.dproj=C:\Projetos\GS\EstRedirs.dproj</Transaction>
+  </Transactions>
+</BorlandProject>

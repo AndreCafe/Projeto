@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2006/02/21 14:48:49.300.pas,C:\Documents and Settings\IBM\My Documents\Borland Studio Projects\Unit12.pas=C:\Projetos\CyberMgr\Atual\utils\uFrmTesteKBMCli.pas</Transaction>
+    <Transaction>2006/02/21 14:48:49.300.dfm,C:\Documents and Settings\IBM\My Documents\Borland Studio Projects\Unit12.dfm=C:\Projetos\CyberMgr\Atual\utils\uFrmTesteKBMCli.dfm</Transaction>
+    <Transaction>2006/02/21 14:49:06.205.pas,C:\Documents and Settings\IBM\My Documents\Borland Studio Projects\Unit13.pas=C:\Projetos\CyberMgr\Atual\utils\uCMdmKbmCli.pas</Transaction>
+    <Transaction>2006/02/21 14:49:06.205.dfm,C:\Documents and Settings\IBM\My Documents\Borland Studio Projects\Unit13.dfm=C:\Projetos\CyberMgr\Atual\utils\uCMdmKbmCli.dfm</Transaction>
+    <Transaction>2006/02/21 14:49:14.086.bdsproj,C:\Documents and Settings\IBM\My Documents\Borland Studio Projects\Project9.bdsproj=C:\Projetos\CyberMgr\Atual\utils\CMKBMCli.bdsproj</Transaction>
+    <Transaction>2006/02/22 16:28:42.073.pas,C:\Projetos\CyberMgr\Atual\utils\uCMdmKbmCli.pas=C:\Projetos\CyberMgr\Atual\Cliente\cmDMKBMCli.pas</Transaction>
+    <Transaction>2006/02/22 16:28:42.073.dfm,C:\Projetos\CyberMgr\Atual\utils\uCMdmKbmCli.dfm=C:\Projetos\CyberMgr\Atual\Cliente\cmDMKBMCli.dfm</Transaction>
+  </Transactions>
+</BorlandProject>

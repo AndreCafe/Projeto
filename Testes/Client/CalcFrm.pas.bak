@@ -1,0 +1,116 @@
+unit CalcFrm;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, CalcIntf, StdCtrls;
+
+type
+  TfrmCalc = class(TForm, InxCalcCallback)
+    edInput: TEdit;
+    bnAdd: TButton;
+    bnSubtract: TButton;
+    bnMultiply: TButton;
+    bnDivide: TButton;
+    bnClear: TButton;
+    bnResult: TButton;
+    edResult: TEdit;
+    procedure bnClearClick(Sender: TObject);
+    procedure bnAddClick(Sender: TObject);
+    procedure bnSubtractClick(Sender: TObject);
+    procedure bnMultiplyClick(Sender: TObject);
+    procedure bnDivideClick(Sender: TObject);
+    procedure bnResultClick(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+  private
+    fcCalc  : InxCalc;
+    fcCalc2 : InxCalc2;
+  protected
+    {--- InxCalcCallback ---}
+    procedure ResultChanged(const aResult: Extended);
+  public
+    constructor Create(aCalc: InxCalc); reintroduce;
+  end;
+
+implementation
+
+{$R *.dfm}
+
+uses
+  nxpsiMessagePumpInterceptor;
+
+procedure TfrmCalc.bnAddClick(Sender: TObject);
+begin
+  fcCalc.Add(StrToFloat(edInput.Text));
+end;
+
+procedure TfrmCalc.bnClearClick(Sender: TObject);
+begin
+  fcCalc.Clear;
+end;
+
+procedure TfrmCalc.bnDivideClick(Sender: TObject);
+begin
+  fcCalc.Divide(StrToFloat(edInput.Text));
+end;
+
+procedure TfrmCalc.bnMultiplyClick(Sender: TObject);
+begin
+  fcCalc.Multiply(StrToFloat(edInput.Text));
+end;
+
+procedure TfrmCalc.bnResultClick(Sender: TObject);
+begin
+  edResult.Text := FloatToStr(fcCalc.Result);
+end;
+
+procedure TfrmCalc.bnSubtractClick(Sender: TObject);
+begin
+  fcCalc.Subtract(StrToFloat(edInput.Text));
+end;
+
+constructor TfrmCalc.Create(aCalc: InxCalc);
+begin
+  inherited Create(Application);
+
+  fcCalc := aCalc;
+
+  { By checking for the new interface we are keeping backward compatibility
+    with servers tha don't yet support this new interface. Existing interfaces
+    should NEVER be changed once released. Only add new interfaces. }
+  if Supports(fcCalc, InxCalc2, fcCalc2) then
+    { By using a message pump wrapper we make sure that all incoming calls
+      on the callback interface arrive in the thread from which nxWrapMessagePump
+      was called. The thread must have a message loop and must process windows
+      messages while sending a message over a channel. If the channel is based
+      on the NexusDB transport it's required to set a "NetIdleEvent" (see MainFrm).
+      In this case here the "current" thread is the application main thread
+      from which the GUI can be directly accessed. }
+    fcCalc2.Callback := nxWrapMessagePump(Self) as InxCalcCallback;
+
+  Show;
+end;
+
+procedure TfrmCalc.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  { Interfaces on TComponent are not properly reference counted, potentially
+    allowing the component (in this case the form itself) to be freed while
+    still having outstanding interface references to it. Care must be taken to
+    remove all such references before the component is freed. }
+  if Assigned(fcCalc2) then
+    fcCalc2.Callback := nil;
+
+  Action := caFree;
+end;
+
+procedure TfrmCalc.ResultChanged(const aResult: Extended);
+begin
+  { Because the interface reference we handed to the server was wrapped in a
+    message pump interceptor all incoming calls are processed by the
+    application main thread which allows us to freely access GUI controls
+    in here. }
+  edResult.Text := FloatToStr(aResult);
+end;
+
+end.

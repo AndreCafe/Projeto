@@ -1,0 +1,17 @@
+1. Servidor FF sempre deverá haver somente um executando na mesma máquina.
+2. Existe um componente do FF na abertura dos arquivos que checa a estrutura interna e f'sica das tabelas, cada vez que a estrutura das tabelas for alterada deverá ser utilizado o utilitário FFCG.EXE afim de compatibilizar o código.
+3. Para criar tabelas usar o FF Explorer.
+
+4.Sequencia:
+
+	a)FFExplorer(altera tabelas)
+	b)FFCG (Compat.código)
+        c)Incluir tabela no DM
+	d)Colocar no AbreDB e no FechaDB
+	e)uChecatabela.pas, aumentar o nro tabelas, acrescentar no array de nomes e de dicionário como tbl<tabela>dict
+
+'LIBERADO.DBF' = Ninguem Acessando   
+'PROTHEUS.DBF' = Toda vez que o protheus estiver acessando
+'UPPEND.DBF'   = Existe upload pendente
+'DOWNPEND.DBF' = Protheus sinaliza download disponível
+'DIATEC.DBF'   = Diatec Trabalhando

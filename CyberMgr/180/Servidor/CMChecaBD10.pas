@@ -1,0 +1,1642 @@
+unit CMChecaBD10;
+
+//************************************************
+//*   Source created with NexusDb Source Maker   *
+//*                 Version 1.1.4                *
+//*                                              *
+//*               by Roberto Nicchi              *
+//*            M a s t e r Informatica           *
+//*                    Italy                     *
+//*         software@masterinformatica.net       *
+//*                                              *
+//*       Source creation date: 09/01/2004       *
+//*                                              *
+//************************************************
+Interface
+
+Uses classes, nxdb, nxsdDataDictionary, nxsdTypes, nxlltypes, nxllutils, nxsqlProxies, nxsdserverengine;
+
+type
+TsmDictFn=function(tablename:string):TnxDataDictionary;
+
+TnsmCreateDatabaseCb=procedure(table:string;tableindex:integer);
+TnsmRestructureDatabaseCb=procedure(table:string;tableindex:integer;op:smallint);
+TnsmRestructureTableCb=procedure(table:string;perc:integer);
+TnsmVerifyDatabaseCb=procedure(table:string;tableindex:integer);
+TnsmVerifyDatabaseErrorCb=procedure(table:string);
+TnsmRenamedFieldCb=procedure(table,field:string;var newfield:string);
+
+// Database methods
+
+procedure CreatecybermgrDatabase(db:TnxDatabase;overwrite:boolean=false;creating:TnsmCreateDatabaseCb=nil);
+
+procedure RestructurecybermgrDatabase(db:TnxDatabase;MatchFieldsBy:smallint=0;RestructuringDatabase:TnsmRestructureDatabaseCb=nil;RestructuringTable:TnsmRestructureTableCb=nil;VerifyRenamedField:TnsmRenamedFieldCb=nil);
+
+function VerifycybermgrDatabase(db:TnxDatabase;Verifying:TnsmVerifyDatabaseCb=nil;verifyerror:TnsmVerifyDatabaseErrorCb=nil):boolean;
+
+function cybermgrDbVersion:string;
+
+function cybermgrTablesCount:integer;
+
+procedure cybermgrGetTableNames(tables:Tstrings);
+
+// Tables methods
+
+function TableDataDictionary(tablename:string):TnxDataDictionary;
+
+procedure CreateTableByDict(db:TnxDatabase;tablename:string;dict:TnxDataDictionary;overwrite:boolean=false);
+
+procedure CreateTable(db:TnxDatabase;tablename:string;overwrite:boolean=false);
+
+function VerifyTableStructureByDict(db:TnxDatabase;tablename:string;dict:TnxDataDictionary):integer;
+
+function VerifyTableStructure(db:TnxDatabase;tablename:string):integer;
+
+procedure RestructureTableByDict(db:TnxDatabase;tablename:string;newdict:TnxDataDictionary;MatchFieldsBy:smallint=0;Restructuring:TnsmRestructureTableCb=nil;VerifyRenamedField:TnsmRenamedFieldCb=nil);
+
+procedure RestructureTable(db:TnxDatabase;tablename:string;MatchFieldsBy:smallint=0;Restructuring:TnsmRestructureTableCb=nil;VerifyRenamedField:TnsmRenamedFieldCb=nil);
+
+function AcessoTableDataDictionary:TnxDataDictionary;
+function CaixaTableDataDictionary:TnxDataDictionary;
+function CategoriaTableDataDictionary:TnxDataDictionary;
+function ConfigTableDataDictionary:TnxDataDictionary;
+function ContatoTableDataDictionary:TnxDataDictionary;
+function CorTableDataDictionary:TnxDataDictionary;
+function CorPrecosTableDataDictionary:TnxDataDictionary;
+function FormPagtoTableDataDictionary:TnxDataDictionary;
+function GrupoTableDataDictionary:TnxDataDictionary;
+function HoraCorTableDataDictionary:TnxDataDictionary;
+function ImpressaoTableDataDictionary:TnxDataDictionary;
+function ItensMETableDataDictionary:TnxDataDictionary;
+function LancExtraTableDataDictionary:TnxDataDictionary;
+function LayoutTableDataDictionary:TnxDataDictionary;
+function LogTableDataDictionary:TnxDataDictionary;
+function MaquinaTableDataDictionary:TnxDataDictionary;
+function METableDataDictionary:TnxDataDictionary;
+function MotivoTableDataDictionary:TnxDataDictionary;
+function PacoteTableDataDictionary:TnxDataDictionary;
+function ProdutoTableDataDictionary:TnxDataDictionary;
+function TipoAcessoTableDataDictionary:TnxDataDictionary;
+function TipoMovTableDataDictionary:TnxDataDictionary;
+function UsuarioTableDataDictionary:TnxDataDictionary;
+
+Implementation
+
+var
+  Ftables:Tstringlist;
+
+procedure SetExtTextKeyFieldDescriptorOptions(kfd:TnxKeyFieldDescriptor;ignorecase,ignorekanatype,ignorenonspace,ignoresymbols,ignorewidth,usestringsort:boolean;locale:integer);
+begin
+  (kfd as TnxExtTextKeyFieldDescriptor).ignorecase:=ignorecase;
+  (kfd as TnxExtTextKeyFieldDescriptor).ignoreKanatype:=ignoreKanatype;
+  (kfd as TnxExtTextKeyFieldDescriptor).ignorenonspace:=ignorenonspace;
+  (kfd as TnxExtTextKeyFieldDescriptor).ignoresymbols:=ignoresymbols;
+  (kfd as TnxExtTextKeyFieldDescriptor).ignorewidth:=ignorewidth;
+  (kfd as TnxExtTextKeyFieldDescriptor).usestringsort:=usestringsort;
+  (kfd as TnxExtTextKeyFieldDescriptor).locale:=locale;
+end;
+
+
+function AcessoTableDataDictionary:TnxDataDictionary;
+var
+  dict:TnxDataDictionary;
+  indexdescriptor:TnxIndexDescriptor;
+  kfd:TnxKeyFieldDescriptor;
+  fd:TnxFieldDescriptor;
+  filedescriptorindex:integer;
+begin
+  dict:=TnxDataDictionary.create;
+
+  filedescriptorindex:=0;
+  dict.filedescriptor[filedescriptorindex].blocksize:=nxbs4k;
+  dict.filedescriptor[filedescriptorindex].desc:='Data/DataDict File';
+  dict.filedescriptor[filedescriptorindex].initialsize:=4;
+  dict.filedescriptor[filedescriptorindex].growsize:=1;
+  dict.encryptionengine:='';
+
+  // Fields
+
+  dict.addfield('Numero','',nxtAutoinc,10,0,False);
+  dict.addfield('Caixa','',nxtInt32,0,0,False);
+  dict.addfield('Aberto','',nxtBoolean,0,0,False);
+  fd:=dict.addfield('TipoAcesso','',nxtWord16,0,0,False);
+  with TnxConstDefaultValueDescriptor(fd.AddDefaultValue(TnxConstDefaultValueDescriptor)) do VariantToNative(fd.fdType, '0', cdvDefaultValue, fd.fdLength);
+  dict.addfield('Inicio','',nxtDateTime,0,0,False);
+  dict.addfield('Fim','',nxtDateTime,0,0,False);
+  dict.addfield('DataPagto','',nxtDateTime,0,0,False);
+  dict.addfield('Contato','',nxtWord32,0,0,False);
+  dict.addfield('Nome','',nxtNullString,40,0,False);
+  dict.addfield('Maquina','',nxtByte,0,0,False);
+  dict.addfield('Tipo','',nxtByte,0,0,False);
+  dict.addfield('FuncI','',nxtNullString,10,0,False);
+  dict.addfield('FuncF','',nxtNullString,40,0,False);
+  dict.addfield('Tempo','',nxtDateTime,0,0,False);
+  dict.addfield('TempoCobrado','',nxtDateTime,0,0,False);
+  dict.addfield('CredUsado','',nxtWord32,0,0,False);
+  dict.addfield('CredAnterior','',nxtWord32,0,0,False);
+  dict.addfield('Desconto','',nxtCurrency,0,0,False);
+  dict.addfield('Produtos','',nxtCurrency,0,0,False);
+  dict.addfield('MotivoDesc','',nxtByte,0,0,False);
+  dict.addfield('Valor','',nxtCurrency,0,0,False);
+  dict.addfield('Obs','',nxtBlobMemo,0,0,False);
+  dict.addfield('Isento','',nxtBoolean,0,0,False);
+  dict.addfield('FormaPagto','',nxtNullString,20,0,False);
+  fd:=dict.addfield('NaoUsarPacote','',nxtBoolean,0,0,False);
+  with TnxConstDefaultValueDescriptor(fd.AddDefaultValue(TnxConstDefaultValueDescriptor)) do VariantToNative(fd.fdType, 'False', cdvDefaultValue, fd.fdLength);
+  dict.addfield('CodPacote','',nxtWord16,0,0,False);
+  dict.addfield('Sinal','',nxtCurrency,0,0,False);
+  dict.addfield('AcessoPago','',nxtWord32,0,0,False);
+  dict.addfield('ValorFinalAcesso','',nxtCurrency,0,0,False);
+  dict.addfield('DescontoProduto','',nxtCurrency,0,0,False);
+  fd:=dict.addfield('Manutencao','',nxtBoolean,0,0,False);
+  with TnxConstDefaultValueDescriptor(fd.AddDefaultValue(TnxConstDefaultValueDescriptor)) do VariantToNative(fd.fdType, 'False', cdvDefaultValue, fd.fdLength);
+
+  // Indexes
+
+  FileDescriptorIndex:=0;
+  indexdescriptor:=dict.AddIndex('IAberto',filedescriptorindex,True,'',TnxCompKeyDescriptor);
+  indexdescriptor.desc:='';
+  indexdescriptor.indexfile.blocksize:=nxbs4k;
+  kfd:=TnxCompKeyDescriptor(indexdescriptor.keydescriptor).Add(dict.GetFieldFromName('Aberto'));
+  kfd:=TnxCompKeyDescriptor(indexdescriptor.keydescriptor).Add(dict.GetFieldFromName('Maquina'));
+
+  FileDescriptorIndex:=0;
+  indexdescriptor:=dict.AddIndex('IContato',filedescriptorindex,True,'',TnxCompKeyDescriptor);
+  indexdescriptor.desc:='';
+  indexdescriptor.indexfile.blocksize:=nxbs4k;
+  kfd:=TnxCompKeyDescriptor(indexdescriptor.keydescriptor).Add(dict.GetFieldFromName('Contato'));
+  kfd:=TnxCompKeyDescriptor(indexdescriptor.keydescriptor).Add(dict.GetFieldFromName('Inicio'));
+
+  FileDescriptorIndex:=0;
+  indexdescriptor:=dict.AddIndex('IData',filedescriptorindex,True,'',TnxCompKeyDescriptor);
+  indexdescriptor.desc:='';
+  indexdescriptor.indexfile.blocksize:=nxbs4k;
+  kfd:=TnxCompKeyDescriptor(indexdescriptor.keydescriptor).Add(dict.GetFieldFromName('Inicio'));
+
+  FileDescriptorIndex:=0;
+  indexdescriptor:=dict.AddIndex('IUsuario',filedescriptorindex,True,'',TnxCompKeyDescriptor);
+  indexdescriptor.desc:='';
+  indexdescriptor.indexfile.blocksize:=nxbs4k;
+  kfd:=TnxCompKeyDescriptor(indexdescriptor.keydescriptor).Add(dict.GetFieldFromName('FuncI'),TnxExtTextKeyFieldDescriptor);
+  SetExtTextKeyFieldDescriptorOptions(kfd,True,False,False,False,False,True,1046);
+  kfd:=TnxCompKeyDescriptor(indexdescriptor.keydescriptor).Add(dict.GetFieldFromName('Inicio'));
+
+  FileDescriptorIndex:=0;
+  indexdescriptor:=dict.AddIndex('INumero',filedescriptorindex,True,'',TnxCompKeyDescriptor);
+  indexdescriptor.desc:='';
+  indexdescriptor.indexfile.blocksize:=nxbs4k;
+  kfd:=TnxCompKeyDescriptor(indexdescriptor.keydescriptor).Add(dict.GetFieldFromName('Numero'));
+
+  FileDescriptorIndex:=0;
+  indexdescriptor:=dict.AddIndex('IPagto',filedescriptorindex,True,'',TnxCompKeyDescriptor);
+  indexdescriptor.desc:='';
+  indexdescriptor.indexfile.blocksize:=nxbs4k;
+  kfd:=TnxCompKeyDescriptor(indexdescriptor.keydescriptor).Add(dict.GetFieldFromName('Aberto'));
+  kfd.ascend:=False;
+  kfd:=TnxCompKeyDescriptor(indexdescriptor.keydescriptor).Add(dict.GetFieldFromName('DataPagto'));
+  kfd.ascend:=False;
+  kfd:=TnxCompKeyDescriptor(indexdescriptor.keydescriptor).Add(dict.GetFieldFromName('Fim'));
+  kfd.ascend:=False;
+
+  FileDescriptorIndex:=0;
+  indexdescriptor:=dict.AddIndex('IFim',filedescriptorindex,True,'',TnxCompKeyDescriptor);
+  indexdescriptor.desc:='';
+  indexdescriptor.indexfile.blocksize:=nxbs4k;
+  kfd:=TnxCompKeyDescriptor(indexdescriptor.keydescriptor).Add(dict.GetFieldFromName('Fim'));
+
+  FileDescriptorIndex:=0;
+  indexdescriptor:=dict.AddIndex('ICaixa',filedescriptorindex,True,'',TnxCompKeyDescriptor);
+  indexdescriptor.desc:='';
+  indexdescriptor.indexfile.blocksize:=nxbs4k;
+  kfd:=TnxCompKeyDescriptor(indexdescriptor.keydescriptor).Add(dict.GetFieldFromName('Caixa'));
+  kfd:=TnxCompKeyDescriptor(indexdescriptor.keydescriptor).Add(dict.GetFieldFromName('Inicio'));
+
+  FileDescriptorIndex:=0;
+  indexdescriptor:=dict.AddIndex('ICodPac',filedescriptorindex,True,'',TnxCompKeyDescriptor);
+  indexdescriptor.desc:='';
+  indexdescriptor.indexfile.blocksize:=nxbs4k;
+  kfd:=TnxCompKeyDescriptor(indexdescriptor.keydescriptor).Add(dict.GetFieldFromName('CodPacote'));
+
+  FileDescriptorIndex:=0;
+  indexdescriptor:=dict.AddIndex('ICaixaFim',filedescriptorindex,True,'',TnxCompKeyDescriptor);
+  indexdescriptor.desc:='';
+  indexdescriptor.indexfile.blocksize:=nxbs4k;
+  kfd:=TnxCompKeyDescriptor(indexdescriptor.keydescriptor).Add(dict.GetFieldFromName('Caixa'));
+  kfd:=TnxCompKeyDescriptor(indexdescriptor.keydescriptor).Add(dict.GetFieldFromName('Fim'));
+
+  FileDescriptorIndex:=0;
+  indexdescriptor:=dict.AddIndex('IAcessoPago',filedescriptorindex,True,'',TnxCompKeyDescriptor);
+  indexdescriptor.desc:='';
+  indexdescriptor.indexfile.blocksize:=nxbs4k;
+  kfd:=TnxCompKeyDescriptor(indexdescriptor.keydescriptor).Add(dict.GetFieldFromName('AcessoPago'));
+
+  result:=dict;
+end;
+
+
+function CaixaTableDataDictionary:TnxDataDictionary;
+var
+  dict:TnxDataDictionary;
+  indexdescriptor:TnxIndexDescriptor;
+  kfd:TnxKeyFieldDescriptor;
+  fd:TnxFieldDescriptor;
+  filedescriptorindex:integer;
+begin
+  dict:=TnxDataDictionary.create;
+
+  filedescriptorindex:=0;
+  dict.filedescriptor[filedescriptorindex].blocksize:=nxbs4k;
+  dict.filedescriptor[filedescriptorindex].desc:='Data/DataDict File';
+  dict.filedescriptor[filedescriptorindex].initialsize:=4;
+  dict.filedescriptor[filedescriptorindex].growsize:=1;
+  dict.encryptionengine:='';
+
+  // Fields
+
+  dict.addfield('Numero','',nxtAutoinc,10,0,False);
+  dict.addfield('Abertura','',nxtDateTime,0,0,False);
+  dict.addfield('Fechamento','',nxtDateTime,0,0,False);
+  dict.addfield('Usuario','',nxtNullString,10,0,False);
+  dict.addfield('LancExtrasE','',nxtCurrency,0,0,False);
+  dict.addfield('LancExtrasS','',nxtCurrency,0,0,False);
+  dict.addfield('Descontos','',nxtCurrency,0,0,False);
+  dict.addfield('Internet','',nxtCurrency,0,0,False);
+  dict.addfield('Pacotes','',nxtCurrency,0,0,False);
+  dict.addfield('Vendas','',nxtCurrency,0,0,False);
+  dict.addfield('SaldoAnt','',nxtCurrency,0,0,False);
+  fd:=dict.addfield('Aberto','',nxtBoolean,0,0,False);
+  with TnxConstDefaultValueDescriptor(fd.AddDefaultValue(TnxConstDefaultValueDescriptor)) do VariantToNative(fd.fdType, 'False', cdvDefaultValue, fd.fdLength);
+  dict.addfield('Obs','',nxtBlobMemo,0,0,False);
+  dict.addfield('AguardandoPagto','',nxtCurrency,0,0,False);
+
+  // Indexes
+
+  FileDescriptorIndex:=0;
+  indexdescriptor:=dict.AddIndex('INumero',filedescriptorindex,True,'',TnxCompKeyDescriptor);
+  indexdescriptor.desc:='';
+  indexdescriptor.indexfile.blocksize:=nxbs4k;
+  kfd:=TnxCompKeyDescriptor(indexdescriptor.keydescriptor).Add(dict.GetFieldFromName('Numero'));
+
+  FileDescriptorIndex:=0;
+  indexdescriptor:=dict.AddIndex('IAberto',filedescriptorindex,True,'',TnxCompKeyDescriptor);
+  indexdescriptor.desc:='';
+  indexdescriptor.indexfile.blocksize:=nxbs4k;
+  kfd:=TnxCompKeyDescriptor(indexdescriptor.keydescriptor).Add(dict.GetFieldFromName('Aberto'));
+
+  FileDescriptorIndex:=0;
+  indexdescriptor:=dict.AddIndex('IDia',filedescriptorindex,True,'',TnxCompKeyDescriptor);
+  indexdescriptor.desc:='';
+  indexdescriptor.indexfile.blocksize:=nxbs4k;
+  kfd:=TnxCompKeyDescriptor(indexdescriptor.keydescriptor).Add(dict.GetFieldFromName('Abertura'));
+
+  FileDescriptorIndex:=0;
+  indexdescriptor:=dict.AddIndex('IUsuario',filedescriptorindex,True,'',TnxCompKeyDescriptor);
+  indexdescriptor.desc:='';
+  indexdescriptor.indexfile.blocksize:=nxbs4k;
+  kfd:=TnxCompKeyDescriptor(indexdescriptor.keydescriptor).Add(dict.GetFieldFromName('Usuario'),TnxExtTextKeyFieldDescriptor);
+  SetExtTextKeyFieldDescriptorOptions(kfd,True,False,False,False,False,True,1046);
+  kfd:=TnxCompKeyDescriptor(indexdescriptor.keydescriptor).Add(dict.GetFieldFromName('Abertura'));
+
+  result:=dict;
+end;
+
+
+function CategoriaTableDataDictionary:TnxDataDictionary;
+var
+  dict:TnxDataDictionary;
+  indexdescriptor:TnxIndexDescriptor;
+  kfd:TnxKeyFieldDescriptor;
+  fd:TnxFieldDescriptor;
+  filedescriptorindex:integer;
+begin
+  dict:=TnxDataDictionary.create;
+
+  filedescriptorindex:=0;
+  dict.filedescriptor[filedescriptorindex].blocksize:=nxbs4k;
+  dict.filedescriptor[filedescriptorindex].desc:='Data/DataDict File';
+  dict.filedescriptor[filedescriptorindex].initialsize:=4;
+  dict.filedescriptor[filedescriptorindex].growsize:=1;
+  dict.encryptionengine:='';
+
+  // Fields
+
+  dict.addfield('Descricao','',nxtNullString,20,0,False);
+
+  // Indexes
+
+  FileDescriptorIndex:=0;
+  indexdescriptor:=dict.AddIndex('Nome',filedescriptorindex,False,'',TnxCompKeyDescriptor);
+  indexdescriptor.desc:='';
+  indexdescriptor.indexfile.blocksize:=nxbs4k;
+  kfd:=TnxCompKeyDescriptor(indexdescriptor.keydescriptor).Add(dict.GetFieldFromName('Descricao'),TnxExtTextKeyFieldDescriptor);
+  SetExtTextKeyFieldDescriptorOptions(kfd,True,False,False,False,False,True,1046);
+
+  result:=dict;
+end;
+
+
+function ConfigTableDataDictionary:TnxDataDictionary;
+var
+  dict:TnxDataDictionary;
+  indexdescriptor:TnxIndexDescriptor;
+  kfd:TnxKeyFieldDescriptor;
+  fd:TnxFieldDescriptor;
+  filedescriptorindex:integer;
+begin
+  dict:=TnxDataDictionary.create;
+
+  filedescriptorindex:=0;
+  dict.filedescriptor[filedescriptorindex].blocksize:=nxbs4k;
+  dict.filedescriptor[filedescriptorindex].desc:='Data/DataDict File';
+  dict.filedescriptor[filedescriptorindex].initialsize:=4;
+  dict.filedescriptor[filedescriptorindex].growsize:=1;
+  dict.encryptionengine:='';
+
+  // Fields
+
+  dict.addfield('NumSeq','',nxtAutoinc,10,0,False);
+  dict.addfield('Modulos','',nxtBlobMemo,0,0,False);
+  dict.addfield('TiposLancExtra','',nxtBlobMemo,0,0,False);
+  dict.addfield('ProgramasPermitidos','',nxtBlobMemo,0,0,False);
+  dict.addfield('JanelasExplorer','',nxtBlobMemo,0,0,False);
+  dict.addfield('FecharProgramas','',nxtBoolean,0,0,False);
+  dict.addfield('AutoExecutar','',nxtNullString,200,0,False);
+  dict.addfield('LimiteTempoPadrao','',nxtDateTime,0,0,False);
+  dict.addfield('PacoteTempoReal','',nxtBoolean,0,0,False);
+  dict.addfield('PermiteLoginSemCred','',nxtBoolean,0,0,False);
+  dict.addfield('PausarFimPacote','',nxtBoolean,0,0,False);
+  dict.addfield('ProdutoImpressao','',nxtNullString,15,0,False);
+  dict.addfield('PermiteCapturaTela','',nxtBoolean,0,0,False);
+  dict.addfield('AlertaFimTempo','',nxtDateTime,0,0,False);
+  fd:=dict.addfield('VariosTiposAcesso','',nxtBoolean,0,0,False);
+  with TnxConstDefaultValueDescriptor(fd.AddDefaultValue(TnxConstDefaultValueDescriptor)) do VariantToNative(fd.fdType, 'False', cdvDefaultValue, fd.fdLength);
+  fd:=dict.addfield('ModoPagtoAcesso','',nxtByte,0,0,False);
+  with TnxConstDefaultValueDescriptor(fd.AddDefaultValue(TnxConstDefaultValueDescriptor)) do VariantToNative(fd.fdType, '0', cdvDefaultValue, fd.fdLength);
+  dict.addfield('MostraPrePagoDec','',nxtBoolean,0,0,False);
+  dict.addfield('TempoMaxAlerta','',nxtDateTime,0,0,False);
+  dict.addfield('MostraCliCadAntesAvulso','',nxtBoolean,0,0,False);
+  dict.addfield('Abre1','',nxtDateTime,0,0,False);
+  dict.addfield('Abre2','',nxtDateTime,0,0,False);
+  dict.addfield('Abre3','',nxtDateTime,0,0,False);
+  dict.addfield('Abre4','',nxtDateTime,0,0,False);
+  dict.addfield('Abre5','',nxtDateTime,0,0,False);
+  dict.addfield('Abre6','',nxtDateTime,0,0,False);
+  dict.addfield('Abre7','',nxtDateTime,0,0,False);
+  dict.addfield('Fecha1','',nxtDateTime,0,0,False);
+  dict.addfield('Fecha2','',nxtDateTime,0,0,False);
+  dict.addfield('Fecha3','',nxtDateTime,0,0,False);
+  dict.addfield('Fecha4','',nxtDateTime,0,0,False);
+  dict.addfield('Fecha5','',nxtDateTime,0,0,False);
+  dict.addfield('Fecha6','',nxtDateTime,0,0,False);
+  dict.addfield('Fecha7','',nxtDateTime,0,0,False);
+  dict.addfield('CorLivre','',nxtInt32,0,0,False);
+  dict.addfield('CorFLivre','',nxtInt32,0,0,False);
+  dict.addfield('CorUsoPrePago','',nxtInt32,0,0,False);
+  dict.addfield('CorFUsoPrePago','',nxtInt32,0,0,False);
+  dict.addfield('CorUsoPosPago','',nxtInt32,0,0,False);
+  dict.addfield('CorFUsoPosPago','',nxtInt32,0,0,False);
+  dict.addfield('CorAguardaPagto','',nxtInt32,0,0,False);
+  dict.addfield('CorFAguardaPagto','',nxtInt32,0,0,False);
+  dict.addfield('CorManutencao','',nxtInt32,0,0,False);
+  dict.addfield('CorFManutencao','',nxtInt32,0,0,False);
+  dict.addfield('CorPausado','',nxtInt32,0,0,False);
+  dict.addfield('CorFPausado','',nxtInt32,0,0,False);
+
+  // Indexes
+
+  FileDescriptorIndex:=0;
+  indexdescriptor:=dict.AddIndex('INumSeq',filedescriptorindex,True,'',TnxCompKeyDescriptor);
+  indexdescriptor.desc:='';
+  indexdescriptor.indexfile.blocksize:=nxbs4k;
+  kfd:=TnxCompKeyDescriptor(indexdescriptor.keydescriptor).Add(dict.GetFieldFromName('NumSeq'));
+
+  result:=dict;
+end;
+
+
+function ContatoTableDataDictionary:TnxDataDictionary;
+var
+  dict:TnxDataDictionary;
+  indexdescriptor:TnxIndexDescriptor;
+  kfd:TnxKeyFieldDescriptor;
+  fd:TnxFieldDescriptor;
+  filedescriptorindex:integer;
+begin
+  dict:=TnxDataDictionary.create;
+
+  filedescriptorindex:=0;
+  dict.filedescriptor[filedescriptorindex].blocksize:=nxbs4k;
+  dict.filedescriptor[filedescriptorindex].desc:='Data/DataDict File';
+  dict.filedescriptor[filedescriptorindex].initialsize:=4;
+  dict.filedescriptor[filedescriptorindex].growsize:=1;
+  dict.encryptionengine:='';
+
+  // Fields
+
+  dict.addfield('Codigo','',nxtAutoinc,10,0,False);
+  dict.addfield('Nome','',nxtNullString,40,0,False);
+  dict.addfield('Endereco','',nxtNullString,50,0,False);
+  dict.addfield('Bairro','',nxtNullString,20,0,False);
+  dict.addfield('Cidade','',nxtNullString,30,0,False);
+  dict.addfield('UF','',nxtNullString,2,0,False);
+  dict.addfield('CEP','',nxtNullString,10,0,False);
+  dict.addfield('Nasc','',nxtDateTime,0,0,False);
+  dict.addfield('Sexo','M=Masculo, F=Feminino',nxtChar,1,0,False);
+  dict.addfield('Obs','',nxtBlobMemo,0,0,False);
+  dict.addfield('Cpf','',nxtNullString,14,0,False);
+  dict.addfield('Rg','',nxtNullString,14,0,False);
+  dict.addfield('Telefone','',nxtNullString,15,0,False);
+  dict.addfield('Email','',nxtBlobMemo,0,0,False);
+  dict.addfield('CreditoM','',nxtWord32,10,0,False);
+  dict.addfield('TempoTotal','',nxtWord32,10,0,False);
+  dict.addfield('TempoInicial','',nxtWord32,10,0,False);
+  dict.addfield('Isento','',nxtBoolean,0,0,False);
+  dict.addfield('Username','',nxtNullString,40,0,False);
+  dict.addfield('Senha','',nxtNullString,10,0,False);
+  dict.addfield('UltVisita','',nxtDateTime,0,0,False);
+  dict.addfield('Debito','',nxtCurrency,0,0,False);
+  dict.addfield('Escola','',nxtNullString,40,0,False);
+  dict.addfield('NickName','',nxtNullString,30,0,False);
+  dict.addfield('DataNasc','',nxtDateTime,0,0,False);
+  dict.addfield('Celular','',nxtNullString,15,0,False);
+
+  // Indexes
+
+  FileDescriptorIndex:=0;
+  indexdescriptor:=dict.AddIndex('ICodigo',filedescriptorindex,False,'',TnxCompKeyDescriptor);
+  indexdescriptor.desc:='';
+  indexdescriptor.indexfile.blocksize:=nxbs4k;
+  kfd:=TnxCompKeyDescriptor(indexdescriptor.keydescriptor).Add(dict.GetFieldFromName('Codigo'));
+
+  FileDescriptorIndex:=0;
+  indexdescriptor:=dict.AddIndex('INome',filedescriptorindex,True,'',TnxCompKeyDescriptor);
+  indexdescriptor.desc:='';
+  indexdescriptor.indexfile.blocksize:=nxbs4k;
+  kfd:=TnxCompKeyDescriptor(indexdescriptor.keydescriptor).Add(dict.GetFieldFromName('Nome'),TnxExtTextKeyFieldDescriptor);
+  SetExtTextKeyFieldDescriptorOptions(kfd,True,False,False,False,False,True,1046);
+
+  FileDescriptorIndex:=0;
+  indexdescriptor:=dict.AddIndex('IUsername',filedescriptorindex,True,'',TnxCompKeyDescriptor);
+  indexdescriptor.desc:='';
+  indexdescriptor.indexfile.blocksize:=nxbs4k;
+  kfd:=TnxCompKeyDescriptor(indexdescriptor.keydescriptor).Add(dict.GetFieldFromName('Username'),TnxExtTextKeyFieldDescriptor);
+  SetExtTextKeyFieldDescriptorOptions(kfd,True,False,False,False,False,True,1046);
+
+  FileDescriptorIndex:=0;
+  indexdescriptor:=dict.AddIndex('IRg',filedescriptorindex,True,'',TnxCompKeyDescriptor);
+  indexdescriptor.desc:='';
+  indexdescriptor.indexfile.blocksize:=nxbs4k;
+  kfd:=TnxCompKeyDescriptor(indexdescriptor.keydescriptor).Add(dict.GetFieldFromName('Rg'),TnxExtTextKeyFieldDescriptor);
+  SetExtTextKeyFieldDescriptorOptions(kfd,True,False,False,False,False,True,1046);
+
+  result:=dict;
+end;
+
+
+function CorTableDataDictionary:TnxDataDictionary;
+var
+  dict:TnxDataDictionary;
+  indexdescriptor:TnxIndexDescriptor;
+  kfd:TnxKeyFieldDescriptor;
+  fd:TnxFieldDescriptor;
+  filedescriptorindex:integer;
+begin
+  dict:=TnxDataDictionary.create;
+
+  filedescriptorindex:=0;
+  dict.filedescriptor[filedescriptorindex].blocksize:=nxbs4k;
+  dict.filedescriptor[filedescriptorindex].desc:='Data/DataDict File';
+  dict.filedescriptor[filedescriptorindex].initialsize:=4;
+  dict.filedescriptor[filedescriptorindex].growsize:=1;
+  dict.encryptionengine:='';
+
+  // Fields
+
+  dict.addfield('TipoAcesso','',nxtWord16,0,0,False);
+  dict.addfield('Cor','',nxtInt32,0,0,False);
+  dict.addfield('CorFonte','',nxtInt32,0,0,False);
+  dict.addfield('Descricao','',nxtNullString,30,0,False);
+  dict.addfield('Reinicia','',nxtBoolean,0,0,False);
+
+  // Indexes
+
+  FileDescriptorIndex:=0;
+  indexdescriptor:=dict.AddIndex('IPrim',filedescriptorindex,True,'',TnxCompKeyDescriptor);
+  indexdescriptor.desc:='';
+  indexdescriptor.indexfile.blocksize:=nxbs4k;
+  kfd:=TnxCompKeyDescriptor(indexdescriptor.keydescriptor).Add(dict.GetFieldFromName('TipoAcesso'));
+  kfd:=TnxCompKeyDescriptor(indexdescriptor.keydescriptor).Add(dict.GetFieldFromName('Cor'));
+
+  result:=dict;
+end;
+
+
+function CorPrecosTableDataDictionary:TnxDataDictionary;
+var
+  dict:TnxDataDictionary;
+  indexdescriptor:TnxIndexDescriptor;
+  kfd:TnxKeyFieldDescriptor;
+  fd:TnxFieldDescriptor;
+  filedescriptorindex:integer;
+begin
+  dict:=TnxDataDictionary.create;
+
+  filedescriptorindex:=0;
+  dict.filedescriptor[filedescriptorindex].blocksize:=nxbs4k;
+  dict.filedescriptor[filedescriptorindex].desc:='Data/DataDict File';
+  dict.filedescriptor[filedescriptorindex].initialsize:=4;
+  dict.filedescriptor[filedescriptorindex].growsize:=1;
+  dict.encryptionengine:='';
+
+  // Fields
+
+  dict.addfield('TipoAcesso','',nxtWord16,0,0,False);
+  dict.addfield('Cor','',nxtInt32,0,0,False);
+  dict.addfield('Pos','',nxtWord16,0,0,False);
+  dict.addfield('Valor','',nxtCurrency,0,0,False);
+  dict.addfield('Tempo','',nxtDateTime,0,0,False);
+  dict.addfield('ValorMin','',nxtCurrency,0,0,False);
+  dict.addfield('Tolerancia','',nxtDateTime,0,0,False);
+
+  // Indexes
+
+  FileDescriptorIndex:=0;
+  indexdescriptor:=dict.AddIndex('IPrim',filedescriptorindex,True,'',TnxCompKeyDescriptor);
+  indexdescriptor.desc:='';
+  indexdescriptor.indexfile.blocksize:=nxbs4k;
+  kfd:=TnxCompKeyDescriptor(indexdescriptor.keydescriptor).Add(dict.GetFieldFromName('TipoAcesso'));
+  kfd:=TnxCompKeyDescriptor(indexdescriptor.keydescriptor).Add(dict.GetFieldFromName('Cor'));
+  kfd:=TnxCompKeyDescriptor(indexdescriptor.keydescriptor).Add(dict.GetFieldFromName('Pos'));
+
+  result:=dict;
+end;
+
+
+function FormPagtoTableDataDictionary:TnxDataDictionary;
+var
+  dict:TnxDataDictionary;
+  indexdescriptor:TnxIndexDescriptor;
+  kfd:TnxKeyFieldDescriptor;
+  fd:TnxFieldDescriptor;
+  filedescriptorindex:integer;
+begin
+  dict:=TnxDataDictionary.create;
+
+  filedescriptorindex:=0;
+  dict.filedescriptor[filedescriptorindex].blocksize:=nxbs4k;
+  dict.filedescriptor[filedescriptorindex].desc:='Data/DataDict File';
+  dict.filedescriptor[filedescriptorindex].initialsize:=4;
+  dict.filedescriptor[filedescriptorindex].growsize:=1;
+  dict.encryptionengine:='';
+
+  // Fields
+
+  dict.addfield('Descricao','',nxtNullString,20,0,False);
+
+  // Indexes
+
+  FileDescriptorIndex:=0;
+  indexdescriptor:=dict.AddIndex('iDesc',filedescriptorindex,False,'',TnxCompKeyDescriptor);
+  indexdescriptor.desc:='';
+  indexdescriptor.indexfile.blocksize:=nxbs4k;
+  kfd:=TnxCompKeyDescriptor(indexdescriptor.keydescriptor).Add(dict.GetFieldFromName('Descricao'),TnxExtTextKeyFieldDescriptor);
+  SetExtTextKeyFieldDescriptorOptions(kfd,True,False,False,False,False,True,1046);
+
+  result:=dict;
+end;
+
+
+function GrupoTableDataDictionary:TnxDataDictionary;
+var
+  dict:TnxDataDictionary;
+  indexdescriptor:TnxIndexDescriptor;
+  kfd:TnxKeyFieldDescriptor;
+  fd:TnxFieldDescriptor;
+  filedescriptorindex:integer;
+begin
+  dict:=TnxDataDictionary.create;
+
+  filedescriptorindex:=0;
+  dict.filedescriptor[filedescriptorindex].blocksize:=nxbs4k;
+  dict.filedescriptor[filedescriptorindex].desc:='Data/DataDict File';
+  dict.filedescriptor[filedescriptorindex].initialsize:=4;
+  dict.filedescriptor[filedescriptorindex].growsize:=1;
+  dict.encryptionengine:='';
+
+  // Fields
+
+  dict.addfield('Nome','',nxtNullString,20,0,False);
+  dict.addfield('Usuarios','',nxtBlobMemo,0,0,False);
+  dict.addfield('Direitos','',nxtBlobMemo,0,0,False);
+
+  // Indexes
+
+  FileDescriptorIndex:=0;
+  indexdescriptor:=dict.AddIndex('INome',filedescriptorindex,True,'',TnxCompKeyDescriptor);
+  indexdescriptor.desc:='';
+  indexdescriptor.indexfile.blocksize:=nxbs4k;
+  kfd:=TnxCompKeyDescriptor(indexdescriptor.keydescriptor).Add(dict.GetFieldFromName('Nome'),TnxExtTextKeyFieldDescriptor);
+  SetExtTextKeyFieldDescriptorOptions(kfd,True,False,False,False,False,True,1046);
+
+  result:=dict;
+end;
+
+
+function HoraCorTableDataDictionary:TnxDataDictionary;
+var
+  dict:TnxDataDictionary;
+  indexdescriptor:TnxIndexDescriptor;
+  kfd:TnxKeyFieldDescriptor;
+  fd:TnxFieldDescriptor;
+  filedescriptorindex:integer;
+begin
+  dict:=TnxDataDictionary.create;
+
+  filedescriptorindex:=0;
+  dict.filedescriptor[filedescriptorindex].blocksize:=nxbs4k;
+  dict.filedescriptor[filedescriptorindex].desc:='Data/DataDict File';
+  dict.filedescriptor[filedescriptorindex].initialsize:=4;
+  dict.filedescriptor[filedescriptorindex].growsize:=1;
+  dict.encryptionengine:='';
+
+  // Fields
+
+  dict.addfield('TipoAcesso','',nxtWord16,0,0,False);
+  dict.addfield('Dia','',nxtByte,0,0,False);
+  dict.addfield('Hora','',nxtByte,0,0,False);
+  dict.addfield('Cor','',nxtInt32,0,0,False);
+
+  // Indexes
+
+  FileDescriptorIndex:=0;
+  indexdescriptor:=dict.AddIndex('IPrim',filedescriptorindex,True,'',TnxCompKeyDescriptor);
+  indexdescriptor.desc:='';
+  indexdescriptor.indexfile.blocksize:=nxbs4k;
+  kfd:=TnxCompKeyDescriptor(indexdescriptor.keydescriptor).Add(dict.GetFieldFromName('TipoAcesso'));
+  kfd:=TnxCompKeyDescriptor(indexdescriptor.keydescriptor).Add(dict.GetFieldFromName('Dia'));
+  kfd:=TnxCompKeyDescriptor(indexdescriptor.keydescriptor).Add(dict.GetFieldFromName('Hora'));
+
+  FileDescriptorIndex:=0;
+  indexdescriptor:=dict.AddIndex('ITipoAcessoCor',filedescriptorindex,True,'',TnxCompKeyDescriptor);
+  indexdescriptor.desc:='';
+  indexdescriptor.indexfile.blocksize:=nxbs4k;
+  kfd:=TnxCompKeyDescriptor(indexdescriptor.keydescriptor).Add(dict.GetFieldFromName('TipoAcesso'));
+  kfd:=TnxCompKeyDescriptor(indexdescriptor.keydescriptor).Add(dict.GetFieldFromName('Cor'));
+
+  result:=dict;
+end;
+
+
+function ImpressaoTableDataDictionary:TnxDataDictionary;
+var
+  dict:TnxDataDictionary;
+  indexdescriptor:TnxIndexDescriptor;
+  kfd:TnxKeyFieldDescriptor;
+  fd:TnxFieldDescriptor;
+  filedescriptorindex:integer;
+begin
+  dict:=TnxDataDictionary.create;
+
+  filedescriptorindex:=0;
+  dict.filedescriptor[filedescriptorindex].blocksize:=nxbs4k;
+  dict.filedescriptor[filedescriptorindex].desc:='Data/DataDict File';
+  dict.filedescriptor[filedescriptorindex].initialsize:=4;
+  dict.filedescriptor[filedescriptorindex].growsize:=1;
+  dict.encryptionengine:='';
+
+  // Fields
+
+  dict.addfield('IDSeq','',nxtAutoinc,10,0,False);
+  dict.addfield('DataHora','',nxtDateTime,0,0,False);
+  dict.addfield('Computador','',nxtNullString,200,0,False);
+  dict.addfield('Maquina','',nxtWord16,5,0,False);
+  dict.addfield('Paginas','',nxtInt32,0,0,False);
+  dict.addfield('Impressora','',nxtNullString,200,0,False);
+  dict.addfield('Documento','',nxtBlobMemo,0,0,False);
+  dict.addfield('Acesso','',nxtWord32,0,0,False);
+  dict.addfield('Resultado','0-Completou, 1-Erro',nxtByte,0,0,False);
+
+  // Indexes
+
+  FileDescriptorIndex:=0;
+  indexdescriptor:=dict.AddIndex('IIDSeq',filedescriptorindex,True,'',TnxCompKeyDescriptor);
+  indexdescriptor.desc:='';
+  indexdescriptor.indexfile.blocksize:=nxbs4k;
+  kfd:=TnxCompKeyDescriptor(indexdescriptor.keydescriptor).Add(dict.GetFieldFromName('IDSeq'));
+  kfd.ascend:=False;
+
+  FileDescriptorIndex:=0;
+  indexdescriptor:=dict.AddIndex('IAcesso',filedescriptorindex,True,'',TnxCompKeyDescriptor);
+  indexdescriptor.desc:='';
+  indexdescriptor.indexfile.blocksize:=nxbs4k;
+  kfd:=TnxCompKeyDescriptor(indexdescriptor.keydescriptor).Add(dict.GetFieldFromName('Acesso'));
+
+  FileDescriptorIndex:=0;
+  indexdescriptor:=dict.AddIndex('IMaquina',filedescriptorindex,True,'',TnxCompKeyDescriptor);
+  indexdescriptor.desc:='';
+  indexdescriptor.indexfile.blocksize:=nxbs4k;
+  kfd:=TnxCompKeyDescriptor(indexdescriptor.keydescriptor).Add(dict.GetFieldFromName('Maquina'));
+  kfd:=TnxCompKeyDescriptor(indexdescriptor.keydescriptor).Add(dict.GetFieldFromName('DataHora'));
+
+  FileDescriptorIndex:=0;
+  indexdescriptor:=dict.AddIndex('IComputador',filedescriptorindex,True,'',TnxCompKeyDescriptor);
+  indexdescriptor.desc:='';
+  indexdescriptor.indexfile.blocksize:=nxbs4k;
+  kfd:=TnxCompKeyDescriptor(indexdescriptor.keydescriptor).Add(dict.GetFieldFromName('Computador'),TnxExtTextKeyFieldDescriptor);
+  SetExtTextKeyFieldDescriptorOptions(kfd,True,False,False,False,False,True,1046);
+  kfd:=TnxCompKeyDescriptor(indexdescriptor.keydescriptor).Add(dict.GetFieldFromName('DataHora'));
+
+  FileDescriptorIndex:=0;
+  indexdescriptor:=dict.AddIndex('IDataHora',filedescriptorindex,True,'',TnxCompKeyDescriptor);
+  indexdescriptor.desc:='';
+  indexdescriptor.indexfile.blocksize:=nxbs4k;
+  kfd:=TnxCompKeyDescriptor(indexdescriptor.keydescriptor).Add(dict.GetFieldFromName('DataHora'));
+  kfd.ascend:=False;
+
+  result:=dict;
+end;
+
+
+function ItensMETableDataDictionary:TnxDataDictionary;
+var
+  dict:TnxDataDictionary;
+  indexdescriptor:TnxIndexDescriptor;
+  kfd:TnxKeyFieldDescriptor;
+  fd:TnxFieldDescriptor;
+  filedescriptorindex:integer;
+begin
+  dict:=TnxDataDictionary.create;
+
+  filedescriptorindex:=0;
+  dict.filedescriptor[filedescriptorindex].blocksize:=nxbs4k;
+  dict.filedescriptor[filedescriptorindex].desc:='Data/DataDict File';
+  dict.filedescriptor[filedescriptorindex].initialsize:=4;
+  dict.filedescriptor[filedescriptorindex].growsize:=1;
+  dict.encryptionengine:='';
+
+  // Fields
+
+  dict.addfield('NumSeq','',nxtAutoinc,10,0,False);
+  dict.addfield('Emissor','',nxtWord32,0,0,False);
+  dict.addfield('Serie','',nxtNullString,2,0,False);
+  dict.addfield('Numero','',nxtWord32,0,0,False);
+  dict.addfield('Produto','',nxtNullString,15,0,False);
+  dict.addfield('Quant','',nxtDouble,0,0,False);
+  dict.addfield('Unitario','',nxtCurrency,0,0,False);
+  dict.addfield('Total','',nxtCurrency,0,0,False);
+  dict.addfield('Item','',nxtByte,0,0,False);
+  dict.addfield('Desconto','',nxtCurrency,0,0,False);
+  dict.addfield('Data','',nxtDateTime,0,0,False);
+  dict.addfield('MovEst','',nxtBoolean,0,0,False);
+  dict.addfield('Entrada','',nxtBoolean,0,0,False);
+  dict.addfield('Cancelado','',nxtBoolean,0,0,False);
+  dict.addfield('EstoqueAnt','',nxtDouble,0,0,False);
+  dict.addfield('TipoMov','',nxtNullString,15,0,False);
+  dict.addfield('Contato','',nxtWord32,10,0,False);
+  dict.addfield('Caixa','',nxtInt32,0,0,False);
+
+  // Indexes
+
+  FileDescriptorIndex:=0;
+  indexdescriptor:=dict.AddIndex('IEmissor',filedescriptorindex,False,'',TnxCompKeyDescriptor);
+  indexdescriptor.desc:='';
+  indexdescriptor.indexfile.blocksize:=nxbs4k;
+  kfd:=TnxCompKeyDescriptor(indexdescriptor.keydescriptor).Add(dict.GetFieldFromName('Emissor'));
+  kfd:=TnxCompKeyDescriptor(indexdescriptor.keydescriptor).Add(dict.GetFieldFromName('Serie'),TnxExtTextKeyFieldDescriptor);
+  SetExtTextKeyFieldDescriptorOptions(kfd,True,False,False,False,False,True,1046);
+  kfd:=TnxCompKeyDescriptor(indexdescriptor.keydescriptor).Add(dict.GetFieldFromName('Numero'));
+  kfd:=TnxCompKeyDescriptor(indexdescriptor.keydescriptor).Add(dict.GetFieldFromName('Item'));
+
+  FileDescriptorIndex:=0;
+  indexdescriptor:=dict.AddIndex('iProd',filedescriptorindex,True,'',TnxCompKeyDescriptor);
+  indexdescriptor.desc:='';
+  indexdescriptor.indexfile.blocksize:=nxbs4k;
+  kfd:=TnxCompKeyDescriptor(indexdescriptor.keydescriptor).Add(dict.GetFieldFromName('Produto'),TnxExtTextKeyFieldDescriptor);
+  SetExtTextKeyFieldDescriptorOptions(kfd,True,False,False,False,False,True,1046);
+  kfd:=TnxCompKeyDescriptor(indexdescriptor.keydescriptor).Add(dict.GetFieldFromName('Data'));
+  kfd:=TnxCompKeyDescriptor(indexdescriptor.keydescriptor).Add(dict.GetFieldFromName('NumSeq'));
+
+  FileDescriptorIndex:=0;
+  indexdescriptor:=dict.AddIndex('IContato',filedescriptorindex,True,'',TnxCompKeyDescriptor);
+  indexdescriptor.desc:='';
+  indexdescriptor.indexfile.blocksize:=nxbs4k;
+  kfd:=TnxCompKeyDescriptor(indexdescriptor.keydescriptor).Add(dict.GetFieldFromName('Contato'));
+  kfd:=TnxCompKeyDescriptor(indexdescriptor.keydescriptor).Add(dict.GetFieldFromName('Data'));
+
+  FileDescriptorIndex:=0;
+  indexdescriptor:=dict.AddIndex('ICaixa',filedescriptorindex,True,'',TnxCompKeyDescriptor);
+  indexdescriptor.desc:='';
+  indexdescriptor.indexfile.blocksize:=nxbs4k;
+  kfd:=TnxCompKeyDescriptor(indexdescriptor.keydescriptor).Add(dict.GetFieldFromName('Caixa'));
+
+  result:=dict;
+end;
+
+
+function LancExtraTableDataDictionary:TnxDataDictionary;
+var
+  dict:TnxDataDictionary;
+  indexdescriptor:TnxIndexDescriptor;
+  kfd:TnxKeyFieldDescriptor;
+  fd:TnxFieldDescriptor;
+  filedescriptorindex:integer;
+begin
+  dict:=TnxDataDictionary.create;
+
+  filedescriptorindex:=0;
+  dict.filedescriptor[filedescriptorindex].blocksize:=nxbs4k;
+  dict.filedescriptor[filedescriptorindex].desc:='Data/DataDict File';
+  dict.filedescriptor[filedescriptorindex].initialsize:=4;
+  dict.filedescriptor[filedescriptorindex].growsize:=1;
+  dict.encryptionengine:='';
+
+  // Fields
+
+  dict.addfield('Numero','',nxtAutoinc,10,0,False);
+  dict.addfield('Dia','',nxtDateTime,0,0,False);
+  dict.addfield('Caixa','',nxtInt32,0,0,False);
+  dict.addfield('Usuario','',nxtNullString,10,0,False);
+  dict.addfield('Entrada','',nxtBoolean,0,0,False);
+  dict.addfield('Tipo','',nxtNullString,30,0,False);
+  dict.addfield('Descricao','',nxtNullString,40,0,False);
+  dict.addfield('Valor','',nxtCurrency,0,0,False);
+  dict.addfield('Obs','',nxtBlobMemo,0,0,False);
+
+  // Indexes
+
+  FileDescriptorIndex:=0;
+  indexdescriptor:=dict.AddIndex('IDia',filedescriptorindex,True,'',TnxCompKeyDescriptor);
+  indexdescriptor.desc:='';
+  indexdescriptor.indexfile.blocksize:=nxbs4k;
+  kfd:=TnxCompKeyDescriptor(indexdescriptor.keydescriptor).Add(dict.GetFieldFromName('Dia'));
+
+  FileDescriptorIndex:=0;
+  indexdescriptor:=dict.AddIndex('ICaixa',filedescriptorindex,True,'',TnxCompKeyDescriptor);
+  indexdescriptor.desc:='';
+  indexdescriptor.indexfile.blocksize:=nxbs4k;
+  kfd:=TnxCompKeyDescriptor(indexdescriptor.keydescriptor).Add(dict.GetFieldFromName('Caixa'));
+
+  result:=dict;
+end;
+
+
+function LayoutTableDataDictionary:TnxDataDictionary;
+var
+  dict:TnxDataDictionary;
+  indexdescriptor:TnxIndexDescriptor;
+  kfd:TnxKeyFieldDescriptor;
+  fd:TnxFieldDescriptor;
+  filedescriptorindex:integer;
+begin
+  dict:=TnxDataDictionary.create;
+
+  filedescriptorindex:=0;
+  dict.filedescriptor[filedescriptorindex].blocksize:=nxbs4k;
+  dict.filedescriptor[filedescriptorindex].desc:='Data/DataDict File';
+  dict.filedescriptor[filedescriptorindex].initialsize:=4;
+  dict.filedescriptor[filedescriptorindex].growsize:=1;
+  dict.encryptionengine:='';
+
+  // Fields
+
+  dict.addfield('Usuario','',nxtNullString,10,0,False);
+  dict.addfield('Grid','',nxtNullString,40,0,False);
+  dict.addfield('Nome','',nxtNullString,100,0,False);
+  dict.addfield('Publico','',nxtBoolean,0,0,False);
+  dict.addfield('Layout','',nxtBlob,0,0,False);
+  dict.addfield('Filtro','',nxtBlob,0,0,False);
+  dict.addfield('Usuarios','',nxtBlobMemo,0,0,False);
+
+  // Indexes
+
+  FileDescriptorIndex:=0;
+  indexdescriptor:=dict.AddIndex('IPubGridUsuario',filedescriptorindex,True,'',TnxCompKeyDescriptor);
+  indexdescriptor.desc:='';
+  indexdescriptor.indexfile.blocksize:=nxbs4k;
+  kfd:=TnxCompKeyDescriptor(indexdescriptor.keydescriptor).Add(dict.GetFieldFromName('Publico'));
+  kfd:=TnxCompKeyDescriptor(indexdescriptor.keydescriptor).Add(dict.GetFieldFromName('Grid'),TnxExtTextKeyFieldDescriptor);
+  SetExtTextKeyFieldDescriptorOptions(kfd,True,False,False,False,False,True,1046);
+  kfd:=TnxCompKeyDescriptor(indexdescriptor.keydescriptor).Add(dict.GetFieldFromName('Usuario'),TnxExtTextKeyFieldDescriptor);
+  SetExtTextKeyFieldDescriptorOptions(kfd,True,False,False,False,False,True,1046);
+  kfd:=TnxCompKeyDescriptor(indexdescriptor.keydescriptor).Add(dict.GetFieldFromName('Nome'),TnxExtTextKeyFieldDescriptor);
+  SetExtTextKeyFieldDescriptorOptions(kfd,True,False,False,False,False,True,1046);
+
+  result:=dict;
+end;
+
+
+function LogTableDataDictionary:TnxDataDictionary;
+var
+  dict:TnxDataDictionary;
+  indexdescriptor:TnxIndexDescriptor;
+  kfd:TnxKeyFieldDescriptor;
+  fd:TnxFieldDescriptor;
+  filedescriptorindex:integer;
+begin
+  dict:=TnxDataDictionary.create;
+
+  filedescriptorindex:=0;
+  dict.filedescriptor[filedescriptorindex].blocksize:=nxbs4k;
+  dict.filedescriptor[filedescriptorindex].desc:='Data/DataDict File';
+  dict.filedescriptor[filedescriptorindex].initialsize:=4;
+  dict.filedescriptor[filedescriptorindex].growsize:=1;
+  dict.encryptionengine:='';
+
+  // Fields
+
+  dict.addfield('NumSeq','',nxtAutoinc,10,0,False);
+  dict.addfield('DiaHora','',nxtDateTime,0,0,False);
+  dict.addfield('Maquina','',nxtWord16,0,0,False);
+  dict.addfield('Usuario','',nxtNullString,30,0,False);
+  dict.addfield('Programa','0=nenhum, 1=cmguard, 2=cmadmin, 3=cmserver',nxtByte,3,0,False);
+  dict.addfield('Operacao','',nxtNullString,70,0,False);
+  dict.addfield('Horas','',nxtDateTime,0,0,False);
+  dict.addfield('Dias','',nxtWord16,0,0,False);
+
+  // Indexes
+
+  FileDescriptorIndex:=0;
+  indexdescriptor:=dict.AddIndex('INumSeq',filedescriptorindex,True,'',TnxCompKeyDescriptor);
+  indexdescriptor.desc:='';
+  indexdescriptor.indexfile.blocksize:=nxbs4k;
+  kfd:=TnxCompKeyDescriptor(indexdescriptor.keydescriptor).Add(dict.GetFieldFromName('NumSeq'));
+
+  FileDescriptorIndex:=0;
+  indexdescriptor:=dict.AddIndex('IDiaHora',filedescriptorindex,True,'',TnxCompKeyDescriptor);
+  indexdescriptor.desc:='';
+  indexdescriptor.indexfile.blocksize:=nxbs4k;
+  kfd:=TnxCompKeyDescriptor(indexdescriptor.keydescriptor).Add(dict.GetFieldFromName('DiaHora'));
+
+  FileDescriptorIndex:=0;
+  indexdescriptor:=dict.AddIndex('IUsuarioNumSeq',filedescriptorindex,True,'',TnxCompKeyDescriptor);
+  indexdescriptor.desc:='';
+  indexdescriptor.indexfile.blocksize:=nxbs4k;
+  kfd:=TnxCompKeyDescriptor(indexdescriptor.keydescriptor).Add(dict.GetFieldFromName('NumSeq'));
+
+  FileDescriptorIndex:=0;
+  indexdescriptor:=dict.AddIndex('IUsuarioDiaHora',filedescriptorindex,True,'',TnxCompKeyDescriptor);
+  indexdescriptor.desc:='';
+  indexdescriptor.indexfile.blocksize:=nxbs4k;
+  kfd:=TnxCompKeyDescriptor(indexdescriptor.keydescriptor).Add(dict.GetFieldFromName('Usuario'),TnxExtTextKeyFieldDescriptor);
+  SetExtTextKeyFieldDescriptorOptions(kfd,True,False,False,False,False,True,1046);
+  kfd:=TnxCompKeyDescriptor(indexdescriptor.keydescriptor).Add(dict.GetFieldFromName('DiaHora'));
+
+  FileDescriptorIndex:=0;
+  indexdescriptor:=dict.AddIndex('IProgramaMaq',filedescriptorindex,True,'',TnxCompKeyDescriptor);
+  indexdescriptor.desc:='';
+  indexdescriptor.indexfile.blocksize:=nxbs4k;
+  kfd:=TnxCompKeyDescriptor(indexdescriptor.keydescriptor).Add(dict.GetFieldFromName('Programa'));
+  kfd:=TnxCompKeyDescriptor(indexdescriptor.keydescriptor).Add(dict.GetFieldFromName('Maquina'));
+  kfd:=TnxCompKeyDescriptor(indexdescriptor.keydescriptor).Add(dict.GetFieldFromName('NumSeq'));
+
+  result:=dict;
+end;
+
+
+function MaquinaTableDataDictionary:TnxDataDictionary;
+var
+  dict:TnxDataDictionary;
+  indexdescriptor:TnxIndexDescriptor;
+  kfd:TnxKeyFieldDescriptor;
+  fd:TnxFieldDescriptor;
+  filedescriptorindex:integer;
+begin
+  dict:=TnxDataDictionary.create;
+
+  filedescriptorindex:=0;
+  dict.filedescriptor[filedescriptorindex].blocksize:=nxbs4k;
+  dict.filedescriptor[filedescriptorindex].desc:='Data/DataDict File';
+  dict.filedescriptor[filedescriptorindex].initialsize:=4;
+  dict.filedescriptor[filedescriptorindex].growsize:=1;
+  dict.encryptionengine:='';
+
+  // Fields
+
+  dict.addfield('Numero','',nxtWord16,0,0,False);
+  dict.addfield('Nome','',nxtNullString,30,0,False);
+  dict.addfield('Inicio','',nxtDateTime,0,0,False);
+  dict.addfield('Contato','',nxtWord32,10,0,False);
+  dict.addfield('TipoAcesso','',nxtWord16,0,0,False);
+  dict.addfield('NomeContato','',nxtNullString,40,0,False);
+  dict.addfield('InicioTicks','',nxtWord32,10,0,False);
+  dict.addfield('Acesso','',nxtInt32,0,0,False);
+  dict.addfield('CreditoCli','',nxtWord32,10,0,False);
+  dict.addfield('Isento','',nxtBoolean,0,0,False);
+  dict.addfield('Menu','',nxtBlobMemo,0,0,False);
+  dict.addfield('Recursos','',nxtBlobMemo,0,0,False);
+  dict.addfield('Sinal','',nxtCurrency,0,0,False);
+  dict.addfield('Vendas','',nxtCurrency,0,0,False);
+  dict.addfield('ObsAcesso','',nxtBlobMemo,0,0,False);
+  dict.addfield('LimiteTempo','',nxtWord32,0,0,False);
+  dict.addfield('LiberaAlemPacote','',nxtBoolean,0,0,False);
+  dict.addfield('TicksParadoPac','',nxtWord32,0,0,False);
+  dict.addfield('ComputerName','',nxtNullString,200,0,False);
+  dict.addfield('AguardaPagto','',nxtBoolean,0,0,False);
+  fd:=dict.addfield('Manutencao','',nxtBoolean,0,0,False);
+  with TnxConstDefaultValueDescriptor(fd.AddDefaultValue(TnxConstDefaultValueDescriptor)) do VariantToNative(fd.fdType, 'False', cdvDefaultValue, fd.fdLength);
+  dict.addfield('Caixa','',nxtInt32,0,0,False);
+  dict.addfield('UsuarioI','',nxtNullString,30,0,False);
+
+  // Indexes
+
+  FileDescriptorIndex:=0;
+  indexdescriptor:=dict.AddIndex('INumero',filedescriptorindex,True,'',TnxCompKeyDescriptor);
+  indexdescriptor.desc:='';
+  indexdescriptor.indexfile.blocksize:=nxbs4k;
+  kfd:=TnxCompKeyDescriptor(indexdescriptor.keydescriptor).Add(dict.GetFieldFromName('Numero'));
+
+  result:=dict;
+end;
+
+
+function METableDataDictionary:TnxDataDictionary;
+var
+  dict:TnxDataDictionary;
+  indexdescriptor:TnxIndexDescriptor;
+  kfd:TnxKeyFieldDescriptor;
+  fd:TnxFieldDescriptor;
+  filedescriptorindex:integer;
+begin
+  dict:=TnxDataDictionary.create;
+
+  filedescriptorindex:=0;
+  dict.filedescriptor[filedescriptorindex].blocksize:=nxbs4k;
+  dict.filedescriptor[filedescriptorindex].desc:='Data/DataDict File';
+  dict.filedescriptor[filedescriptorindex].initialsize:=4;
+  dict.filedescriptor[filedescriptorindex].growsize:=1;
+  dict.encryptionengine:='';
+
+  // Fields
+
+  dict.addfield('Serie','',nxtNullString,2,0,False);
+  dict.addfield('Numero','',nxtWord32,0,0,True);
+  dict.addfield('Caixa','',nxtWord32,0,0,False);
+  dict.addfield('DiaHora','',nxtDateTime,0,0,False);
+  dict.addfield('Tipo','',nxtNullString,15,0,False);
+  dict.addfield('Entrada','',nxtBoolean,0,0,False);
+  dict.addfield('MovEst','',nxtBoolean,0,0,False);
+  dict.addfield('Chamada','',nxtInt32,0,0,False);
+  dict.addfield('Contato','',nxtInt32,0,0,False);
+  dict.addfield('Usuario','',nxtNullString,10,0,False);
+  dict.addfield('Entregar','',nxtBoolean,0,0,False);
+  dict.addfield('Entregador','',nxtWord16,0,0,False);
+  dict.addfield('Cancelado','Null=Nao, Data = Sim',nxtBoolean,0,0,False);
+  dict.addfield('FormaPagto','',nxtNullString,15,0,False);
+  dict.addfield('Total','',nxtCurrency,0,0,False);
+  dict.addfield('Desconto','',nxtCurrency,0,0,False);
+  dict.addfield('Obs','',nxtBlobMemo,0,0,False);
+  dict.addfield('EndEnt','',nxtNullString,50,0,False);
+  dict.addfield('BaiEnt','',nxtNullString,25,0,False);
+  dict.addfield('CidEnt','',nxtNullString,25,0,False);
+  dict.addfield('UFEnt','',nxtNullString,2,0,False);
+  dict.addfield('Emissor','',nxtWord32,2,0,False);
+  dict.addfield('DtMovimentacao','',nxtDateTime,0,0,False);
+  dict.addfield('Situacao','',nxtNullString,20,0,False);
+
+  // Indexes
+
+  FileDescriptorIndex:=0;
+  indexdescriptor:=dict.AddIndex('IChamada',filedescriptorindex,True,'',TnxCompKeyDescriptor);
+  indexdescriptor.desc:='';
+  indexdescriptor.indexfile.blocksize:=nxbs4k;
+  kfd:=TnxCompKeyDescriptor(indexdescriptor.keydescriptor).Add(dict.GetFieldFromName('Chamada'));
+
+  FileDescriptorIndex:=0;
+  indexdescriptor:=dict.AddIndex('IEmissorSerieNum',filedescriptorindex,False,'',TnxCompKeyDescriptor);
+  indexdescriptor.desc:='';
+  indexdescriptor.indexfile.blocksize:=nxbs4k;
+  kfd:=TnxCompKeyDescriptor(indexdescriptor.keydescriptor).Add(dict.GetFieldFromName('Emissor'));
+  kfd:=TnxCompKeyDescriptor(indexdescriptor.keydescriptor).Add(dict.GetFieldFromName('Serie'),TnxExtTextKeyFieldDescriptor);
+  SetExtTextKeyFieldDescriptorOptions(kfd,True,False,False,False,False,True,1046);
+  kfd:=TnxCompKeyDescriptor(indexdescriptor.keydescriptor).Add(dict.GetFieldFromName('Numero'));
+
+  FileDescriptorIndex:=0;
+  indexdescriptor:=dict.AddIndex('IEmissao',filedescriptorindex,True,'',TnxCompKeyDescriptor);
+  indexdescriptor.desc:='';
+  indexdescriptor.indexfile.blocksize:=nxbs4k;
+  kfd:=TnxCompKeyDescriptor(indexdescriptor.keydescriptor).Add(dict.GetFieldFromName('DiaHora'));
+
+  FileDescriptorIndex:=0;
+  indexdescriptor:=dict.AddIndex('IContatoSerieNum',filedescriptorindex,True,'',TnxCompKeyDescriptor);
+  indexdescriptor.desc:='';
+  indexdescriptor.indexfile.blocksize:=nxbs4k;
+  kfd:=TnxCompKeyDescriptor(indexdescriptor.keydescriptor).Add(dict.GetFieldFromName('Contato'));
+  kfd:=TnxCompKeyDescriptor(indexdescriptor.keydescriptor).Add(dict.GetFieldFromName('Serie'),TnxExtTextKeyFieldDescriptor);
+  SetExtTextKeyFieldDescriptorOptions(kfd,True,False,False,False,False,True,1046);
+  kfd:=TnxCompKeyDescriptor(indexdescriptor.keydescriptor).Add(dict.GetFieldFromName('Numero'));
+
+  FileDescriptorIndex:=0;
+  indexdescriptor:=dict.AddIndex('IMov',filedescriptorindex,True,'',TnxCompKeyDescriptor);
+  indexdescriptor.desc:='';
+  indexdescriptor.indexfile.blocksize:=nxbs4k;
+  kfd:=TnxCompKeyDescriptor(indexdescriptor.keydescriptor).Add(dict.GetFieldFromName('DtMovimentacao'));
+  kfd:=TnxCompKeyDescriptor(indexdescriptor.keydescriptor).Add(dict.GetFieldFromName('DiaHora'));
+
+  result:=dict;
+end;
+
+
+function MotivoTableDataDictionary:TnxDataDictionary;
+var
+  dict:TnxDataDictionary;
+  indexdescriptor:TnxIndexDescriptor;
+  kfd:TnxKeyFieldDescriptor;
+  fd:TnxFieldDescriptor;
+  filedescriptorindex:integer;
+begin
+  dict:=TnxDataDictionary.create;
+
+  filedescriptorindex:=0;
+  dict.filedescriptor[filedescriptorindex].blocksize:=nxbs4k;
+  dict.filedescriptor[filedescriptorindex].desc:='Data/DataDict File';
+  dict.filedescriptor[filedescriptorindex].initialsize:=4;
+  dict.filedescriptor[filedescriptorindex].growsize:=1;
+  dict.encryptionengine:='';
+
+  // Fields
+
+  dict.addfield('Codigo','',nxtByte,0,0,False);
+  dict.addfield('Descricao','',nxtNullString,30,0,False);
+
+  // Indexes
+
+  FileDescriptorIndex:=0;
+  indexdescriptor:=dict.AddIndex('ICodigo',filedescriptorindex,False,'',TnxCompKeyDescriptor);
+  indexdescriptor.desc:='';
+  indexdescriptor.indexfile.blocksize:=nxbs4k;
+  kfd:=TnxCompKeyDescriptor(indexdescriptor.keydescriptor).Add(dict.GetFieldFromName('Codigo'));
+
+  result:=dict;
+end;
+
+
+function PacoteTableDataDictionary:TnxDataDictionary;
+var
+  dict:TnxDataDictionary;
+  indexdescriptor:TnxIndexDescriptor;
+  kfd:TnxKeyFieldDescriptor;
+  fd:TnxFieldDescriptor;
+  filedescriptorindex:integer;
+begin
+  dict:=TnxDataDictionary.create;
+
+  filedescriptorindex:=0;
+  dict.filedescriptor[filedescriptorindex].blocksize:=nxbs4k;
+  dict.filedescriptor[filedescriptorindex].desc:='Data/DataDict File';
+  dict.filedescriptor[filedescriptorindex].initialsize:=4;
+  dict.filedescriptor[filedescriptorindex].growsize:=1;
+  dict.encryptionengine:='';
+
+  // Fields
+
+  dict.addfield('Codigo','',nxtWord16,0,0,False);
+  dict.addfield('Horas','',nxtWord16,0,0,False);
+  dict.addfield('ValorTotal','',nxtCurrency,0,0,False);
+  dict.addfield('Descr','',nxtNullString,30,0,False);
+
+  // Indexes
+
+  FileDescriptorIndex:=0;
+  indexdescriptor:=dict.AddIndex('ICodigo',filedescriptorindex,True,'',TnxCompKeyDescriptor);
+  indexdescriptor.desc:='';
+  indexdescriptor.indexfile.blocksize:=nxbs4k;
+  kfd:=TnxCompKeyDescriptor(indexdescriptor.keydescriptor).Add(dict.GetFieldFromName('Codigo'));
+  kfd:=TnxCompKeyDescriptor(indexdescriptor.keydescriptor).Add(dict.GetFieldFromName('Codigo'));
+
+  result:=dict;
+end;
+
+
+function ProdutoTableDataDictionary:TnxDataDictionary;
+var
+  dict:TnxDataDictionary;
+  indexdescriptor:TnxIndexDescriptor;
+  kfd:TnxKeyFieldDescriptor;
+  fd:TnxFieldDescriptor;
+  filedescriptorindex:integer;
+begin
+  dict:=TnxDataDictionary.create;
+
+  filedescriptorindex:=0;
+  dict.filedescriptor[filedescriptorindex].blocksize:=nxbs4k;
+  dict.filedescriptor[filedescriptorindex].desc:='Data/DataDict File';
+  dict.filedescriptor[filedescriptorindex].initialsize:=4;
+  dict.filedescriptor[filedescriptorindex].growsize:=1;
+  dict.encryptionengine:='';
+
+  // Fields
+
+  dict.addfield('Codigo','',nxtNullString,15,0,False);
+  dict.addfield('Descricao','',nxtNullString,40,0,False);
+  dict.addfield('Unid','',nxtNullString,5,0,False);
+  dict.addfield('Preco','',nxtCurrency,5,0,False);
+  dict.addfield('Obs','',nxtBlobMemo,0,0,False);
+  dict.addfield('Imagem','',nxtBlobGraphic,0,0,False);
+  dict.addfield('Categoria','',nxtNullString,20,0,False);
+  dict.addfield('EstoqueAtual','',nxtExtended,0,0,False);
+  dict.addfield('CustoUnitario','',nxtCurrency,0,0,False);
+  dict.addfield('EstoqueACE','',nxtExtended,0,0,False);
+  dict.addfield('EstoqueACS','',nxtExtended,0,0,False);
+
+  // Indexes
+
+  FileDescriptorIndex:=0;
+  indexdescriptor:=dict.AddIndex('ICodigo',filedescriptorindex,True,'',TnxCompKeyDescriptor);
+  indexdescriptor.desc:='';
+  indexdescriptor.indexfile.blocksize:=nxbs4k;
+  kfd:=TnxCompKeyDescriptor(indexdescriptor.keydescriptor).Add(dict.GetFieldFromName('Codigo'),TnxExtTextKeyFieldDescriptor);
+  SetExtTextKeyFieldDescriptorOptions(kfd,True,False,False,False,False,True,1046);
+
+  FileDescriptorIndex:=0;
+  indexdescriptor:=dict.AddIndex('IDescricao',filedescriptorindex,True,'',TnxCompKeyDescriptor);
+  indexdescriptor.desc:='';
+  indexdescriptor.indexfile.blocksize:=nxbs4k;
+  kfd:=TnxCompKeyDescriptor(indexdescriptor.keydescriptor).Add(dict.GetFieldFromName('Descricao'),TnxExtTextKeyFieldDescriptor);
+  SetExtTextKeyFieldDescriptorOptions(kfd,True,False,False,False,False,True,1046);
+
+  result:=dict;
+end;
+
+
+function TipoAcessoTableDataDictionary:TnxDataDictionary;
+var
+  dict:TnxDataDictionary;
+  indexdescriptor:TnxIndexDescriptor;
+  kfd:TnxKeyFieldDescriptor;
+  fd:TnxFieldDescriptor;
+  filedescriptorindex:integer;
+begin
+  dict:=TnxDataDictionary.create;
+
+  filedescriptorindex:=0;
+  dict.filedescriptor[filedescriptorindex].blocksize:=nxbs4k;
+  dict.filedescriptor[filedescriptorindex].desc:='Data/DataDict File';
+  dict.filedescriptor[filedescriptorindex].initialsize:=4;
+  dict.filedescriptor[filedescriptorindex].growsize:=1;
+  dict.encryptionengine:='';
+
+  // Fields
+
+  dict.addfield('Codigo','',nxtWord16,5,0,False);
+  dict.addfield('Nome','',nxtNullString,30,0,False);
+
+  // Indexes
+
+  FileDescriptorIndex:=0;
+  indexdescriptor:=dict.AddIndex('ICodigo',filedescriptorindex,False,'',TnxCompKeyDescriptor);
+  indexdescriptor.desc:='';
+  indexdescriptor.indexfile.blocksize:=nxbs4k;
+  kfd:=TnxCompKeyDescriptor(indexdescriptor.keydescriptor).Add(dict.GetFieldFromName('Codigo'));
+
+  FileDescriptorIndex:=0;
+  indexdescriptor:=dict.AddIndex('INome',filedescriptorindex,True,'',TnxCompKeyDescriptor);
+  indexdescriptor.desc:='';
+  indexdescriptor.indexfile.blocksize:=nxbs4k;
+  kfd:=TnxCompKeyDescriptor(indexdescriptor.keydescriptor).Add(dict.GetFieldFromName('Nome'),TnxExtTextKeyFieldDescriptor);
+  SetExtTextKeyFieldDescriptorOptions(kfd,True,False,False,False,False,True,1046);
+
+  result:=dict;
+end;
+
+
+function TipoMovTableDataDictionary:TnxDataDictionary;
+var
+  dict:TnxDataDictionary;
+  indexdescriptor:TnxIndexDescriptor;
+  kfd:TnxKeyFieldDescriptor;
+  fd:TnxFieldDescriptor;
+  filedescriptorindex:integer;
+begin
+  dict:=TnxDataDictionary.create;
+
+  filedescriptorindex:=0;
+  dict.filedescriptor[filedescriptorindex].blocksize:=nxbs4k;
+  dict.filedescriptor[filedescriptorindex].desc:='Data/DataDict File';
+  dict.filedescriptor[filedescriptorindex].initialsize:=4;
+  dict.filedescriptor[filedescriptorindex].growsize:=1;
+  dict.encryptionengine:='';
+
+  // Fields
+
+  dict.addfield('Nome','',nxtNullString,15,0,False);
+  dict.addfield('MovEst','',nxtBoolean,0,0,False);
+  dict.addfield('Entrada','',nxtBoolean,0,0,False);
+  dict.addfield('Serie','',nxtNullString,2,0,False);
+  dict.addfield('PermiteAlterarSerie','',nxtBoolean,0,0,False);
+  dict.addfield('NumeroAutomatico','',nxtBoolean,0,0,False);
+  dict.addfield('ConfirmarMovEstoque','',nxtBoolean,0,0,False);
+  dict.addfield('AtualizaCusto','',nxtBoolean,0,0,False);
+  dict.addfield('Situacoes','',nxtBlobMemo,0,0,False);
+
+  // Indexes
+
+  FileDescriptorIndex:=0;
+  indexdescriptor:=dict.AddIndex('INome',filedescriptorindex,False,'',TnxCompKeyDescriptor);
+  indexdescriptor.desc:='';
+  indexdescriptor.indexfile.blocksize:=nxbs4k;
+  kfd:=TnxCompKeyDescriptor(indexdescriptor.keydescriptor).Add(dict.GetFieldFromName('Nome'),TnxExtTextKeyFieldDescriptor);
+  SetExtTextKeyFieldDescriptorOptions(kfd,True,False,False,False,False,True,1046);
+
+  result:=dict;
+end;
+
+
+function UsuarioTableDataDictionary:TnxDataDictionary;
+var
+  dict:TnxDataDictionary;
+  indexdescriptor:TnxIndexDescriptor;
+  kfd:TnxKeyFieldDescriptor;
+  fd:TnxFieldDescriptor;
+  filedescriptorindex:integer;
+begin
+  dict:=TnxDataDictionary.create;
+
+  filedescriptorindex:=0;
+  dict.filedescriptor[filedescriptorindex].blocksize:=nxbs4k;
+  dict.filedescriptor[filedescriptorindex].desc:='Data/DataDict File';
+  dict.filedescriptor[filedescriptorindex].initialsize:=4;
+  dict.filedescriptor[filedescriptorindex].growsize:=1;
+  dict.encryptionengine:='';
+
+  // Fields
+
+  dict.addfield('Username','',nxtNullString,10,0,False);
+  dict.addfield('Nome','',nxtNullString,30,0,False);
+  dict.addfield('Admin','',nxtBoolean,0,0,False);
+  dict.addfield('Senha','',nxtNullString,10,0,False);
+  dict.addfield('Grupos','',nxtBlobMemo,0,0,False);
+  dict.addfield('Direitos','',nxtBlobMemo,0,0,False);
+
+  // Indexes
+
+  FileDescriptorIndex:=0;
+  indexdescriptor:=dict.AddIndex('IUsername',filedescriptorindex,True,'',TnxCompKeyDescriptor);
+  indexdescriptor.desc:='';
+  indexdescriptor.indexfile.blocksize:=nxbs4k;
+  kfd:=TnxCompKeyDescriptor(indexdescriptor.keydescriptor).Add(dict.GetFieldFromName('Username'),TnxExtTextKeyFieldDescriptor);
+  SetExtTextKeyFieldDescriptorOptions(kfd,True,False,False,False,False,True,1046);
+
+  FileDescriptorIndex:=0;
+  indexdescriptor:=dict.AddIndex('INome',filedescriptorindex,True,'',TnxCompKeyDescriptor);
+  indexdescriptor.desc:='';
+  indexdescriptor.indexfile.blocksize:=nxbs4k;
+  kfd:=TnxCompKeyDescriptor(indexdescriptor.keydescriptor).Add(dict.GetFieldFromName('Nome'),TnxExtTextKeyFieldDescriptor);
+  SetExtTextKeyFieldDescriptorOptions(kfd,True,False,False,False,False,True,1046);
+
+  result:=dict;
+end;
+
+
+procedure inittableslist;
+begin
+  if assigned(Ftables) then exit;
+  Ftables:=Tstringlist.create;
+  Ftables.addobject('Acesso',@AcessoTableDataDictionary);
+  Ftables.addobject('Caixa',@CaixaTableDataDictionary);
+  Ftables.addobject('Categoria',@CategoriaTableDataDictionary);
+  Ftables.addobject('Config',@ConfigTableDataDictionary);
+  Ftables.addobject('Contato',@ContatoTableDataDictionary);
+  Ftables.addobject('Cor',@CorTableDataDictionary);
+  Ftables.addobject('CorPrecos',@CorPrecosTableDataDictionary);
+  Ftables.addobject('FormPagto',@FormPagtoTableDataDictionary);
+  Ftables.addobject('Grupo',@GrupoTableDataDictionary);
+  Ftables.addobject('HoraCor',@HoraCorTableDataDictionary);
+  Ftables.addobject('Impressao',@ImpressaoTableDataDictionary);
+  Ftables.addobject('ItensME',@ItensMETableDataDictionary);
+  Ftables.addobject('LancExtra',@LancExtraTableDataDictionary);
+  Ftables.addobject('Layout',@LayoutTableDataDictionary);
+  Ftables.addobject('Log',@LogTableDataDictionary);
+  Ftables.addobject('Maquina',@MaquinaTableDataDictionary);
+  Ftables.addobject('ME',@METableDataDictionary);
+  Ftables.addobject('Motivo',@MotivoTableDataDictionary);
+  Ftables.addobject('Pacote',@PacoteTableDataDictionary);
+  Ftables.addobject('Produto',@ProdutoTableDataDictionary);
+  Ftables.addobject('TipoAcesso',@TipoAcessoTableDataDictionary);
+  Ftables.addobject('TipoMov',@TipoMovTableDataDictionary);
+  Ftables.addobject('Usuario',@UsuarioTableDataDictionary);
+end;
+
+procedure cleanuptableslist;
+begin
+  if assigned(Ftables) then
+  begin
+    Ftables.free;
+    Ftables:=nil;
+  end
+end;
+
+function TableDataDictionary(tablename:string):TnxDataDictionary;
+var
+  dictfn:TsmDictFn;
+  idx:integer;
+begin
+  idx:=Ftables.indexof(tablename);
+  dictfn:=TsmDictFn(Ftables.Objects[idx]);
+  result:=dictfn(tablename);
+end;
+
+procedure CreateTableByDict(db:TnxDatabase;tablename:string;dict:TnxDataDictionary;overwrite:boolean=false);
+begin
+  db.createtable(overwrite,tablename,dict);
+end;
+
+procedure CreateTable(db:TnxDatabase;tablename:string;overwrite:boolean=false);
+var
+  dict:TnxDataDictionary;
+begin
+  dict:=tabledatadictionary(tablename);
+  try
+    CreateTableByDict(db,tablename,dict,overwrite);
+  finally
+    dict.free;
+  end;
+end;
+
+function VerifyTableStructureByDict(db:TnxDatabase;tablename:string;dict:TnxDataDictionary):integer;
+var
+  tmptable:TnxTable;
+begin
+  result:=0;
+
+  if not(db.tableexists(tablename)) then
+  begin
+    result:=1;
+    exit;
+  end;
+
+  tmptable:=TnxTable.create(nil);
+  try
+    tmptable.database:=db;
+    tmptable.tablename:=tablename;
+    tmptable.open;
+    if not(tmptable.dictionary.isequal(dict)) then
+      result:=2;
+  finally
+    tmptable.free;
+  end;
+end;
+
+function VerifyTableStructure(db:TnxDatabase;tablename:string):integer;
+var
+  dict:TnxDataDictionary;
+begin
+  dict:=tabledatadictionary(tablename);
+  try
+    result:=VerifyTableStructureByDict(db,tablename,dict);
+  finally
+    dict.free;
+  end;
+end;
+
+procedure RestructureTableByDict(db:TnxDatabase;tablename:string;newdict:TnxDataDictionary;MatchFieldsBy:smallint=0;Restructuring:TnsmRestructureTableCb=nil;VerifyRenamedField:TnsmRenamedFieldCb=nil);
+var
+  tmptable:TnxTable;
+  idx:integer;
+  dict:TnxDataDictionary;
+  fieldmap:Tstringlist;
+  done:boolean;
+  TaskStatus : TnxTaskStatus;
+  TaskInfo : TnxAbstractTaskInfo;
+  res:Tnxresult;
+  fieldname:string;
+  newfield:string;
+begin
+  tmptable:=TnxTable.create(nil);
+  try
+    tmptable.database:=db;
+    tmptable.tablename:=tablename;
+    tmptable.open;
+    dict:=TnxDataDictionary.create;
+    try
+      dict.assign(tmptable.dictionary);
+      tmptable.close;
+      tmptable.dictionary.assign(newdict);
+      fieldmap:=Tstringlist.create;
+      try
+        for idx:=0 to dict.fieldcount-1 do
+        begin
+          if MatchFieldsBy=0 then
+          begin
+            if not(tmptable.Dictionary.GetFieldFromName(dict.fielddescriptor[idx].name)=-1) then
+              fieldmap.add(dict.fielddescriptor[idx].name+'='+dict.fielddescriptor[idx].name)
+            else begin
+              if assigned(VerifyRenamedField) then
+              begin
+                newfield:='';
+                VerifyRenamedField(tablename,dict.fielddescriptor[idx].name,newfield);
+                if not(newfield='') then
+                  fieldmap.add(newfield+'='+dict.fielddescriptor[idx].name);
+              end;
+            end;
+          end;
+          if MatchFieldsBy=1 then
+          begin
+            if (idx < newdict.FieldCount) then
+            begin
+              fieldname:=newdict.fielddescriptor[idx].name;
+              fieldmap.add(fieldname+'='+dict.fielddescriptor[idx].name);
+            end;
+          end;
+        end;
+        res:=tmptable.restructuretable(newdict,fieldmap,taskinfo);
+      finally
+        fieldmap.free;
+      end;
+    finally
+      dict.free;
+    end;
+
+    taskinfo.GetStatus(Done,TaskStatus);
+    while not Done do
+    begin
+      if assigned(Restructuring) then Restructuring(tablename,TaskStatus.tsPercentDone);
+      taskinfo.GetStatus(Done,TaskStatus);
+    end;
+
+  finally
+    if assigned(taskinfo) then taskinfo.free;
+    tmptable.free;
+  end;
+end;
+
+procedure RestructureTable(db:TnxDatabase;tablename:string;MatchFieldsBy:smallint=0;Restructuring:TnsmRestructureTableCb=nil;VerifyRenamedField:TnsmRenamedFieldCb=nil);
+var
+  dict:TnxDataDictionary;
+begin
+  dict:=TableDataDictionary(tablename);
+  try
+    RestructureTableByDict(db,tablename,dict,MatchFieldsBy,Restructuring,VerifyRenamedField);
+  finally
+    dict.free;
+  end;
+end;
+
+procedure CreatecybermgrDatabase(db:TnxDatabase;overwrite:boolean=false;Creating:TnsmCreateDatabaseCb=nil);
+var
+  idx:integer;
+  tablename:string;
+begin
+  for idx:=0 to Ftables.count-1 do
+  begin
+    tablename:=Ftables[idx];
+    if assigned(Creating) then Creating(tablename,1);
+    createtable(db,tablename,overwrite);
+  end;
+end;
+
+procedure RestructurecybermgrDatabase(db:TnxDatabase;MatchFieldsBy:smallint=0;RestructuringDatabase:TnsmRestructureDatabaseCb=nil;RestructuringTable:TnsmRestructureTableCb=nil;VerifyRenamedField:TnsmRenamedFieldCb=nil);
+var
+  idx:integer;
+  tablename:string;
+  res:smallint;
+begin
+  for idx:=0 to Ftables.count-1 do
+  begin
+    tablename:=Ftables[idx];
+    res:=verifytablestructure(db,tablename);
+    if assigned(RestructuringDatabase) then RestructuringDatabase(tablename,idx+1,res);
+    if res=1 then createtable(db,tablename)
+    else if res=2 then restructuretable(db,tablename,matchfieldsby,RestructuringTable,VerifyRenamedField);
+  end;
+end;
+
+function VerifycybermgrDatabase(db:TnxDatabase;Verifying:TnsmVerifyDatabaseCb=nil;verifyerror:TnsmVerifyDatabaseErrorCb=nil):boolean;
+var
+  idx:integer;
+  tablename:string;
+  res:smallint;
+begin
+  result:=true;
+  for idx:=0 to Ftables.count-1 do
+  begin
+    tablename:=Ftables[idx];
+    if assigned(Verifying) then Verifying(tablename,idx+1);
+    res:=verifytablestructure(db,tablename);
+    if not(res=0) then
+    begin
+      result:=false;
+      if assigned(verifyerror) then verifyerror(tablename);
+    end;
+  end;
+end;
+
+function cybermgrDbVersion:string;
+begin
+  result:='';
+end;
+
+function cybermgrTablesCount:integer;
+begin
+  result:=23;
+end;
+
+procedure cybermgrGetTableNames(tables:Tstrings);
+begin
+  tables.assign(Ftables);
+end;
+
+initialization
+  inittableslist;
+finalization
+  cleanuptableslist;
+end.

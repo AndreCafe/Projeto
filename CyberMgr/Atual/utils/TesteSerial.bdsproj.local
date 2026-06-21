@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2006/05/31 13:45:12.001.pas,C:\Documents and Settings\IBM\My Documents\Borland Studio Projects\Unit13.pas=C:\Projetos\CyberMgr\Atual\utils\uTesteSerial.pas</Transaction>
+    <Transaction>2006/05/31 13:45:12.001.dfm,C:\Documents and Settings\IBM\My Documents\Borland Studio Projects\Unit13.dfm=C:\Projetos\CyberMgr\Atual\utils\uTesteSerial.dfm</Transaction>
+    <Transaction>2006/05/31 13:45:15.305.bdsproj,C:\Documents and Settings\IBM\My Documents\Borland Studio Projects\Project10.bdsproj=C:\Projetos\CyberMgr\Atual\utils\TesteSerial.bdsproj</Transaction>
+    <Transaction>2006/05/31 16:01:54.405.pas,C:\Projetos\CyberMgr\Atual\utils\uTesteSerial.pas=C:\Projetos\CyberMgr\Atual\utils\uTesteSerial2.pas</Transaction>
+    <Transaction>2006/05/31 16:01:54.405.dfm,C:\Projetos\CyberMgr\Atual\utils\uTesteSerial.dfm=C:\Projetos\CyberMgr\Atual\utils\uTesteSerial2.dfm</Transaction>
+    <Transaction>2006/05/31 16:08:34.040.pas,C:\Projetos\CyberMgr\Atual\utils\uTesteSerial2.pas=</Transaction>
+    <Transaction>2006/05/31 16:08:34.040.dfm,C:\Projetos\CyberMgr\Atual\utils\uTesteSerial2.dfm=</Transaction>
+  </Transactions>
+</BorlandProject>

@@ -1,0 +1,2 @@
+inherited VerticalGridFrame: TVerticalGridFrame
+end

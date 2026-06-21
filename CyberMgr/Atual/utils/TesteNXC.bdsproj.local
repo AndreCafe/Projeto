@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2006/02/22 19:14:54.713.pas,C:\Documents and Settings\IBM\My Documents\Borland Studio Projects\Unit12.pas=C:\Projetos\CyberMgr\Atual\utils\uTesteNXC.pas</Transaction>
+    <Transaction>2006/02/22 19:14:54.713.dfm,C:\Documents and Settings\IBM\My Documents\Borland Studio Projects\Unit12.dfm=C:\Projetos\CyberMgr\Atual\utils\uTesteNXC.dfm</Transaction>
+    <Transaction>2006/02/22 19:15:00.441.bdsproj,C:\Documents and Settings\IBM\My Documents\Borland Studio Projects\Project9.bdsproj=C:\Projetos\CyberMgr\Atual\utils\TesteNXC.bdsproj</Transaction>
+  </Transactions>
+</BorlandProject>

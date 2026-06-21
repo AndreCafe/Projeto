@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{cae43103-0e94-4827-b634-74b1715eb925}</ProjectGuid>
+    <MainSource>DiaTecServ.dpr</MainSource>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <DCC_DCCCompiler>DCC32</DCC_DCCCompiler>
+    <DCC_DependencyCheckOutputName>C:\Meus Programas\DiaTec\30\Servidor\DiaTecServ.exe</DCC_DependencyCheckOutputName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <Version>7.0</Version>
+    <DCC_DebugInformation>False</DCC_DebugInformation>
+    <DCC_WriteableConstants>True</DCC_WriteableConstants>
+    <DCC_LocalDebugSymbols>False</DCC_LocalDebugSymbols>
+    <DCC_GenerateStackFrames>True</DCC_GenerateStackFrames>
+    <DCC_SymbolReferenceInfo>0</DCC_SymbolReferenceInfo>
+    <DCC_MapFile>3</DCC_MapFile>
+    <DCC_ExeOutput>C:\Meus Programas\DiaTec\30\Servidor</DCC_ExeOutput>
+    <DCC_DcuOutput>\projetodcu\d2006</DCC_DcuOutput>
+    <DCC_ObjOutput>\projetodcu\d2006</DCC_ObjOutput>
+    <DCC_HppOutput>\projetodcu\d2006</DCC_HppOutput>
+    <DCC_UnitSearchPath>$(DELPHI)\Lib\Debug</DCC_UnitSearchPath>
+    <DCC_ResourcePath>$(DELPHI)\Lib\Debug</DCC_ResourcePath>
+    <DCC_ObjPath>$(DELPHI)\Lib\Debug</DCC_ObjPath>
+    <DCC_IncludePath>$(DELPHI)\Lib\Debug</DCC_IncludePath>
+    <DCC_Define>RELEASE</DCC_Define>
+    <DCC_UNSAFE_TYPE>True</DCC_UNSAFE_TYPE>
+    <DCC_UNSAFE_CODE>True</DCC_UNSAFE_CODE>
+    <DCC_UNSAFE_CAST>True</DCC_UNSAFE_CAST>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <Version>7.0</Version>
+    <DCC_WriteableConstants>True</DCC_WriteableConstants>
+    <DCC_GenerateStackFrames>True</DCC_GenerateStackFrames>
+    <DCC_MapFile>3</DCC_MapFile>
+    <DCC_ExeOutput>C:\Meus Programas\DiaTec\30\Servidor</DCC_ExeOutput>
+    <DCC_DcuOutput>C:\ProjetoDCU\D2007nx1</DCC_DcuOutput>
+    <DCC_ObjOutput>C:\ProjetoDCU\D2007nx1</DCC_ObjOutput>
+    <DCC_HppOutput>C:\ProjetoDCU\D2007nx1</DCC_HppOutput>
+    <DCC_UnitSearchPath>$(DELPHI)\Lib\Debug</DCC_UnitSearchPath>
+    <DCC_ResourcePath>$(DELPHI)\Lib\Debug</DCC_ResourcePath>
+    <DCC_ObjPath>$(DELPHI)\Lib\Debug</DCC_ObjPath>
+    <DCC_IncludePath>$(DELPHI)\Lib\Debug</DCC_IncludePath>
+    <DCC_Define>DEBUG</DCC_Define>
+    <DCC_UNSAFE_TYPE>True</DCC_UNSAFE_TYPE>
+    <DCC_UNSAFE_CODE>True</DCC_UNSAFE_CODE>
+    <DCC_UNSAFE_CAST>True</DCC_UNSAFE_CAST>
+  </PropertyGroup>
+  <ProjectExtensions>
+    <Borland.Personality>Delphi.Personality</Borland.Personality>
+    <Borland.ProjectType>VCLApplication</Borland.ProjectType>
+    <BorlandProject>
+<BorlandProject><Delphi.Personality><Parameters><Parameters Name="UseLauncher">False</Parameters><Parameters Name="LoadAllSymbols">True</Parameters><Parameters Name="LoadUnspecifiedSymbols">False</Parameters></Parameters><Language><Language Name="ProjectLang">$00000416</Language></Language><VersionInfo><VersionInfo Name="IncludeVerInfo">True</VersionInfo><VersionInfo Name="AutoIncBuild">True</VersionInfo><VersionInfo Name="MajorVer">3</VersionInfo><VersionInfo Name="MinorVer">3</VersionInfo><VersionInfo Name="Release">0</VersionInfo><VersionInfo Name="Build">1</VersionInfo><VersionInfo Name="Debug">False</VersionInfo><VersionInfo Name="PreRelease">False</VersionInfo><VersionInfo Name="Special">False</VersionInfo><VersionInfo Name="Private">False</VersionInfo><VersionInfo Name="DLL">False</VersionInfo><VersionInfo Name="Locale">1046</VersionInfo><VersionInfo Name="CodePage">1252</VersionInfo></VersionInfo><VersionInfoKeys><VersionInfoKeys Name="CompanyName"></VersionInfoKeys><VersionInfoKeys Name="FileDescription"></VersionInfoKeys><VersionInfoKeys Name="FileVersion">3.3.0.1</VersionInfoKeys><VersionInfoKeys Name="InternalName"></VersionInfoKeys><VersionInfoKeys Name="LegalCopyright"></VersionInfoKeys><VersionInfoKeys Name="LegalTrademarks"></VersionInfoKeys><VersionInfoKeys Name="OriginalFilename"></VersionInfoKeys><VersionInfoKeys Name="ProductName"></VersionInfoKeys><VersionInfoKeys Name="ProductVersion">3.2</VersionInfoKeys><VersionInfoKeys Name="Comments"></VersionInfoKeys></VersionInfoKeys><Source><Source Name="MainSource">DiaTecServ.dpr</Source></Source></Delphi.Personality></BorlandProject></BorlandProject>
+  </ProjectExtensions>
+  <Import Project="$(MSBuildBinPath)\Borland.Delphi.Targets" />
+  <ItemGroup>
+    <DelphiCompile Include="DiaTecServ.dpr">
+      <MainSource>MainSource</MainSource>
+    </DelphiCompile>
+    <DCCReference Include="....\Licenca\licClasses.pas" />
+    <DCCReference Include="...\Licenca\licClasses.pas" />
+    <DCCReference Include="..\Licenca\licClasses.pas" />
+    <DCCReference Include="C:\Licenca\licClasses.pas" />
+    <DCCReference Include="uDTDBFTabs.pas">
+      <Form>dmDBF</Form>
+      <DesignClass>TDataModule</DesignClass>
+    </DCCReference>
+    <DCCReference Include="uDTFmtTabs.pas" />
+    <DCCReference Include="uDTFrmChave.pas">
+      <Form>FrmChave</Form>
+    </DCCReference>
+    <DCCReference Include="uDTSDown.pas">
+      <Form>kbmDown</Form>
+      <DesignClass>TkbmMWCustomService</DesignClass>
+    </DCCReference>
+    <DCCReference Include="uDTSrvBDServ.pas">
+      <Form>dmBDServ</Form>
+      <DesignClass>TDataModule</DesignClass>
+    </DCCReference>
+    <DCCReference Include="uDTSrvConsole.pas">
+      <Form>FrmPri</Form>
+    </DCCReference>
+    <DCCReference Include="uDTSrvProcessa.pas">
+      <Form>DMProc</Form>
+      <DesignClass>TDataModule</DesignClass>
+    </DCCReference>
+    <DCCReference Include="uDTSUp.pas">
+      <Form>kbmUp</Form>
+      <DesignClass>TkbmMWCustomService</DesignClass>
+    </DCCReference>
+    <DCCReference Include="uDTSyncDef.pas" />
+    <DCCReference Include="uDTTabelas.pas" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,44 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{ead4f1b1-6af5-44b8-82fc-ab5eb3f47c8b}</ProjectGuid>
+  </PropertyGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Projects Include="Client\Client.dproj" />
+    <Projects Include="Server\Server.dproj" />
+  </ItemGroup>
+  <ProjectExtensions>
+    <Borland.Personality>Default.Personality</Borland.Personality>
+    <Borland.ProjectType />
+    <BorlandProject>
+  <BorlandProject xmlns=""> <Default.Personality> </Default.Personality> </BorlandProject></BorlandProject>
+  </ProjectExtensions>
+  <Target Name="Server">
+    <MSBuild Projects="Server\Server.dproj" Targets="" />
+  </Target>
+  <Target Name="Server:Clean">
+    <MSBuild Projects="Server\Server.dproj" Targets="Clean" />
+  </Target>
+  <Target Name="Server:Make">
+    <MSBuild Projects="Server\Server.dproj" Targets="Make" />
+  </Target>
+  <Target Name="Client">
+    <MSBuild Projects="Client\Client.dproj" Targets="" />
+  </Target>
+  <Target Name="Client:Clean">
+    <MSBuild Projects="Client\Client.dproj" Targets="Clean" />
+  </Target>
+  <Target Name="Client:Make">
+    <MSBuild Projects="Client\Client.dproj" Targets="Make" />
+  </Target>
+  <Target Name="Build">
+    <CallTarget Targets="Server;Client" />
+  </Target>
+  <Target Name="Clean">
+    <CallTarget Targets="Server:Clean;Client:Clean" />
+  </Target>
+  <Target Name="Make">
+    <CallTarget Targets="Server:Make;Client:Make" />
+  </Target>
+  <Import Condition="Exists('$(MSBuildBinPath)\Borland.Group.Targets')" Project="$(MSBuildBinPath)\Borland.Group.Targets" />
+</Project>

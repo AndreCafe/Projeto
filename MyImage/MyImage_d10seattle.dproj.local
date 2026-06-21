@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2013/10/19 02:40:22.566.dproj,C:\Users\Joao.nxjoao6\Documents\RAD Studio\Projects\MyImage.dproj=C:\Users\Joao.nxjoao6\Documents\RAD Studio\Projects\Package1.dproj</Transaction>
+    <Transaction>2013/10/19 02:40:39.191.dproj,C:\projetos\nexcafe\comp\MyImage.dproj=C:\Users\Joao.nxjoao6\Documents\RAD Studio\Projects\MyImage.dproj</Transaction>
+    <Transaction>2014/08/16 09:41:38.976.pas,C:\projetos\MyImage\ncMyImage.pas=C:\projetos\NEX\comp\ncMyImage.pas</Transaction>
+    <Transaction>2014/08/16 09:41:53.650.dproj,C:\projetos\MyImage\MyImage.dproj=C:\projetos\NEX\comp\MyImage.dproj</Transaction>
+    <Transaction>2014/11/28 15:15:31.000.378,=cxEditorsRS21.dcp</Transaction>
+    <Transaction>2014/11/28 15:15:31.000.414,=cxDataRS21.dcp</Transaction>
+    <Transaction>2014/11/28 15:15:31.000.319,=dxGDIPlusRS21.dcp</Transaction>
+    <Transaction>2014/11/28 15:15:31.000.349,=dxThemeRS21.dcp</Transaction>
+    <Transaction>2014/11/28 15:15:31.000.284,=cxLibraryRS21.dcp</Transaction>
+    <Transaction>2014/11/28 15:15:31.000.248,=dxCoreRS21.dcp</Transaction>
+    <Transaction>2014/11/28 15:18:48.000.604,C:\projetos\MyImageXE7\MyImage.dproj=C:\projetos\MyImage\MyImageXE7.dproj</Transaction>
+    <Transaction>2015/10/26 22:33:36.000.531,C:\projetos\MyImage\MyImage_d10seattle.dproj=C:\projetos\MyImage\MyImageXE7.dproj</Transaction>
+  </Transactions>
+</BorlandProject>

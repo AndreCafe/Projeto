@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+  <PersonalityInfo>
+    <Option>
+      <Option Name="Personality">Default.Personality</Option>
+      <Option Name="ProjectType"></Option>
+      <Option Name="Version">1.0</Option>
+      <Option Name="GUID">{312F48A8-D30A-423C-812D-690F5ABF9E69}</Option>
+    </Option>
+  </PersonalityInfo>
+  <Default.Personality>
+    
+    <Projects>
+      <Projects Name="FormMgrR10.bpl">FormMgrR10.bdsproj</Projects>
+      <Projects Name="PngComponentsD10.bpl">..\..\comp\pngcomp\PngComponentsD10.bdsproj</Projects>
+      <Projects Name="Targets">FormMgrR10.bpl PngComponentsD10.bpl</Projects>
+    </Projects>
+    <Dependencies/>
+  </Default.Personality>
+</BorlandProject>

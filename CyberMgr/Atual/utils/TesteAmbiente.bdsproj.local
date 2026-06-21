@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2006/05/29 10:28:11.540.pas,C:\Documents and Settings\IBM\My Documents\Borland Studio Projects\Unit13.pas=C:\Projetos\CyberMgr\Atual\utils\uTesteAmb.pas</Transaction>
+    <Transaction>2006/05/29 10:28:11.540.dfm,C:\Documents and Settings\IBM\My Documents\Borland Studio Projects\Unit13.dfm=C:\Projetos\CyberMgr\Atual\utils\uTesteAmb.dfm</Transaction>
+    <Transaction>2006/05/29 10:28:20.655.pas,C:\Projetos\CyberMgr\Atual\utils\uTesteAmb.pas=C:\Projetos\CyberMgr\Atual\utils\TesteAmbiente.pas</Transaction>
+    <Transaction>2006/05/29 10:28:20.655.dfm,C:\Projetos\CyberMgr\Atual\utils\uTesteAmb.dfm=C:\Projetos\CyberMgr\Atual\utils\TesteAmbiente.dfm</Transaction>
+    <Transaction>2006/05/29 10:30:09.836.pas,C:\Projetos\CyberMgr\Atual\utils\TesteAmbiente.pas=C:\Projetos\CyberMgr\Atual\utils\uTesteAmb.pas</Transaction>
+    <Transaction>2006/05/29 10:30:09.836.dfm,C:\Projetos\CyberMgr\Atual\utils\TesteAmbiente.dfm=C:\Projetos\CyberMgr\Atual\utils\uTesteAmb.dfm</Transaction>
+    <Transaction>2006/05/29 10:30:19.141.bdsproj,C:\Documents and Settings\IBM\My Documents\Borland Studio Projects\Project10.bdsproj=C:\Projetos\CyberMgr\Atual\utils\TesteAmbiente.bdsproj</Transaction>
+  </Transactions>
+</BorlandProject>

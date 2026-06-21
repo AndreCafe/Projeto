@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2007/10/25 15:58:47.046.pas,C:\Documents and Settings\Joao\My Documents\RAD Studio\Projects\Unit13.pas=C:\Projetos\Utils\uEstatisticasNextar.pas</Transaction>
+    <Transaction>2007/10/25 15:58:47.062.dfm,C:\Documents and Settings\Joao\My Documents\RAD Studio\Projects\Unit13.dfm=C:\Projetos\Utils\uEstatisticasNextar.dfm</Transaction>
+    <Transaction>2007/10/25 15:58:53.234.dproj,C:\Documents and Settings\Joao\My Documents\RAD Studio\Projects\Project11.dproj=C:\Projetos\Utils\EstatisticasNextar.dproj</Transaction>
+    <Transaction>2011/05/04 08:31:48.647.pas,C:\Projetos\Utils\uEstatisticasNextar.pas=C:\Projetos\GS\uEstCadastro.pas</Transaction>
+    <Transaction>2011/05/04 08:31:48.647.dfm,C:\Projetos\Utils\uEstatisticasNextar.dfm=C:\Projetos\GS\uEstCadastro.dfm</Transaction>
+    <Transaction>2011/05/04 08:32:10.398.dproj,C:\Projetos\Utils\EstatisticasNextar.dproj=C:\Projetos\GS\EstCadastro.dproj</Transaction>
+    <Transaction>2011/05/09 16:55:22.861.pas,C:\Projetos\GS\uEstCadastro.pas=C:\Projetos\GS\uCadastros.pas</Transaction>
+    <Transaction>2011/05/09 16:55:22.861.dfm,C:\Projetos\GS\uEstCadastro.dfm=C:\Projetos\GS\uCadastros.dfm</Transaction>
+    <Transaction>2011/05/09 16:55:33.402.dproj,C:\Projetos\GS\EstCadastro.dproj=C:\Projetos\GS\Cadastros.dproj</Transaction>
+    <Transaction>2012/03/09 10:45:12.872.pas,C:\Projetos\GS\Unit2.pas=C:\Projetos\GS\uCadastros_FrmCidade.pas</Transaction>
+    <Transaction>2012/03/09 10:45:12.872.dfm,C:\Projetos\GS\Unit2.dfm=C:\Projetos\GS\uCadastros_FrmCidade.dfm</Transaction>
+    <Transaction>2012/05/23 16:28:23.184.pas,C:\Projetos\GS\uCadastros.pas=C:\Projetos\GS\uCadastros2.pas</Transaction>
+    <Transaction>2012/05/23 16:28:23.184.dfm,C:\Projetos\GS\uCadastros.dfm=C:\Projetos\GS\uCadastros2.dfm</Transaction>
+    <Transaction>2012/05/23 16:28:28.889.dproj,C:\Projetos\GS\Cadastros.dproj=C:\Projetos\GS\Cadastros2.dproj</Transaction>
+  </Transactions>
+</BorlandProject>

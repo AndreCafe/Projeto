@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2006/12/16 11:38:41.008.bdsproj,C:\Projetos\GS\RegistroSvc.bdsproj=C:\Projetos\GS\NexRegSvc.bdsproj</Transaction>
+    <Transaction>2006/12/16 11:39:01.147.pas,C:\Projetos\GS\uRegistroSvc.pas=C:\Projetos\GS\uNexRegSvc.pas</Transaction>
+    <Transaction>2006/12/16 11:39:01.147.dfm,C:\Projetos\GS\uRegistroSvc.dfm=C:\Projetos\GS\uNexRegSvc.dfm</Transaction>
+    <Transaction>2010/12/04 01:21:24.074.dproj,C:\Projetos\GS\NexRegSvc.dproj=C:\Projetos\GS\NR_MW_Svc.dproj</Transaction>
+    <Transaction>2010/12/04 01:22:25.859.pas,C:\Projetos\GS\uRSDM.pas=C:\Projetos\GS\NR_MW_DM.pas</Transaction>
+    <Transaction>2010/12/04 01:22:25.859.dfm,C:\Projetos\GS\uRSDM.dfm=C:\Projetos\GS\NR_MW_DM.dfm</Transaction>
+    <Transaction>2010/12/04 01:23:31.018.pas,C:\Projetos\GS\uDMContas.pas=</Transaction>
+    <Transaction>2010/12/04 01:23:31.018.dfm,C:\Projetos\GS\uDMContas.dfm=</Transaction>
+    <Transaction>2010/12/04 01:37:36.272.pas,C:\Projetos\GS\uNexRegSvc.pas=C:\Projetos\GS\uNR_MW_Svc.pas</Transaction>
+    <Transaction>2010/12/04 01:37:36.272.dfm,C:\Projetos\GS\uNexRegSvc.dfm=C:\Projetos\GS\uNR_MW_Svc.dfm</Transaction>
+    <Transaction>2011/05/12 08:19:27.054.pas,C:\Projetos\GS\uRSServBD.pas=</Transaction>
+    <Transaction>2011/05/12 08:19:27.054.dfm,C:\Projetos\GS\uRSServBD.dfm=</Transaction>
+  </Transactions>
+</BorlandProject>

@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2005/12/20 20:34:56.189.bdsproj,C:\Projetos\CyberMgr\Atual\Servidor\cmD7.bdsproj=C:\Projetos\CyberMgr\Atual\Servidor\cmD10.bdsproj</Transaction>
+    <Transaction>2006/02/22 16:46:09.909.pas,C:\Projetos\CyberMgr\Atual\Servidor\Unit1.pas=C:\Projetos\CyberMgr\Atual\Cliente\cmCompKBMCli.pas</Transaction>
+    <Transaction>2006/02/22 17:02:17.631.pas,C:\Projetos\CyberMgr\Atual\Cliente\cmCompKBMCli.pas=C:\Projetos\CyberMgr\Atual\Cliente\nxcCliente.pas</Transaction>
+    <Transaction>2006/02/22 17:03:04.558.pas,C:\Projetos\CyberMgr\Atual\Cliente\cmDMKBMCli.pas=C:\Projetos\CyberMgr\Atual\Cliente\nxcKBMCli.pas</Transaction>
+    <Transaction>2006/02/22 17:03:04.558.dfm,C:\Projetos\CyberMgr\Atual\Cliente\cmDMKBMCli.dfm=C:\Projetos\CyberMgr\Atual\Cliente\nxcKBMCli.dfm</Transaction>
+    <Transaction>2006/08/18 16:43:55.870.pas,C:\Projetos\CyberMgr\Atual\Servidor\nxcServidor.pas=</Transaction>
+    <Transaction>2006/08/18 16:43:55.870.dfm,C:\Projetos\CyberMgr\Atual\Servidor\nxcServidor.dfm=</Transaction>
+    <Transaction>2006/08/18 16:43:58.003.pas,C:\Projetos\CyberMgr\Atual\Servidor\nxcSkbmArqs.pas=</Transaction>
+    <Transaction>2006/08/18 16:43:58.003.dfm,C:\Projetos\CyberMgr\Atual\Servidor\nxcSkbmArqs.dfm=</Transaction>
+    <Transaction>2006/08/18 16:44:00.186.pas,C:\Projetos\CyberMgr\Atual\Servidor\nxcSkbmProcs.pas=</Transaction>
+    <Transaction>2006/08/18 16:44:00.186.dfm,C:\Projetos\CyberMgr\Atual\Servidor\nxcSkbmProcs.dfm=</Transaction>
+  </Transactions>
+</BorlandProject>

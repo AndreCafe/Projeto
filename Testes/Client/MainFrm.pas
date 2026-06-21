@@ -1,0 +1,71 @@
+unit MainFrm;
+
+interface
+
+uses
+  {$IFDEF NXWINAPI}nxWinAPI{$ELSE}Windows{$ENDIF}, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, StdCtrls, CalcIntf, nxllTransport, nxrpCommandHandler,
+  nxllSimpleCommandHandler, nxllPluginBase, nxrpBase, nxrpClient,
+  nxtwWinsockTransport, nxllSimpleSession, nxtmSharedMemoryTransport,
+  nxllComponent, nxptBasePooledTransport, nxtnNamedPipeTransport,
+  nxpvPlatformImplementation, nxrmAllDefaults;
+
+type
+  TForm1 = class(TForm)
+    NamedPipe: TnxNamedPipeTransport;
+    SharedMemory: TnxSharedMemoryTransport;
+    SimpleSession: TnxSimpleSession;
+    WinsockTransport: TnxWinsockTransport;
+    RemotingClient: TnxRemotingClient;
+    bnCalc: TButton;
+    SimpleCommandHandler: TnxSimpleCommandHandler;
+    RemotingCommandHandler: TnxRemotingCommandHandler;
+    Button1: TButton;
+    procedure bnCalcClick(Sender: TObject);
+    procedure Button1Click(Sender: TObject);
+  private
+    procedure NetIdleEvent(aSender: TObject; aWaitEvent: THandle);
+  public
+    { Public declarations }
+  end;
+
+var
+  Form1: TForm1;
+
+implementation
+
+{$R *.dfm}
+
+uses
+  CalcFrm;
+
+procedure TForm1.bnCalcClick(Sender: TObject);
+var
+  Calc: InxCalc;
+begin
+  { This line is required to process sendmessage calls during outgoing network
+    messages. }
+  TnxBasePooledTransport.SetNetIdle(NetIdleEvent, INFINITE, QS_SENDMESSAGE);
+  RemotingClient.Open;
+
+  if RemotingClient.CreateInstance(CLSID_Calc, nil, InxCalc, Calc) = S_OK then
+    TfrmCalc.Create(Calc);
+end;
+
+procedure TForm1.Button1Click(Sender: TObject);
+begin
+  SharedMemory.Close;
+end;
+
+procedure TForm1.NetIdleEvent(aSender: TObject; aWaitEvent: THandle);
+var
+  Msg: TMsg;
+const
+  PM_QS_SENDMESSAGE = QS_SENDMESSAGE shl 16;
+begin
+  { we only want to process waiting sendmessage calls, nothing else }
+  PeekMessage(Msg, 0, 0, 0,
+    PM_NOREMOVE or PM_NOYIELD or PM_QS_SENDMESSAGE);
+end;
+
+end.

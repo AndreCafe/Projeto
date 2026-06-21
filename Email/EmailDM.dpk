@@ -1,0 +1,53 @@
+package EmailDM;
+
+{$R *.res}
+{$ALIGN 8}
+{$ASSERTIONS ON}
+{$BOOLEVAL OFF}
+{$DEBUGINFO ON}
+{$EXTENDEDSYNTAX ON}
+{$IMPORTEDDATA ON}
+{$IOCHECKS ON}
+{$LOCALSYMBOLS ON}
+{$LONGSTRINGS ON}
+{$OPENSTRINGS ON}
+{$OPTIMIZATION ON}
+{$OVERFLOWCHECKS OFF}
+{$RANGECHECKS OFF}
+{$REFERENCEINFO ON}
+{$SAFEDIVIDE OFF}
+{$STACKFRAMES OFF}
+{$TYPEDADDRESS OFF}
+{$VARSTRINGCHECKS ON}
+{$WRITEABLECONST OFF}
+{$MINENUMSIZE 1}
+{$IMAGEBASE $400000}
+{$DESCRIPTION 'Nextar - Email utils'}
+{$RUNONLY}
+{$IMPLICITBUILD ON}
+
+requires
+  rtl,
+  vcl,
+  dbrtl,
+  IndyD2007,
+  ObjPool_2007,
+  Utils2007r,
+  NexusDB304ll110,
+  NexusDB304sd110,
+  NexusDB304pt110,
+  NexusDB304tw110,
+  NexusDB304re110,
+  NexusDB304db110,
+  vclx,
+  lmdrtl9rt_110,
+  lmdrtlx9rt_110,
+  NexusDB304sr110,
+  NexusDB304sq110,
+  NexusDB304ch110,
+  NexusDB304lg110;
+
+contains
+  uDMEmail in 'uDMEmail.pas';
+
+end.
