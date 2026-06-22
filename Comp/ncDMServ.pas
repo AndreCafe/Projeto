@@ -5357,7 +5357,10 @@ begin
       tTranCanceladoEm.Value := ME.CanceladoEm;
       tTranFidResgate.Value := ME.FidResgate;
       tTranCaixa.Value := ME.Caixa;
-      //tTranTipoPago.Value := ME.TipoPago;  // dario 06/09/2019
+      if ME.PagEsp.Count = 1 then
+        tTranTipoPago.Value := ME.PagEsp[0].peEspecie
+      else
+        tTranTipoPago.Value := 0;
 
       tTranCaixaPag.Value := ME.CaixaPag;
       tTranCredito.Value := ME.PagEsp.Credito;
