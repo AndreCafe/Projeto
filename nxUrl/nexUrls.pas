@@ -2,7 +2,7 @@ unit nexUrls;
 
 interface
 
-uses Sysutils, Classes, idHttp, md5, SyncObjs, ExtCtrls, Windows;
+uses Sysutils, Classes, SyncObjs, ExtCtrls, Windows;
 
 type
 
@@ -72,6 +72,8 @@ implementation
 uses
   ncDebug, uNexTransResourceStrings_PT;
 
+uses ncNexcafeApi;
+
   threadvar 
     gUrlUsada : String;
 
@@ -79,8 +81,6 @@ uses
 
 
 const
-  salt = '>LKHASDIUywefd7kdsf_)(*!@Tkjhasfdkxzxxx7777!38213zxc%nbv';
-
   maxnexttry = 30 * 60 * 1000;
 
   incnexttry = 5000;
@@ -178,7 +178,6 @@ begin
   FDef.Values['track']                     := 'http://contas.nextar.com.br/track';
   FDef.Values['nexmsg']                    := 'http://contas.nextar.com.br/nexmsgs';
   FDef.Values['nextabs']                   := 'http://contas.nextar.com.br/nextabs';
-  FDef.Values['autoconninfo']              := 'http://contas.nextar.com.br/autoconninfo';
   FDef.Values['dbapi_setup']               := 'http://contas.nextar.com.br/dbapi/setup';
   FDef.Values['scnt']                      := 'http://contas.nextar.com.br/scnt';
   FDef.Values['mailer']                    := 'http://contas.nextar.com.br/mailer';
@@ -457,38 +456,17 @@ begin
 end;
 
 procedure TnexUrlsRefresh.Get;
-var h: TidHttp; sl: TStrings; S: String;
+var
+  S: String;
+  st: Integer;
 begin
-  H := TidHttp.Create(nil);
-  try
-    ResOk := False;
-    H.HandleRedirects := True;
-    sl := TStringList.Create;
-    try
-      try
-        sl.Text := H.Get('http://setup.contas.nextar.com.br/?random='+IntToStr(Random(999999)));
-        DebugMsg(Self, 'Get - ' + sl.Text);
-      except
-        on E: Exception do begin
-          DebugEx(Self, 'Get - '+sl.Text, E);
-          Exit;
-        end;
-      end;
-      S := sl.Values['chave'];
-      if S='' then Exit;
-      sl.Delete(sl.IndexOfName('chave'));
-      if not sameText(S, getmd5str(sl.Text+salt)) then 
-      begin
-        DebugMsg(Self, 'Get - Chave Invalida: '+S+' - Chave servidor: '+getmd5str(sl.Text+salt));
-        Exit;
-      end;
-      ResOk := True;
-      ResString := sl.Text;  
-    finally
-      sl.Free;
-    end;
-  finally
-    H.Free;
+  ResOk := False;
+  // x215: HMAC + TLS via NexcafeGet (ncNexcafeApi). Sem salt/MD5.
+  S := NexcafeGet(NexcafeUrl('urls'), 'urls', st);
+  DebugMsg(Self, 'Get - HTTP ' + IntToStr(st) + ' - ' + S);
+  if (st = 200) and (Trim(S) <> '') then begin
+    ResString := S;
+    ResOk := True;
   end;
 end;
 
