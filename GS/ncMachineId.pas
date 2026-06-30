@@ -3,10 +3,10 @@ unit ncMachineId;
 {===============================================================================
   Identificador de maquina para o CodEquip (x216+), compativel com Windows XP / D7.
 
-  GetMacFingerprint: concatena os MAC(s) de adaptadores ETHERNET fisicos
-    (ordenados, sem duplicados). Unico por maquina, estavel, SOBREVIVE A
-    CLONAGEM de disco (a placa de rede e diferente em cada PC fisico).
-    Retorna '' se nao houver MAC utilizavel.
+  GetMacFingerprint: concatena os MAC(s) de adaptadores com endereco de 6 bytes
+    (ordenados, sem duplicados; ignora loopback/sem-MAC e MAC zerado). Unico por
+    maquina, estavel, SOBREVIVE A CLONAGEM de disco (a placa e diferente em cada
+    PC fisico). Retorna '' se nao houver MAC utilizavel.
 
   GetPersistedMachineGuid: GUID gerado uma vez e persistido no registro.
     Ultimo recurso para NUNCA retornar vazio (maquina sem placa/serial).
@@ -21,13 +21,12 @@ function GetPersistedMachineGuid: String;
 
 implementation
 
-uses Windows, SysUtils, Classes, Registry;
+uses Windows, SysUtils, Classes, Registry, ncDebug;
 
 const
   MAX_ADAPTER_NAME_LENGTH         = 256;
   MAX_ADAPTER_DESCRIPTION_LENGTH  = 128;
   MAX_ADAPTER_ADDRESS_LENGTH      = 8;
-  MIB_IF_TYPE_ETHERNET            = 6;
 
 type
   PIP_ADDR_STRING = ^IP_ADDR_STRING;
@@ -77,7 +76,7 @@ end;
 function GetMacFingerprint: String;
 var
   Buf, Adapter: PIP_ADAPTER_INFO;
-  Len: DWORD;
+  Len, ret: DWORD;
   macs: TStringList;
   mac: String;
   i: Integer;
@@ -91,15 +90,25 @@ begin
       Len := 0;
       // 1a chamada (buffer nil): descobre o tamanho necessario.
       GetAdaptersInfo(nil, Len);
-      if Len = 0 then Exit;
+      if Len = 0 then
+      begin
+        DebugMsg('ncMachineId.GetMacFingerprint - GetAdaptersInfo len=0'); // do not localize
+        Exit;
+      end;
       GetMem(Buf, Len);
       try
-        if GetAdaptersInfo(Buf, Len) <> 0 then Exit; // ERROR_SUCCESS = 0
+        ret := GetAdaptersInfo(Buf, Len);
+        if ret <> 0 then
+        begin // ERROR_SUCCESS = 0
+          DebugMsg('ncMachineId.GetMacFingerprint - GetAdaptersInfo erro=' + IntToStr(ret)); // do not localize
+          Exit;
+        end;
         Adapter := Buf;
         while Adapter <> nil do
         begin
-          if (Adapter^.Type_ = MIB_IF_TYPE_ETHERNET) and
-             (Adapter^.AddressLength = 6) then
+          // Qualquer adaptador com MAC de 6 bytes nao-zero (Ethernet, Wi-Fi, etc).
+          // Loopback/PPP tem AddressLength <> 6, entao ja ficam de fora.
+          if Adapter^.AddressLength = 6 then
           begin
             mac := MacToHex(Adapter^.Address, Adapter^.AddressLength);
             if (mac <> '') and (mac <> '000000000000') then
@@ -111,11 +120,14 @@ begin
         FreeMem(Buf);
       end;
     except
-      // qualquer erro -> retorna '' (o chamador cai no fallback)
+      on E: Exception do
+        DebugMsg('ncMachineId.GetMacFingerprint - excecao: ' + E.Message); // do not localize
     end;
 
     for i := 0 to macs.Count - 1 do
       Result := Result + macs[i];
+    DebugMsg('ncMachineId.GetMacFingerprint - ' + IntToStr(macs.Count) +
+      ' MAC(s) -> ' + Result); // do not localize
   finally
     macs.Free;
   end;
