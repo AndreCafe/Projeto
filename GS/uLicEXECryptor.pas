@@ -223,6 +223,7 @@ uses
   GetDiskSerial,
   Registry, 
   ncDebug, 
+  ncMachineId,
   ncSyncLic;
 
 // START resource string wizard section
@@ -1116,21 +1117,37 @@ begin
 end;
 
 function TRegistro.GetSerialHD: String;
-var sl: TStrings;
+var sl: TStrings; i: Integer;
 begin
 {$I crypt_start.inc}
   Result := '';
-  sl := TStringList.Create;
+  // x216+: CodEquip baseado no MAC (unico, estavel, sobrevive a clonagem de disco).
   try
-    try
-      GetSerials(sl);
-      Result := sl[0];
-    finally
-      sl.Free;
-    end;
+    Result := Trim(GetMacFingerprint);
   except
-    on E: Exception do DebugMsg('GetSerial HD - Erro = '+E.Message); // do not localize
+    Result := '';
   end;
+  if Result = '' then begin
+    // sem MAC: usa o primeiro serial de disco valido (ignora vazio e o fallback '0').
+    sl := TStringList.Create;
+    try
+      try
+        GetSerials(sl);
+        for i := 0 to sl.Count - 1 do
+          if (Trim(sl[i]) <> '') and (Trim(sl[i]) <> '0') then begin
+            Result := Trim(sl[i]);
+            Break;
+          end;
+      finally
+        sl.Free;
+      end;
+    except
+      on E: Exception do DebugMsg('GetSerial HD - Erro = '+E.Message); // do not localize
+    end;
+  end;
+  // ultimo recurso: GUID persistido (nunca vazio nem '0').
+  if Result = '' then
+    Result := GetPersistedMachineGuid;
 {$I crypt_end.inc}  
 end;
 
