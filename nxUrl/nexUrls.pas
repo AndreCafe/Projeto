@@ -70,9 +70,7 @@ var
 implementation
 
 uses
-  ncDebug, uNexTransResourceStrings_PT;
-
-uses ncNexcafeApi;
+  ncDebug, uNexTransResourceStrings_PT, ncNexcafeApi;
 
   threadvar 
     gUrlUsada : String;
@@ -136,64 +134,27 @@ begin
     FForce.LoadFromFile(ForceFName);
   
   FDef := TStringList.Create;
-  FDef.Values['contas_app']                := 'http://contas.nextar.com.br/contas/app';
-  FDef.Values['contas_app_admin']          := 'http://contas.nextar.com.br/contas/app';
-  FDef.Values['contas_app_server']         := 'http://contas.nextar.com.br/contas/app';
-  FDef.Values['contas_finalizatrial']      := 'http://contas.nextar.com.br/contas/finalizatrial';
-  FDef.Values['contas_infoplanos']         := 'http://contas.nextar.com.br/contas/infoplanos/';
-  FDef.Values['info_server']               := 'http://contas2.nextar.com.br/contas/info/server';
-
-  FDef.Values['lic_server']                := 'http://licencas.nexcafe.com.br:2233';
+  // Endpoints ativos (fallback ate servidor novo publicar lista via /api/v1/urls)
+  // contas_app_server/admin, contas_assinar, contas_obtemregistro/obtemchaveseg/
+  // corrigiremail/transferir foram removidos: esses fluxos chamam o servidor novo
+  // diretamente via NexcafeGet/NexcafePost (HMAC), sem passar por gUrls.Url().
   FDef.Values['contas_obteminfocampanha']  := 'http://contas.nextar.com.br/contas/obteminfocampanha';
-  FDef.Values['contas_obtemchaveseg']      := 'http://contas.nextar.com.br/contas/obtemchaveseg';
-  FDef.Values['contas_corrigiremail']      := 'http://contas.nextar.com.br/contas/corrigiremail';
   FDef.Values['contas_criarcontabasica']   := 'http://contas.nextar.com.br/contas/criarcontabasica';
   FDef.Values['contas_ativar']             := 'http://contas.nextar.com.br/contas/ativar';
   FDef.Values['contas_esquecisenha']       := 'http://contas.nextar.com.br/contas/esquecisenha';
   FDef.Values['contas_reenviaconfirmacao'] := 'http://contas.nextar.com.br/contas/reenviaconfirmacao';
-  FDef.Values['contas_obtemregistro']      := 'http://contas.nextar.com.br/contas/obtemregistro';
-  FDef.Values['contas_transferir']         := 'http://contas.nextar.com.br/contas/transferir';
-  FDef.Values['lic_server']               := 'http://licencas.nexcafe.com.br:2233';
   FDef.Values['contas_abriuadmin']         := 'http://contas.nextar.com.br/contas/abriuadmin';
-  FDef.Values['contas_assinar']            := 'http://contas.nextar.com.br/contas/assinar';
-  FDef.Values['contas_confirmartrial']     := 'http://contas.nextar.com.br/contas/confirmartrial';
-  FDef.Values['contas_upgradetrial']       := 'http://contas.nextar.com.br/contas/upgradetrial';
-  FDef.Values['contas_dataupgradeplano']   := 'http://contas.nextar.com.br/contas/dataupgradeplano';
-  FDef.Values['contas_fazupgradeplano']    := 'http://contas.nextar.com.br/contas/fazupgradeplano';
-
-  FDef.Values['pag_suporte_free']          := 'http://docs.nextar.com.br/969cfbfe34910c2c0da218709437b2d4';
-  FDef.Values['pag_suporte_pro']           := 'http://docs.nextar.com.br/9fff1a8208287c95a378997d1083aeca';
-  FDef.Values['pag_suporte_premium']       := 'http://docs.nextar.com.br/1c8ab77f89947c4c9f44056cd3e9cdfd';
-
-  FDef.Values['contas_setflags']           := 'http://contas.nextar.com.br/contas/setflags';
-  FDef.Values['contas_getflags']           := 'http://contas.nextar.com.br/contas/getflags';
-
-  FDef.Values['contas_cep']                := 'http://contas.nextar.com.br/cep';
-
-  FDef.Values['kapi_registro']             := 'http://contas.nextar.com.br/kite/registro';
-  FDef.Values['kapi_token']                := 'http://contas.nextar.com.br/kite/token';
-  FDef.Values['kapi_consultaip']           := 'http://contas.nextar.com.br/kite/consultaip';
-  FDef.Values['kapi_employeepass']         := 'http://contas.nextar.com.br/kite/profile/employeepass';
   FDef.Values['kapi_emailcaixa']           := 'http://contas.nextar.com.br/kite/emailcaixa';
   FDef.Values['track']                     := 'http://contas.nextar.com.br/track';
   FDef.Values['nexmsg']                    := 'http://contas.nextar.com.br/nexmsgs';
   FDef.Values['nextabs']                   := 'http://contas.nextar.com.br/nextabs';
-  FDef.Values['dbapi_setup']               := 'http://contas.nextar.com.br/dbapi/setup';
   FDef.Values['scnt']                      := 'http://contas.nextar.com.br/scnt';
-  FDef.Values['mailer']                    := 'http://contas.nextar.com.br/mailer';
-  FDef.Values['img_botao']                 := 'http://botao.nextar.com';
-
   FDef.Values['ad_toolbar']                := 'http://ads.nexcafe.com.br/toolbar';
   FDef.Values['ad_sky']                    := 'http://ads.nexcafe.com.br/sky';
   FDef.Values['ad_home']                   := 'http://ads.nexcafe.com.br/open';
-
   FDef.Values['ttl']                       := '60';
   FDef.Values['app_time']                  := '60';
   FDef.Values['app_retry']                 := '5';
-  FDef.Values['nexapp_cards']              := 'http://api.app.nextar.com/cards';
-  FDef.Values['nexapp_products']           := 'http://api.app.nextar.com/products';
-  FDef.Values['nexapp_reset']              := 'http://api.app.nextar.com/reset';
-  FDef.Values['cloudbk']                   := 'http://cloud.nextar.com/backup';
   
   
   FCS := TCriticalSection.Create;
@@ -463,7 +424,7 @@ begin
   ResOk := False;
   // x215: HMAC + TLS via NexcafeGet (ncNexcafeApi). Sem salt/MD5.
   S := NexcafeGet(NexcafeUrl('urls'), 'urls', st);
-  DebugMsg(Self, 'Get - HTTP ' + IntToStr(st) + ' - ' + S);
+  DebugMsg(Self, 'Get - HTTP ' + IntToStr(st) + ' - ' + S); // do not localize
   if (st = 200) and (Trim(S) <> '') then begin
     ResString := S;
     ResOk := True;
