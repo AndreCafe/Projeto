@@ -73,19 +73,37 @@ begin
     Result := Result + IntToHex(Addr[i], 2);
 end;
 
+// True se o MAC parece de adaptador VIRTUAL (VMware/VBox/Hyper-V) ou
+// "locally-administered" (VPN/TAP/randomizado). Esses vao e vem -> instaveis.
+function IsVirtualMac(const Addr: array of Byte): Boolean;
+begin
+  Result := True;
+  // bit "locally administered" (2o bit do 1o byte) -> tipicamente virtual/VPN
+  if (Addr[0] and $02) <> 0 then Exit;
+  // OUIs conhecidas de virtualizacao
+  if (Addr[0]=$00) and (Addr[1]=$05) and (Addr[2]=$69) then Exit; // VMware
+  if (Addr[0]=$00) and (Addr[1]=$0C) and (Addr[2]=$29) then Exit; // VMware
+  if (Addr[0]=$00) and (Addr[1]=$1C) and (Addr[2]=$14) then Exit; // VMware
+  if (Addr[0]=$00) and (Addr[1]=$50) and (Addr[2]=$56) then Exit; // VMware
+  if (Addr[0]=$08) and (Addr[1]=$00) and (Addr[2]=$27) then Exit; // VirtualBox
+  if (Addr[0]=$00) and (Addr[1]=$15) and (Addr[2]=$5D) then Exit; // Hyper-V
+  if (Addr[0]=$00) and (Addr[1]=$03) and (Addr[2]=$FF) then Exit; // MS virtual
+  Result := False;
+end;
+
 function GetMacFingerprint: String;
 var
   Buf, Adapter: PIP_ADAPTER_INFO;
   Len, ret: DWORD;
-  macs: TStringList;
+  phys, todos: TStringList;
   mac: String;
-  i: Integer;
 begin
   Result := '';
-  macs := TStringList.Create;
+  phys := TStringList.Create;
+  todos := TStringList.Create;
   try
-    macs.Sorted := True;
-    macs.Duplicates := dupIgnore;
+    phys.Sorted := True;  phys.Duplicates := dupIgnore;
+    todos.Sorted := True; todos.Duplicates := dupIgnore;
     try
       Len := 0;
       // 1a chamada (buffer nil): descobre o tamanho necessario.
@@ -106,13 +124,15 @@ begin
         Adapter := Buf;
         while Adapter <> nil do
         begin
-          // Qualquer adaptador com MAC de 6 bytes nao-zero (Ethernet, Wi-Fi, etc).
-          // Loopback/PPP tem AddressLength <> 6, entao ja ficam de fora.
           if Adapter^.AddressLength = 6 then
           begin
             mac := MacToHex(Adapter^.Address, Adapter^.AddressLength);
             if (mac <> '') and (mac <> '000000000000') then
-              macs.Add(mac);
+            begin
+              todos.Add(mac);
+              if not IsVirtualMac(Adapter^.Address) then
+                phys.Add(mac);
+            end;
           end;
           Adapter := Adapter^.Next;
         end;
@@ -124,12 +144,17 @@ begin
         DebugMsg('ncMachineId.GetMacFingerprint - excecao: ' + E.Message); // do not localize
     end;
 
-    for i := 0 to macs.Count - 1 do
-      Result := Result + macs[i];
-    DebugMsg('ncMachineId.GetMacFingerprint - ' + IntToStr(macs.Count) +
-      ' MAC(s) -> ' + Result); // do not localize
+    // Usa SO o menor MAC fisico (estavel). Se nao houver fisico, o menor de todos.
+    if phys.Count > 0 then
+      Result := phys[0]
+    else if todos.Count > 0 then
+      Result := todos[0];
+
+    DebugMsg('ncMachineId.GetMacFingerprint - fisicos=' + IntToStr(phys.Count) +
+      ' todos=' + IntToStr(todos.Count) + ' -> ' + Result); // do not localize
   finally
-    macs.Free;
+    phys.Free;
+    todos.Free;
   end;
 end;
 
